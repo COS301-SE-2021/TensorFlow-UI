@@ -26,14 +26,20 @@ class TensorflowUiApplicationTests {
 
 	@Test
 	void MergeNodes(){
-		System.out.println("Create 2 Nodes:");
+		System.out.println("Create 2 Nodes for Merging:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
+		System.out.println("Node 1 created");
 		CreateNodeResponse Node2 = NodeService.CreateNode(new CreateNodeRequest(1));
+		System.out.println("Node 2 created");
 
-		MergeNodeResponse mergedNodes = NodeService.MergeNode(new MergeNodeRequest(Node1.getNode(),Node2.getNode()));
-		Assertions.assertNotNull(mergedNodes);
+		MergeNodeRequest mergeNodeRequest = new MergeNodeRequest(Node1.getNode(),Node2.getNode());
+		Assertions.assertEquals(mergeNodeRequest.getBaseNode(),Node1.getNode());
+		Assertions.assertEquals(mergeNodeRequest.getSecondaryNode(),Node2.getNode());
+
+		MergeNodeResponse mergedNodes = NodeService.MergeNode(mergeNodeRequest);
+
+		//Assertions.assertNotNull(mergedNodes);
 
 		System.out.println("Merge successful");
-
 	}
 }
