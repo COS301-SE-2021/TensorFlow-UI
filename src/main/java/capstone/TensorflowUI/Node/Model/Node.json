@@ -1,0 +1,7 @@
+{
+  "id": 1,
+  "name": "demo",
+  "input": "node1",
+  "output": "node2",
+  "action": {}
+}
