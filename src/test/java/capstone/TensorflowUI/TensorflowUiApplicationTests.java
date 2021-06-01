@@ -1,4 +1,4 @@
-package com.capstone.TensorflowUI;
+package capstone.TensorflowUI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
