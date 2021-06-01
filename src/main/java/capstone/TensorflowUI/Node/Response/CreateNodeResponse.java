@@ -1,12 +1,15 @@
 package capstone.TensorflowUI.Node.Response;
 
 import capstone.TensorflowUI.Node.Model.Node;
-import capstone.TensorflowUI.Node.Request.CreateNodeRequest;
 
 public class CreateNodeResponse {
     private Node node;
 
-    public CreateNodeResponse(CreateNodeRequest request) {
-        node = new Node();
+    public CreateNodeResponse(Node node_) {
+        this.node = node_;
+    }
+
+    public Node getNode() {
+        return node;
     }
 }
