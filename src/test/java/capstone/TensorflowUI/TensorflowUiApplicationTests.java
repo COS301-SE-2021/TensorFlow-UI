@@ -42,4 +42,18 @@ class TensorflowUiApplicationTests {
 
 		System.out.println("Merge successful");
 	}
+
+	@Test
+	void UpdateNodes(){
+		System.out.println("Creating a basic Node:");
+		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
+
+		Assertions.assertNotNull(Node1);
+		Assertions.assertEquals(0,Node1.getNode().getPosition());
+
+		//Testing will go here
+
+		System.out.println("Node update successful");
+
+	}
 }
