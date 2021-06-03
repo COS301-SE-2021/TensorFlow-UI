@@ -17,7 +17,7 @@ public class NodeServiceImplementation implements NodeService {
     @Override
     public CreateNodeResponse CreateNode(CreateNodeRequest request) {
         int position = request.getPosition();
-        UUID id = UUID.randomUUID();
+        UUID id = request.getNodeId();
         return new CreateNodeResponse(new Node(position,id));
     }
 
