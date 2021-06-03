@@ -1,7 +1,4 @@
 {
-  "id": 1,
-  "name": "demo",
-  "input": "node1",
-  "output": "node2",
-  "action": {}
+  "name": "demoProject",
+  "nodes": {"0": "node1", "1": "node2", "2": "node3"}
 }
