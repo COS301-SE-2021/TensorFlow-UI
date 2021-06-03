@@ -20,16 +20,16 @@ class TensorflowUiApplicationTests {
 	@Test
 	void CreateNode(){
 		System.out.println("Create Node:");
-		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
-		Assertions.assertEquals(0, Node1.getNode().getPosition());
+		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest());
+		Assertions.assertNotNull(Node1.getNode());
 	}
 
 	@Test
 	void MergeNodes(){
 		System.out.println("Create 2 Nodes for Merging:");
-		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
+		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest());
 		System.out.println("Node 1 created");
-		CreateNodeResponse Node2 = NodeService.CreateNode(new CreateNodeRequest(1));
+		CreateNodeResponse Node2 = NodeService.CreateNode(new CreateNodeRequest());
 		System.out.println("Node 2 created");
 
 		MergeNodeRequest mergeNodeRequest = new MergeNodeRequest(Node1.getNode(),Node2.getNode());
@@ -46,10 +46,10 @@ class TensorflowUiApplicationTests {
 	@Test
 	void UpdateNodes(){
 		System.out.println("Creating a basic Node:");
-		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
+		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest());
 
 		Assertions.assertNotNull(Node1);
-		Assertions.assertEquals(0,Node1.getNode().getPosition());
+		//Assertions.assertEquals(0,Node1.getNode().getNodeID());
 
 		//Testing will go here
 
