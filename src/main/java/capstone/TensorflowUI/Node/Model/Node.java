@@ -15,7 +15,14 @@ public class Node {
     public Node(int position){this.position = position;}
 
     /*Add and Remove Nodes */
-    public void addNode(Node n){nodes.add(n);}
+    public void addNode(Node n){
+        if(this.nodes == null) {
+            this.nodes = new ArrayList<Node>();
+        }
+        else {
+            nodes.add(n);
+        }
+    }
 
     public void removeNode(Node n){nodes.remove(n);}
 
