@@ -1,25 +1,22 @@
 package capstone.TensorflowUI;
 
+import capstone.TensorflowUI.Node.Request.CreateNodeRequest;
+import capstone.TensorflowUI.Node.Response.CreateNodeResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonTesting extends TensorflowUiApplicationTests {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Test
-    public void createNode()  { //throws JsonProcessingException
+    public void createNodeTest() throws JsonProcessingException {
+        CreateNodeRequest createNodeRequest = new CreateNodeRequest();
+        CreateNodeResponse createNodeResponse = NodeService.CreateNode(createNodeRequest);
 
-    int id = 1;
+        String jsonString = objectMapper.writeValueAsString(createNodeResponse);
 
-    String jsonData = "{"
-            +"\"id\" : \""
-            +id
-            +"\","
-            +"\"input\" : "
-            +"\" \","
-            +"\"output\" : "
-            +"\" \","
-            +"\"action\" : ["
-            //list of node
-            +"\" \"]"
-            +"}";
+        System.out.println(jsonString);
     }
 }
