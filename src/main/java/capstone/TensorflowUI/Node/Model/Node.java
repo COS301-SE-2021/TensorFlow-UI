@@ -11,13 +11,13 @@ public class Node {
     private Node input;
     private Node output;
 
-    public Node(int position){
-        this.position = position;
-    }
+    /*Constructor*/
+    public Node(int position){this.position = position;}
 
-    public void addNode(Node n){
-        nodes.add(n);
-    }
+    /*Add and Remove Nodes */
+    public void addNode(Node n){nodes.add(n);}
+
+    public void removeNode(Node n){nodes.remove(n);}
 
     public int getPosition(){return position;}
 }
