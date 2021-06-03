@@ -2,8 +2,10 @@ package capstone.TensorflowUI;
 
 import capstone.TensorflowUI.Node.Request.CreateNodeRequest;
 import capstone.TensorflowUI.Node.Request.MergeNodeRequest;
+import capstone.TensorflowUI.Node.Request.UpdateNodeRequest;
 import capstone.TensorflowUI.Node.Response.CreateNodeResponse;
 import capstone.TensorflowUI.Node.Response.MergeNodeResponse;
+import capstone.TensorflowUI.Node.Response.UpdateNodeResponse;
 import capstone.TensorflowUI.Node.Service.NodeServiceImplementation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -48,12 +50,23 @@ class TensorflowUiApplicationTests {
 		System.out.println("Creating a basic Node:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
 
+		System.out.println("Creating an input node:");
+		CreateNodeResponse inputNode = NodeService.CreateNode(new CreateNodeRequest(1));
+
+		System.out.println("Creating an output node:");
+		CreateNodeResponse outputNode = NodeService.CreateNode(new CreateNodeRequest(1));
+
 		Assertions.assertNotNull(Node1);
 		Assertions.assertEquals(0,Node1.getNode().getPosition());
 
-		//Testing will go here
 
+		UpdateNodeRequest updateNodeRequest = new UpdateNodeRequest(Node1.getNode());
+		updateNodeRequest.updateInput(inputNode.getNode());
+		updateNodeRequest.updateOutput(outputNode.getNode());
+
+		UpdateNodeResponse updateNodeResponse = NodeService.UpdateNode(updateNodeRequest);
+
+		Assertions.assertNotNull(updateNodeResponse);
 		System.out.println("Node update successful");
-
 	}
 }
