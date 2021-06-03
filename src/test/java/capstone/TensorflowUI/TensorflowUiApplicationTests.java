@@ -38,7 +38,7 @@ class TensorflowUiApplicationTests {
 
 		MergeNodeResponse mergedNodes = NodeService.MergeNode(mergeNodeRequest);
 
-		//Assertions.assertNotNull(mergedNodes);
+		Assertions.assertNotNull(mergedNodes);
 
 		System.out.println("Merge successful");
 	}
