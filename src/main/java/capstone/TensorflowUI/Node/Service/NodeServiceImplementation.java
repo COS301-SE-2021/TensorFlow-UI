@@ -20,7 +20,10 @@ public class NodeServiceImplementation implements NodeService {
 
     @Override
     public MergeNodeResponse MergeNode(MergeNodeRequest request) {
-        return null;
+        Node base = request.getBaseNode();
+        Node second = request.getSecondaryNode();
+        base.addNode(second);
+        return new MergeNodeResponse(base);
     }
 
     @Override
