@@ -3,14 +3,19 @@ package capstone.TensorflowUI.Node.Request;
 import java.util.UUID;
 
 public class CreateNodeRequest {
+    private int position;
+    private UUID id;
 
-    private final UUID nodeID;
-
-    public CreateNodeRequest() {
-        this.nodeID = UUID.randomUUID();
+    public CreateNodeRequest(int pos) {
+        this.position = pos;
+        this.id = UUID.randomUUID();
     }
 
-    public UUID getNodeID() {
-        return nodeID;
+    public int getPosition() {
+        return position;
+    }
+
+    public UUID getNodeId() {
+        return id;
     }
 }

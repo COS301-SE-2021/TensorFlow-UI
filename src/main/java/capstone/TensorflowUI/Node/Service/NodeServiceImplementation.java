@@ -16,13 +16,17 @@ public class NodeServiceImplementation implements NodeService {
 
     @Override
     public CreateNodeResponse CreateNode(CreateNodeRequest request) {
-        UUID nodeID = request.getNodeID();
-        return new CreateNodeResponse(new Node(nodeID));
+        int position = request.getPosition();
+        UUID id = request.getNodeId();
+        return new CreateNodeResponse(new Node(position,id));
     }
 
     @Override
     public MergeNodeResponse MergeNode(MergeNodeRequest request) {
-        return null;
+        Node base = request.getBaseNode();
+        Node second = request.getSecondaryNode();
+        base.addNode(second);
+        return new MergeNodeResponse(base);
     }
 
     @Override
