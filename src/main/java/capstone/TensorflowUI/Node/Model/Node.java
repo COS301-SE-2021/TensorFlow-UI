@@ -18,9 +18,10 @@ public class Node {
     public void addNode(Node n){
         if(this.nodes == null) {
             this.nodes = new ArrayList<Node>();
+            this.nodes.add(n);
         }
         else {
-            nodes.add(n);
+            this.nodes.add(n);
         }
     }
 
