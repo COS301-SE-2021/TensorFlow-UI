@@ -12,7 +12,7 @@ public class JsonTesting extends TensorflowUiApplicationTests {
 
     @Test
     public void createNodeTest() throws JsonProcessingException {
-        CreateNodeRequest createNodeRequest = new CreateNodeRequest();
+        CreateNodeRequest createNodeRequest = new CreateNodeRequest(0);
         CreateNodeResponse createNodeResponse = NodeService.CreateNode(createNodeRequest);
 
         String jsonString = objectMapper.writeValueAsString(createNodeResponse);
