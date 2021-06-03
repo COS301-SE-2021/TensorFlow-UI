@@ -12,7 +12,10 @@ public class Node {
     private Node output;
 
     /*Constructor*/
-    public Node(int position){this.position = position;}
+    public Node(int position,UUID id){
+        this.position = position;
+        this.id = id;
+    }
 
     /*Add and Remove Nodes */
     public void addNode(Node n){
@@ -32,7 +35,7 @@ public class Node {
 
     public UUID getId(){return id;}
 
-    public void setId(UUID id){this.id = id;}
+    //public void setId(UUID id){this.id = id;}
 
     public Node getInput(){return input;}
 

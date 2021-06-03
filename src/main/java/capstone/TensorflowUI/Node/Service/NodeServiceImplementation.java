@@ -9,13 +9,16 @@ import capstone.TensorflowUI.Node.Response.MergeNodeResponse;
 import capstone.TensorflowUI.Node.Response.UpdateNodeResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service("NodeServiceImplementation")
 public class NodeServiceImplementation implements NodeService {
 
     @Override
     public CreateNodeResponse CreateNode(CreateNodeRequest request) {
         int position = request.getPosition();
-        return new CreateNodeResponse(new Node(position));
+        UUID id = UUID.randomUUID();
+        return new CreateNodeResponse(new Node(position,id));
     }
 
     @Override
