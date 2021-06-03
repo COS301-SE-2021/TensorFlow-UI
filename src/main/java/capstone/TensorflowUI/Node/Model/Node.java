@@ -1,14 +1,20 @@
 package capstone.TensorflowUI.Node.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Node {
+    @JsonProperty ("id")
     private UUID id;
+    @JsonProperty("position")
     private int position;
+    @JsonProperty("nodes")
     private ArrayList<Node> nodes;
+    @JsonProperty("input")
     private Node input;
+    @JsonProperty("output")
     private Node output;
 
     /*Constructor*/
