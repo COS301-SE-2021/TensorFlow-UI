@@ -1,5 +1,6 @@
 package capstone.TensorflowUI;
 
+import capstone.TensorflowUI.Node.Model.Node;
 import capstone.TensorflowUI.Node.Request.CreateNodeRequest;
 import capstone.TensorflowUI.Node.Request.MergeNodeRequest;
 import capstone.TensorflowUI.Node.Response.CreateNodeResponse;
@@ -19,9 +20,11 @@ class TensorflowUiApplicationTests {
 
 	@Test
 	void CreateNode(){
-		System.out.println("Create Node:");
+		System.out.println("Creating a Node:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
 		Assertions.assertNotNull(Node1.getNode());
+		Assertions.assertEquals(0, Node1.getNode().getPosition());
+		System.out.println("Node creation complete");
 	}
 
 	@Test
@@ -41,6 +44,7 @@ class TensorflowUiApplicationTests {
 		MergeNodeResponse mergedNodes = NodeService.MergeNode(mergeNodeRequest);
 
 		Assertions.assertNotNull(mergedNodes);
+		Assertions.assertEquals(mergedNodes.getNode(),Node1.getNode());
 
 		System.out.println("Merge successful");
 	}

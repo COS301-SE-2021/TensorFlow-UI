@@ -12,6 +12,7 @@ public class JsonTesting extends TensorflowUiApplicationTests {
 
     @Test
     public void createNodeTest() throws JsonProcessingException {
+        System.out.println("Converting Java class 'Node' to json object");
         CreateNodeRequest createNodeRequest = new CreateNodeRequest(0);
         CreateNodeResponse createNodeResponse = NodeService.CreateNode(createNodeRequest);
 
