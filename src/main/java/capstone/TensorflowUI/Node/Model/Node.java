@@ -19,5 +19,18 @@ public class Node {
 
     public void removeNode(Node n){nodes.remove(n);}
 
+    /*Getters and Setters*/
     public int getPosition(){return position;}
+
+    public UUID getId(){return id;}
+
+    public void setId(UUID id){this.id = id;}
+
+    public Node getInput(){return input;}
+
+    public void setInput(Node input){this.input = input;}
+
+    public Node getOutput(){return output;}
+
+    public void setOutput(Node output){this.output = output;}
 }
