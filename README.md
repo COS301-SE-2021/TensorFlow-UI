@@ -1,9 +1,9 @@
 # Try Catch Degree
 
-#Project:
-- ##TensorFlow UI
+## Project:
+- TensorFlow UI
 
-### Project Introduction
+## Project Introduction
 TensorFlow is a powerful and well-rounded machine learning system,
 used by many different groups for an immense number of tasks around the globe.
 With the advent of AI and ML becoming so commonplace,
@@ -24,15 +24,15 @@ through lowering the barrier to entry of writing and training a model.
 
 ## Technologies
 
-###Frontend
+### Frontend
 - [Angular](https://angular.io)
 - [D3.js](https://d3js.org)
 
-###APIs
+### APIs
 - [Tensorflow](https://www.tensorflow.org/api_docs)
 - [GraphQL](https://graphql.org)
 
-###Backend
+### Backend
 - [Spring-Boot](https://spring.io/projects/spring-boot)
 
 
