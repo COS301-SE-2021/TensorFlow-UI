@@ -23,6 +23,6 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run : mvn -B clean package -TensorFlow-UI/src/test/java/capstone/TensorflowUI
+      run : mvn -B clean package -src/test/java/capstone/TensorflowUI
     - name: Maven Verify
       run: mvn -B clean verify
