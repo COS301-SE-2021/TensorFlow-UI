@@ -8,11 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {ComponentsModule} from "./components/components.module";
+import { WorkspaceComponent } from './workspace/workspace.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    WorkspaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import {ComponentsModule} from "./components/components.module";
     }),
     BrowserAnimationsModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
