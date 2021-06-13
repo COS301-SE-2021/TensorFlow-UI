@@ -14,25 +14,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.logging.Logger;
 
 @SpringBootTest
-class TensorflowUiApplicationTests {
+class TensorflowUiIntegrationTests {
 
 	final static Logger LOGGER = Logger.getLogger("TensorflowUILogger");
 	NodeServiceImplementation NodeService = new NodeServiceImplementation();
 
 	@Test
 	void CreateNode(){
-		System.out.println("Create Node:");
+		LOGGER.info("Create Node:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
 		Assertions.assertEquals(0, Node1.getNode().getPosition());
 	}
 
 	@Test
 	void MergeNodes(){
-		System.out.println("Create 2 Nodes for Merging:");
+		LOGGER.info("Create 2 Nodes for Merging:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
-		System.out.println("Node 1 created");
+		LOGGER.info("Node 1 created");
 		CreateNodeResponse Node2 = NodeService.CreateNode(new CreateNodeRequest(1));
-		System.out.println("Node 2 created");
+		LOGGER.info("Node 2 created");
 
 		MergeNodeRequest mergeNodeRequest = new MergeNodeRequest(Node1.getNode(),Node2.getNode());
 		Assertions.assertEquals(mergeNodeRequest.getBaseNode(),Node1.getNode());
@@ -42,18 +42,18 @@ class TensorflowUiApplicationTests {
 
 		Assertions.assertNotNull(mergedNodes);
 
-		System.out.println("Merge successful");
+		LOGGER.info("Merge successful");
 	}
 
 	@Test
 	void UpdateNodes(){
-		System.out.println("Creating a basic Node:");
+		LOGGER.info("Creating a basic Node:");
 		CreateNodeResponse Node1 = NodeService.CreateNode(new CreateNodeRequest(0));
 
-		System.out.println("Creating an input node:");
+		LOGGER.info("Creating an input node:");
 		CreateNodeResponse inputNode = NodeService.CreateNode(new CreateNodeRequest(1));
 
-		System.out.println("Creating an output node:");
+		LOGGER.info("Creating an output node:");
 		CreateNodeResponse outputNode = NodeService.CreateNode(new CreateNodeRequest(1));
 
 		Assertions.assertNotNull(Node1);
@@ -67,6 +67,6 @@ class TensorflowUiApplicationTests {
 		UpdateNodeResponse updateNodeResponse = NodeService.UpdateNode(updateNodeRequest);
 
 		Assertions.assertNotNull(updateNodeResponse);
-		System.out.println("Node update successful");
+		LOGGER.info("Node update successful");
 	}
 }
