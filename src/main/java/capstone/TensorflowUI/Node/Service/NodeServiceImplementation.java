@@ -26,8 +26,7 @@ public class NodeServiceImplementation implements NodeService {
         Node base = request.getBaseNode();
         Node second = request.getSecondaryNode();
         base.addNode(second);
-        //return new MergeNodeResponse(base);
-        return null;
+        return new MergeNodeResponse(base);
     }
 
     @Override
