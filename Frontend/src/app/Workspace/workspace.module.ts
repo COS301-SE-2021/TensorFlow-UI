@@ -13,18 +13,27 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatCardModule} from "@angular/material/card";
 import { WorkspaceBoundaryComponent } from './workspace-boundary/workspace-boundary.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import { CreateNodeSectionComponent } from './create-node-section/create-node-section.component';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   imports: [
     CommonModule,
     MatCardModule,
     DragDropModule,
+    MatListModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   declarations: [
-    WorkspaceBoundaryComponent
+    WorkspaceBoundaryComponent,
+    CreateNodeSectionComponent
   ],
   exports: [
-    WorkspaceBoundaryComponent
+    WorkspaceBoundaryComponent,
+    CreateNodeSectionComponent
   ]
 })
 export class WorkspaceModule { }

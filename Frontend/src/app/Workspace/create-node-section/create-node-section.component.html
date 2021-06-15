@@ -1,0 +1,20 @@
+<mat-card class="createNode">
+  <mat-card-title>Create A Node</mat-card-title>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Node name</mat-label>
+      <input matInput placeholder="Ex. Function1" value="" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Node type</mat-label>
+      <mat-select required>
+        <mat-option value="Integer">Array</mat-option>
+        <mat-option value="Boolean">Boolean</mat-option>
+        <mat-option value="Integer">Integer</mat-option>
+        <mat-option value="String">String</mat-option>
+        <mat-option value="Void">Void</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <button class="createNodeButton" mat-raised-button color="#FF9B01">Create Node</button>
+</mat-card>
