@@ -15,6 +15,7 @@ import { WorkspaceBoundaryComponent } from './workspace-boundary/workspace-bound
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import { CreateNodeSectionComponent } from './create-node-section/create-node-section.component';
 import {MatInputModule} from "@angular/material/input";
+import {FormBuilder} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {MatInputModule} from "@angular/material/input";
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+
   ],
   declarations: [
     WorkspaceBoundaryComponent,
