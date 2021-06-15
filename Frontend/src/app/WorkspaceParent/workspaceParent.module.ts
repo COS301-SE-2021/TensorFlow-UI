@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NavbarComponent } from './navbar/navbar.component';
+import { WorkspaceComponent } from './workspace/workspace.component';
+import { CreateNodeComponent } from './createNodeDiv/createNode.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -10,6 +11,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   imports: [
@@ -22,12 +25,20 @@ import {MatButtonModule} from "@angular/material/button";
     MatOptionModule,
     MatListModule,
     MatButtonModule,
+    MatCardModule,
+    DragDropModule,
   ],
   declarations: [
-    NavbarComponent,
+    WorkspaceComponent,
+    CreateNodeComponent
   ],
   exports: [
-    NavbarComponent,
-  ]
+    WorkspaceComponent,
+    CreateNodeComponent
+  ],
+  entryComponents: [CreateNodeComponent]
 })
-export class ComponentsModule { }
+export class WorkspaceParentModule {
+  constructor() {
+  }
+}

@@ -3,5 +3,19 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span style="margin-left: 10px">Tensorflow UI</span>
+
+  <mat-sidenav-container class="side-menu">
+    <mat-sidenav mode="side" opened>
+      Sidenav content
+      <div class="example-button-row">
+        <button id="createComponent" (click)="createNode()" mat-raised-button color="accent">Create Component</button>
+        <div #parent>
+
+        </div>
+      </div>
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+
 </mat-toolbar>
 

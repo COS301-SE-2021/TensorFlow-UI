@@ -1,3 +1,19 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.side-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+.example-button-row {
+  display: table-cell;
+  width: 250px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
