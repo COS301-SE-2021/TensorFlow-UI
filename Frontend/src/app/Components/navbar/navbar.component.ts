@@ -1,6 +1,4 @@
 import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit, Inject, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
-import {CreateNodeComponent} from "../../WorkspaceParent/createNodeDiv/createNode.component";
-
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +14,5 @@ export class NavbarComponent {
   }
 
   ngOnInit(): void {
-  }
-
-  createNode(): void{
-    let nodeComponent = this.resolver.resolveComponentFactory(CreateNodeComponent);
-    this.componentRef = this.target.createComponent(nodeComponent);
   }
 }

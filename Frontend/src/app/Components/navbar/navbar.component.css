@@ -1,19 +1,22 @@
+.navigator{
+  position: relative;
+  height: 100%;
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }
 .side-menu {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -30px;
+  bottom: -30px;
   left: 0;
-  right: 0;
+  right: -30px;
   background: #eee;
 }
-.example-button-row {
+
+.createComponentButton{
   display: table-cell;
   width: 250px;
-}
-
-.example-button-row .mat-button-base {
   margin: 8px 8px 8px 0;
 }

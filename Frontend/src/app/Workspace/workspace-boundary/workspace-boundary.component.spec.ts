@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkspaceComponent } from './workspace.component';
+import { WorkspaceBoundaryComponent } from './workspace-boundary.component';
 
-describe('WorkspaceComponent', () => {
-  let component: WorkspaceComponent;
-  let fixture: ComponentFixture<WorkspaceComponent>;
+describe('WorkspaceBoundaryComponent', () => {
+  let component: WorkspaceBoundaryComponent;
+  let fixture: ComponentFixture<WorkspaceBoundaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorkspaceComponent ]
+      declarations: [ WorkspaceBoundaryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkspaceComponent);
+    fixture = TestBed.createComponent(WorkspaceBoundaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

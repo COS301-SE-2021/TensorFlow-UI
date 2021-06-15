@@ -1,21 +1,16 @@
-<mat-toolbar>
-  <button mat-icon-button class="icon" aria-label="icon-button with menu icon" >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span style="margin-left: 10px">Tensorflow UI</span>
-
-  <mat-sidenav-container class="side-menu">
-    <mat-sidenav mode="side" opened>
-      Sidenav content
-      <div class="example-button-row">
-        <button id="createComponent" (click)="createNode()" mat-raised-button color="accent">Create Component</button>
-        <div #parent>
-
-        </div>
-      </div>
-    </mat-sidenav>
-
-  </mat-sidenav-container>
-
-</mat-toolbar>
+<div class="navigator">
+    <mat-sidenav-container class="side-menu">
+      <mat-sidenav mode="side" opened>
+        Navigation
+        <mat-list>
+          <mat-list-item>
+            <button class="createComponentButton" mat-raised-button color="accent">Create Component</button>
+          </mat-list-item>
+        </mat-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-workspace-boundary></app-workspace-boundary>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
 
