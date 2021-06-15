@@ -17,6 +17,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormBuilder} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
+import { NodeElementComponent } from './node-element/node-element.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   declarations: [
     WorkspaceBoundaryComponent,
-    CreateNodeSectionComponent
+    CreateNodeSectionComponent,
+    NodeElementComponent
   ],
   exports: [
     WorkspaceBoundaryComponent,

@@ -22,6 +22,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   model = new Node("testFunction","testType",null,null,"1");
 
   submitted = false;
+  nodeCreated = false;
 
   newNode(){
     this.model = new Node('','',null,null,'');
@@ -29,5 +30,8 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
 
   onSubmit() {
     this.submitted = true;
+      if(this.nodeName.value != "" && this.nodeType.value != ""){
+        this.nodeCreated = true;
+      }
   }
 }

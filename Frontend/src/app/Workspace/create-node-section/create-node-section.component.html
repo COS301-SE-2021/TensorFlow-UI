@@ -1,4 +1,4 @@
-<div [hidden]="submitted">
+<div >
   <mat-card class="createNode">
     <mat-card-title>Create A Node</mat-card-title>
     <form #nodeForm="ngForm" (ngSubmit)="onSubmit()">
@@ -21,6 +21,6 @@
   </mat-card>
 </div>
 
-<div [hidden]="!submitted">
-
+<div *ngIf="nodeCreated">
+  <h2>Form submitted</h2>
 </div>
