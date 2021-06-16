@@ -4,7 +4,8 @@ export class Node{
     public nodeType: string,
     public input: Node|null,
     public output: Node|null,
-    public data: string
+    public data: string,
+    public createNodeBool: boolean
   ){}
 
 

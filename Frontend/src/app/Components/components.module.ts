@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { NavbarComponent } from './navbar/navbar.component';
+import {CommonModule } from '@angular/common';
+import {NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -36,4 +35,6 @@ import {WorkspaceModule} from "../Workspace/workspace.module";
     NavbarComponent,
   ]
 })
-export class ComponentsModule { }
+export class ComponentsModule {
+
+}

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {Component, OnInit } from '@angular/core';
+import {DataService} from "../../data.service";
 
 @Component({
   selector: 'app-workspace-boundary',
@@ -8,16 +8,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class WorkspaceBoundaryComponent implements OnInit {
 
-  items:Node|any;
+  createNodeBool: boolean;
+  showNodeCreateSection = false;
 
-  constructor() { }
-
-  addItem(newItem: Node){
-    this.items = newItem;
-  }
+  constructor(private data: DataService) { }
 
   ngOnInit(): void {
+    this.data.currentBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
   }
-
 
 }

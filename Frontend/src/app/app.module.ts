@@ -9,15 +9,17 @@ import {ComponentsModule} from "./components/components.module";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
+import { ConnectorLineComponent } from './connector-line/connector-line.component';
 
 const modules = [
-  BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule, ComponentsModule, WorkspaceModule,
-  MatCardModule
+  BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
+  ComponentsModule, WorkspaceModule, MatCardModule
 ]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConnectorLineComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -31,4 +33,8 @@ const modules = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    gun(){
+
+    }
+}

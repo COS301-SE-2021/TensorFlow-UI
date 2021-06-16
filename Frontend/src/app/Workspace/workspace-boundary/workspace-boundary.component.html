@@ -1,8 +1,10 @@
 <div class="workspace-boundary">
-  <app-create-node-section></app-create-node-section>
+  <div *ngIf="createNodeBool">
+    <app-create-node-section></app-create-node-section>
+  </div>
+  <app-node-element></app-node-element>
 <!--  <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>-->
 <!--    I can only be dragged within the dotted container-->
 <!--  </div>-->
 
 </div>
-
