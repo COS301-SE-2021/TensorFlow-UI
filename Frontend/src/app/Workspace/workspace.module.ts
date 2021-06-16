@@ -18,6 +18,8 @@ import {FormBuilder} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NodeElementComponent } from './node-element/node-element.component';
+import { LineConnectorComponent } from './line-connector/line-connector.component';
+import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 
 @NgModule({
   imports: [
@@ -30,12 +32,14 @@ import {NodeElementComponent } from './node-element/node-element.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DiagramModule
   ],
   declarations: [
     WorkspaceBoundaryComponent,
     CreateNodeSectionComponent,
-    NodeElementComponent
+    NodeElementComponent,
+    LineConnectorComponent,
   ],
   exports: [
     WorkspaceBoundaryComponent,
