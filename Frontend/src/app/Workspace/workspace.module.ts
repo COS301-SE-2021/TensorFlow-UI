@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule } from '@angular/common';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -17,7 +17,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormBuilder} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
-import { NodeElementComponent } from './node-element/node-element.component';
+import {NodeElementComponent } from './node-element/node-element.component';
 
 @NgModule({
   imports: [
@@ -42,4 +42,6 @@ import { NodeElementComponent } from './node-element/node-element.component';
     CreateNodeSectionComponent
   ]
 })
-export class WorkspaceModule { }
+export class WorkspaceModule {
+    workModeName: string;
+}

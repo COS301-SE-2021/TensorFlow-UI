@@ -10,9 +10,11 @@ export class NavbarComponent {
   @ViewChild('parent', {static: false, read: ViewContainerRef}) target:ViewContainerRef;
   private componentRef: ComponentRef<any>;
 
+
   constructor(private resolver : ComponentFactoryResolver) {
   }
 
   ngOnInit(): void {
   }
+
 }

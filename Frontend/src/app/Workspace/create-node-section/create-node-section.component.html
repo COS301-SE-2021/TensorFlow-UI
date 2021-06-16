@@ -1,7 +1,7 @@
-<div >
+<div *ngIf="!nodeCreated">
   <mat-card class="createNode">
     <mat-card-title>Create A Node</mat-card-title>
-    <form #nodeForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #nodeForm="ngForm" (ngSubmit)="onClickSubmit(nodeForm.value)">
       <mat-form-field class="example-full-width">
         <mat-label>Node name</mat-label>
         <input id="nodeName" type="text" matInput placeholder="Ex. Function1"  [formControl]="nodeName" required>
@@ -16,11 +16,12 @@
           <mat-option value="Void">Void</mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="submit" class="createNodeButton" mat-raised-button>Create Node</button>
+      <button type="submit" class="createNodeButton"  mat-raised-button>Create Node</button>
     </form>
   </mat-card>
 </div>
 
 <div *ngIf="nodeCreated">
-  <h2>Form submitted</h2>
+  <app-node-element></app-node-element>
+
 </div>

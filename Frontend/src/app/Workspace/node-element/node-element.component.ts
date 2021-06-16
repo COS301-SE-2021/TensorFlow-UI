@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Node} from "../../Node/node";
 
 @Component({
   selector: 'app-node-element',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NodeElementComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    console.log(Node.name);
+  }
 
   ngOnInit(): void {
   }
-
 }
