@@ -1,4 +1,7 @@
 export class Node{
+  public code : string
+  public numParameters : number;
+
   constructor(
     public name: string,
     public nodeType: string,
