@@ -1,10 +1,11 @@
 <mat-drawer-container class="workspace-boundary">
-<app-edit-node-rhs #drawer></app-edit-node-rhs>
-
+  <mat-drawer #drawer class="edit-node-sidebar" mode="side" position="end">
+    <app-edit-node-rhs></app-edit-node-rhs>
+  </mat-drawer>
   <div *ngIf="createNodeBool">
     <app-create-node-section></app-create-node-section>
   </div>
-  <app-node-element (click)="drawer.toggle()"></app-node-element>
+  <app-node-element (dblclick)="drawer.toggle()"></app-node-element>
   <app-line-connector></app-line-connector>
   <!--  <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>-->
   <!--    I can only be dragged within the dotted container-->
