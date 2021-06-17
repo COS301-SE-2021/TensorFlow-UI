@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {Node} from "../../Node/node";
-import {Output,EventEmitter} from "@angular/core";
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {FormControl } from '@angular/forms';
+import {DataService} from "../../data.service";
 
 @Component({
   selector: 'app-create-node-section',
@@ -10,12 +10,20 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
 
-  constructor() { }
+  formNodeData: Node;
 
-  items:Node;
-
+  nodeResult: String;
   nodeName = new FormControl('');
   nodeType = new FormControl('');
+
+  nodeN = this.nodeName.value;
+  nodeT = this.nodeType.value;
+
+  constructor(private data : DataService) {
+    this.data.nodeName.subscribe(nodeName => this.nodeN = nodeName);
+    this.data.nodeDataType.subscribe(nodeType => this.nodeT = nodeType);
+    this.data.nodeResult.subscribe(nodeResult => this.nodeResult = nodeResult);
+  }
 
   nodeTypes = ['Array','Boolean','Integer', 'String', 'Void'];
   //model = new Node("testFunction","testType",null,null,"1");
@@ -23,10 +31,8 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   submitted = false;
   nodeCreated = false;
 
-  @Output()  newItemEvent = new EventEmitter<string>();
-
   addNewItem(value:Node|any){
-      this.items = value;
+      //this.items = value;
   }
 
   ngOnInit(): void {
@@ -36,6 +42,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
     this.submitted = true;
       if(this.nodeName.value != "" && this.nodeType.value != ""){
         this.nodeCreated = true;
+        this.data.passFormDataToNode(this.nodeName.value,this.nodeType.value,"void");
         //this.model.name = this.nodeName.value;
         //this.model.nodeType = this.nodeType.value;
         //this.addNewItem(new Node(this.model.name,this.model.nodeType,null,null,""));
