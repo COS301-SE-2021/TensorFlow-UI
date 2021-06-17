@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDrawer} from "@angular/material/sidenav";
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-node-rhs',
@@ -9,7 +9,16 @@ import {MatDrawer} from "@angular/material/sidenav";
 export class EditNodeRHSComponent implements OnInit {
   constructor() {}
 
+  nodeName = new FormControl('');
+  nodeType = new FormControl('');
+
+
+
   ngOnInit(): void {
+  }
+
+  onClickSubmit(data:any) {
+
   }
 
 }
