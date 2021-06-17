@@ -17,6 +17,7 @@ export class LineConnectorComponent implements OnInit {
     this.sourcePoint = { x: 100, y: 100 };
     this.targetPoint = { x: 200, y: 200 };
   }
+  /*This is a child component for the line connector for the connection of nodes*/
 
   // @ts-ignore
   public getConnectorDefaults(obj: ConnectorModel): ConnectorModel { //TODO remove ignore
