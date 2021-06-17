@@ -1,11 +1,14 @@
-<div class="workspace-boundary">
+<mat-drawer-container class="workspace-boundary">
+<app-edit-node-rhs #drawer></app-edit-node-rhs>
+
   <div *ngIf="createNodeBool">
     <app-create-node-section></app-create-node-section>
   </div>
-  <app-node-element></app-node-element>
+  <app-node-element (click)="drawer.toggle()"></app-node-element>
   <app-line-connector></app-line-connector>
-<!--  <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>-->
-<!--    I can only be dragged within the dotted container-->
-<!--  </div>-->
+  <!--  <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>-->
+  <!--    I can only be dragged within the dotted container-->
+  <!--  </div>-->
 
-</div>
+
+</mat-drawer-container>
