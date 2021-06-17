@@ -7,15 +7,9 @@ import {MatDrawer} from "@angular/material/sidenav";
   styleUrls: ['./edit-node-rhs.component.css']
 })
 export class EditNodeRHSComponent implements OnInit {
-  @ViewChild("editdrawer") editdrawer: MatDrawer
   constructor() {}
 
   ngOnInit(): void {
   }
-
-  toggle(){
-    this.editdrawer.toggle();
-  }
-
 
 }
