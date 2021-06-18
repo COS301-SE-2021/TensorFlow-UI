@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, TemplateRef, ViewChild, AfterViewInit, Inject, ViewContainerRef, ComponentFactoryResolver,
+  Component, OnInit
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
