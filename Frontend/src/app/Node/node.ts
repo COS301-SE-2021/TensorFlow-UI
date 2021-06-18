@@ -6,6 +6,7 @@ export class Node{
   public output: Node|null;
   public data: string;
   public createNodeBool: boolean;
+  public children : Array<Node>;
 
   constructor(
     name: string,

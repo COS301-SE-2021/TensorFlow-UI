@@ -34,8 +34,10 @@ export class CodeGeneratorService {
     let hasChildren = false;
     let child;
     let codeline = "";
-    while (hasChildren) {
-      this.generateFunctionCall(child);
+    if (node.children[0] != null) {
+      for (let i = 0; i < node.children.length; i++) {
+        this.generateCode(node.children[i]);
+      }
     }
     codeline += node.code;
     codeline += "(";
