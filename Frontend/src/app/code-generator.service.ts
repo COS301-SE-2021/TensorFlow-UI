@@ -9,7 +9,7 @@ export class CodeGeneratorService {
   codefile : string;
 
   constructor() {
-    let codefile = "";
+    this.codefile = "";
   }
 
   sendToFile(codeLine : string) {
@@ -31,8 +31,6 @@ export class CodeGeneratorService {
   }
 
   generateFunctionCall(node) {
-    let hasChildren = false;
-    let child;
     let codeline = "";
     if (node.children[0] != null) {
       for (let i = 0; i < node.children.length; i++) {
