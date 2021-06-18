@@ -20,26 +20,29 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NodeElementComponent } from './node-element/node-element.component';
 import { LineConnectorComponent } from './line-connector/line-connector.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
+import { EditNodeRHSComponent } from './edit-node-rhs/edit-node-rhs.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    DiagramModule
-  ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        DiagramModule,
+        MatSidenavModule
+    ],
   declarations: [
     WorkspaceBoundaryComponent,
     CreateNodeSectionComponent,
     NodeElementComponent,
     LineConnectorComponent,
+    EditNodeRHSComponent,
   ],
   exports: [
     WorkspaceBoundaryComponent,
