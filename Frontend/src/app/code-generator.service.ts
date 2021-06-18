@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Node } from './Node/node';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CodeGeneratorService {
   }
 
   generateCode(node : Node) {
-    switch (node.type) {
+    switch (node.nodeType) {
       case "variable":
         return this.generateVariable(node);
 
@@ -29,7 +30,7 @@ export class CodeGeneratorService {
     }
   }
 
-  generateFunctionCall(node : Node) {
+  generateFunctionCall(node) {
     let hasChildren = false;
     let child;
     let codeline = "";
@@ -38,20 +39,23 @@ export class CodeGeneratorService {
     }
     codeline += node.code;
     codeline += "(";
-    codeline += generateCode(node.input);
+    codeline += this.generateCode(node.input);
     codeline += ")";
     this.sendToFile(codeline);
     return codeline;
   }
 
   generateVariable(node : Node) {
-    let codeline = "";
-    codeline += node.name;
-    codeline += " = ";
-    codeline += node.data;
-    this.sendToFile(codeline);
-    return codeline;
+    if (node.createNodeBool) {
+      let codeline = "";
+      codeline += node.name;
+      codeline += " = ";
+      codeline += node.data;
+      this.sendToFile(codeline);
+      node.createNodeBool = false;
+      return codeline;
+    } else {
+      return node.data;
+    }
   }
-
-
 }
