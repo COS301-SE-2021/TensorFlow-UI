@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Node} from "../../Node/node";
 import {DataService} from "../../data.service";
+
 
 @Component({
   selector: 'app-node-element',
@@ -9,9 +10,6 @@ import {DataService} from "../../data.service";
 })
 export class NodeElementComponent implements OnInit {
 
-  nodeName:String;
-  nodeType:String;
-  result:String;
 
   constructor(private data: DataService) { }
 
