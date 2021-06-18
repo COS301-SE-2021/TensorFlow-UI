@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Node} from "../../Node/node";
+import {NodeData} from "../../node-data";
 
 @Component({
   selector: 'app-node-element',
@@ -7,6 +8,8 @@ import {Node} from "../../Node/node";
   styleUrls: ['./node-element.component.css']
 })
 export class NodeElementComponent implements OnInit {
+
+  @Input() nodeData: NodeData
 
   constructor() {
     console.log(Node.name);
