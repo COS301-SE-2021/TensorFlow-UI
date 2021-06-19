@@ -1,0 +1,19 @@
+<mat-form-field>
+  <form #nodeEditForm="ngForm" (ngSubmit)="onClickSubmit(nodeEditForm.value)">
+    <mat-form-field class="formField">
+      <mat-label>Node name:</mat-label>
+      <input id="nodeName" type="text" matInput placeholder="Ex. Function1"  [formControl]="nodeName">
+    </mat-form-field>
+    <mat-form-field class="formField">
+      <mat-label>Node type</mat-label>
+      <mat-select [formControl]="nodeType">
+        <mat-option value="Integer">Array</mat-option>
+        <mat-option value="Boolean">Boolean</mat-option>
+        <mat-option value="Integer">Integer</mat-option>
+        <mat-option value="String">String</mat-option>
+        <mat-option value="Void">Void</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" class="createNodeButton"  mat-raised-button>Save Changes</button>
+  </form>
+</mat-form-field>
