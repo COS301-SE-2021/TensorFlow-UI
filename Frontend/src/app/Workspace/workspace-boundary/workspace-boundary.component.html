@@ -1,17 +1,3 @@
-
-<mat-drawer-container class="workspace-boundary">
-  <mat-drawer #drawer class="edit-node-sidebar" mode="side" position="end">
-    <app-edit-node-rhs></app-edit-node-rhs>
-  </mat-drawer>
-  <div *ngIf="createNodeBool">
-    <app-create-node-section></app-create-node-section>
-  </div>
-  <app-node-element (dblclick)="drawer.toggle()"></app-node-element>
-  <app-line-connector></app-line-connector>
-  <!--  <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>-->
-  <!--    I can only be dragged within the dotted container-->
-  <!--  </div>-->
-
 <div class="workspace-boundary">
   <div *ngIf="createNodeBool?addNode():false">
       <!-- Need to add create node section -->
@@ -20,6 +6,4 @@
     <app-node-element *ngFor="let node of nodes" [nodeData]="node"></app-node-element>
   <app-line-connector></app-line-connector>
 
-
-
-</mat-drawer-container>
+</div>

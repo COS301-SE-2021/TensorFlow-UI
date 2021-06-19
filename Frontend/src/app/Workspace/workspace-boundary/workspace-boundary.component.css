@@ -34,9 +34,3 @@
   float: right;
   border: dotted #ccc 2px;
 }
-
-.edit-node-sidebar{
-  width: 20%;
-  padding: 5px;
-  text-align: center;
-}
