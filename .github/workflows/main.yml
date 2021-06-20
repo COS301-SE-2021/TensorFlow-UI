@@ -4,6 +4,7 @@ on:
   push:
     branches:
       -master
+      -main
       -Frontend
       -Frontend_development
 
