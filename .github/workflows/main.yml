@@ -8,15 +8,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubunutu latest
+
+    runs-on: ubuntu-latest
+
     steps:
-      -uses: actions/checkout@v2
-      -name: Node $
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
       with:
          node-version: 14
-    -name: npm install and npm run build
-     run:| 
-        npm ci
-        run:npm test 
+    - run: npm ci
+    - run: npm test 
        
