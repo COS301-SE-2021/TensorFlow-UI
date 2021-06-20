@@ -7,8 +7,25 @@ import {NodeData} from "./node-data";
   providedIn: 'root'
 })
 export class DataService {
+  get nodes(): NodeData[] {
+    return this._nodes;
+  }
 
-  nodeData: NodeData[] = [];
+  set nodes(value: NodeData[]) {
+    this._nodes = value;
+  }
+  get type(): string {
+    return this._type;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  private _name = "";
+  private _type = "";
+
+  private _nodes: NodeData[];
   private createNodeSource = new BehaviorSubject(false); //default = false
   private createFormSource = new BehaviorSubject(false); //default = false
   //private addNodeSource = new BehaviorSubject(new ());
