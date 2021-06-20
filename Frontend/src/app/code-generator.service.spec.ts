@@ -15,10 +15,36 @@ describe('CodeGeneratorService', () => {
     expect(service).toBeTruthy();
   });
 
+
+  // basic variable assignment code
   it('a = 1', () => {
     let a : Node = new Node("a", "variable", null, null, "1", true, "a");
     let b : Node = new Node("b", "variable", null, null, "1", true, "b");
     console.log(service.generateVariable(b));
     expect(service.generateVariable(a)).toBe('a = 1');
+  });
+
+  //test using functions
+  it('a = getNumber()', () => {
+    let a : Node = new Node("a", "variable", null,  null, "getNumber()", true, "a");
+    let output : string = service.generateCode(a);
+    console.log(output);
+    expect(output).toBe('a = getNumber()');
+  });
+
+  //purely functional test
+  it("performTasks(a)", () => {
+    let consoleOut : string = "";
+    console.log("test started");
+    let a : Node = new Node("a", "variable", null,  null, "getNumber()", true, "a");
+    console.log("a created");
+    consoleOut += service.generateCode(a) + '\n';
+    let performTasks : Node = new Node("performTasks", "function", a, null, "a", true, "print('hi')");
+    console.log("performTasks created");
+    let output = service.generateCode(performTasks) + '\n';
+    console.log("performTasks code generated");
+    output += consoleOut;
+    console.log(consoleOut);
+    expect(output).toBe("performTasks(a)");
   });
 });

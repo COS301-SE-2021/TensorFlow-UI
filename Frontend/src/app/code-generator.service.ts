@@ -29,10 +29,17 @@ export class CodeGeneratorService {
         return "incorrect node type";
     }
   }
-
+  /**
+   * OKAY SO GAME PLAN WITH THIS:
+   * Gotta first declare functions (1)
+   * Then when declared, we're able to call them
+   * So in that case, use the creation flag to determine whether the functions must first be defined before they can be called
+   * And yeah that should fix some things
+   *
+   */
   generateFunctionCall(node) {
     let codeline = "";
-    if (node.children[0] != null) {
+    if (!node.children.isEmpty) {
       for (let i = 0; i < node.children.length; i++) {
         this.generateCode(node.children[i]);
       }

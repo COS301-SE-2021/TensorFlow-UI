@@ -24,7 +24,10 @@ export class Node{
     this.data = data;
     this.createNodeBool = createNodeBool;
     this.code = code;
+    this.children = new Array<Node>();
   }
 
-
+  addChild(child : Node) {
+    this.children.push(child);
+  }
 }
