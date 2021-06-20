@@ -38,7 +38,6 @@ export class DataService {
 
   private tempNode: NodeData[] = [];
 
-
   private createNodeSource = new BehaviorSubject(false); //default = false
   private createFormSource = new BehaviorSubject(false); //default = false
   private showNodeEditSource = new BehaviorSubject(false);

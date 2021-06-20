@@ -21,6 +21,7 @@ export class EditNodeComponent implements OnInit {
 
   test(){
     console.log(this.currentNode);
+    console.log(this.data.currentNode);
   }
 
   ngOnInit(): void {
