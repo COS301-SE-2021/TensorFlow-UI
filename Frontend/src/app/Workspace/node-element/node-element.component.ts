@@ -17,8 +17,8 @@ export class NodeElementComponent implements OnInit {
 
   showEditSection(event,data: NodeData){
     this.data.changeEditNodeView(!this.editNodeSection);
-    //this.data.currentNode = data; //how to fix this
-    this.data.changeCurrentNode(data);
+    this.data.currentNode = data; //how to fix this
+    //this.data.changeCurrentNode(data);
   }
 
   ngOnInit(): void {
