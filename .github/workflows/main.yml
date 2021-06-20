@@ -3,6 +3,7 @@ name: Tensorflow-UI Continous Integration Testing
 on:
   push:
     branches:
+      -master
       -Frontend
       -Frontend_development
 
