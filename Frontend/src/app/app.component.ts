@@ -13,6 +13,7 @@ export class AppComponent implements AfterViewInit{
   createNodeBool: Boolean;
 
   constructor() {
+    console.log("Test");
   }
 
   ngAfterViewInit() {

@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
 
