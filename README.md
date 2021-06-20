@@ -35,7 +35,7 @@ Profile Description of each Member of Try Catch Degree:
 -Felipe Jorge
 I am always ready and eager to learn new topics and to increase my knowledge
 about every aspect of Computer Science. Whenever I encounter something new or
-unfamiliar, I’m extremely curious to find out how it works and how I can best use it to my
+unfamiliar, Iâ€™m extremely curious to find out how it works and how I can best use it to my
 advantage in the future. Driven by this curiosity, I can say I have learnt everything the
 Computer Science degree has offered so far and much more. I am eager to learn from this
 project and the new experiences it offers.
@@ -56,7 +56,7 @@ efficiently and effectively. My knowledge in java and other programming language
 great advantage in completing this project.
 
 -Werner van Rensburg
-I’m a determined student software developer with a keen interest in learning and
+Iâ€™m a determined student software developer with a keen interest in learning and
 gaining experience in new and different parts of technologies. I have some experience in
 developing front end user interfaces and know I would be a great asset in developing an
 interactive and intuitive user interface. I have a personal interest in the design and
@@ -78,7 +78,7 @@ work on a project which makes it more accessible.
 | Name   | Surname      |        Email         |       Github        |	LinkIn	|
 |--------|--------------|----------------------|------------------------|--------------------|
 | Felipe | Jorge        | u17291195@tuks.co.za | [FelipeJorge805](https://github.com/FelipeJorge805)  |	https://www.linkedin.com/in/felipe-jorge-099b5620b/
-| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) |
+| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | https://www.linkedin.com/in/wessel-kruger-19b197210/
 | Werner | van Rensburg | u15118046@tuks.co.za | [wrvrensburg](https://github.com/wrvrensburg) |
 | Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) |
 | Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) |
