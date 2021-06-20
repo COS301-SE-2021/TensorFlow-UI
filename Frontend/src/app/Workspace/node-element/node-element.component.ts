@@ -25,4 +25,10 @@ export class NodeElementComponent implements OnInit {
     this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeSection = editBool);
     this.data.currentNode;
   }
+
+  delete(data: NodeData){
+    this.data.nodes.forEach((element,index)=>{
+      if(element==data) this.data.nodes.splice(index,1);
+    });
+  }
 }
