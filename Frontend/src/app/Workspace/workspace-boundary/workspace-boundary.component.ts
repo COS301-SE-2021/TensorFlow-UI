@@ -11,12 +11,14 @@ export class WorkspaceBoundaryComponent implements OnInit {
 
   createNodeBool: boolean;
   createFormBool = false;
+  editNodeBool: boolean;
 
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
     this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
     this.data.createFormBoolean.subscribe(formBool => this.createFormBool = formBool);
+    this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeBool = editBool);
     this.data.nodes = [];
   }
 
