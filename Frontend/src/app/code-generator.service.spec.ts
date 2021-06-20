@@ -17,6 +17,8 @@ describe('CodeGeneratorService', () => {
 
   it('a = 1', () => {
     let a : Node = new Node("a", "variable", null, null, "1", true, "a");
+    let b : Node = new Node("b", "variable", null, null, "1", true, "b");
+    console.log(service.generateVariable(b));
     expect(service.generateVariable(a)).toBe('a = 1');
   });
 });
