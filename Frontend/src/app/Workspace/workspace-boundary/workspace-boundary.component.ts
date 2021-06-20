@@ -9,26 +9,24 @@ import {NodeData} from "../../node-data";
 })
 export class WorkspaceBoundaryComponent implements OnInit {
 
-  nodes: NodeData[];
   createNodeBool: boolean;
   createFormBool = false;
 
-  constructor(private data: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit(): void {
     this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
     this.data.createFormBoolean.subscribe(formBool => this.createFormBool = formBool);
-    this.nodes = [];
+    this.data.nodes = [];
   }
 
   addNode() {
-    //this.createNodeBool = false;
     this.data.changeCreateFormBoolean(false);
     this.data.changeCreateNodeBoolean(false);
-    this.nodes.push({
-      num: this.nodes.length + 1,
-      name: "0000",
-      type: ""
+    this.data.nodes.push({
+      num: this.data.nodes.length + 1,
+      name: this.data.name,
+      type: this.data.type
     });
   }
 
