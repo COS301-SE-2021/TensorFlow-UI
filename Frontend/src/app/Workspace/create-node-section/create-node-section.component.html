@@ -1,4 +1,4 @@
-<div *ngIf="!nodeCreated">
+<div>
   <mat-card class="createNode">
     <mat-card-title>Create A Node</mat-card-title>
     <form #nodeForm="ngForm" (ngSubmit)="onClickSubmit(nodeForm.value)">
@@ -19,8 +19,4 @@
       <button type="submit" class="createNodeButton" mat-raised-button>Create Node</button>
     </form>
   </mat-card>
-</div>
-
-<div *ngIf="nodeCreated">
-  <app-node-element></app-node-element>
 </div>

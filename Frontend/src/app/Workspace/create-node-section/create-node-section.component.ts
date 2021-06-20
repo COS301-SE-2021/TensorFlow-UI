@@ -11,6 +11,7 @@ import {DataService} from "../../data.service";
 export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
 
   formNodeData: Node;
+  createNodeBool: boolean;
 
   nodeResult: String;
   nodeName = new FormControl('');
@@ -20,20 +21,14 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   nodeT = this.nodeType.value;
 
   constructor(private data : DataService) {
-    this.data.nodeName.subscribe(nodeName => this.nodeN = nodeName);
-    this.data.nodeDataType.subscribe(nodeType => this.nodeT = nodeType);
-    this.data.nodeResult.subscribe(nodeResult => this.nodeResult = nodeResult);
-  }
+    this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
 
-  nodeTypes = ['Array','Boolean','Integer', 'String', 'Void'];
-  //model = new Node("testFunction","testType",null,null,"1");
+    this.data.nodeName.subscribe(nodeName => this.nodeN = nodeName);
+    //this.data.nodeDataType.subscribe(nodeType => this.nodeT = nodeType);
+    //this.data.nodeResult.subscribe(nodeResult => this.nodeResult = nodeResult);
+  }
 
   submitted = false;
-  nodeCreated = false;
-
-  addNewItem(value:Node|any){
-      //this.items = value;
-  }
 
   ngOnInit(): void {
   }
@@ -41,8 +36,11 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   onClickSubmit(data:any) {
     this.submitted = true;
       if(this.nodeName.value != "" && this.nodeType.value != ""){
-        this.nodeCreated = true;
+        //this.nodeCreated = true;
+        this.data.changeCreateNodeBoolean(true);
         this.data.passFormDataToNode(this.nodeName.value,this.nodeType.value,"void");
+        console.log("Set to true");
+        console.log(this.createNodeBool);
         //this.model.name = this.nodeName.value;
         //this.model.nodeType = this.nodeType.value;
         //this.addNewItem(new Node(this.model.name,this.model.nodeType,null,null,""));

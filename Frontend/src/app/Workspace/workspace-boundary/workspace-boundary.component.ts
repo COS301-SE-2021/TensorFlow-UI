@@ -11,17 +11,20 @@ export class WorkspaceBoundaryComponent implements OnInit {
 
   nodes: NodeData[];
   createNodeBool: boolean;
-  showNodeCreateSection = false;
+  createFormBool = false;
 
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
-    this.data.currentBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
+    this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
+    this.data.createFormBoolean.subscribe(formBool => this.createFormBool = formBool);
     this.nodes = [];
   }
 
   addNode() {
-    this.createNodeBool = false;
+    //this.createNodeBool = false;
+    this.data.changeCreateFormBoolean(false);
+    this.data.changeCreateNodeBoolean(false);
     this.nodes.push({
       num: this.nodes.length + 1,
       name: "0000",

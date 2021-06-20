@@ -15,7 +15,7 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <button class="createComponentButton" mat-raised-button color="primary" (click)="createNode()">Create Component</button>
+        <button class="createComponentButton" mat-raised-button color="primary" (click)="createNodeForm()">Create Component</button>
 <!--                <a mat-list-item href="...">Submenu Item 2</a>-->
                 <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
                   <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>

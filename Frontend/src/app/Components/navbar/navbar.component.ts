@@ -14,11 +14,15 @@ export class NavbarComponent implements OnInit{
   createNodeBool: boolean;
 
   constructor(private data : DataService) {
-    this.data.currentBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
+    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
   }
 
   ngOnInit(): void {
-    this.data.currentBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
+    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
+  }
+
+  createNodeForm(){
+    this.data.changeCreateFormBoolean(true);
   }
 
   createNode(){

@@ -1,9 +1,13 @@
 <div class="workspace-boundary">
-  <div *ngIf="createNodeBool?addNode():false">
+  <div *ngIf="createFormBool">
+    <app-create-node-section></app-create-node-section>
       <!-- Need to add create node section -->
       <!-- <app-create-node-section></app-create-node-section> -->
   </div>
-    <app-node-element *ngFor="let node of nodes" [nodeData]="node"></app-node-element>
-  <app-line-connector></app-line-connector>
+  <div *ngIf="createNodeBool">
+    {{addNode()}}
+  </div>
+  <app-node-element *ngFor="let node of nodes" [nodeData]="node"></app-node-element>
+<!--  <app-line-connector></app-line-connector>-->
 
 </div>

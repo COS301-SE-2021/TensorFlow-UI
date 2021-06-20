@@ -12,7 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
-  ComponentsModule, WorkspaceModule, MatCardModule
+  ComponentsModule, WorkspaceModule, MatCardModule,
 ]
 
 @NgModule({

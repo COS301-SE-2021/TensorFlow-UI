@@ -20,8 +20,8 @@ export class NodeElementComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
-    this.data.nodeName.subscribe(nodeName => this.nodeName = nodeName);
-    this.data.nodeDataType.subscribe(nodeType => this.nodeType = nodeType);
-    this.data.nodeResult.subscribe(nodeResult => this.result = nodeResult);
+    //this.data.nodeName.subscribe(nodeName => this.nodeName = nodeName);
+    //this.data.nodeDataType.subscribe(nodeType => this.nodeType = nodeType);
+    //this.data.nodeResult.subscribe(nodeResult => this.result = nodeResult);
   }
 }
