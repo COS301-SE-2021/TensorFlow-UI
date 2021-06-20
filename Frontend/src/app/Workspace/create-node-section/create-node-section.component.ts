@@ -23,7 +23,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   constructor(private data : DataService) {
     this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
 
-    this.data.nodeName.subscribe(nodeName => this.nodeN = nodeName);
+    // this.data.nodeName.subscribe(nodeName => this.nodeN = nodeName);
     //this.data.nodeDataType.subscribe(nodeType => this.nodeT = nodeType);
     //this.data.nodeResult.subscribe(nodeResult => this.nodeResult = nodeResult);
   }
