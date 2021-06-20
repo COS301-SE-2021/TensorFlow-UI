@@ -13,13 +13,13 @@ export class DataService {
   private createFormSource = new BehaviorSubject(false); //default = false
   //private addNodeSource = new BehaviorSubject(new ());
 
-  private newNodeNameSource = new BehaviorSubject(this.nodeData);
+  // private newNodeNameSource = new BehaviorSubject(this._nodes);
 
   createNodeBoolean = this.createNodeSource.asObservable();
   createFormBoolean = this.createFormSource.asObservable();
   //addNodeFunction = this.addNodeSource.asObservable();
 
-  nodeName = this.newNodeNameSource.asObservable();
+  // nodeName = this.newNodeNameSource.asObservable();
   //nodeDataType = this.newNodeDTypeSource.asObservable();
   //nodeResult = this.newNodeResultSource.asObservable();
 
@@ -38,7 +38,9 @@ export class DataService {
   //   this.newNodeDataSource.next(new Node());
   // }
 
-  passFormDataToNode(nodeName: String, nodeDataType: String, nodeResult: String){
+  passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
+    this._name = nodeName;
+    this._type = nodeDataType;
     //this.newNodeNameSource.next(nodeName);
     //this.newNodeDTypeSource.next(nodeDataType);
     //this.newNodeResultSource.next(nodeResult);
