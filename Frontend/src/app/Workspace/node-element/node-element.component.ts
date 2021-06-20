@@ -13,10 +13,6 @@ export class NodeElementComponent implements OnInit {
 
   @Input() nodeData: NodeData
 
-  nodeName: String;
-  nodeType: String;
-  result: String;
-
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
