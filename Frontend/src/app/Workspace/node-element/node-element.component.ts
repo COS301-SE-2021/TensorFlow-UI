@@ -3,7 +3,6 @@ import {Node} from "../../Node/node";
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
 
-
 @Component({
   selector: 'app-node-element',
   templateUrl: './node-element.component.html',
@@ -12,16 +11,17 @@ import {NodeData} from "../../node-data";
 export class NodeElementComponent implements OnInit {
 
   @Input() nodeData: NodeData
-
-  nodeName: String;
-  nodeType: String;
-  result: String;
+  editNodeSection=false;
 
   constructor(private data: DataService) { }
 
+  showEditSection(event,data: NodeData){
+    this.data.changeEditNodeView(!this.editNodeSection);
+    this.data.currentNode = data; //how to fix this
+  }
+
   ngOnInit(): void {
-    //this.data.nodeName.subscribe(nodeName => this.nodeName = nodeName);
-    //this.data.nodeDataType.subscribe(nodeType => this.nodeType = nodeType);
-    //this.data.nodeResult.subscribe(nodeResult => this.result = nodeResult);
+    this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeSection = editBool);
+    this.data.currentNode;
   }
 }
