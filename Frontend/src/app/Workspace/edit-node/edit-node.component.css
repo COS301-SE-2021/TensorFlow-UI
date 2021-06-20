@@ -1,0 +1,15 @@
+.sidenav{
+  position: relative;
+  width: 25%;
+  height: 100%;
+  float: right;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.nodeName{
+  text-align: center;
+}
+
+.nodeDetails{
+  text-align: center;
+}
