@@ -78,9 +78,9 @@ work on a project which makes it more accessible.
 | Name   | Surname      |        Email         |       Github        |	LinkIn	|
 |--------|--------------|----------------------|------------------------|--------------------|
 | Felipe | Jorge        | u17291195@tuks.co.za | [FelipeJorge805](https://github.com/FelipeJorge805)  |	https://www.linkedin.com/in/felipe-jorge-099b5620b/
-| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | https://www.linkedin.com/in/wessel-kruger-19b197210/
+| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | 
 | Werner | van Rensburg | u15118046@tuks.co.za | [wrvrensburg](https://github.com/wrvrensburg) |
-| Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) |
+| Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) | https://www.linkedin.com/in/wessel-kruger-19b197210/
 | Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) |
 
 
