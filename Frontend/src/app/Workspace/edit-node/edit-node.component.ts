@@ -16,13 +16,16 @@ export class EditNodeComponent implements OnInit {
   editNodeBool: boolean;
 
   constructor(private data: DataService) {
-    this.currentNode = this.data.currentNode;
-    console.log(this.editNodeBool);
+
+  }
+
+  test(){
+    console.log(this.currentNode);
   }
 
   ngOnInit(): void {
     this.data.createNodeBoolean.subscribe(editBool => this.editNodeBool = editBool);
-
+    this.data.currentNodeValue.subscribe(currentNode => this.currentNode = currentNode);
   }
 
 }
