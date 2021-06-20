@@ -81,7 +81,7 @@ work on a project which makes it more accessible.
 | David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | 
 | Werner | van Rensburg | u15118046@tuks.co.za | [wrvrensburg](https://github.com/wrvrensburg) |
 | Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) | https://www.linkedin.com/in/wessel-kruger-19b197210/
-| Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) |
+| Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) | www.linkedin.com/in/siviwe-lechelele-060073155
 
 
 ## Technologies
