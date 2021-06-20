@@ -22,23 +22,27 @@ export class DataService {
     return this._name;
   }
 
+  set currentNode(node: NodeData){
+    this._currentNode = node;
+  }
+
+  get currentNode(): NodeData{
+    return this._currentNode;
+  }
+
   private _name = "";
   private _type = "";
 
   private _nodes: NodeData[];
+  private _currentNode: NodeData;
+
   private createNodeSource = new BehaviorSubject(false); //default = false
   private createFormSource = new BehaviorSubject(false); //default = false
-  //private addNodeSource = new BehaviorSubject(new ());
-
-  // private newNodeNameSource = new BehaviorSubject(this._nodes);
+  private showNodeEditSource = new BehaviorSubject(false);
 
   createNodeBoolean = this.createNodeSource.asObservable();
   createFormBoolean = this.createFormSource.asObservable();
-  //addNodeFunction = this.addNodeSource.asObservable();
-
-  // nodeName = this.newNodeNameSource.asObservable();
-  //nodeDataType = this.newNodeDTypeSource.asObservable();
-  //nodeResult = this.newNodeResultSource.asObservable();
+  showNodeEditBoolean = this.showNodeEditSource.asObservable();
 
   constructor() {
   }
@@ -51,16 +55,13 @@ export class DataService {
     this.createFormSource.next(createFormSection)
   }
 
-  // passFormDataToNode(passedNodeData: Node){
-  //   this.newNodeDataSource.next(new Node());
-  // }
+  changeEditNodeView(editNodeSection: boolean){
+    this.showNodeEditSource.next(editNodeSection);
+  }
 
   passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
     this._name = nodeName;
     this._type = nodeDataType;
-    //this.newNodeNameSource.next(nodeName);
-    //this.newNodeDTypeSource.next(nodeDataType);
-    //this.newNodeResultSource.next(nodeResult);
   }
 
 }
