@@ -1,9 +1,10 @@
 .sidenav{
-  position: relative;
+  position: fixed;
   width: 25%;
   height: 500px;
   float: right;
-  top: -100px;
+  left: 1118px;
+  top:100px;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -24,6 +25,9 @@
 
 .sidenav button{
   position: relative;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
 }
 
 .example-form {
