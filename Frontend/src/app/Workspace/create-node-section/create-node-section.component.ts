@@ -39,12 +39,6 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
         //this.nodeCreated = true;
         this.data.changeCreateNodeBoolean(true);
         this.data.passFormDataToNode(this.nodeName.value,this.nodeType.value,"void");
-        console.log("Set to true");
-        console.log(this.createNodeBool);
-        //this.model.name = this.nodeName.value;
-        //this.model.nodeType = this.nodeType.value;
-        //this.addNewItem(new Node(this.model.name,this.model.nodeType,null,null,""));
-        //this.newItemEvent.emit(this.nodeForm);
       }
   }
 }
