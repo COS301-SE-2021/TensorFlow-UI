@@ -88,12 +88,18 @@ work on a project which makes it more accessible.
 ## Technologies
 
 ### Frontend
-- [Angular](https://angular.io)
-- [D3.js](https://d3js.org)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+
+  <img src="https://raw.githubusercontent.com/d3/d3-logo/master/d3.png" width="48">
 
 ### APIs
-- [Tensorflow](https://www.tensorflow.org/api_docs)
-- [GraphQL](https://graphql.org)
+  <img src="https://www.gstatic.com/devrel-devsite/prod/v0a30303ec7b067b5f3ae9ccc0662a5464fa8a5fb796392acd97bcfd40590684c/tensorflow/images/lockup.svg" width="200">
+
+  <img src="https://uploads.getpop.org/wp-content/uploads/2019/07/graphql.png" width="100">
 
 ### Backend
-- [Spring-Boot](https://spring.io/projects/spring-boot)
+![Spring-Boot](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+
+
