@@ -25,8 +25,9 @@ through lowering the barrier to entry of writing and training a model.
 Demo 2 - Video Link:
 -
 
-Funtional Requirements Documents Version 2:
--
+Demo 2 Documentation:
+-Architectural Document: https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing
+-SRSv2: https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing
 
 GitHub Project Board Link:
 https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2
