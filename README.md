@@ -23,7 +23,7 @@ and therefore allow the many benefits of machine learning to be used by more peo
 through lowering the barrier to entry of writing and training a model.
 
 Demo 2 - Video Link:
--
+-https://drive.google.com/file/d/1HYKk4OLOlKEgtJXqOwwZIoP1omYD7oSF/view?usp=sharing
 
 Demo 2 Documentation:
 -Architectural Document: https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing
