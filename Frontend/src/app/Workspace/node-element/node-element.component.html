@@ -1,8 +1,12 @@
 <div class="workspace-box" cdkDragBoundary=".workspace-boundary" cdkDrag>
-  <mat-list>
+  <mat-list (click)="showEditSection($event,nodeData)">
     <h2>Node: {{nodeData.num}}</h2>
     <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
     <mat-list-item> NodeType: {{nodeData.type}}</mat-list-item>
   </mat-list>
+    <div>
+    <button (click)="delete(nodeData)">Delete</button>
+    </div>
+
 </div>
 
