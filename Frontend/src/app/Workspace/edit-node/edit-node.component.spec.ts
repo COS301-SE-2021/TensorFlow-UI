@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditNodeRHSComponent } from './edit-node-rhs.component';
+import { EditNodeComponent } from './edit-node.component';
 
-describe('EditNodeRHSComponent', () => {
-  let component: EditNodeRHSComponent;
-  let fixture: ComponentFixture<EditNodeRHSComponent>;
+describe('EditNodeComponent', () => {
+  let component: EditNodeComponent;
+  let fixture: ComponentFixture<EditNodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditNodeRHSComponent ]
+      declarations: [ EditNodeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditNodeRHSComponent);
+    fixture = TestBed.createComponent(EditNodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
