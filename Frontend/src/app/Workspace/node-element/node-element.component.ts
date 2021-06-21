@@ -22,6 +22,7 @@ export class NodeElementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeSection = editBool);
     this.data.currentNode;
   }
@@ -30,5 +31,6 @@ export class NodeElementComponent implements OnInit {
     this.data.nodes.forEach((element,index)=>{
       if(element==data) this.data.nodes.splice(index,1);
     });
+
   }
 }
