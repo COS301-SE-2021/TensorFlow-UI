@@ -60,7 +60,7 @@ def upload_file():
 
 			return redirect(url_for('download_file', name=filename))
 
-# TODO
+# TODO much more on codegen side
 def generate_code(file):
 	data = json.loads(file)
 	code = ""
