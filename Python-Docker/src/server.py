@@ -8,9 +8,13 @@ ALLOWED_EXTENSIONS = {'txt', 'py'}
 server = Flask(__name__)
 server.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def allowed_file(filename):
+def allowed_file_runnable(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def allowed_file_json(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() == 'json'
 
 @server.route("/")
 def hello():
@@ -27,12 +31,12 @@ def upload_file():
 		if file.filename == '':
 			flash('No selected file')
 			return redirect(request.url)
-		if file and allowed_file(file.filename):
+		if file and allowed_file_runnable(file.filename):
 			filename = secure_filename(file.filename)
-			file.save(os.path.join(server.config['UPLOAD_FOLDER', filename]))
+			saved_path = os.path.join(server.config['UPLOAD_FOLDER', filename])
+			file.save(saved_path)
 
-			# add in run file functionality here
-			exec(open(os.path.join(server.config['UPLOAD_FOLDER', filename])).read())
+			exec(open(saved_path))
 
 			return redirect(url_for('download_file', name=filename))
 
@@ -47,14 +51,17 @@ def upload_file():
 		if file.filename == '':
 			flash('No selected file')
 			return redirect(request.url)
-		if file and allowed_file(file.filename):
+		if file and allowed_file_json(file.filename):
 			filename = secure_filename(file.filename)
-			file.save(os.path.join(server.config['UPLOAD_FOLDER', filename]))
 
-			# add in run file functionality here
-			exec(open(os.path.join(server.config['UPLOAD_FOLDER', filename])).read())
+			runnable = generate_code(file)
+			exec(open(runnable))
 
 			return redirect(url_for('download_file', name=filename))
+
+# TODO
+def generate_code(file):
+	return ""
 
 if __name__ == "__main__":
 	server.run(host='0.0.0.0')
