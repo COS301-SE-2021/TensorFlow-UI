@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
@@ -61,6 +62,21 @@ def upload_file():
 
 # TODO
 def generate_code(file):
+	data = json.loads(file)
+	code = ""
+	for node in data:
+		if node[type] == "variable":
+			# declare object
+			code += "mock object declaration"
+		elif node[type] == "function":
+			# declare function
+			code += "mock function declaration"
+		elif node[type] == "library":
+			# import library
+			code += "mock library import"
+		# somehow create connections and run functions in correct order?
+		# need to find a way to order function
+
 	return ""
 
 if __name__ == "__main__":
