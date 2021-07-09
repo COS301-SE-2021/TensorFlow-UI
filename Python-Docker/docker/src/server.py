@@ -17,10 +17,12 @@ def allowed_file_json(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() == 'json'
 
+# greeting function to test connection
 @server.route("/")
 def hello():
 	return "Hello World!"
 
+# upload function for compiled, completed scripts
 # TODO make sure console readings etc are displayed to user on webpage
 @server.route("/upload", methods=['GET', 'POST'])
 def upload_file():
@@ -41,9 +43,10 @@ def upload_file():
 
 			return redirect(url_for('download_file', name=filename))
 
-# TODO convert JSON upload to python code
+# upload script for JSON objects
+# TODO convert JSON upload to python code - need structure for this to work
 @server.route("/upload-json", methods=['GET', 'POST'])
-def upload_file():
+def upload_file_json():
 	if request.method == 'POST':
 		if 'file' not in request.files:
 			flash('No file part')
@@ -56,10 +59,12 @@ def upload_file():
 			filename = secure_filename(file.filename)
 
 			runnable = generate_code(file)
+
 			exec(open(runnable))
 
 			return redirect(url_for('download_file', name=filename))
 
+# function to convert JSON objects to Python code
 # TODO much more on codegen side
 def generate_code(file):
 	data = json.loads(file)

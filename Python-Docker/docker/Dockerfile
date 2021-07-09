@@ -2,7 +2,7 @@
 FROM python:latest
 
 # set the working directory in the container
-WORKDIR /
+WORKDIR /container
 
 # copy the dependencies file to the working directory
 COPY requirements.txt .
@@ -15,3 +15,6 @@ COPY /src .
 
 # command to run on container start
 CMD [ "python", "./server.py" ] 
+
+# expose the correct port
+EXPOSE 5000
