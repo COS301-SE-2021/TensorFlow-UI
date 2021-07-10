@@ -60,7 +60,7 @@ def upload_file_json():
 		if file and allowed_file_json(file.filename):
 			filename = secure_filename(file.filename)
 
-			runnable = generate_code(file)
+			runnable = generate_from_json(file)
 			
 			f = StringIO()
 			with redirect_stdout(f):
@@ -72,10 +72,14 @@ def upload_file_json():
 
 # function to convert JSON objects to Python code
 # TODO much more on codegen side
-def generate_code(file):
+def generate_from_json(file):
 	data = json.loads(file)
+	return generate_code(data)
+
+# utility function for codegen
+def generate_code(interpreted_file):
 	code = ""
-	for node in data:
+	for node in interpreted_file:
 		if node[type] == "variable":
 			# declare object
 			if (node[name] + " = ") not in code:
@@ -90,7 +94,8 @@ def generate_code(file):
 					param_string += parameter[name] + ", "
 				code += "def " + node[name] + "(" + param_string + "): \n"
 				# TODO add child node interpretation
-
+				for child_node in node[children]:
+					code += generate_code(child_node)
 				code += "\n"
 			
 		elif node[type] == "library":
@@ -99,7 +104,7 @@ def generate_code(file):
 				code += "import " + node[nodeName]
 				code += "\n"
 			
-	return ""
+	return code
 
 if __name__ == "__main__":
 	server.run(host='0.0.0.0')
