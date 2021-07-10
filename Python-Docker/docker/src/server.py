@@ -1,6 +1,8 @@
 import os
 import json
 from flask import Flask, flash, request, redirect, url_for
+from io import StringIO
+from contextlib import redirect_stdout
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = '/uploads'
@@ -59,8 +61,12 @@ def upload_file_json():
 			filename = secure_filename(file.filename)
 
 			runnable = generate_code(file)
-
-			exec(open(runnable))
+			
+			f = StringIO()
+			with redirect_stdout(f):
+				exec(open(runnable))
+			s = f.getvalue
+			print(s)
 
 			return redirect(url_for('download_file', name=filename))
 
@@ -72,16 +78,26 @@ def generate_code(file):
 	for node in data:
 		if node[type] == "variable":
 			# declare object
-			code += "mock object declaration"
+			if (node[name] + " = ") not in code:
+				code += node[name] + " = " + node[initialValue]
+
+			code += "\n"
 		elif node[type] == "function":
 			# declare function
-			code += "mock function declaration"
+			if (node[name] + "(") not in code:
+				param_string = ""
+				for parameter in node[inputs]:
+					param_string += parameter[name] + ", "
+				code += "def " + node[name] + "(" + param_string + "): \n"
+				# TODO add child node interpretation
+
+			code += "\n"
 		elif node[type] == "library":
 			# import library
-			code += "mock library import"
-		# somehow create connections and run functions in correct order?
-		# need to find a way to order function
+			if ("import " + node[nodeName]) not in code:
+				code += "import " + node[nodeName]
 
+			code += "\n"
 	return ""
 
 if __name__ == "__main__":
