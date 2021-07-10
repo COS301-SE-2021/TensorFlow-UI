@@ -80,8 +80,8 @@ def generate_code(file):
 			# declare object
 			if (node[name] + " = ") not in code:
 				code += node[name] + " = " + node[initialValue]
-
-			code += "\n"
+				code += "\n"
+			
 		elif node[type] == "function":
 			# declare function
 			if (node[name] + "(") not in code:
@@ -91,13 +91,14 @@ def generate_code(file):
 				code += "def " + node[name] + "(" + param_string + "): \n"
 				# TODO add child node interpretation
 
-			code += "\n"
+				code += "\n"
+			
 		elif node[type] == "library":
 			# import library
 			if ("import " + node[nodeName]) not in code:
 				code += "import " + node[nodeName]
-
-			code += "\n"
+				code += "\n"
+			
 	return ""
 
 if __name__ == "__main__":
