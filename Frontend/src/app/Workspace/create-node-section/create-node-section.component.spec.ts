@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateNodeSectionComponent } from './create-node-section.component';
-import { Node } from '../../Node/node'
+import { Node } from '../../Node/Node'
 
 describe('CreateNodeSectionComponent', () => {
   let component: CreateNodeSectionComponent;

@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Node} from "../../Node/node";
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
-
 
 @Component({
   selector: 'app-node-element',

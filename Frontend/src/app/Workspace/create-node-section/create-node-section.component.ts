@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import {Node} from "../../Node/node";
 import {FormControl } from '@angular/forms';
 import {DataService} from "../../data.service";
 

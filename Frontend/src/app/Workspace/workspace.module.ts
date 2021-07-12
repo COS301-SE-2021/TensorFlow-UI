@@ -20,7 +20,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NodeElementComponent } from './node-element/node-element.component';
 import { LineConnectorComponent } from './line-connector/line-connector.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
-import { ChartComponent } from './chart/chart.component';
+import { CanvasComponent } from './canvas/canvas.component';
+import { Link } from './link/link.component';
 
 @NgModule({
   imports: [
@@ -41,11 +42,13 @@ import { ChartComponent } from './chart/chart.component';
     CreateNodeSectionComponent,
     NodeElementComponent,
     LineConnectorComponent,
-    ChartComponent,
+    CanvasComponent,
+    Link,
   ],
   exports: [
     WorkspaceBoundaryComponent,
-    CreateNodeSectionComponent
+    CreateNodeSectionComponent,
+    CanvasComponent
   ]
 })
 export class WorkspaceModule {
