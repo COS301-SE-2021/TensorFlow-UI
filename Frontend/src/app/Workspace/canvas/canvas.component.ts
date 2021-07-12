@@ -20,6 +20,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   private canvas: any;
   private nodes: NodeData[];
+  private dragBehaviour = d3.drag().on("start", this.dragStarted).on("drag", this.dragged);
 
   constructor() {
   }
@@ -50,52 +51,48 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   addNodeToCanvas(){
 
-    const nodeShape = d3.select("#nodeShapeContainer").append("svg").attr("width", 180).attr("height", 220);
+    const nodeShape = d3.select("#nodeShapeContainer").append("svg").attr("width", 300).attr("height", 400);
 
     nodeShape.append('rect')
       .attr("id", "node")
-      .attr('x', 10)
-      .attr('y', 10)
-      .attr('width', 165)
-      .attr('height', 200)
-      .attr('stroke', 'black')
-      .attr('fill', '#69a3b2')
-      .style("font-size", 19)
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', "25%")
+      .attr('height', "35%")
+      .attr('stroke', 'red')
+      .attr('fill', '#69a3b2');
+
+    const dragHandler =
+      d3.drag()
+        .on("drag", function (event){
+          console.log(d3.select(this));
+          console.log(event);
+          // @ts-ignore
+          // @ts-ignore
+          d3.select(this)
+            .attr("x",event.dx)
+            .attr("y", event.dy);
+        })
+
+
+
+    dragHandler(nodeShape.selectAll("rect"));
 
     const node = document.getElementById("node");
     const nodeContainer = document.getElementById("nodeShapeContainer");
 
-    const svg = d3.select("#text").append("svg").attr("width", 180).attr("height", 100);
-
-    svg.append('text')
-      .attr('x', 15)
-      .attr('y', 35)
-      .style("font-size", 19)
-      .text("Hello world")
-
-    // const nodeDataSvg = d3.select("#nodeData").append("svg").attr("width", 100).attr("height", 100);
-
     console.log(nodeContainer);
 
-    // this.canvas.append("div")
-    //   .attr("class", "node")
-    //   .style("background-color", "red")
-    //   .style("cursor", "pointer")
-    //   .attr("draggable", "true")
-    //   .style("width", "100px")
-    //   .style("height", "100px")
-    //   .style("border","2px solid black")
-    //   .style("display", "inline-block");
   }
 
-  dragStarted(d):void {
+  dragStarted(node):void {
     console.log("HERE_START");
     var test2 =d3.select("div.node");
     console.log(test2);
     d3.select("div.node").raise().attr("active", "true");
   }
 
-  dragged(d):void{
+  dragged(node):void{
     console.log("HERE_DRAGGED");
     // d.xVal = x.invert(d3.event.x);
     // d.yVal = y.invert(d3.event.y);
@@ -106,7 +103,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     // console.log(d);
   }
 
-  dragEnded(d): void{
+  dragEnded(node): void{
     console.log("HERE_END");
     // d3.select(this).raise().classed("active",false);
     //d3.select('rect#no-drag').on('mousedown.drag',null);
