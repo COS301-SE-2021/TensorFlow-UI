@@ -5,12 +5,6 @@ import {Node} from "../../Node/node.component";
 import {Link} from "../link/link.component";
 import {NodeData} from "../../node-data";
 
-
-interface LineData{
-  x: number;
-  y: number;
-}
-
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -20,7 +14,6 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   private canvas: any;
   private nodes: NodeData[];
-  private dragBehaviour = d3.drag().on("start", this.dragStarted).on("drag", this.dragged);
 
   constructor() {
   }
@@ -51,7 +44,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   addNodeToCanvas(){
 
-    const nodeShape = d3.select("#nodeShapeContainer").append("svg").attr("width", 300).attr("height", 400);
+    const nodeShape = d3.select("#nodeShapeContainer").append("svg").attr("width", "100%").attr("height", 400);
 
     nodeShape.append('rect')
       .attr("id", "node")
@@ -59,22 +52,42 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       .attr('y', 0)
       .attr('width', "25%")
       .attr('height', "35%")
-      .attr('stroke', 'red')
+      // .attr("d", symbol.type(nodeShape=>nodeShape))
+      // .attr("transform", (shape,i)=>"translate("+x(i)+",-40)")
       .attr('fill', '#69a3b2');
+
+    var deltaX, deltaY;
 
     const dragHandler =
       d3.drag()
-        .on("drag", function (event){
-          console.log(d3.select(this));
-          console.log(event);
-          // @ts-ignore
-          // @ts-ignore
-          d3.select(this)
-            .attr("x",event.dx)
-            .attr("y", event.dy);
+        .on("start", function (event){
+          d3.select(this).raise();
+
+          const current = d3.select(this)
+          const xVal = +current.attr("x");
+          const yVal = +current.attr("y");
+
+          deltaX = xVal - event.x;
+          deltaY = yVal - event.y;
         })
+        .on("drag", function (event){
 
+          const dx = event.x + deltaX;
+          const dy = event.y + deltaY;
 
+          d3.select(this)
+            .attr("transform", shape => "translate("+dx+","+dy+")")
+
+          const newLocation = d3.select(this)
+
+          const newCord = getTranslateXY(newLocation.attr("transform"));
+
+          const newX = newCord[0];
+          const newY = newCord[1];
+
+          newLocation.attr("x",newX);
+          newLocation.attr("y",newY);
+        })
 
     dragHandler(nodeShape.selectAll("rect"));
 
@@ -82,6 +95,19 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     const nodeContainer = document.getElementById("nodeShapeContainer");
 
     console.log(nodeContainer);
+
+    function getTranslateXY(transform) {
+      const startOfX = transform.toString().indexOf("(");
+      const endOfX = transform.toString().indexOf(",");
+
+      const startOfY = transform.toString().indexOf(",");
+      const endOfY = transform.toString().indexOf(")");
+
+      const x = transform.toString().substring(startOfX+1,endOfX);
+      const y = transform.toString().substring(startOfY+1,endOfY);
+
+      return [x,y];
+    }
 
   }
 
