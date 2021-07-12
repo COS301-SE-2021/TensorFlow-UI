@@ -28,17 +28,9 @@ export class DataService {
   private _nodes: NodeData[];
   private createNodeSource = new BehaviorSubject(false); //default = false
   private createFormSource = new BehaviorSubject(false); //default = false
-  //private addNodeSource = new BehaviorSubject(new ());
-
-  // private newNodeNameSource = new BehaviorSubject(this._nodes);
 
   createNodeBoolean = this.createNodeSource.asObservable();
   createFormBoolean = this.createFormSource.asObservable();
-  //addNodeFunction = this.addNodeSource.asObservable();
-
-  // nodeName = this.newNodeNameSource.asObservable();
-  //nodeDataType = this.newNodeDTypeSource.asObservable();
-  //nodeResult = this.newNodeResultSource.asObservable();
 
   constructor() {
   }
@@ -51,10 +43,6 @@ export class DataService {
     this.createFormSource.next(createFormSection)
   }
 
-  // passFormDataToNode(passedNodeData: Node){
-  //   this.newNodeDataSource.next(new Node());
-  // }
-
   passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
     this._name = nodeName;
     this._type = nodeDataType;
@@ -63,4 +51,8 @@ export class DataService {
     //this.newNodeResultSource.next(nodeResult);
   }
 
+
+  applyZoomableBehaviour() {}
+  applyDraggableBehaviour() {}
+  getForceDirectedGraph() {}
 }
