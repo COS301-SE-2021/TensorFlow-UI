@@ -14,6 +14,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   private canvas: any;
   private nodes: NodeData[];
+  private nodesContainer;
 
   constructor() {
   }
@@ -24,7 +25,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     style("width", "100%").
     style("height", "100%");
 
-    this.addNodeToCanvas();
+    this.nodesContainer = d3.select("#nodeShapeContainer").append("svg").attr("width", "100%").attr("height", "100%").style("border","2px solid black");
+
   }
 
   ngAfterViewInit(){
@@ -44,24 +46,28 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
   addNodeToCanvas(){
 
-    const nodeShape = d3.select("#nodeShapeContainer").append("svg").attr("width", "100%").attr("height", 400);
-
-    nodeShape.append('rect')
-      .attr("id", "node")
+    this.nodesContainer.append('rect')
+      .attr("class", "node")
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', "25%")
-      .attr('height', "35%")
+      .attr('width', "35px")
+      .attr('height', "50px")
       // .attr("d", symbol.type(nodeShape=>nodeShape))
       // .attr("transform", (shape,i)=>"translate("+x(i)+",-40)")
-      .attr('fill', '#69a3b2');
+      .attr('fill', '#69a3b2')
+      .on("mouseover", this.handleMouseOver)
+      .on("mouseout", this.handleMouseOut)
+
+    // .on("mouseover", function (d) {d3.select(this).style("cursor", "move");});
 
     var deltaX, deltaY;
 
     const dragHandler =
       d3.drag()
         .on("start", function (event){
-          d3.select(this).raise();
+
+          const test = d3.select(this);
+          d3.select(this).raise().classed("active", true);
 
           const current = d3.select(this)
           const xVal = +current.attr("x");
@@ -72,48 +78,26 @@ export class CanvasComponent implements OnInit,AfterViewInit{
         })
         .on("drag", function (event){
 
-          const dx = event.x + deltaX;
-          const dy = event.y + deltaY;
-
           d3.select(this)
-            .attr("transform", shape => "translate("+dx+","+dy+")")
+            .attr("x", event.x + deltaX)
+            .attr("y", event.y + deltaY)
+
+        })
+        .on("end", function (event){
 
           const newLocation = d3.select(this)
 
-          const newCord = getTranslateXY(newLocation.attr("transform"));
+          newLocation.attr("x",event.x);
+          newLocation.attr("y",event.y);
 
-          const newX = newCord[0];
-          const newY = newCord[1];
-
-          newLocation.attr("x",newX);
-          newLocation.attr("y",newY);
         })
 
-    dragHandler(nodeShape.selectAll("rect"));
-
-    const node = document.getElementById("node");
-    const nodeContainer = document.getElementById("nodeShapeContainer");
-
-    console.log(nodeContainer);
-
-    function getTranslateXY(transform) {
-      const startOfX = transform.toString().indexOf("(");
-      const endOfX = transform.toString().indexOf(",");
-
-      const startOfY = transform.toString().indexOf(",");
-      const endOfY = transform.toString().indexOf(")");
-
-      const x = transform.toString().substring(startOfX+1,endOfX);
-      const y = transform.toString().substring(startOfY+1,endOfY);
-
-      return [x,y];
-    }
-
+    dragHandler(this.nodesContainer.selectAll("rect"));
   }
 
-  dragStarted(node):void {
+  dragStarted(event):void {
     console.log("HERE_START");
-    var test2 =d3.select("div.node");
+    const test2 = d3.select("div.node");
     console.log(test2);
     d3.select("div.node").raise().attr("active", "true");
   }
@@ -133,6 +117,16 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log("HERE_END");
     // d3.select(this).raise().classed("active",false);
     //d3.select('rect#no-drag').on('mousedown.drag',null);
+  }
+
+  handleMouseOver(mouseEvent){
+    const node = d3.select(mouseEvent.target);
+    node.attr("fill", "#3e6873");
+  }
+
+  handleMouseOut(mouseEvent){
+    const node = d3.select(mouseEvent.target);
+    node.attr("fill", "#69a3b2");
   }
 
 }
