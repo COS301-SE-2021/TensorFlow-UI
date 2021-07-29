@@ -15,6 +15,12 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   private canvas: any;
   private nodes: NodeData[];
   private nodesContainer;
+  private nodesCounter: number=0;
+  private x1:number;
+  private x2:number;
+  private y1:number;
+  private y2:number;
+
 
   constructor() {
   }
@@ -25,7 +31,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     style("width", "100%").
     style("height", "100%");
 
-    this.nodesContainer = d3.select("#nodeShapeContainer").append("svg").attr("width", "100%").attr("height", "100%").style("border","2px solid black");
+    this.nodesContainer = d3.select("#nodeShapeContainer").append("svg").attr("id","mainSvg").attr("width", "100%").attr("height", "100%").style("border","2px solid black");
 
   }
 
@@ -50,8 +56,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       .attr("class", "node")
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', "35px")
-      .attr('height', "50px")
+      .attr('width', "70px")
+      .attr('height', "55px")
       // .attr("d", symbol.type(nodeShape=>nodeShape))
       // .attr("transform", (shape,i)=>"translate("+x(i)+",-40)")
       .attr('fill', '#69a3b2')
@@ -80,7 +86,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
           d3.select(this)
             .attr("x", event.x + deltaX)
-            .attr("y", event.y + deltaY)
+            .attr("y", event.y + deltaY);
 
         })
         .on("end", function (event){
@@ -93,13 +99,51 @@ export class CanvasComponent implements OnInit,AfterViewInit{
         })
 
     dragHandler(this.nodesContainer.selectAll("rect"));
+
+    ++this.nodesCounter;
+  }
+
+  linkNodes(){
+    const nodesContainer = document.getElementById("nodeShapeContainer");
+    console.log(this.nodesCounter);
+
+    if(this.nodesCounter>1){
+        // @ts-ignore
+      const localNode = document.getElementsByClassName("node");
+      console.log(localNode);
+
+      console.log(localNode[0])
+      // @ts-ignore
+      var x1: number = +localNode[0].getAttribute("x");
+      // @ts-ignore
+      var x2:number = +localNode[0].getAttribute("y");
+      // @ts-ignore
+      var y1: number = +localNode[1].getAttribute("x");
+      // @ts-ignore
+      var y2:number = +localNode[1].getAttribute("y");
+
+      const svg = d3.select("#mainSvg");
+
+      svg.append("line")
+        .style("stroke", "black")
+        .attr("x1",x1)
+        .attr("x2",x2)
+        .attr("y1",y1)
+        .attr("y2",y2)
+    }
+
   }
 
   dragStarted(event):void {
-    console.log("HERE_START");
-    const test2 = d3.select("div.node");
-    console.log(test2);
-    d3.select("div.node").raise().attr("active", "true");
+    // const test = d3.select(this);
+    // d3.select(this).raise().classed("active", true);
+    //
+    // const current = d3.select(this)
+    // const xVal = +current.attr("x");
+    // const yVal = +current.attr("y");
+    //
+    // deltaX = xVal - event.x;
+    // deltaY = yVal - event.y;
   }
 
   dragged(node):void{

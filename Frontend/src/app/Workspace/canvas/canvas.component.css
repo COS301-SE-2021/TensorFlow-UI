@@ -21,8 +21,8 @@ html, body {
 #nodeShapeContainer{
   border: 2px solid red;
   height: 100%;
-  width: 100%;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 1%;
+  margin-left: 1%;
+  width: 98%;
 }
 
