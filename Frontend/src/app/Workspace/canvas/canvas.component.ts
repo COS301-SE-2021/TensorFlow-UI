@@ -111,7 +111,6 @@ export class CanvasComponent implements OnInit,AfterViewInit{
           const line = document.getElementsByTagName("line");
 
           if(line.length>0){
-            let line2 = line[0];
 
             const localNode = document.getElementsByClassName("node");
 
@@ -124,12 +123,12 @@ export class CanvasComponent implements OnInit,AfterViewInit{
             // @ts-ignore
             that.y2 = +localNode[localNode.length-1].getAttribute("y");
 
-            const linee = document.getElementsByClassName("mainLine")[0];
+            const mainLine = document.getElementsByClassName("mainLine")[0];
 
-            linee.setAttribute("x1",String(that.x1));
-            linee.setAttribute("x2",String(that.x2));
-            linee.setAttribute("y1",String(that.y1));
-            linee.setAttribute("y2",String(that.y2));
+            mainLine.setAttribute("x1",String(that.x1));
+            mainLine.setAttribute("x2",String(that.x2));
+            mainLine.setAttribute("y1",String(that.y1));
+            mainLine.setAttribute("y2",String(that.y2));
           }
         })
         .on("end", function (event)  {
@@ -143,28 +142,15 @@ export class CanvasComponent implements OnInit,AfterViewInit{
           const line = document.getElementsByTagName("line");
 
           if(line.length>0){
-            let line2 = line[0];
 
-            const localNode = document.getElementsByClassName("node");
+            const mainLine = document.getElementsByClassName("mainLine")[0];
 
-            //@ts-ignore
-            that.x1 = +localNode[localNode.length-2].getAttribute("x");
-            // @ts-ignore
-            that.y1 = +localNode[localNode.length-2].getAttribute("y");
-            // @ts-ignore
-            that.x2= +localNode[localNode.length-1].getAttribute("x");
-            // @ts-ignore
-            that.y2 = +localNode[localNode.length-1].getAttribute("y");
-
-            const linee = document.getElementsByClassName("mainLine")[0];
-
-            linee.setAttribute("x1",String(that.x1));
-            linee.setAttribute("x2",String(that.x2));
-            linee.setAttribute("y1",String(that.y1));
-            linee.setAttribute("y2",String(that.y2));
+            mainLine.setAttribute("x1",String(that.x1));
+            mainLine.setAttribute("x2",String(that.x2));
+            mainLine.setAttribute("y1",String(that.y1));
+            mainLine.setAttribute("y2",String(that.y2));
           }
         })
-
 
     dragHandler(this.nodesContainer.selectAll("rect"));
 
