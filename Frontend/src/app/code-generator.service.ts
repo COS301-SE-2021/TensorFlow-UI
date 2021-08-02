@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Node } from './Node/node';
+import {JSONFile} from "@angular/cli/utilities/json-file";
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,22 @@ export class CodeGeneratorService {
     } else {
       return node.data;
     }
+  }
+
+  createVariables(json) {
+    var node = JSON.parse(json);
+    var variableDeclaration : String = "";
+    for (const child in node) {
+      if(child.type.equals("variable")) {
+        var thisDeclaration =
+          child.name + " = " + child.value + '\n';
+        variableDeclaration += thisDeclaration;
+      }
+    }
+    return variableDeclaration;
+  }
+
+  createFunctions(json) {
+
   }
 }
