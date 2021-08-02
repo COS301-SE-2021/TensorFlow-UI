@@ -1,10 +1,13 @@
 import {Component, EventEmitter, OnInit, AfterViewInit} from '@angular/core';
 import * as d3 from 'd3';
+import interact from 'interactjs'
 
 import {Node} from "../../Node/node.component";
-import {Link} from "../link/link.component";
 import {NodeData} from "../../node-data";
-import {getMutableClientRect} from "@angular/cdk/drag-drop/client-rect";
+
+interface NodeType{
+
+}
 
 interface Coordinates {
   x1: number;
@@ -28,9 +31,9 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   private x2:number;
   private y1:number;
   private y2:number;
-  private coordinates: Coordinates;
 
   constructor() {
+
   }
 
   ngOnInit(): void {
@@ -39,8 +42,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     style("width", "100%").
     style("height", "100%");
 
-    this.nodesContainer = d3.select("#nodeShapeContainer").append("svg").attr("id","mainSvg").attr("width", "100%").attr("height", "100%").style("border","2px solid black");
-
+    this.initialiseCanvas();
   }
 
   ngAfterViewInit(){
@@ -59,100 +61,6 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   }
 
   addNodeToCanvas(){
-
-    this.nodesContainer.append('rect')
-      .attr("class", "node")
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', "70px")
-      .attr('height', "55px")
-      // .attr("d", symbol.type(nodeShape=>nodeShape))
-      // .attr("transform", (shape,i)=>"translate("+x(i)+",-40)")
-      .attr('fill', '#69a3b2')
-      // .attr('stroke', '#000')
-      // .attr('stoke-width', "2px")
-      // .on("mouseover", this.handleMouseOver)
-      // .on("mouseout", this.handleMouseOut)
-      // .append("text")
-
-    //this.nodes.push();
-
-    this.nodesContainer.append('path')
-      .datum()
-
-    this.linkNodes();
-    var deltaX, deltaY;
-
-    const that = this;
-
-    const dragHandler =
-      d3.drag()
-        .on("start", function (event){
-
-          const test = d3.select(this).raise().classed("active", true);
-          // console.log(test);
-          // console.log(d3.select(this).node());
-          // console.log(d3.select(this).nodes());
-
-          const current = d3.select(this)
-          const xVal = +current.attr("x");
-          const yVal = +current.attr("y");
-
-          deltaX = xVal - event.x;
-          deltaY = yVal - event.y;
-        })
-        .on("drag", function (event){
-
-          d3.select(this)
-            .attr("x", event.x + deltaX)
-            .attr("y", event.y + deltaY);
-
-          //node connectors
-          const line = document.getElementsByTagName("line");
-
-          if(line.length>0){
-
-            const localNode = document.getElementsByClassName("node");
-
-            //@ts-ignore
-            that.x1 = +localNode[localNode.length-2].getAttribute("x");
-            // @ts-ignore
-            that.y1 = +localNode[localNode.length-2].getAttribute("y");
-            // @ts-ignore
-            that.x2= +localNode[localNode.length-1].getAttribute("x");
-            // @ts-ignore
-            that.y2 = +localNode[localNode.length-1].getAttribute("y");
-
-            const mainLine = document.getElementsByClassName("mainLine")[0];
-
-            mainLine.setAttribute("x1",String(that.x1));
-            mainLine.setAttribute("x2",String(that.x2));
-            mainLine.setAttribute("y1",String(that.y1));
-            mainLine.setAttribute("y2",String(that.y2));
-          }
-        })
-        .on("end", function (event)  {
-
-          d3.select(this).raise().classed("active", false);
-          const newLocation = d3.select(this);
-
-          newLocation.attr("x",event.x+deltaX);
-          newLocation.attr("y",event.y+deltaY);
-
-          const line = document.getElementsByTagName("line");
-
-          if(line.length>0){
-
-            const mainLine = document.getElementsByClassName("mainLine")[0];
-
-            mainLine.setAttribute("x1",String(that.x1));
-            mainLine.setAttribute("x2",String(that.x2));
-            mainLine.setAttribute("y1",String(that.y1));
-            mainLine.setAttribute("y2",String(that.y2));
-          }
-        })
-
-    dragHandler(this.nodesContainer.selectAll("rect"));
 
     ++this.nodesCounter;
   }
@@ -218,6 +126,51 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log("HERE_END");
     // d3.select(this).raise().classed("active",false);
     //d3.select('rect#no-drag').on('mousedown.drag',null);
+  }
+
+  clearCanvas(){
+
+  }
+
+  initialiseCanvas(){
+    interact('.draggable')
+      .draggable({
+        inertia: true,
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: 'parent',
+            endOnly: true
+          })
+        ],
+        autoScroll: true,
+        listeners: {
+          move: this.dragListener,
+          end(event){
+            var innerText = event.target.querySelector('p')
+
+            innerText && (innerText.textContent =
+              'moved a distance of ' +
+              (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                Math.pow(event.pageY - event.y0, 2) | 0))
+                .toFixed(2) + 'px')
+          }
+        }
+      })
+  }
+
+  dragListener (event) {
+      var target = event.target
+      // keep the dragged position in the data-x/data-y attributes
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+      // translate the element
+      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+      // update the posiion attributes
+      target.setAttribute('data-x', x)
+      target.setAttribute('data-y', y)
+
   }
 
   handleMouseOver(mouseEvent){

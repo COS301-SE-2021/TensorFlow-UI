@@ -26,7 +26,17 @@ html, body {
   width: 98%;
 }
 
-.linkButton{
-
+.nodesLink{
+  position: absolute;
 }
 
+#drag-1, #drag-2 {
+  width: 9%;
+  min-height: 3rem;
+  background-color: #29e;
+  color: white;
+  border-radius: 0.75em;
+  touch-action: none;
+  user-select: none;
+  transform: translate(0px, 0px);
+}

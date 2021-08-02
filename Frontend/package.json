@@ -24,6 +24,7 @@
     "@syncfusion/ej2-angular-diagrams": "^19.1.69",
     "d3": "^7.0.0",
     "d3-lasso": "0.0.5",
+    "interactjs": "^1.10.11",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

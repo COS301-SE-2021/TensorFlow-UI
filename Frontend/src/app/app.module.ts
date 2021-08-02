@@ -11,6 +11,7 @@ import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 import { Node } from './Node/node.component';
 
+
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
   ComponentsModule, WorkspaceModule, MatCardModule,

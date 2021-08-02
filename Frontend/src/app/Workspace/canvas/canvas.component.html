@@ -1,11 +1,13 @@
 <div id="d3Canvas">
   <button id="createNodeButton" (click)="addNodeToCanvas()">Create Node</button>
   <button id="linkNodesButton" >Link Nodes</button>
+  <button id="clearNode" (click)="clearCanvas()">Clear Canvas</button>
 
   <div id="nodeShapeContainer">
-    <div id="text"></div>
-
+    <div id="drag-1" class="draggable">
+    </div>
+    <div id="drag-2" class="draggable">
+    </div>
   </div>
-
 </div>
 
