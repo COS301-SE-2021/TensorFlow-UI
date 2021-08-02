@@ -82,9 +82,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
     this.linkNodes();
     var deltaX, deltaY;
-    var localX1 = this.x1,localY1=this.y1,localX2=this.x2,localY2=this.y2;
 
-    var that = this;
+    const that = this;
 
     const dragHandler =
       d3.drag()
@@ -138,30 +137,47 @@ export class CanvasComponent implements OnInit,AfterViewInit{
           d3.select(this).raise().classed("active", false);
           const newLocation = d3.select(this);
 
-          newLocation.attr("x",event.x);
-          newLocation.attr("y",event.y);
+          console.log(newLocation.attr("x"));
+          console.log(newLocation.attr("y"));
 
+          this.addEventListener("mousemove",onMouseMove,false)
 
+          newLocation.attr("x",event.x-35);
+          newLocation.attr("y",event.y-27.5);
+
+          const line = document.getElementsByTagName("line");
+
+          if(line.length>0){
+            let line2 = line[0];
+
+            const localNode = document.getElementsByClassName("node");
+
+            //@ts-ignore
+            that.x1 = +localNode[localNode.length-2].getAttribute("x");
+            // @ts-ignore
+            that.y1 = +localNode[localNode.length-2].getAttribute("y");
+            // @ts-ignore
+            that.x2= +localNode[localNode.length-1].getAttribute("x");
+            // @ts-ignore
+            that.y2 = +localNode[localNode.length-1].getAttribute("y");
+
+            const linee = document.getElementsByClassName("mainLine")[0];
+
+            linee.setAttribute("x1",String(that.x1));
+            linee.setAttribute("x2",String(that.x2));
+            linee.setAttribute("y1",String(that.y1));
+            linee.setAttribute("y2",String(that.y2));
+          }
         })
 
+
+    function onMouseMove(event){
+
+    }
 
     dragHandler(this.nodesContainer.selectAll("rect"));
 
     ++this.nodesCounter;
-  }
-
-  updateLocal(localX1,localX2,localY1,localY2) : Coordinates{
-    localX1 = this.x1;
-    localX2 = this.x2;
-    localY1 = this.y1;
-    localY2 = this.y2;
-
-    this.coordinates.x1 = localX1;
-    this.coordinates.x2 = localX2;
-    this.coordinates.y1 = localY1;
-    this.coordinates.y2 = localY2;
-
-    return this.coordinates;
   }
 
   linkNodes(){
