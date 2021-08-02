@@ -81,6 +81,59 @@ export class CodeGeneratorService {
   }
 
   createFunctions(json) {
+    var node = JSON.parse(json);
+    var functionDeclaration : String = "";
+    for (const child in node) {
+      if(child.type.equals("function")) {
+        var inputs : String = "";
+        for (const input in child.inputs) {
+          inputs += input + ", ";
+        }
+        inputs = inputs.substring(0, inputs.length - 2);
+        var thisDeclaration =
+          "def " + child.name + "(" + inputs + "):\n\t";
 
+        thisDeclaration += "result = "
+
+        switch (node.functionType) {
+          case "addition":
+
+            for (const input in child.inputs) {
+              thisDeclaration += input.name + " + ";
+            }
+
+            thisDeclaration += "\n\t"
+
+            break;
+          case "subtraction":
+            for (const input in child.inputs) {
+              thisDeclaration += input.name + " - ";
+            }
+
+            thisDeclaration += "\n\t"
+            break;
+
+          case "multiplication":
+            for (const input in child.inputs) {
+              thisDeclaration += input.name + " * ";
+            }
+
+            thisDeclaration += "\n\t"
+            break;
+
+          case "division":
+            for (const input in child.inputs) {
+              thisDeclaration += input.name + "/+ ";
+            }
+
+            thisDeclaration += "\n\t"
+            break;
+        }
+
+        thisDeclaration += "return result"
+
+        functionDeclaration += thisDeclaration;
+      }
+    }
   }
 }
