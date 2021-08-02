@@ -47,4 +47,12 @@ describe('CodeGeneratorService', () => {
     console.log(consoleOut);
     expect(output).toBe("performTasks(a)");
   });
+
+  //stringing things together test
+  it("import numpy\na = 1\nb = 2\nnumpy.add(a, b)", () => {
+    let a : Node = new Node("a", "variable", null, null, "1", true, "a");
+    let b : Node = new Node("b", "variable", null, null, "2", true, "b");
+    let numpy : Node = new Node("numpy", "library", null, null, null, true, "import numpy")
+    
+  })
 });
