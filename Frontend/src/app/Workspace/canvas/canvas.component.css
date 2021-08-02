@@ -5,7 +5,7 @@ html, body {
 
 .active{
   stroke: #000;
-  stroke-width: 5px;
+  stroke-width: 2px;
 }
 
 #d3Canvas{
@@ -24,5 +24,9 @@ html, body {
   margin-top: 1%;
   margin-left: 1%;
   width: 98%;
+}
+
+.linkButton{
+
 }
 

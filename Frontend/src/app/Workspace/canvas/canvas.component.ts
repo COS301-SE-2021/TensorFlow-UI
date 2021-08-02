@@ -4,6 +4,14 @@ import * as d3 from 'd3';
 import {Node} from "../../Node/node.component";
 import {Link} from "../link/link.component";
 import {NodeData} from "../../node-data";
+import {getMutableClientRect} from "@angular/cdk/drag-drop/client-rect";
+
+interface Coordinates {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
 
 @Component({
   selector: 'app-canvas',
@@ -20,7 +28,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   private x2:number;
   private y1:number;
   private y2:number;
-
+  private coordinates: Coordinates;
 
   constructor() {
   }
@@ -61,19 +69,31 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       // .attr("d", symbol.type(nodeShape=>nodeShape))
       // .attr("transform", (shape,i)=>"translate("+x(i)+",-40)")
       .attr('fill', '#69a3b2')
-      .on("mouseover", this.handleMouseOver)
-      .on("mouseout", this.handleMouseOut)
+      // .attr('stroke', '#000')
+      // .attr('stoke-width', "2px")
+      // .on("mouseover", this.handleMouseOver)
+      // .on("mouseout", this.handleMouseOut)
+      // .append("text")
 
-    // .on("mouseover", function (d) {d3.select(this).style("cursor", "move");});
+    //this.nodes.push();
 
+    this.nodesContainer.append('path')
+      .datum()
+
+    this.linkNodes();
     var deltaX, deltaY;
+    var localX1 = this.x1,localY1=this.y1,localX2=this.x2,localY2=this.y2;
+
+    var that = this;
 
     const dragHandler =
       d3.drag()
         .on("start", function (event){
 
-          const test = d3.select(this);
-          d3.select(this).raise().classed("active", true);
+          const test = d3.select(this).raise().classed("active", true);
+          // console.log(test);
+          // console.log(d3.select(this).node());
+          // console.log(d3.select(this).nodes());
 
           const current = d3.select(this)
           const xVal = +current.attr("x");
@@ -88,48 +108,87 @@ export class CanvasComponent implements OnInit,AfterViewInit{
             .attr("x", event.x + deltaX)
             .attr("y", event.y + deltaY);
 
-        })
-        .on("end", function (event){
+          //node connectors
+          const line = document.getElementsByTagName("line");
 
-          const newLocation = d3.select(this)
+          if(line.length>0){
+            let line2 = line[0];
+
+            const localNode = document.getElementsByClassName("node");
+
+            //@ts-ignore
+            that.x1 = +localNode[localNode.length-2].getAttribute("x");
+            // @ts-ignore
+            that.y1 = +localNode[localNode.length-2].getAttribute("y");
+            // @ts-ignore
+            that.x2= +localNode[localNode.length-1].getAttribute("x");
+            // @ts-ignore
+            that.y2 = +localNode[localNode.length-1].getAttribute("y");
+
+            const linee = document.getElementsByClassName("mainLine")[0];
+
+            linee.setAttribute("x1",String(that.x1));
+            linee.setAttribute("x2",String(that.x2));
+            linee.setAttribute("y1",String(that.y1));
+            linee.setAttribute("y2",String(that.y2));
+          }
+        })
+        .on("end", function (event)  {
+
+          d3.select(this).raise().classed("active", false);
+          const newLocation = d3.select(this);
 
           newLocation.attr("x",event.x);
           newLocation.attr("y",event.y);
 
+
         })
+
 
     dragHandler(this.nodesContainer.selectAll("rect"));
 
     ++this.nodesCounter;
   }
 
+  updateLocal(localX1,localX2,localY1,localY2) : Coordinates{
+    localX1 = this.x1;
+    localX2 = this.x2;
+    localY1 = this.y1;
+    localY2 = this.y2;
+
+    this.coordinates.x1 = localX1;
+    this.coordinates.x2 = localX2;
+    this.coordinates.y1 = localY1;
+    this.coordinates.y2 = localY2;
+
+    return this.coordinates;
+  }
+
   linkNodes(){
     const nodesContainer = document.getElementById("nodeShapeContainer");
-    console.log(this.nodesCounter);
 
-    if(this.nodesCounter>1){
+    if(this.nodesCounter>0){
         // @ts-ignore
       const localNode = document.getElementsByClassName("node");
-      console.log(localNode);
 
-      console.log(localNode[0])
       // @ts-ignore
-      var x1: number = +localNode[0].getAttribute("x");
+      this.x1 = +localNode[localNode.length-2].getAttribute("x");
       // @ts-ignore
-      var x2:number = +localNode[0].getAttribute("y");
+      this.y1 = +localNode[localNode.length-2].getAttribute("y");
       // @ts-ignore
-      var y1: number = +localNode[1].getAttribute("x");
+      this.x2= +localNode[localNode.length-1].getAttribute("x");
       // @ts-ignore
-      var y2:number = +localNode[1].getAttribute("y");
+      this.y2 = +localNode[localNode.length-1].getAttribute("y");
 
       const svg = d3.select("#mainSvg");
 
       svg.append("line")
         .style("stroke", "black")
-        .attr("x1",x1)
-        .attr("x2",x2)
-        .attr("y1",y1)
-        .attr("y2",y2)
+        .attr("class", "mainLine")
+        .attr("x1",this.x1)
+        .attr("x2",this.x2)
+        .attr("y1",this.y1)
+        .attr("y2",this.y2)
     }
 
   }
