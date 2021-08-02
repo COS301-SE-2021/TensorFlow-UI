@@ -137,13 +137,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
           d3.select(this).raise().classed("active", false);
           const newLocation = d3.select(this);
 
-          console.log(newLocation.attr("x"));
-          console.log(newLocation.attr("y"));
-
-          this.addEventListener("mousemove",onMouseMove,false)
-
-          newLocation.attr("x",event.x-35);
-          newLocation.attr("y",event.y-27.5);
+          newLocation.attr("x",event.x+deltaX);
+          newLocation.attr("y",event.y+deltaY);
 
           const line = document.getElementsByTagName("line");
 
@@ -171,13 +166,14 @@ export class CanvasComponent implements OnInit,AfterViewInit{
         })
 
 
-    function onMouseMove(event){
-
-    }
-
     dragHandler(this.nodesContainer.selectAll("rect"));
 
     ++this.nodesCounter;
+  }
+
+  onMousemove(event){
+    var bound = event.target.getBoundingClientRect();
+    console.log(bound);
   }
 
   linkNodes(){
