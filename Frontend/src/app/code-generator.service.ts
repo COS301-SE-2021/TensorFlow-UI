@@ -130,10 +130,18 @@ export class CodeGeneratorService {
             break;
         }
 
-        thisDeclaration += "return result"
+        thisDeclaration += "return result\n"
 
         functionDeclaration += thisDeclaration;
       }
     }
+    return functionDeclaration;
+  }
+
+  createCombinedCode(json) {
+    var code = "";
+    code += this.createVariables(json);
+    code += this.createFunctions(json);
+    return code;
   }
 }
