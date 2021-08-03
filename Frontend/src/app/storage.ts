@@ -7,3 +7,13 @@ export const getThisState = (stateName) => {
     return undefined
   }
 }
+
+export const getItem = (itemName) => {
+  const items = getThisState(itemName)
+  if (items === undefined) {
+    return {todos : []}
+  } else {
+    return items
+  }
+}
+
