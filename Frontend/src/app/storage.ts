@@ -32,6 +32,19 @@ export const getItemByKey = (key) => {
   }
 }
 
+export const emptyLocalStorage = (reducerkeys) => {
+
+  try{
+    if(undefined != reducerkeys && reducerkeys.length > 0){
+      reducerkeys.forEach(key => {
+        localStorage.setItem(key,"");
+      })
+    }
+  }catch(err){
+    //console.log("ERROR===emptyLocalStorage==>>>")
+  }
+}
+
 export const deleteItemByKey = (key) => localStorage.setItem(key,"")
 
 export const clearStorage = () => localStorage.clear();
