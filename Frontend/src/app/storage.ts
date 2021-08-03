@@ -17,3 +17,8 @@ export const getItem = (itemName) => {
   }
 }
 
+export const saveItem = (key,data) => {
+  const serializedState = JSON.stringify(data);
+  localStorage.setItem(key,serializedState);
+}
+
