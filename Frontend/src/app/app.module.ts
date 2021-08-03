@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 import { Node } from './Node/node.component';
+import {createCustomElement} from "@angular/elements";
+import {NodeElementComponent} from "./Workspace/node-element/node-element.component";
 
 
 const modules = [
@@ -20,7 +22,7 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
-    Node,
+    Node
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -32,9 +34,18 @@ const modules = [
     modules
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    NodeElementComponent
+  ],
+  entryComponents: [NodeElementComponent]
 })
 export class AppModule {
+  constructor(private injector: Injector) {
+    const appNodeElement = createCustomElement(NodeElementComponent, {injector});
+    customElements.define('app-node-element', appNodeElement);
+  }
+  ngDoBootstrap() {}
     gun(){
 
     }
