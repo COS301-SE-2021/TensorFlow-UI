@@ -32,3 +32,6 @@ export const getItemByKey = (key) => {
   }
 }
 
+export const deleteItemByKey = (key) => localStorage.setItem(key,"")
+
+export const clearStorage = () => localStorage.clear();
