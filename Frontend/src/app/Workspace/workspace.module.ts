@@ -54,4 +54,5 @@ import {MatTableModule} from "@angular/material/table";
 })
 export class WorkspaceModule {
     workModeName: string;
+
 }
