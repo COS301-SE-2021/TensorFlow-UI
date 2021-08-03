@@ -1,10 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Node} from "../../Node/node";
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
-import {AppModule} from "../../app.module";
-import {AppComponent} from "../../app.component";
-import { ngstorage } from 'ngstorage';
 
 @Component({
   selector: 'app-node-element',
@@ -28,12 +24,6 @@ export class NodeElementComponent implements OnInit {
 
     this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeSection = editBool);
     this.data.currentNode;
-    var app = ngstorage.module('MyApp', ["ngStorage"])
-
-    app.controller('MyController', function ($scope, $localStorage, $sessionStorage, $window) {
-        $localStorage.LocalMessage = "LocalStorage: My name is Mudassar Khan.";
-        $sessionStorage.SessionMessage = "SessionStorage: My name is Mudassar Khan.";
-    });
   }
 
   delete(data: NodeData){
