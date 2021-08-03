@@ -31,12 +31,8 @@ html, body {
 }
 
 .draggable{
-  width: 9%;
-  min-height: 3rem;
   background-color: #29e;
   color: white;
-  border-radius: 0.75em;
   touch-action: none;
   user-select: none;
-  transform: translate(0px, 0px);
 }

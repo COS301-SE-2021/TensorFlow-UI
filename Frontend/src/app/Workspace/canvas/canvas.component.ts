@@ -2,7 +2,9 @@ import {Component, EventEmitter, OnInit, AfterViewInit} from '@angular/core';
 import * as d3 from 'd3';
 import interact from 'interactjs'
 
+
 import {Node} from "../../Node/node.component";
+import {NodeElementComponent} from "../node-element/node-element.component";
 import {NodeData} from "../../node-data";
 
 interface NodeType{
@@ -57,17 +59,15 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   }
 
   addNodeToCanvas(){
-    var canvasContainer = document.getElementById("nodeShapeContainer");
-    console.log(canvasContainer) ;
+    let canvasContainer = document.getElementById("nodeShapeContainer");
+    // console.log(canvasContainer) ;
 
-    var node = document.createElement('div');
-    node.classList.add('draggable');
-    node.style.height = "3rem";
-    node.style.width = "9%";
-    node.style.backgroundColor = "#29e";
-    node.style.borderRadius = "0.75em";
-    node.style.touchAction = "none";
-    node.style.transform = "translate(0px,0px)";
+    let nodeElement = document.createElement('app-node-element')
+    let node = document.createElement('div');
+    node.append(nodeElement);
+    node.className = "draggable";
+    node.style.height = "10px";
+    node.style.width = "10px";
 
     console.log(node);
 
