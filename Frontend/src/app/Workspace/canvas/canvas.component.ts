@@ -1,20 +1,8 @@
 import {Component, EventEmitter, OnInit, AfterViewInit} from '@angular/core';
 import * as d3 from 'd3';
 import interact from 'interactjs'
-
-import {Node} from "../../Node/node.component";
+import {Leaderline} from 'leader-line'
 import {NodeData} from "../../node-data";
-
-interface NodeType{
-
-}
-
-interface Coordinates {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}
 
 @Component({
   selector: 'app-canvas',
@@ -27,6 +15,11 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   private nodes: NodeData[];
   private nodesContainer;
   private nodesCounter: number=0;
+  private x1: number=0;
+  private x2: number=0;
+  private y1: number=0;
+  private y2: number=0;
+  private connector;
 
   constructor() {
 
@@ -38,73 +31,19 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     style("width", "100%").
     style("height", "100%");
 
+    this.nodesContainer = d3.select("#canvas")
+      .append("svg")
+      .attr("id","mainSvg")
+      .attr("width", "98%")
+      .attr("height", "100% ")
+      .style("border","2px solid black")
+      .style("left","1%")
+      .style("position", "absolute")
+
     this.initialiseCanvas();
   }
 
-  ngAfterViewInit(){
-
-    const draggableNode = this.canvas.selectAll("node")
-      .join("node")
-      .attr("x", d =>d.x)
-      .attr("y", d =>d.y)
-      .attr("stroke", "red")
-      .attr("stroke-width", 1.5)
-      .call(d3.drag()
-        .on("start", this.dragStarted)
-        .on("drag", this.dragged)
-        .on("end", this.dragEnded)
-      );
-  }
-
-  addNodeToCanvas(){
-    var canvasContainer = document.getElementById("nodeShapeContainer");
-    console.log(canvasContainer) ;
-
-    var node = document.createElement('div');
-    node.classList.add('draggable');
-    node.style.height = "3rem";
-    node.style.width = "9%";
-    node.style.backgroundColor = "#29e";
-    node.style.borderRadius = "0.75em";
-    node.style.touchAction = "none";
-    node.style.transform = "translate(0px,0px)";
-
-    console.log(node);
-
-    // @ts-ignore
-    canvasContainer.appendChild(node);
-
-    // this.initialiseCanvas();
-    ++this.nodesCounter;
-  }
-
-  dragStarted(event):void {
-    // const test = d3.select(this);
-    // d3.select(this).raise().classed("active", true);
-    //
-    // const current = d3.select(this)
-    // const xVal = +current.attr("x");
-    // const yVal = +current.attr("y");
-    //
-    // deltaX = xVal - event.x;
-    // deltaY = yVal - event.y;
-  }
-
-  dragged(node):void{
-    console.log("HERE_DRAGGED");
-    // d.xVal = x.invert(d3.event.x);
-    // d.yVal = y.invert(d3.event.y);
-    // d3.select(this).select("rect")
-    //   .attr("x", x(d.xVal))
-    //   .attr("y", y(d.yVal))
-    //   .attr("transform","translate("+d.xVal+","+d.yVal+")")
-    // console.log(d);
-  }
-
-  dragEnded(node): void{
-    console.log("HERE_END");
-    // d3.select(this).raise().classed("active",false);
-    //d3.select('rect#no-drag').on('mousedown.drag',null);
+  ngAfterViewInit() {
   }
 
   initialiseCanvas(){
@@ -127,8 +66,28 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       })
   }
 
+  addNodeToCanvas(){
+    var canvasContainer = document.getElementById("canvas");
+
+    var node = document.createElement('div');
+    node.classList.add('draggable');
+    node.style.height = "3rem";
+    node.style.width = "9%";
+    node.style.backgroundColor = "#29e";
+    node.style.borderRadius = "0.75em";
+    node.style.touchAction = "none";
+    node.style.transform = "translate(0px,0px)";
+    node.style.border = "2px solid black"
+
+    // @ts-ignore
+    canvasContainer.appendChild(node);
+
+    ++this.nodesCounter;
+  }
+
   dragListener (event) {
       var target = event.target
+
       // keep the dragged position in the data-x/data-y attributes
       var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
       var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
@@ -136,9 +95,83 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       // translate the element
       target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
 
+      const line = document.getElementsByTagName("line");
+      if(line.length>0){
+        let line2 = line[0];
+
+        const node = document.getElementsByClassName("draggable");
+        //@ts-ignore
+        const x1 = +node[node.length - 2].getAttribute("data-x");
+        //@ts-ignore
+        const y1 = +node[node.length - 2].getAttribute("data-y");
+        //@ts-ignore
+        const x2 = +node[node.length - 1].getAttribute("data-x");
+        //@ts-ignore
+        const y2 = +node[node.length - 1].getAttribute("data-y");
+
+        const linee = document.getElementById("mainLine");
+
+        //@ts-ignore
+        linee.setAttribute("x1",String(x1+15));
+        //@ts-ignore
+        linee.setAttribute("x2",String(x2-6));
+        //@ts-ignore
+        linee.setAttribute("y1",String(y1+5));
+        //@ts-ignore
+        linee.setAttribute("y2",String(y2+42));
+      }
+
       // update the position attributes
       target.setAttribute('data-x', x)
       target.setAttribute('data-y', y)
-
   }
+
+  linkNodes(){
+
+    const nodesContainer = document.getElementById("canvas");
+
+    if(this.nodesCounter>1) {
+      // @ts-ignore
+      const localNode = document.getElementsByClassName("draggable");
+
+// @ts-ignore
+      this.x1 = +localNode[localNode.length-2].getAttribute("data-x");
+      // @ts-ignore
+      this.y1 = +localNode[localNode.length-2].getAttribute("data-y");
+      // @ts-ignore
+      this.x2= +localNode[localNode.length-1].getAttribute("data-x");
+      // @ts-ignore
+      this.y2 = +localNode[localNode.length-1].getAttribute("data-y");
+
+      console.log(this);
+      console.log(document.getElementById("canvas"));
+
+      const svg = d3.select("#mainSvg");
+
+      svg.append("svg:defs").append("svg:marker")
+        .attr("id", "arrow")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("markerWidth", 5)
+        .attr("markerHeight", 5)
+        .attr("orient", "auto")
+        .append("svg:path")
+        .attr("d", "M0,-5L10,0L0,5");
+
+      svg.append("line")
+        .style("stroke", "green")
+        .style("stroke-width", "2")
+        .style("z-index","1")
+        .attr("id", "mainLine")
+        .attr('marker-end', 'url(#arrow)')
+        .attr("x1",this.x1+15)
+        .attr("y1",this.y1+5)
+        .attr("x2",this.x2-6)
+        .attr("y2",this.y2+48)
+
+      console.log("x1: "+this.x1+", y2: "+this.y1);
+      console.log("x2: "+this.x2+", y2: "+this.y2);
+      //@ts-ignore
+    }
+  }
+
 }

@@ -21,10 +21,13 @@
     "@angular/platform-browser-dynamic": "~12.0.4",
     "@angular/router": "~12.0.4",
     "@angular/service-worker": "~12.0.4",
+    "@ngrx/store": "^12.3.0",
     "@syncfusion/ej2-angular-diagrams": "^19.1.69",
     "d3": "^7.0.0",
     "d3-lasso": "0.0.5",
     "interactjs": "^1.10.11",
+    "leader-line": "^1.0.5",
+    "ngstorage": "^0.3.11",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

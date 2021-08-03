@@ -8,22 +8,20 @@ html, body {
   stroke-width: 2px;
 }
 
-#d3Canvas{
-  /*width: 500px;*/
-  /*height: 400px;*/
-  /*background-color: red;*/
-}
-
 #text{
   position: absolute;
 }
 
-#nodeShapeContainer{
+#canvas{
   border: 2px solid red;
   height: 100%;
+  width: 98%;
   margin-top: 1%;
   margin-left: 1%;
-  width: 98%;
+}
+
+#canvas button{
+  cursor: pointer;
 }
 
 .nodesLink{
@@ -40,3 +38,14 @@ html, body {
   user-select: none;
   transform: translate(0px, 0px);
 }
+
+#mainLine{
+  border: 2px solid red;
+  width: 100px;
+  height: 100px;
+  fill: #000;
+  stroke: #2299ee;
+  stroke-width: 5;
+  background-color: blue;
+}
+
