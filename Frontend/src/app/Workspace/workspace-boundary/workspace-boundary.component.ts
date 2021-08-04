@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
 import interact from 'interactjs';
@@ -8,7 +8,7 @@ import interact from 'interactjs';
   templateUrl: './workspace-boundary.component.html',
   styleUrls: ['./workspace-boundary.component.css']
 })
-export class WorkspaceBoundaryComponent implements OnInit {
+export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
 
   createNodeBool: boolean;
   createFormBool = false;
@@ -20,10 +20,15 @@ export class WorkspaceBoundaryComponent implements OnInit {
     this.data.createFormBoolean.subscribe(formBool => this.createFormBool = formBool);
     this.data.nodes = [];
     this.initWorkspace();
+
+    console.log(this.createNodeBool);
+  }
+
+  ngAfterContentInit() {
   }
 
   addNode() {
-    this.data.changeCreateFormBoolean(false);
+    // this.data.changeCreateFormBoolean(false);
     this.data.changeCreateNodeBoolean(false);
     this.data.nodes.push({
       num: this.data.nodes.length + 1,

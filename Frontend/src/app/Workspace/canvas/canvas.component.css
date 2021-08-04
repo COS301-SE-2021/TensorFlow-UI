@@ -3,27 +3,19 @@ html, body {
   margin: 0;
 }
 
-.active{
-  stroke: #000;
-  stroke-width: 2px;
+.NodesArr{
+  width: 90px;
 }
 
-#d3Canvas{
-  /*width: 500px;*/
-  /*height: 400px;*/
-  /*background-color: red;*/
-}
-
-#text{
-  position: absolute;
-}
-
-#nodeShapeContainer{
+#canvas{
   border: 2px solid red;
-  height: 100%;
+  height: 100rem;
+  width: 98%;
   margin-top: 1%;
   margin-left: 1%;
-  width: 98%;
+}
+#text{
+  position: absolute;
 }
 
 .nodesLink{

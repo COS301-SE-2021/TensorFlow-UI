@@ -13,7 +13,6 @@ import { Node } from './Node/node.component';
 import {createCustomElement} from "@angular/elements";
 import {NodeElementComponent} from "./Workspace/node-element/node-element.component";
 
-
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
   ComponentsModule, WorkspaceModule, MatCardModule,

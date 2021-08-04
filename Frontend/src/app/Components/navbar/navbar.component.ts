@@ -29,6 +29,10 @@ export class NavbarComponent implements OnInit{
     this.data.changeCreateNodeBoolean(true);
   }
 
+  createFunctionalNode(){
+
+  }
+
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
   showSubmenu: boolean = false;
