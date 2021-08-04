@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 @Component({
   selector: 'app-node-element',
@@ -24,6 +25,7 @@ export class NodeElementComponent implements OnInit {
 
     this.data.showNodeEditBoolean.subscribe(editBool => this.editNodeSection = editBool);
     this.data.currentNode;
+    localStorage.setItem(this.nodeData.num + "",JSON.stringify(this.nodeData))
   }
 
   delete(data: NodeData){
