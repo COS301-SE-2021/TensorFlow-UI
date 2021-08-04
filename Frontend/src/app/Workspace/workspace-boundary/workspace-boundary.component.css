@@ -34,3 +34,12 @@
   float: right;
   border: dotted #ccc 2px;
 }
+
+.draggable {
+  width: 1px;
+  height: 1px;
+  background-color: #29e;
+  color: white;
+  touch-action: none;
+  user-select: none;
+}
