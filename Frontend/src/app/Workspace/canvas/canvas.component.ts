@@ -19,10 +19,9 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   private x2: number=0;
   private y1: number=0;
   private y2: number=0;
-  private connector;
+  private points: [number,number][];
 
   constructor() {
-
   }
 
   ngOnInit(): void {
@@ -41,6 +40,23 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       .style("position", "absolute")
 
     this.initialiseCanvas();
+
+    // const svg = d3.create('svg').attr('height','400px').attr('width','450px');
+    // const curve = d3.line().
+    // curve(d3.curveNatural);
+    //
+    // var Gen =  d3.line()
+    //   .curve(d3.curveCardinal);
+    //
+    //
+    // svg.append('path')
+    //   .attr('d', 'M 185 200 1 150 0')
+    //   .attr('stroke', 'black')
+    //   .attr('stroke-width','5')
+    //   // with multiple points defined, if you leave out fill:none,
+    //   // the overlapping space defined by the points is filled with
+    //   // the default value of 'black'
+    //   .attr('fill', 'none');
   }
 
   ngAfterViewInit() {
@@ -67,10 +83,11 @@ export class CanvasComponent implements OnInit,AfterViewInit{
   }
 
   addNodeToCanvas(){
-    var canvasContainer = document.getElementById("canvas");
+    const canvasContainer = document.getElementById("canvas");
 
-    var node = document.createElement('div');
+    const node = document.createElement('div');
     node.classList.add('draggable');
+    node.classList.add('valueNodes');
     node.style.height = "3rem";
     node.style.width = "9%";
     node.style.backgroundColor = "#29e";
@@ -99,7 +116,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
       if(line.length>0){
         let line2 = line[0];
 
-        const node = document.getElementsByClassName("draggable");
+        const node = document.getElementsByClassName("valueNodes");
         //@ts-ignore
         const x1 = +node[node.length - 2].getAttribute("data-x");
         //@ts-ignore
@@ -132,7 +149,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
 
     if(this.nodesCounter>1) {
       // @ts-ignore
-      const localNode = document.getElementsByClassName("draggable");
+      const localNode = document.getElementsByClassName("valueNodes");
 
 // @ts-ignore
       this.x1 = +localNode[localNode.length-2].getAttribute("data-x");
@@ -174,4 +191,27 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     }
   }
 
+  clearCanvas(){
+    const nodes = document.getElementsByClassName("draggable");
+  }
+
+  addFuncNode(){
+    const canvasContainer = document.getElementById("canvas");
+
+    const node = document.createElement('div');
+    node.classList.add('draggable');
+    node.classList.add('functionalNode');
+    node.style.height = "2.2rem";
+    node.style.width = "9%";
+    node.style.backgroundColor = "#F2F2F2";
+    node.style.borderRadius = "2.3rem";
+    node.style.touchAction = "none";
+    node.style.transform = "translate(0px,0px)";
+    node.style.border = "2px solid black";
+
+    //@ts-ignore
+    canvasContainer.appendChild(node);
+    console.log(canvasContainer);
+  }
 }
+
