@@ -132,7 +132,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     canvasContainer.appendChild(node);
 
     ++this.nodesCounter;
-    localStorage.setItem("canvas",JSON.stringify(canvasContainer));
+    localStorage.setItem("canvas",JSON.stringify(node));
     //localStorage.setItem("canvas",JSON.stringify(this.canvas));
   }
 
@@ -246,5 +246,9 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     //@ts-ignore
     canvasContainer.appendChild(node);
     console.log(canvasContainer);
+  }
+
+  saveNodes(){
+
   }
 }
