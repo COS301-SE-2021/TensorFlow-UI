@@ -89,9 +89,10 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log("from LS: " + nodes);
     if(nodes != null) this.data.nodes = JSON.parse(nodes);
     console.log("node array: " + this.data.nodes)
-    for(var i = 0; i < this.data.nodes.length; i++){
+    /*for(var i = 0; i < this.data.nodes.length; i++){
       var node = this.data.nodes[i];
-    }
+
+    }*/
   }
 
   addNodeToCanvas(){
@@ -131,7 +132,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     canvasContainer.appendChild(node);
 
     ++this.nodesCounter;
-    localStorage.setItem("nodeArray",JSON.stringify(this.data.nodes));
+    localStorage.setItem("canvas",JSON.stringify(canvasContainer));
     //localStorage.setItem("canvas",JSON.stringify(this.canvas));
   }
 
