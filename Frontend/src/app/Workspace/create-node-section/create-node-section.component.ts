@@ -16,6 +16,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   nodeName = new FormControl('');
   nodeType = new FormControl('');
 
+
   nodeN = this.nodeName.value;
   nodeT = this.nodeType.value;
 
