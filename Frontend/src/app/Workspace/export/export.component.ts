@@ -13,7 +13,19 @@ export class ExportComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  export(){
+  showhide(){
+    var el = document.getElementById('hidden');
+    if (el != null){
+      if ( el.style.display == 'none'){
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+  }
+
+  exportToPc(){
     var data = {
       name: "cliff",
       age: "34",
@@ -24,7 +36,7 @@ export class ExportComponent implements OnInit {
     }
     var jsonData = JSON.stringify(data);
 
-    this.download(jsonData, 'json.json', 'text/plain');
+    this.download(jsonData, 'TFUIProject.json', 'text/plain');
   }
 
   download(content, fileName, contentType) {
@@ -35,4 +47,7 @@ export class ExportComponent implements OnInit {
     a.click();
   }
 
+  exportToLib(){
+    console.log("Exported ;-)")
+  }
 }
