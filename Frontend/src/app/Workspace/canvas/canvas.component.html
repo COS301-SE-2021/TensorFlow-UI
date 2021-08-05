@@ -1,7 +1,7 @@
 <div id="d3Canvas">
 
   <div *ngIf="createNodeBool">
-    {{addNodeToCanvas()}}
+    {{addNodeToCanvas(false)}}
   </div>
   <button id="addFuncNode" (click)="addFuncNode()">Add Func Node</button>
   <button id="saveButton" (click)="saveNodes()">Save Locally</button>
