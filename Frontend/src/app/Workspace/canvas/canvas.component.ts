@@ -89,9 +89,12 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log("from LS: " + nodes);
     if(nodes != null) this.data.nodes = JSON.parse(nodes);
     console.log("node array: " + this.data.nodes)
+    for(var i = 0; i < this.data.nodes.length; i++){
+      this.addNodeToCanvas(true)
+    }
   }
 
-  addNodeToCanvas(givenNode = null) {
+  addNodeToCanvas(givenNode: boolean) {
     console.log(this.data.nodes);
 
     this.data.changeCreateNodeBoolean(false);
@@ -119,7 +122,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     this.nodesArrayList.push(nodeName);
 
 
-    if (givenNode != null) {
+    if (!givenNode) {
       this.data.nodes.push({
         num: this.data.nodes.length + 1,
         name: nodeName,
