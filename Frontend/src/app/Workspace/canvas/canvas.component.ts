@@ -85,6 +85,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
           }
         }
       })
+    var nodes = localStorage.getItem("nodeArray");
+    if(nodes != null) this.data.nodes = JSON.parse(nodes);
   }
 
   addNodeToCanvas(){
@@ -124,6 +126,8 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     canvasContainer.appendChild(node);
 
     ++this.nodesCounter;
+    localStorage.setItem("nodeArray",JSON.stringify(this.data.nodes));
+    //localStorage.setItem("canvas",JSON.stringify(this.canvas));
   }
 
   dragListener (event) {
