@@ -138,8 +138,24 @@ export class CodeGeneratorService {
     return functionDeclaration;
   }
 
+  createModel(type : string, numLayers : Number, densityUnits : Array<Number>, activationTypes : Array<string>, trainingData : JSONFile) {
+    var code : string = "";
+    var layers : string = "";
+
+    for (let i = 0; i < numLayers; i++) {
+      layers.concat("model.add(Dense(units=" + densityUnits[i] + ", activation='" + activationTypes[i] + "))\n)";
+    }
+
+    code.concat("model = Sequential()\n" +
+      layers +
+      "model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')"
+    )
+  }
+
   createCombinedCode(json) {
-    var code = "";
+    var code = "import tensorflow as tf\n" +
+      "from tensorflow import keras\n" +
+      "from tensorflow.keras import layers\n";
     code += this.createVariables(json);
     code += this.createFunctions(json);
     return code;
