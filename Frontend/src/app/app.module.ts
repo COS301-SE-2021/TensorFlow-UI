@@ -34,16 +34,16 @@ const modules = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [
-    NodeElementComponent
-  ],
-  entryComponents: [NodeElementComponent]
+  // exports: [
+  //   NodeElementComponent
+  // ]
+  // entryComponents: [NodeElementComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) {
-    const appNodeElement = createCustomElement(NodeElementComponent, {injector});
-    customElements.define('app-node-element', appNodeElement);
-  }
+  // constructor(private injector: Injector) {
+  //   const appNodeElement = createCustomElement(NodeElementComponent, {injector});
+  //   customElements.define('app-node-element', appNodeElement);
+  // }
   ngDoBootstrap() {}
     gun(){
 
