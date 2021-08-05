@@ -15,16 +15,15 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
 
   constructor(public data: DataService) { }
 
+  ngAfterContentInit(): void {
+        throw new Error('Method not implemented.');
+    }
+
   ngOnInit(): void {
     this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
     this.data.createFormBoolean.subscribe(formBool => this.createFormBool = formBool);
     this.data.nodes = [];
-    this.initWorkspace();
-
-    console.log(this.createNodeBool);
-  }
-
-  ngAfterContentInit() {
+    // this.initWorkspace();
   }
 
   addNode() {
@@ -36,39 +35,39 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
       type: this.data.type
     });
   }
-
-  initWorkspace(){
-    interact('.draggable')
-        .draggable({
-          inertia: true,
-          modifiers: [
-            interact.modifiers.restrictRect({
-              restriction: 'parent',
-              endOnly: true
-            })
-          ],
-          autoScroll: true,
-          listeners: {
-            move: this.dragListener,
-            end(event){
-
-            }
-          }
-        })
-  }
-
-  dragListener (event) {
-    var target = event.target
-    // keep the dragged position in the data-x/data-y attributes
-    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-    // translate the element
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-
-    // update the position attributes
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
-
-  }
+  //
+  // initWorkspace(){
+  //   interact('.draggable')
+  //       .draggable({
+  //         inertia: true,
+  //         modifiers: [
+  //           interact.modifiers.restrictRect({
+  //             restriction: 'parent',
+  //             endOnly: true
+  //           })
+  //         ],
+  //         autoScroll: true,
+  //         listeners: {
+  //           move: this.dragListener,
+  //           end(event){
+  //
+  //           }
+  //         }
+  //       })
+  // }
+  //
+  // dragListener (event) {
+  //   var target = event.target
+  //   // keep the dragged position in the data-x/data-y attributes
+  //   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+  //   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+  //
+  //   // translate the element
+  //   target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+  //
+  //   // update the position attributes
+  //   target.setAttribute('data-x', x)
+  //   target.setAttribute('data-y', y)
+  //
+  // }
 }

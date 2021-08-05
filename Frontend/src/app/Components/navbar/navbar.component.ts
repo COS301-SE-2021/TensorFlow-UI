@@ -21,12 +21,17 @@ export class NavbarComponent implements OnInit{
     this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
   }
 
-  createNodeForm(){
-    this.data.changeCreateFormBoolean(true);
-  }
+  // createNodeForm(){
+  //   this.data.changeCreateFormBoolean(true);
+  // }
+
+  nodeName = "DefaultName";
+  nodeType = "DefaultType";
+
 
   createNode(){
     this.data.changeCreateNodeBoolean(true);
+    this.data.passFormDataToNode(this.nodeName, this.nodeType, "")
   }
 
   createFunctionalNode(){
