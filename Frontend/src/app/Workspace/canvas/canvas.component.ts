@@ -91,7 +91,7 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log("node array: " + this.data.nodes)
   }
 
-  addNodeToCanvas(){
+  addNodeToCanvas(givenNode = null) {
     console.log(this.data.nodes);
 
     this.data.changeCreateNodeBoolean(false);
@@ -118,18 +118,18 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     console.log(nodeName);
     this.nodesArrayList.push(nodeName);
 
-    this.data.nodes.push({
-      num: this.data.nodes.length + 1,
-      name: nodeName,
-      type: "valueNode"
-    });
 
+    if (givenNode != null) {
+      this.data.nodes.push({
+        num: this.data.nodes.length + 1,
+        name: nodeName,
+        type: "valueNode"
+      });
+    }
     // @ts-ignore
     canvasContainer.appendChild(node);
 
     ++this.nodesCounter;
-
-    //localStorage.setItem("canvas",JSON.stringify(this.canvas));
   }
 
   dragListener (event) {
