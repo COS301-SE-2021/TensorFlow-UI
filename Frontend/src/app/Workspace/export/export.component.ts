@@ -17,7 +17,7 @@ export class ExportComponent implements OnInit {
     var el = document.getElementById('hidden');
     if (el != null){
       if ( el.style.display == 'none'){
-        el.style.display = 'block';
+        el.style.display = 'inherit';
       } else {
         el.style.display = 'none';
       }
@@ -26,17 +26,22 @@ export class ExportComponent implements OnInit {
   }
 
   exportToPc(){
-    var data = {
-      name: "cliff",
-      age: "34",
-      name1: "ted",
-      age1: "42",
-      name2: "bob",
-      age2: "12"
-    }
-    var jsonData = JSON.stringify(data);
+    var el = document.getElementsByClassName("draggable");
+    if (el != null){
+      let lst = {};
+      for (var i = 1; i < el.length; i++) {
+        var html = el[i].outerHTML;
+        var data1 = {html : html};
+        //console.log(JSON.stringify(data1));
+        lst[i-1] = data1;
+      }
+      console.log(lst);
 
-    this.download(jsonData, 'TFUIProject.json', 'text/plain');
+      var jsonData = JSON.stringify(lst);
+
+      this.download(jsonData, 'TFUIProject.json', 'text/plain');
+    }
+
   }
 
   download(content, fileName, contentType) {
