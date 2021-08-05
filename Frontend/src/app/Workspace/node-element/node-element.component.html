@@ -1,15 +1,20 @@
 <div class="draggable">
-    <div class="workspace-box">
-        <mat-list>
-            <h1>Node: {{nodeData.num}}</h1>
-            <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
-            <mat-list-item> NodeType: {{nodeData.type}}</mat-list-item>
-        </mat-list>
-        <mat-form-field appearance="fill" class="NodesArr">
-            <mat-label>Output</mat-label>
-            <mat-select [formControl]="nodesArray" multiple>
-                <mat-option *ngFor="let nodeName of this.data.nodes" [value]="nodeName">{{nodeName.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+  <mat-list>
+    <h3>Node: {{nodeData.num}}</h3>
+    <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
+<!--    <mat-list-item> NodeType: {{nodeData.type}}</mat-list-item>-->
+  </mat-list>
+  <mat-form-field appearance="fill" class="NodesArr">
+    <mat-label>Output</mat-label>
+    <mat-select [formControl]="nodesArray" multiple>
+      <mat-option
+        *ngFor="let nodeName of this.data.nodes"
+        [value]="nodeName"
+        [ngStyle]="{ display: nodeName.name==nodeData.name ? 'none': 'block'}">
+
+        {{nodeName.name}}
+
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

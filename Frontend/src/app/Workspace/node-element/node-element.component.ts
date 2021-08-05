@@ -11,9 +11,10 @@ import { FormControl } from '@angular/forms';
 })
 export class NodeElementComponent implements OnInit {
 
-    @Input() nodeData: NodeData
-    nodesArray = new FormControl();
-    nodesArrayList: string[] = [];
+  @Input() nodeData: NodeData
+  nodesArray = new FormControl();
+  nodesArrayList: string[] = [];
+
 
   constructor(public data: DataService) {
       // this.data.nodes = data.nodes;
@@ -21,6 +22,7 @@ export class NodeElementComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialiseCanvas();
+    console.log(this.nodeData);
   }
 
   initialiseCanvas(){
@@ -29,7 +31,7 @@ export class NodeElementComponent implements OnInit {
           inertia: true,
           modifiers: [
             interact.modifiers.restrictRect({
-              restriction: 'parent',
+              restriction: '.workspace-boundary',
               endOnly: true
             })
           ],
@@ -37,8 +39,6 @@ export class NodeElementComponent implements OnInit {
           listeners: {
             move: this.dragListener,
             end(event){
-                console.log("x = " + (parseFloat(event.target.getAttribute('data-x')) || 0) + event.dx)
-                // console.log("x = " + event.target.getAttribute('data-x'))
             }
           }
         })
@@ -48,17 +48,12 @@ export class NodeElementComponent implements OnInit {
     let target = event.target
 
     // keep the dragged position in the data-x/data-y attributes
-    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-
-    // console.log(typeof target.getAttribute('data-x'))
-    // console.log()
+    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
     // translate the element
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 
-    // console.log("x" + x)
-    // console.log("y" + y)
     // update the position attributes
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)

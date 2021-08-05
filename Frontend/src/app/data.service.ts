@@ -24,6 +24,8 @@ export class DataService {
 
   private _name = "";
   private _type = "";
+  private _x:number=0; //change to private
+  private _y:number=0; //change to private
 
   private _nodes: NodeData[];
   private createNodeSource = new BehaviorSubject(false); //default = false
