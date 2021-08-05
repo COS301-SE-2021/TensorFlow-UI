@@ -66,6 +66,7 @@ export class CodeGeneratorService {
       return node.data;
     }
   }
+  /*
 
   createVariables(json) {
     var node = JSON.parse(json);
@@ -138,15 +139,17 @@ export class CodeGeneratorService {
     return functionDeclaration;
   }
 
+   */
+
   createModel(type : string, numLayers : Number, densityUnits : Array<Number>, activationTypes : Array<string>, trainingData : JSONFile | null) {
     var code : string = "";
     var layers : string = "";
 
     for (let i = 0; i < numLayers; i++) {
-      layers.concat("model.add(Dense(units=" + densityUnits[i] + ", activation='" + activationTypes[i] + "))\n)";
+      layers += "model.add(Dense(units=" + densityUnits[i] + ", activation='" + activationTypes[i] + "))\n)";
     }
 
-    code.concat("model = Sequential()\n" +
+    code += ("model = Sequential()\n" +
       layers +
       "model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')"
     )
@@ -154,6 +157,7 @@ export class CodeGeneratorService {
     return code;
   }
 
+  /*
   createCombinedCode(json) {
     var code = "import tensorflow\n" +
       "import pandas as pd\n";
@@ -161,4 +165,6 @@ export class CodeGeneratorService {
     code += this.createFunctions(json);
     return code;
   }
+
+   */
 }
