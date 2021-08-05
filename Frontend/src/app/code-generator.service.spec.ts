@@ -53,6 +53,27 @@ describe('CodeGeneratorService', () => {
     let a : Node = new Node("a", "variable", null, null, "1", true, "a");
     let b : Node = new Node("b", "variable", null, null, "2", true, "b");
     let numpy : Node = new Node("numpy", "library", null, null, null, true, "import numpy")
-    
+
   })
+
+  it("model = tf.keras.Sequential()\n" +
+    "model.add(tf.keras.layers.Dense(8))\n" +
+    "model.add(tf.keras.layers.Dense(1))\n" +
+    "model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')\n", () => {
+    let type = "sequential";
+    let numlayers = 2;
+    let dUnits = new Array<Number>(2);
+    dUnits.push(8);
+    dUnits.push(1);
+    let aTypes = new Array<string>(2);
+    aTypes.push("relu");
+    aTypes.push("relu");
+    let output = service.createModel(type, numlayers, dUnits, aTypes, null);
+    expect(output).toBe(
+      "model = tf.keras.Sequential()\n" +
+      "model.add(tf.keras.layers.Dense(8))\n" +
+      "model.add(tf.keras.layers.Dense(1))\n" +
+      "model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')\n"
+    );
+  });
 });

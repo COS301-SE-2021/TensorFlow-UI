@@ -138,7 +138,7 @@ export class CodeGeneratorService {
     return functionDeclaration;
   }
 
-  createModel(type : string, numLayers : Number, densityUnits : Array<Number>, activationTypes : Array<string>, trainingData : JSONFile) {
+  createModel(type : string, numLayers : Number, densityUnits : Array<Number>, activationTypes : Array<string>, trainingData : JSONFile | null) {
     var code : string = "";
     var layers : string = "";
 
@@ -150,12 +150,13 @@ export class CodeGeneratorService {
       layers +
       "model.compile(loss='binary_crossentropy', optimizer='sgd', metrics='accuracy')"
     )
+
+    return code;
   }
 
   createCombinedCode(json) {
-    var code = "import tensorflow as tf\n" +
-      "from tensorflow import keras\n" +
-      "from tensorflow.keras import layers\n";
+    var code = "import tensorflow\n" +
+      "import pandas as pd\n";
     code += this.createVariables(json);
     code += this.createFunctions(json);
     return code;
