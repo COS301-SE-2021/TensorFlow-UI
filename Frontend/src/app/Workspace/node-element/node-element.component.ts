@@ -18,7 +18,7 @@ export class NodeElementComponent implements OnInit {
 
   constructor(public data: DataService) {
   }
-  
+
 
   ngOnInit(): void {
     this.initialiseCanvas();

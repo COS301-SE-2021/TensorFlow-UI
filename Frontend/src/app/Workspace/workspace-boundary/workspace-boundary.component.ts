@@ -48,5 +48,4 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
     });
 
   }
-
 }
