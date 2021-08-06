@@ -1,17 +1,16 @@
 <div class="workspace-boundary">
-  <div *ngIf="createFormBool">
-    <app-create-node-section></app-create-node-section>
-      <!-- Need to add create node section -->
-      <!-- <app-create-node-section></app-create-node-section> -->
+  <div id="canvas">
+
   </div>
   <div *ngIf="createNodeBool">
-    {{addNode()}}
+    {{addNodeToWorkspace()}}
   </div>
+
   <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
 
-  <div *ngIf="editNodeBool">
+  <!--<div *ngIf="editNodeBool">
     <app-edit-node></app-edit-node>
-  </div>
+  </div>-->
 
 <!--  <app-edit-node></app-edit-node>-->
 </div>
