@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import {Node} from "../../Node/node";
 import {FormControl } from '@angular/forms';
 import {DataService} from "../../data.service";
 
@@ -16,6 +15,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   nodeResult: String;
   nodeName = new FormControl('');
   nodeType = new FormControl('');
+
 
   nodeN = this.nodeName.value;
   nodeT = this.nodeType.value;
@@ -39,12 +39,6 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
         //this.nodeCreated = true;
         this.data.changeCreateNodeBoolean(true);
         this.data.passFormDataToNode(this.nodeName.value,this.nodeType.value,"void");
-        console.log("Set to true");
-        console.log(this.createNodeBool);
-        //this.model.name = this.nodeName.value;
-        //this.model.nodeType = this.nodeType.value;
-        //this.addNewItem(new Node(this.model.name,this.model.nodeType,null,null,""));
-        //this.newItemEvent.emit(this.nodeForm);
       }
   }
 }

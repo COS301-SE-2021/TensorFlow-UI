@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NodeElementComponent } from './node-element.component';
 
-describe('NodeElementComponent', () => {
-  let component: NodeElementComponent;
-  let fixture: ComponentFixture<NodeElementComponent>;
+import { PieComponent } from './pie.component';
+
+describe('PieComponent', () => {
+  let component: PieComponent;
+  let fixture: ComponentFixture<PieComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NodeElementComponent ]
+      declarations: [ PieComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NodeElementComponent);
+    fixture = TestBed.createComponent(PieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

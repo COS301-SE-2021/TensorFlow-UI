@@ -1,10 +1,8 @@
 package capstone.TensorflowUI;
 
-import org.junit.jupiter.api.Test;
 
-public class JsonTesting extends TensorflowUiApplicationTests {
+public class JsonTesting extends TensorflowUiIntegrationTests {
 
-    @Test
     public void createNode()  { //throws JsonProcessingException
 
     int id = 1;

@@ -1,0 +1,21 @@
+<div id="d3Canvas">
+
+  <div *ngIf="createNodeBool">
+    {{addNodeToCanvas(false)}}
+  </div>
+  <button id="addFuncNode" (click)="addFuncNode()">Add Func Node</button>
+  <button id="saveButton" (click)="saveNodes()">Save Locally</button>
+  <!--<app-export></app-export>-->
+  <div id="canvas">
+
+  </div>
+
+  <mat-form-field appearance="fill" class="NodesArr">
+    <mat-label>Output</mat-label>
+    <mat-select [formControl]="nodesArray" multiple>
+      <mat-option *ngFor="let nodeName of nodesArrayList" [value]="nodeName">{{nodeName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
