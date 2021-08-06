@@ -17,7 +17,7 @@ export class ExportComponent implements OnInit {
     var el = document.getElementById('hidden');
     if (el != null){
       if ( el.style.display == 'none'){
-        el.style.display = 'inherit';
+        el.style.display = 'block';
       } else {
         el.style.display = 'none';
       }
@@ -41,7 +41,7 @@ export class ExportComponent implements OnInit {
 
       this.download(jsonData, 'TFUIProject.json', 'text/plain');
     }
-
+    this.showhide();
   }
 
   download(content, fileName, contentType) {
@@ -54,5 +54,6 @@ export class ExportComponent implements OnInit {
 
   exportToLib(){
     console.log("Exported ;-)")
+    this.showhide();
   }
 }
