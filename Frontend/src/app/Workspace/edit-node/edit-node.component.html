@@ -1,0 +1,39 @@
+<mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
+  <div class="nodeName">
+    <h1>Component Details</h1>
+  </div>
+
+  <form #nodeForm="ngForm" (ngSubmit)="onClickSubmit(nodeForm.value)">
+    <mat-nav-list class="nodeDetails">
+      <mat-form-field class="example-full-width">
+        <mat-label>Node name</mat-label>
+        <input id="nodeName" type="text" matInput placeholder="{{this.data.currentNode.name}}" [formControl]="nodeName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Node type</mat-label>
+        <mat-select [formControl]="nodeType">
+          <mat-option value="Array">Array</mat-option>
+          <mat-option value="Boolean">Boolean</mat-option>
+          <mat-option value="Integer">Integer</mat-option>
+          <mat-option value="String">String</mat-option>
+          <mat-option value="Void">Void</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-list>Output Node: </mat-list>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Output Node</mat-label>
+        <select matNativeControl required>
+          <option *ngFor="let node of this.data.nodes" value="{{node.name }}">
+            {{node.name}}
+          </option>
+          <option value="Null">Null</option>
+        </select>
+      </mat-form-field>
+    </mat-nav-list>
+
+    <button type="submit" class="updateNodeButton" mat-raised-button>Update Node</button>
+  </form>
+</mat-sidenav>

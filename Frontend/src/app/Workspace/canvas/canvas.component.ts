@@ -122,13 +122,13 @@ export class CanvasComponent implements OnInit,AfterViewInit{
     this.nodesArrayList.push(nodeName);
 
 
-    if (!givenNode) {
-      this.data.nodes.push({
-        num: this.data.nodes.length + 1,
-        name: nodeName,
-        type: "valueNode"
-      });
-    }
+    // if (!givenNode) {
+    //   this.data.nodes.push({
+    //     num: this.data.nodes.length + 1,
+    //     name: nodeName,
+    //     type: "valueNode"
+    //   });
+    // }
     // @ts-ignore
     canvasContainer.appendChild(node);
 
