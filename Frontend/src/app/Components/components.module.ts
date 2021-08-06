@@ -12,6 +12,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatCardModule} from "@angular/material/card";
 import {WorkspaceModule} from "../Workspace/workspace.module";
+import {ExportComponent} from "../Workspace/export/export.component";
 
 @NgModule({
     imports: [

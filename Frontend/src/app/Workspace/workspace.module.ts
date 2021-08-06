@@ -21,7 +21,7 @@ import {NodeElementComponent } from './node-element/node-element.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 import { CanvasComponent } from './canvas/canvas.component';
 import {ExportComponent} from "./export/export.component";
-import { ImportComponent } from './import/import.component';
+//import { ImportComponent } from './import/import.component';
 
 @NgModule({
     imports: [
