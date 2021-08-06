@@ -47,6 +47,7 @@ import { CanvasComponent } from './canvas/canvas.component';
         CanvasComponent,
         NodeElementComponent
     ]
+
 })
 export class WorkspaceModule {
     workModeName: string;

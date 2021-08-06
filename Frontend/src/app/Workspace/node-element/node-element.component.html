@@ -4,6 +4,7 @@
     <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
 <!--    <mat-list-item> NodeType: {{nodeData.type}}</mat-list-item>-->
   </mat-list>
+
   <mat-form-field appearance="fill" class="NodesArr">
     <mat-label>Output</mat-label>
     <mat-select [formControl]="nodesArray" (selectionChange)="linkNodes($event)" multiple>

@@ -20,6 +20,13 @@ export class NodeElementComponent implements OnInit {
       // this.data.nodes = data.nodes;
   }
 
+
+  showEditSection(event,data: NodeData){
+    this.data.changeEditNodeView(!this.editNodeSection);
+    this.data.currentNode = data; //how to fix this
+    //this.data.changeCurrentNode(data);
+  }
+
   ngOnInit(): void {
     this.initialiseCanvas();
   }
