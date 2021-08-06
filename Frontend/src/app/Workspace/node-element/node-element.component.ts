@@ -14,24 +14,25 @@ export class NodeElementComponent implements OnInit {
 
   @Input() nodeData: NodeData
   nodesArray = new FormControl();
-  nodesArrayList: string[] = [];
+  lineConnectorCount: number=0;
 
   constructor(public data: DataService) {
-      // this.data.nodes = data.nodes;
   }
 
-
-  /*showEditSection(event,data: NodeData){
-    this.data.changeEditNodeView(!this.editNodeSection);
-    this.data.currentNode = data; //how to fix this
-    //this.data.changeCurrentNode(data);
-  }*/
 
   ngOnInit(): void {
     this.initialiseCanvas();
   }
 
   initialiseCanvas(){
+    /*
+      To keep the 'this' pointer accessible inside the dragListener and end event functions, 'this' is
+      assigned to the variable 'that'
+
+      However 'that' does not hold the accurate pointer to 'this', but rather the pointer to the last
+      NodeElementComponent created.So it is only used to have access to the data object, which contains
+      the array of all nodes.
+    */
     const that = this;
     interact('.draggable')
         .draggable({
@@ -64,8 +65,38 @@ export class NodeElementComponent implements OnInit {
                 thisNode.y = y;
               }
 
-              console.log(thisNode);
+              //Update the path position as the node moves
+              if(thisNode!=undefined){
 
+                  for(let i=0; i<thisNode.connectors.length; ++i){
+                    const connector = thisNode.connectors[i];
+
+                    if(thisNode == connector.sourceNode){
+                      // console.log("I am the source");
+                      connector.sourceNode.x = thisNode.x;
+                      connector.sourceNode.y = thisNode.y;
+
+                      //Find the actual specific svg line using the class names it has
+                      const svgLine = document.getElementsByClassName(connector.sourceNode.name+" "+connector.targetNode.name)[0];
+
+                      svgLine.setAttribute("x1",String(thisNode.x));
+                      svgLine.setAttribute("y1",String(thisNode.y));
+                    }
+                    else if(thisNode == connector.targetNode){
+                      // console.log("I am the target");
+
+                      connector.targetNode.x = thisNode.x;
+                      connector.targetNode.y = thisNode.y;
+
+                      //Find the actual specific svg line using the class names it has
+                      const svgLine = document.getElementsByClassName(connector.sourceNode.name+" "+connector.targetNode.name)[0];
+
+                      svgLine.setAttribute("x2",String(thisNode.x));
+                      svgLine.setAttribute("y2",String(thisNode.y));
+                    }
+                  }
+
+              }
             },
             end(event){
               //Update nodeData coordinates after drag ends
@@ -73,9 +104,10 @@ export class NodeElementComponent implements OnInit {
               if(thisNode!=undefined){
                 thisNode.x = event.target.getAttribute('data-x');
                 thisNode.y = event.target.getAttribute('data-y');
-                console.log("Updated")
-                console.log(thisNode);
               }
+              console.log(event.target);
+              console.log(event.target.parentElement);
+              console.log(event.target.parentElement.parentElement);
             }
           }
         })
@@ -101,6 +133,7 @@ export class NodeElementComponent implements OnInit {
 
   linkNodes(event){
 
+    ++this.lineConnectorCount;
     for(let i=0; i<event.value.length;++i){
       const targetNodeName = event.value[i].name;
       const targetInArray = this.data.nodes.find(element => element.name === targetNodeName);
@@ -112,10 +145,23 @@ export class NodeElementComponent implements OnInit {
         const targetY = targetInArray.y;
 
         this.nodeData.connectors.push({
+          id: this.lineConnectorCount,
           x1: sourceX,
           y1: sourceY,
           x2: targetX,
-          y2: targetY
+          y2: targetY,
+          sourceNode: this.nodeData,
+          targetNode: targetInArray
+        })
+
+        targetInArray.connectors.push({
+          id: this.lineConnectorCount,
+          x1: sourceX,
+          y1: sourceY,
+          x2: targetX,
+          y2: targetY,
+          sourceNode: this.nodeData,
+          targetNode: targetInArray
         })
 
         const svg = d3.select("#mainSvg");
@@ -129,20 +175,18 @@ export class NodeElementComponent implements OnInit {
           .append("svg:path")
           .attr("d", "M0,-5L10,0L0,5");
 
-        console.log("SourceX: "+sourceX)
-        console.log("SourceY: "+sourceY)
-
-        svg.append("path")
+        svg.append("line")
           .style("stroke", "green")
           .style("stroke-width", "2")
           .style("z-index", "1")
-          .attr("id", this.nodeData.name)
+          .attr("class", this.nodeData.name + " "+targetInArray.name)
+          .attr("id", "line"+this.lineConnectorCount)
           .attr('marker-end', 'url(#arrow)')
-          .attr("d","M"+sourceX+" "+sourceY+"L"+targetX+" "+targetY)
-          // .attr("x1",  50)
-          // .attr("y1", event.dy)
-          // .attr("x2", 350)
-          // .attr("y2", 150)
+          // .attr("d","M"+sourceX+" "+sourceY+"L"+targetX+" "+targetY)
+          .attr("x1",  sourceX)
+          .attr("y1", sourceY)
+          .attr("x2", targetX)
+          .attr("y2", targetY)
       }
     }
   }

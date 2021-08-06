@@ -21,6 +21,7 @@ import {NodeElementComponent } from './node-element/node-element.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 import { CanvasComponent } from './canvas/canvas.component';
 import {ExportComponent} from "./export/export.component";
+import { FuncNodeElementComponent } from './func-node-element/func-node-element.component';
 //import { ImportComponent } from './import/import.component';
 
 @NgModule({
@@ -42,12 +43,14 @@ import {ExportComponent} from "./export/export.component";
         CreateNodeSectionComponent,
         NodeElementComponent,
         CanvasComponent,
+        FuncNodeElementComponent,
     ],
     exports: [
         WorkspaceBoundaryComponent,
         CreateNodeSectionComponent,
         CanvasComponent,
-        NodeElementComponent
+        NodeElementComponent,
+        FuncNodeElementComponent
     ]
 
 })
