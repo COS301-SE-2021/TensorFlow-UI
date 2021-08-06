@@ -165,9 +165,17 @@ export class CodeGeneratorService {
     return code;
   }
 
-  createLayer() {}
+  createLayer(type :string, density : number, activationType : string | null) {
+    var activationString : string = "";
+    if (activationType != null) {
+      activationString =  ", activation='" + activationType + "'";
+    }
+    return "model.add(" + type + "(units=" + density + + "'" + activationString +  "))\n";
+  }
 
-  createCompile() {}
+  createCompile(loss : string | null, optimiser : string |  null, metric : string | null) {
+    
+  }
 
   createTrain() {}
 
