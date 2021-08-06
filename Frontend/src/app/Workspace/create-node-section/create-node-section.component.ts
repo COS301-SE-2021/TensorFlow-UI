@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import {Node} from "../../Node/node";
 import {FormControl } from '@angular/forms';
 import {DataService} from "../../data.service";
 
@@ -16,6 +15,7 @@ export class CreateNodeSectionComponent implements OnInit { //HeroFormComponent
   nodeResult: String;
   nodeName = new FormControl('');
   nodeType = new FormControl('');
+
 
   nodeN = this.nodeName.value;
   nodeT = this.nodeType.value;

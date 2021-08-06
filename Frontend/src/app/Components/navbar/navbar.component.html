@@ -15,7 +15,10 @@
         </mat-icon>
       </mat-list-item>
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-        <button class="createComponentButton" mat-raised-button color="primary" (click)="createNodeForm()">Create Component</button>
+        <button class="createComponentButton" mat-raised-button color="primary" (click)="createNode()">Create Component</button>
+      </div>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+        <app-export></app-export>
       </div>
     </mat-nav-list>
     <mat-nav-list>
@@ -24,6 +27,7 @@
   <mat-sidenav-content>
     <app-workspace-boundary>
     </app-workspace-boundary> <!--For the workspace boundary section-->
+
   </mat-sidenav-content>
 
 </mat-sidenav-container>

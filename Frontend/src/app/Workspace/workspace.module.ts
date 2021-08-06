@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule } from '@angular/common';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -18,33 +18,38 @@ import {FormBuilder} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NodeElementComponent } from './node-element/node-element.component';
-import { LineConnectorComponent } from './line-connector/line-connector.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
+import { CanvasComponent } from './canvas/canvas.component';
+import {ExportComponent} from "./export/export.component";
+//import { ImportComponent } from './import/import.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    DiagramModule
-  ],
-  declarations: [
-    WorkspaceBoundaryComponent,
-    CreateNodeSectionComponent,
-    NodeElementComponent,
-    LineConnectorComponent,
-  ],
-  exports: [
-    WorkspaceBoundaryComponent,
-    CreateNodeSectionComponent
-  ]
+    imports: [
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        DiagramModule,
+    ],
+    declarations: [
+        WorkspaceBoundaryComponent,
+        CreateNodeSectionComponent,
+        NodeElementComponent,
+        CanvasComponent,
+    ],
+    exports: [
+        WorkspaceBoundaryComponent,
+        CreateNodeSectionComponent,
+        CanvasComponent,
+        NodeElementComponent
+    ]
+
 })
 export class WorkspaceModule {
     workModeName: string;
