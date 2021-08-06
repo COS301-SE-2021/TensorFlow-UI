@@ -29,9 +29,10 @@ import {ExportComponent} from "../Workspace/export/export.component";
         MatCardModule,
         WorkspaceModule,
     ],
-  declarations: [
-    NavbarComponent,
-  ],
+    declarations: [
+        NavbarComponent,
+        ExportComponent,
+    ],
   exports: [
     NavbarComponent,
   ]
