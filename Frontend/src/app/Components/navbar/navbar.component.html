@@ -17,6 +17,9 @@
       <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
         <button class="createComponentButton" mat-raised-button color="primary" (click)="createNode()">Create Component</button>
       </div>
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+        <app-export></app-export>
+      </div>
     </mat-nav-list>
     <mat-nav-list>
     </mat-nav-list>
