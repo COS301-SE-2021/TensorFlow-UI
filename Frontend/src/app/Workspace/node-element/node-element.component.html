@@ -1,4 +1,4 @@
-<div class="draggable">
+<div class="draggable" id="{{nodeData.name}}">
   <mat-list>
     <h3>Node: {{nodeData.num}}</h3>
     <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
@@ -6,7 +6,7 @@
   </mat-list>
   <mat-form-field appearance="fill" class="NodesArr">
     <mat-label>Output</mat-label>
-    <mat-select [formControl]="nodesArray" multiple>
+    <mat-select [formControl]="nodesArray" (selectionChange)="linkNodes($event)" multiple>
       <mat-option
         *ngFor="let nodeName of this.data.nodes"
         [value]="nodeName"

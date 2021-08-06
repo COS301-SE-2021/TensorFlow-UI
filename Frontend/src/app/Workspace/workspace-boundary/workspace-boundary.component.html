@@ -1,11 +1,11 @@
 <div class="workspace-boundary">
-<!--    <div *ngIf="createFormBool">-->
-<!--        <app-create-node-section></app-create-node-section>-->
-<!--    </div>-->
-    <div *ngIf="createNodeBool">
-        {{addNodeToWorkspace()}}
-    </div>
-    <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
+  <div id="canvas">
 
-<!--    <app-canvas></app-canvas>-->
+  </div>
+  <div *ngIf="createNodeBool">
+    {{addNodeToWorkspace()}}
+  </div>
+
+  <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
+
 </div>
