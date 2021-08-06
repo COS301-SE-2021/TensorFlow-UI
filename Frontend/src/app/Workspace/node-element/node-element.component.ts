@@ -107,8 +107,6 @@ export class NodeElementComponent implements OnInit {
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 
-
-
   }
 
   linkNodes(event){
