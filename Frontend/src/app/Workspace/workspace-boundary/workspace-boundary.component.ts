@@ -14,7 +14,6 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
   createNodeBool: boolean;
   reloadWorkspace: boolean;
 
-
   constructor(public data: DataService) { }
 
   ngAfterContentInit(): void {
@@ -47,6 +46,7 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
       x: 0,
       y: 0
     });
+
   }
 
 }
