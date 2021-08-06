@@ -76,6 +76,18 @@ export class NodeElementComponent implements OnInit {
                 console.log("Updated")
                 console.log(thisNode);
               }
+              var nodes = localStorage.getItem("nodesArray");
+              if(nodes != null) {
+                var nodesarray = JSON.parse(nodes)
+                if (nodesarray != null) {
+                  for (var i = 0; i < nodesarray.length; i++) {
+                    if(that.nodeData.num == nodesarray[i].num){
+                      nodesarray[i] = that;
+                    }
+                  }
+                }
+                localStorage.setItem("nodesArray",JSON.stringify(nodesarray))
+              }
             }
           }
         })
