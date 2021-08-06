@@ -66,7 +66,6 @@ export class CodeGeneratorService {
       return node.data;
     }
   }
-  /*
 
   createVariables(json) {
     var node = JSON.parse(json);
@@ -81,6 +80,7 @@ export class CodeGeneratorService {
     return variableDeclaration;
   }
 
+  /*
   createFunctions(json) {
     var node = JSON.parse(json);
     var functionDeclaration : String = "";
@@ -139,6 +139,14 @@ export class CodeGeneratorService {
     return functionDeclaration;
   }
 
+  createCombinedCode(json) {
+    var code = "import tensorflow\n" +
+      "import pandas as pd\n";
+    code += this.createVariables(json);
+    code += this.createFunctions(json);
+    return code;
+  }
+
    */
 
   createModel(type : string, numLayers : Number, densityUnits : Array<Number>, activationTypes : Array<string>, trainingData : JSONFile | null) {
@@ -146,7 +154,7 @@ export class CodeGeneratorService {
     var layers : string = "";
 
     for (let i = 0; i < numLayers; i++) {
-      layers += "model.add(Dense(units=" + densityUnits[i] + ", activation='" + activationTypes[i] + "))\n)";
+      layers += "model.add(Dense(units=" + densityUnits[i] + ", activation='" + activationTypes[i] + "'))\n";
     }
 
     code += ("model = Sequential()\n" +
@@ -157,14 +165,11 @@ export class CodeGeneratorService {
     return code;
   }
 
-  /*
-  createCombinedCode(json) {
-    var code = "import tensorflow\n" +
-      "import pandas as pd\n";
-    code += this.createVariables(json);
-    code += this.createFunctions(json);
-    return code;
-  }
+  createLayer() {}
 
-   */
+  createCompile() {}
+
+  createTrain() {}
+
+
 }
