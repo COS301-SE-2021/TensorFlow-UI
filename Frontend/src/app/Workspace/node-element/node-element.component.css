@@ -17,3 +17,20 @@
 .mat-list-item{
   font-size: 0.75rem;
 }
+
+.functionalNode{
+  height: 2.2rem;
+  width: 9%;
+  background-color: #F2F2F2;
+  border-radius: 2.3rem;
+}
+
+/*node.classList.add('draggable');*/
+/*node.classList.add('functionalNode');*/
+/*node.style.height = "2.2rem";*/
+/*node.style.width = "9%";*/
+/*node.style.backgroundColor = "#F2F2F2";*/
+/*node.style.borderRadius = "2.3rem";*/
+/*node.style.touchAction = "none";*/
+/*node.style.transform = "translate(0px,0px)";*/
+/*node.style.border = "2px solid black";*/

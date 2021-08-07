@@ -14,7 +14,6 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
   createNodeBool: boolean;
   reloadWorkspace: boolean;
 
-
   constructor(public data: DataService) { }
 
   ngAfterContentInit(): void {
@@ -32,8 +31,6 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
       .attr("height", "100rem ")
       .style("border","2px solid black")
       .style("position", "absolute")
-    var nodes = localStorage.getItem("nodeArray");
-    if(nodes != null) this.data.nodes = JSON.parse(nodes);
   }
 
   addNodeToWorkspace() {
@@ -49,7 +46,6 @@ export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
       x: 0,
       y: 0
     });
-    localStorage.setItem("nodeArray",JSON.stringify(this.data.nodes));
-  }
 
+  }
 }
