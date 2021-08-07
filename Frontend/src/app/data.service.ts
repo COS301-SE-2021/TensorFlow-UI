@@ -30,6 +30,10 @@ export class DataService {
     return this._currentNode;
   }
 
+  set nodeCreationBoolean(create: boolean) {
+    this._nodeCreationBoolean = create;
+  }
+
   private _name = "";
   private _type = "";
   private _x:number=0; //change to private
@@ -37,6 +41,7 @@ export class DataService {
 
   private _nodes: NodeData[];
   private _currentNode: NodeData;
+  private _nodeCreationBoolean: boolean;
 
   private tempNode: NodeData[] = [];
 
@@ -45,7 +50,6 @@ export class DataService {
 
   createNodeBoolean = this.createNodeSource.asObservable();
   createFormBoolean = this.createFormSource.asObservable();
-
 
   constructor() {
   }
@@ -62,7 +66,6 @@ export class DataService {
     this._name = nodeName;
     this._type = nodeDataType;
   }
-
 
   applyZoomableBehaviour() {}
   applyDraggableBehaviour() {}

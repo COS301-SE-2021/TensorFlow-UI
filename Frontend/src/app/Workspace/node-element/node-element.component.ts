@@ -72,7 +72,7 @@ export class NodeElementComponent implements OnInit {
                     const connector = thisNode.connectors[i];
 
                     if(thisNode == connector.sourceNode){
-                      // console.log("I am the source");
+                      console.log("I am the source");
                       connector.sourceNode.x = thisNode.x;
                       connector.sourceNode.y = thisNode.y;
 
@@ -83,7 +83,7 @@ export class NodeElementComponent implements OnInit {
                       svgLine.setAttribute("y1",String(thisNode.y));
                     }
                     else if(thisNode == connector.targetNode){
-                      // console.log("I am the target");
+                      console.log("I am the target");
 
                       connector.targetNode.x = thisNode.x;
                       connector.targetNode.y = thisNode.y;
@@ -91,8 +91,8 @@ export class NodeElementComponent implements OnInit {
                       //Find the actual specific svg line using the class names it has
                       const svgLine = document.getElementsByClassName(connector.sourceNode.name+" "+connector.targetNode.name)[0];
 
-                      svgLine.setAttribute("x2",String(thisNode.x));
-                      svgLine.setAttribute("y2",String(thisNode.y));
+                      svgLine.setAttribute("x2",String(thisNode.x + event.target.parentElement.offsetLeft));
+                      svgLine.setAttribute("y2",String(thisNode.y + event.target.parentElement.offsetTop));
                     }
                   }
 
@@ -106,8 +106,10 @@ export class NodeElementComponent implements OnInit {
                 thisNode.y = event.target.getAttribute('data-y');
               }
               console.log(event.target);
-              console.log(event.target.parentElement);
-              console.log(event.target.parentElement.parentElement);
+              console.log(event.target.parentElement.offsetTop);
+              console.log(event.target.parentElement.offsetLeft);
+              //console.log(event.target.parentElement.parentElement.offsetTop);
+              console.log(that.data.nodes)
             }
           }
         })
@@ -134,59 +136,71 @@ export class NodeElementComponent implements OnInit {
   linkNodes(event){
 
     ++this.lineConnectorCount;
-    for(let i=0; i<event.value.length;++i){
+    for (let i = 0; i < event.value.length; ++i) {
       const targetNodeName = event.value[i].name;
       const targetInArray = this.data.nodes.find(element => element.name === targetNodeName);
 
-      if(targetInArray!=undefined) {
-        const sourceX = this.nodeData.x;
-        const sourceY = this.nodeData.y;
-        const targetX = targetInArray.x;
-        const targetY = targetInArray.y;
+      if (targetInArray != undefined) {
 
-        this.nodeData.connectors.push({
-          id: this.lineConnectorCount,
-          x1: sourceX,
-          y1: sourceY,
-          x2: targetX,
-          y2: targetY,
-          sourceNode: this.nodeData,
-          targetNode: targetInArray
-        })
+        let htmlSource = document.getElementById(this.nodeData.name);
+        let htmlTarget = document.getElementById(targetInArray.name);
 
-        targetInArray.connectors.push({
-          id: this.lineConnectorCount,
-          x1: sourceX,
-          y1: sourceY,
-          x2: targetX,
-          y2: targetY,
-          sourceNode: this.nodeData,
-          targetNode: targetInArray
-        })
+        console.log(htmlSource);
+        console.log(htmlTarget);
 
-        const svg = d3.select("#mainSvg");
+        if(htmlSource!=null && htmlSource.parentElement!=null &&
+          htmlSource.getAttribute('data-x')!=null && htmlSource.getAttribute('data-y') &&
+          htmlTarget!=null && htmlTarget.parentElement!=null){
 
-        svg.append("svg:defs").append("svg:marker")
-          .attr("id", "arrow")
-          .attr("viewBox", "0 -5 10 10")
-          .attr("markerWidth", 5)
-          .attr("markerHeight", 5)
-          .attr("orient", "auto")
-          .append("svg:path")
-          .attr("d", "M0,-5L10,0L0,5");
+          const sourceX = Number(htmlSource.getAttribute('data-x')) + htmlSource.parentElement.offsetLeft;
+          const sourceY = Number(htmlSource.getAttribute('data-y')) + htmlSource.parentElement.offsetTop;
+          const targetX = Number(htmlTarget.getAttribute('data-x')) + htmlTarget.parentElement.offsetLeft;
+          const targetY = Number(htmlTarget.getAttribute('data-y')) + htmlTarget.parentElement.offsetTop;
 
-        svg.append("line")
-          .style("stroke", "green")
-          .style("stroke-width", "2")
-          .style("z-index", "1")
-          .attr("class", this.nodeData.name + " "+targetInArray.name)
-          .attr("id", "line"+this.lineConnectorCount)
-          .attr('marker-end', 'url(#arrow)')
-          // .attr("d","M"+sourceX+" "+sourceY+"L"+targetX+" "+targetY)
-          .attr("x1",  sourceX)
-          .attr("y1", sourceY)
-          .attr("x2", targetX)
-          .attr("y2", targetY)
+          this.nodeData.connectors.push({
+            id: this.lineConnectorCount,
+            x1: sourceX,
+            y1: sourceY,
+            x2: targetX,
+            y2: targetY,
+            sourceNode: this.nodeData,
+            targetNode: targetInArray
+          })
+
+          targetInArray.connectors.push({
+            id: this.lineConnectorCount,
+            x1: sourceX,
+            y1: sourceY,
+            x2: targetX,
+            y2: targetY,
+            sourceNode: this.nodeData,
+            targetNode: targetInArray
+          })
+
+          const svg = d3.select("#mainSvg");
+
+          svg.append("svg:defs").append("svg:marker")
+            .attr("id", "arrow")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("markerWidth", 5)
+            .attr("markerHeight", 5)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
+
+          svg.append("line")
+            .style("stroke", "green")
+            .style("stroke-width", "2")
+            .style("z-index", "1")
+            .attr("class", this.nodeData.name + " " + targetInArray.name)
+            .attr("id", "line" + this.lineConnectorCount)
+            .attr('marker-end', 'url(#arrow)')
+            // .attr("d","M"+sourceX+" "+sourceY+"L"+targetX+" "+targetY)
+            .attr("x1", sourceX)
+            .attr("y1", sourceY)
+            .attr("x2", targetX)
+            .attr("y2", targetY)
+        }
       }
     }
   }

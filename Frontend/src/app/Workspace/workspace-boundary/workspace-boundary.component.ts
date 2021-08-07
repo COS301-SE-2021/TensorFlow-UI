@@ -9,19 +9,24 @@ import * as d3 from 'd3';
   templateUrl: './workspace-boundary.component.html',
   styleUrls: ['./workspace-boundary.component.css']
 })
-export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
+export class WorkspaceBoundaryComponent implements OnInit {
 
   createNodeBool: boolean;
   reloadWorkspace: boolean;
+  @Input() loadWorkspace: boolean;
+  globalLoadWorkspace: boolean =true;
 
-  constructor(public data: DataService) { }
-
-  ngAfterContentInit(): void {
-    throw new Error('Method not implemented.');
+  constructor(public data: DataService) {
+    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
   }
 
   ngOnInit(): void {
-    this.data.createNodeBoolean.subscribe(nodeBool => this.createNodeBool = nodeBool);
+
+    if(this.createNodeBool){
+      console.log("YEss")
+      this.addNodeToWorkspace();
+    }
+
     this.data.nodes = [];
 
     d3.select("#canvas")

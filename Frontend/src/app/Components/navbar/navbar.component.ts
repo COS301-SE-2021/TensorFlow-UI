@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
+import {WorkspaceBoundaryComponent} from "../../Workspace/workspace-boundary/workspace-boundary.component";
 
 @Component({
   selector: 'app-navbar',
@@ -28,8 +29,8 @@ export class NavbarComponent implements OnInit{
   nodeName = "DefaultName";
   nodeType = "DefaultType";
 
-
   createNode(){
+
     this.data.changeCreateNodeBoolean(true);
     this.data.passFormDataToNode(this.nodeName, this.nodeType, "")
   }
