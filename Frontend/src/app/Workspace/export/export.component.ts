@@ -59,21 +59,44 @@ export class ExportComponent implements OnInit {
   }
 
   APIreq() {
+    var data = JSON.stringify({
+      "message": "my commit message",
+      "committer": {
+        "name": "W-Kruger",
+        "email": "u18014934@tuks.co.za"
+      },
+      "content": "bXkgbmV3IGZpbGUgY29udGVudHM="
+    });
 
-    var response;
-    var objJSON;
-    var reqhttp = new XMLHttpRequest();
-    reqhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        response = this.responseText;
-        objJSON = JSON.parse(response);
-        console.log(response);
-        //var el = document.getElementById("box");
-        //el.innerHTML = response;
-        //loadpage();
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function() {
+      if(this.readyState === 4) {
+        console.log(this.responseText);
       }
-    }
-    reqhttp.open("GET", "https://api.github.com/users/W-Kruger/repos", true);
-    reqhttp.send();
+    });
+
+    xhr.open("PUT", "https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/test4.json");
+    xhr.setRequestHeader("Authorization", "Bearer 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");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(data);
+
+    // var response;
+    // var objJSON;
+    // var reqhttp = new XMLHttpRequest();
+    // reqhttp.onreadystatechange = function () {
+    //   if (this.readyState == 4 && this.status == 200) {
+    //     response = this.responseText;
+    //     objJSON = JSON.parse(response);
+    //     console.log(response);
+    //     //var el = document.getElementById("box");
+    //     //el.innerHTML = response;
+    //     //loadpage();
+    //   }
+    // }
+    // reqhttp.open("GET", "https://api.github.com/users/W-Kruger/repos", true);
+    // reqhttp.send();
   }
 }
