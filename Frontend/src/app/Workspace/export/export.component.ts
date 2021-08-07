@@ -52,8 +52,28 @@ export class ExportComponent implements OnInit {
     a.click();
   }
 
-  exportToLib(){
+  exportToLib() {
+    this.APIreq();
     console.log("Exported ;-)")
     this.showhide();
+  }
+
+  APIreq() {
+
+    var response;
+    var objJSON;
+    var reqhttp = new XMLHttpRequest();
+    reqhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        response = this.responseText;
+        objJSON = JSON.parse(response);
+        console.log(response);
+        //var el = document.getElementById("box");
+        //el.innerHTML = response;
+        //loadpage();
+      }
+    }
+    reqhttp.open("GET", "https://api.github.com/users/W-Kruger/repos", true);
+    reqhttp.send();
   }
 }
