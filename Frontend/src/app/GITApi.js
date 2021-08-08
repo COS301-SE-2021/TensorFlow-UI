@@ -1,15 +1,17 @@
-
+import {PAT} from './config.js'
+import {user} from './config.js'
+import {mail} from './config.js'
 
 export default function Commit (Name, Data){
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer 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");
+  myHeaders.append("Authorization", PAT);
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
     "message": "my commit message",
     "committer": {
-      "name": "W-Kruger",
-      "email": "u18014934@tuks.co.za"
+      "name": user,
+      "email": mail
     },
     "content": Data
   });
