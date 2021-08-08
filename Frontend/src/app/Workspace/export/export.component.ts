@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import commit from '../GITApi.js'
+import commit from '../../GITApi.js'
 
 @Component({
   selector: 'app-export',
@@ -54,7 +54,7 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib() {
-    commit("someName", "someData");
+    commit("Test15", "bXkgbmV3IGZpbGUgY29udGVudHM=");
     this.showhide();
   }
 }
