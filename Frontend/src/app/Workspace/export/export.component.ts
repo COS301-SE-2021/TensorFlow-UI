@@ -55,33 +55,6 @@ export class ExportComponent implements OnInit {
 
   exportToLib() {
     commit("someName", "someData");
-    // this.APIreq();
     this.showhide();
   }
-
-  // APIreq() {
-  //   var data = JSON.stringify({
-  //     "message": "my commit message",
-  //     "committer": {
-  //       "name": "W-Kruger",
-  //       "email": "u18014934@tuks.co.za"
-  //     },
-  //     "content": "bXkgbmV3IGZpbGUgY29udGVudHM="
-  //   });
-  //
-  //   var xhr = new XMLHttpRequest();
-  //   xhr.withCredentials = false;
-  //
-  //   xhr.addEventListener("readystatechange", function() {
-  //     if(this.readyState === 4) {
-  //       console.log(this.responseText);
-  //     }
-  //   });
-  //
-  //   xhr.open("PUT", "https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/test4.json");
-  //   xhr.setRequestHeader("Authorization", "Bearer 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");
-  //   xhr.setRequestHeader("Content-Type", "application/json");
-  //
-  //   xhr.send(data);
-  // }
 }
