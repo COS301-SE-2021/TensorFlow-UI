@@ -5,6 +5,8 @@ import interact from "interactjs";
 import {FormControl} from '@angular/forms';
 import * as LeaderLine from "leader-line-new"
 import {DOCUMENT} from "@angular/common";
+import {AddLineConnectorToStorage, AddNodeToStorage} from "../../../Storage/workspace/workspace.actions";
+import {Store} from "@ngxs/store";
 
 @Component({
 	selector: 'app-node-element',
@@ -16,10 +18,9 @@ export class NodeElementComponent implements OnInit {
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document) {
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.initialiseDraggable();
 	}
-
 
 	ngOnInit(): void {
 	}
@@ -31,6 +32,7 @@ export class NodeElementComponent implements OnInit {
 				inertia: true,
 				modifiers: [
 					interact.modifiers.restrictRect({
+            restriction: '.workspace-boundary',
 						endOnly: true
 					})
 				],
@@ -59,24 +61,30 @@ export class NodeElementComponent implements OnInit {
 
 	// Initial linking between two node elements.
 	linkNodes() {
+
+	  const lineStartName = this.nodeData.name;
+	  const lineEndName = this.nodesArray.value[this.nodesArray.value.length - 1].name.toString();
+	  const lineObj = new LeaderLine(
+      this.document.getElementById(this.nodeData.name),
+      this.document.getElementById(this.nodesArray.value[this.nodesArray.value.length - 1].name.toString()), {
+        size: 6,
+        outlineColor: '#red',
+        outline: true,
+        endPlugOutline: true,
+        dash: true,
+        path: 'arc',
+        startSocket: 'auto',
+        endSocket: 'auto'
+      }
+    );
+
 		this.data.lineConnectorsList.push({
-				start: this.nodeData.name,
-				end: this.nodesArray.value[this.nodesArray.value.length - 1].name.toString(),
-				line: new LeaderLine(
-					this.document.getElementById(this.nodeData.name),
-					this.document.getElementById(this.nodesArray.value[this.nodesArray.value.length - 1].name.toString()), {
-						size: 6,
-						outlineColor: '#red',
-						outline: true,
-						endPlugOutline: true,
-						dash: true,
-						path: 'arc',
-						startSocket: 'auto',
-						endSocket: 'auto'
-					}
-				)
+				start: lineStartName,
+				end: lineEndName,
+				line: lineObj,
 			}
 		);
+		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
 	}
 
 	// Redraw lines for each component.
@@ -101,9 +109,14 @@ export class NodeElementComponent implements OnInit {
 							endSocket: 'auto'
 						}
 					);
+
 				}
 			}
 		}
 	}
+
+	addLineToStorage(line){
+    this.store.dispatch(new AddLineConnectorToStorage(line));
+  }
 
 }

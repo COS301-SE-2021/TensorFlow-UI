@@ -14,7 +14,6 @@ import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
 })
 export class NavbarComponent implements OnInit {
 
-	createNodeBool: boolean;
 
 	constructor(private data: DataService, private store: Store) {
 	}

@@ -1,6 +1,6 @@
 import { State, Action,StateContext, Selector } from '@ngxs/store'
 import { NodeData, lineConnectors } from "../../app/node-data";
-import {AddLineConnector, AddNodeToStorage, UpdateNodeInStorage , RemoveNodeFromStorage} from "./workspace.actions";
+import {AddLineConnectorToStorage, AddNodeToStorage, UpdateNodeInStorage , RemoveNodeFromStorage} from "./workspace.actions";
 import {append, patch, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
 
@@ -37,6 +37,17 @@ export class WorkspaceState{
     stateContext.setState(
       patch({
         nodes: append([node])
+      })
+    );
+  }
+
+  @Action(AddLineConnectorToStorage)
+  public addLine(stateContext: StateContext<WorkspaceStateModel>, { line }: AddLineConnectorToStorage){
+    const state =stateContext.getState();
+    const lines = [...state.lines, line];
+    stateContext.setState(
+      patch({
+        lines: append([line])
       })
     );
   }
