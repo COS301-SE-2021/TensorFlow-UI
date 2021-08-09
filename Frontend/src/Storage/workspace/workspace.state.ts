@@ -32,8 +32,6 @@ export class WorkspaceState{
 
   @Action(AddNodeToStorage)
   public addNode(stateContext: StateContext<WorkspaceStateModel>, { node }: AddNodeToStorage){
-    const state =stateContext.getState();
-    const nodes = [...state.nodes, node];
     stateContext.setState(
       patch({
         nodes: append([node])
@@ -43,8 +41,6 @@ export class WorkspaceState{
 
   @Action(AddLineConnectorToStorage)
   public addLine(stateContext: StateContext<WorkspaceStateModel>, { line }: AddLineConnectorToStorage){
-    const state =stateContext.getState();
-    const lines = [...state.lines, line];
     stateContext.setState(
       patch({
         lines: append([line])
@@ -52,5 +48,14 @@ export class WorkspaceState{
     );
   }
 
+  @Action(UpdateNodeInStorage)
+  public updateNode(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateNodeInStorage){
+    const state =stateContext.getState();
+    stateContext.setState(
+      patch({
+          nodes: updateItem<NodeData>(item => item?.name === node.name, patch(node))
+      })
+    );
+  }
 
 }

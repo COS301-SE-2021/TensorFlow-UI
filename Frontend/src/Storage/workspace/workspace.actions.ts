@@ -9,7 +9,7 @@ export class AddNodeToStorage{
 export class UpdateNodeInStorage{
   public static readonly type = '[Workspace] Update Node';
 
-  constructor(public node: {x: number, newX: number}){}
+  constructor(public node: NodeData){}
 }
 
 export class RemoveNodeFromStorage{

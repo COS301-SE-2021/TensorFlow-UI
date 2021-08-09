@@ -5,7 +5,11 @@ import interact from "interactjs";
 import {FormControl} from '@angular/forms';
 import * as LeaderLine from "leader-line-new"
 import {DOCUMENT} from "@angular/common";
-import {AddLineConnectorToStorage, AddNodeToStorage} from "../../../Storage/workspace/workspace.actions";
+import {
+  AddLineConnectorToStorage,
+  AddNodeToStorage,
+  UpdateNodeInStorage
+} from "../../../Storage/workspace/workspace.actions";
 import {Store} from "@ngxs/store";
 
 @Component({
@@ -27,6 +31,7 @@ export class NodeElementComponent implements OnInit {
 
 	//Initialise the drag functionality for each node-element.
 	initialiseDraggable() {
+	  const that = this;
 		interact('.draggable')
 			.draggable({
 				inertia: true,
@@ -40,6 +45,20 @@ export class NodeElementComponent implements OnInit {
 				listeners: {
 					move: this.dragListener,
 					end(event) {
+					  console.log(event.target);
+
+					  const target = event.target;
+					  const nodeId = event.target.id;
+					  const node = that.data.nodes.find(element => element.name == nodeId);
+
+            if(node!=null){
+              //Update node coordinates
+              node.x = target.getAttribute('data-x')
+              node.y = target.getAttribute('data-y')
+
+              //Update Node coordinates in the storage
+              that.store.dispatch(new UpdateNodeInStorage(node));
+            }
 					}
 				}
 			});
@@ -57,6 +76,7 @@ export class NodeElementComponent implements OnInit {
 		// update the position attributes
 		target.setAttribute('data-x', x)
 		target.setAttribute('data-y', y)
+
 	}
 
 	// Initial linking between two node elements.
@@ -118,5 +138,4 @@ export class NodeElementComponent implements OnInit {
 	addLineToStorage(line){
     this.store.dispatch(new AddLineConnectorToStorage(line));
   }
-
 }
