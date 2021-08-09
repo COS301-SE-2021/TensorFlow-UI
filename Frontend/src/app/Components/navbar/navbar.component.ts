@@ -4,7 +4,7 @@ import {
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store } from "@ngxs/store";
-import { AddNodeData } from "../../../Storage/workspace/workspace.actions";
+import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
 
 
 @Component({
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
 	}
 
 	addNodeToStorage(num,name,type,x,y){
-	  this.store.dispatch(new AddNodeData({num,name,type,x,y}))
+	  this.store.dispatch(new AddNodeToStorage({num,name,type,x,y}))
   }
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
