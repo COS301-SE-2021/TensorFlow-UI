@@ -3,6 +3,9 @@ import {
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
+import { Store } from "@ngxs/store";
+import { AddNodeData } from "../../../Storage/workspace/workspace.actions";
+
 
 @Component({
 	selector: 'app-navbar',
@@ -13,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
 	createNodeBool: boolean;
 
-	constructor(private data: DataService) {
+	constructor(private data: DataService, private store: Store) {
 	}
 
 	ngOnInit(): void {
@@ -21,14 +24,23 @@ export class NavbarComponent implements OnInit {
 
 	// This adds a new node to the data service "nodes" array.
 	createNode() {
+	  const nodeNum = this.data.nodes.length+1;
+    const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
+    const nodeType = this.data.type;
+
 		this.data.nodes.push({
-			num: this.data.nodes.length + 1,
-			name: "Component" + (Number(this.data.nodes.length) + 1),
-			type: this.data.type,
+			num: nodeNum,
+			name: nodeName,
+			type: nodeType,
 			x: 0,
 			y: 0
 		});
+		this.addNodeToStorage(nodeNum,nodeName,nodeType,0,0);
 	}
+
+	addNodeToStorage(num,name,type,x,y){
+	  this.store.dispatch(new AddNodeData({num,name,type,x,y}))
+  }
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	isExpanded = true;
