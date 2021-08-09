@@ -86,7 +86,8 @@ export class NodeElementComponent implements OnInit {
 				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
 					const start = this.data.lineConnectorsList[i].start;
 					let end = this.data.lineConnectorsList[i].end;
-					this.data.lineConnectorsList[i].line.remove();
+            // @ts-ignore
+          this.data.lineConnectorsList[i].line.remove();
 					this.data.lineConnectorsList[i].line = new LeaderLine(
 						this.document.getElementById(start),
 						this.document.getElementById(end), {

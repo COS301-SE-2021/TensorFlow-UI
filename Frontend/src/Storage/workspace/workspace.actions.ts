@@ -10,7 +10,7 @@ export class AddNodeData{
 }
 
 export class AddLineConnector{
-  public static readonly type = '[Workspace] Add Node';
+  public static readonly type = '[Workspace] Add Line';
 
   constructor(public line: lineConnectors) {
   }

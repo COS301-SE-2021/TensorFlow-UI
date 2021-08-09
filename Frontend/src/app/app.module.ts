@@ -11,6 +11,13 @@ import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 import { Node } from './Node/node.component';
 
+//ngxs storage
+import { NgxsModule } from '@ngxs/store';
+import {WorkspaceState, WorkspaceStateModel} from "../Storage/workspace/workspace.state";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
+import {NgSelectOption} from "@angular/forms";
+
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
   ComponentsModule, WorkspaceModule, MatCardModule,
@@ -28,7 +35,12 @@ const modules = [
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    modules
+    modules,
+    NgxsModule.forRoot([
+      WorkspaceState
+    ]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
