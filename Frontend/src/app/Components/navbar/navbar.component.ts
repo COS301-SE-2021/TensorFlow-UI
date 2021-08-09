@@ -19,6 +19,16 @@ export class NavbarComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
+	// This adds a new node to the data service "nodes" array.
+	createNode() {
+		this.data.nodes.push({
+			num: this.data.nodes.length + 1,
+			name: "Component" + (Number(this.data.nodes.length) + 1),
+			type: this.data.type,
+			x: 0,
+			y: 0
+		});
+	}
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	isExpanded = true;

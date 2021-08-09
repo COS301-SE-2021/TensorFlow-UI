@@ -38,19 +38,4 @@ export class WorkspaceBoundaryComponent implements OnInit {
       .style("position", "absolute")
   }
 
-  addNodeToWorkspace() {
-    this.data.changeCreateNodeBoolean(false);
-    this.reloadWorkspace=true;
-
-    const nodeName = "Component" + (Number(this.data.nodes.length)+1);
-    this.data.nodes.push({
-      num: this.data.nodes.length + 1,
-      name: nodeName,
-      type: this.data.type,
-      connectors: [],
-      x: 0,
-      y: 0
-    });
-
-  }
 }
