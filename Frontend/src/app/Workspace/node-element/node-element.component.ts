@@ -57,4 +57,52 @@ export class NodeElementComponent implements OnInit {
 		target.setAttribute('data-y', y)
 	}
 
+	// Initial linking between two node elements.
+	linkNodes() {
+		this.data.lineConnectorsList.push({
+				start: this.nodeData.name,
+				end: this.nodesArray.value[this.nodesArray.value.length - 1].name.toString(),
+				line: new LeaderLine(
+					this.document.getElementById(this.nodeData.name),
+					this.document.getElementById(this.nodesArray.value[this.nodesArray.value.length - 1].name.toString()), {
+						size: 6,
+						outlineColor: '#red',
+						outline: true,
+						endPlugOutline: true,
+						dash: true,
+						path: 'arc',
+						startSocket: 'auto',
+						endSocket: 'auto'
+					}
+				)
+			}
+		);
+	}
+
+	// Redraw lines for each component.
+	reload() {
+		if (this.data?.lineConnectorsList != null) {
+			if (this.data.lineConnectorsList.length > 0) {
+				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
+					const start = this.data.lineConnectorsList[i].start;
+					let end = this.data.lineConnectorsList[i].end;
+					this.data.lineConnectorsList[i].line.remove();
+					this.data.lineConnectorsList[i].line = new LeaderLine(
+						this.document.getElementById(start),
+						this.document.getElementById(end), {
+							size: 6,
+							outlineColor: '#red',
+							outline: true,
+							endPlugOutline: true,
+							dash: true,
+							path: 'arc',
+							startSocket: 'auto',
+							endSocket: 'auto'
+						}
+					);
+				}
+			}
+		}
+	}
+
 }
