@@ -1,59 +1,39 @@
 import {
-  Component, OnInit, ViewChild
+	Component, OnInit, ViewChild
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import {WorkspaceBoundaryComponent} from "../../Workspace/workspace-boundary/workspace-boundary.component";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+	selector: 'app-navbar',
+	templateUrl: './navbar.component.html',
+	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
 
-  createNodeBool: boolean;
+	createNodeBool: boolean;
 
-  constructor(private data : DataService) {
-    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
-  }
+	constructor(private data: DataService) {
+	}
 
-  ngOnInit(): void {
-    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
-  }
+	ngOnInit(): void {
+	}
 
-  // createNodeForm(){
-  //   this.data.changeCreateFormBoolean(true);
-  // }
 
-  nodeName = "DefaultName";
-  nodeType = "DefaultType";
+	@ViewChild('sidenav') sidenav: MatSidenav;
+	isExpanded = true;
+	showSubmenu: boolean = false;
+	isShowing = false;
 
-  createNode(){
+	mouseenter() {
+		if (!this.isExpanded) {
+			this.isShowing = true;
+		}
+	}
 
-    this.data.changeCreateNodeBoolean(true);
-    this.data.passFormDataToNode(this.nodeName, this.nodeType, "")
-  }
-
-  createFunctionalNode(){
-
-  }
-
-  @ViewChild('sidenav') sidenav: MatSidenav;
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
+	mouseleave() {
+		if (!this.isExpanded) {
+			this.isShowing = false;
+		}
+	}
 }
