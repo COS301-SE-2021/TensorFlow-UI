@@ -1,11 +1,12 @@
-import {
-	Component, OnInit, ViewChild
-} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
 import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
-
+import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
+import { NodeData } from "../../node-data";
+import { Observable } from "rxjs";
+import {state} from "@angular/animations";
 
 @Component({
 	selector: 'app-navbar',
@@ -15,7 +16,9 @@ import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
 export class NavbarComponent implements OnInit {
 
 
+  nodes$: Observable<NodeData[]>;
 	constructor(private data: DataService, private store: Store) {
+	  this.nodes$ = this.store.select(state => state.nodes.nodes)
 	}
 
 	ngOnInit(): void {

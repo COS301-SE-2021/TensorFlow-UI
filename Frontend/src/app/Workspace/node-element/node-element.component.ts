@@ -112,6 +112,7 @@ export class NodeElementComponent implements OnInit {
 		if (this.data?.lineConnectorsList != null) {
 			if (this.data.lineConnectorsList.length > 0) {
 				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
+
 					const start = this.data.lineConnectorsList[i].start;
 					let end = this.data.lineConnectorsList[i].end;
             // @ts-ignore
@@ -128,6 +129,7 @@ export class NodeElementComponent implements OnInit {
 							startSocket: 'auto',
 							endSocket: 'auto'
 						}
+
 					);
 
 				}

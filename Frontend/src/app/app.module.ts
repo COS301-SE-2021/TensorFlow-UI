@@ -17,6 +17,7 @@ import {WorkspaceState, WorkspaceStateModel} from "../Storage/workspace/workspac
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import {NgSelectOption} from "@angular/forms";
+import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
@@ -40,7 +41,8 @@ const modules = [
       WorkspaceState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsStoragePluginModule
   ],
   providers: [],
   bootstrap: [AppComponent],
