@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {NodeData} from "./node-data";
+import {lineConnectors, NodeData} from "./node-data";
 
 
 @Injectable({
@@ -9,7 +10,9 @@ import {NodeData} from "./node-data";
 export class DataService {
   get nodes(): NodeData[] {
     return this._nodes;
-  }
+	get lineConnectorsList(): lineConnectors[] {
+		return this._lineConnectorsList;
+	}
 
   set nodes(value: NodeData[]) {
     this._nodes = value;
@@ -17,6 +20,9 @@ export class DataService {
   get type(): string {
     return this._type;
   }
+	set lineConnectorsList(value: lineConnectors[]) {
+		this._lineConnectorsList = value;
+	}
 
   get name(): string {
     return this._name;
@@ -47,6 +53,7 @@ export class DataService {
 
   private createNodeSource = new BehaviorSubject(false); //default = false
   private createFormSource = new BehaviorSubject(false); //default = false
+	private _lineConnectorsList: lineConnectors[];
 
   createNodeBoolean = this.createNodeSource.asObservable();
   createFormBoolean = this.createFormSource.asObservable();
