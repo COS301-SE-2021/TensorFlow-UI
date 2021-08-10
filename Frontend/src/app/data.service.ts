@@ -1,70 +1,63 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {NodeData} from "./node-data";
+import {lineConnectors, NodeData} from "./node-data";
 
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class DataService {
-  get nodes(): NodeData[] {
-    return this._nodes;
-  }
+	get lineConnectorsList(): lineConnectors[] {
+		return this._lineConnectorsList;
+	}
 
-  set nodes(value: NodeData[]) {
-    this._nodes = value;
-  }
-  get type(): string {
-    return this._type;
-  }
+	set lineConnectorsList(value: lineConnectors[]) {
+		this._lineConnectorsList = value;
+	}
 
-  get name(): string {
-    return this._name;
-  }
+	get nodes(): NodeData[] {
+		return this._nodes;
+	}
 
-  set currentNode(node: NodeData){
-    this._currentNode = node;
-  }
+	set nodes(value: NodeData[]) {
+		this._nodes = value;
+	}
 
-  get currentNode(): NodeData{
-    return this._currentNode;
-  }
+	get type(): string {
+		return this._type;
+	}
 
-  private _name = "";
-  private _type = "";
-  private _x:number=0; //change to private
-  private _y:number=0; //change to private
+	get name(): string {
+		return this._name;
+	}
 
-  private _nodes: NodeData[];
-  private _currentNode: NodeData;
+	set currentNode(node: NodeData) {
+		this._currentNode = node;
+	}
 
-  private tempNode: NodeData[] = [];
+	get currentNode(): NodeData {
+		return this._currentNode;
+	}
 
-  private createNodeSource = new BehaviorSubject(false); //default = false
-  private createFormSource = new BehaviorSubject(false); //default = false
+	private _name = "";
+	private _type = "";
 
-  createNodeBoolean = this.createNodeSource.asObservable();
-  createFormBoolean = this.createFormSource.asObservable();
-
-
-  constructor() {
-  }
-
-  changeCreateNodeBoolean(createNodeSection: boolean) {
-    this.createNodeSource.next(createNodeSection)
-  }
-
-  changeCreateFormBoolean(createFormSection: boolean) {
-    this.createFormSource.next(createFormSection)
-  }
-
-  passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
-    this._name = nodeName;
-    this._type = nodeDataType;
-  }
+	private _nodes: NodeData[];
+	private _currentNode: NodeData;
+	private _nodeCreationBoolean: boolean;
+	private _lineConnectorsList: lineConnectors[];
 
 
-  applyZoomableBehaviour() {}
-  applyDraggableBehaviour() {}
-  getForceDirectedGraph() {}
+	private createNodeSource = new BehaviorSubject(false); //default = false
+
+	createNodeBoolean = this.createNodeSource.asObservable();
+
+	constructor() {
+	}
+
+
+	passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string) {
+		this._name = nodeName;
+		this._type = nodeDataType;
+	}
 }

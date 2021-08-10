@@ -10,8 +10,14 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 import { Node } from './Node/node.component';
-import {createCustomElement} from "@angular/elements";
-import {NodeElementComponent} from "./Workspace/node-element/node-element.component";
+
+//ngxs storage
+import { NgxsModule } from '@ngxs/store';
+import {WorkspaceState, WorkspaceStateModel} from "../Storage/workspace/workspace.state";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
+import {NgSelectOption} from "@angular/forms";
+import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
@@ -30,22 +36,16 @@ const modules = [
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    modules
+    modules,
+    NgxsModule.forRoot([
+      WorkspaceState
+    ]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsStoragePluginModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  // exports: [
-  //   NodeElementComponent
-  // ]
-  // entryComponents: [NodeElementComponent]
 })
 export class AppModule {
-  // constructor(private injector: Injector) {
-  //   const appNodeElement = createCustomElement(NodeElementComponent, {injector});
-  //   customElements.define('app-node-element', appNodeElement);
-  // }
-  ngDoBootstrap() {}
-    gun(){
-
-    }
 }
