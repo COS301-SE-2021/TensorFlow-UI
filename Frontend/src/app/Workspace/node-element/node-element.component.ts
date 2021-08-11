@@ -21,12 +21,14 @@ export class NodeElementComponent implements OnInit {
 
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
+	private lastSelected: Array<string>;
 
 	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.initialiseDraggable();
 	}
 
 	ngOnInit(): void {
+    this.lastSelected = [];
 	}
 
 	//Initialise the drag functionality for each node-element.
@@ -45,7 +47,6 @@ export class NodeElementComponent implements OnInit {
 				listeners: {
 					move: this.dragListener,
 					end(event) {
-					  console.log(event.target);
 
 					  const target = event.target;
 					  const nodeId = event.target.id;
@@ -82,29 +83,38 @@ export class NodeElementComponent implements OnInit {
 	// Initial linking between two node elements.
 	linkNodes() {
 
+    for(let i=0; i<this.nodesArray.value.length; ++i){
+      if(this.lastSelected.indexOf(this.nodesArray.value[i].name) === -1){
+        this.lastSelected.push(this.nodesArray.value[i].name);
+      }
+    }
+
 	  const lineStartName = this.nodeData.name;
-	  const lineEndName = this.nodesArray.value[this.nodesArray.value.length - 1].name.toString();
+	  const lineEndName = this.lastSelected[this.lastSelected.length-1];
+
 	  const lineObj = new LeaderLine(
-      this.document.getElementById(this.nodeData.name),
-      this.document.getElementById(this.nodesArray.value[this.nodesArray.value.length - 1].name.toString()), {
-        size: 6,
-        outlineColor: '#red',
-        outline: true,
-        endPlugOutline: true,
-        dash: true,
-        path: 'arc',
+      this.document.getElementById(lineStartName),
+      this.document.getElementById(lineEndName), {
+        // size: 6,
+        // outlineColor: '#red',
+        // outline: true,
+        // endPlugOutline: true,
+        // dash: true,
+        // path: 'arc',
         startSocket: 'auto',
         endSocket: 'auto'
       }
     );
 
+	  const self = lineObj.setOptions;
+
 		this.data.lineConnectorsList.push({
 				start: lineStartName,
 				end: lineEndName,
 				line: lineObj,
-			}
-		);
+			});
 		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
+
 	}
 
 	// Redraw lines for each component.
@@ -120,12 +130,12 @@ export class NodeElementComponent implements OnInit {
 					this.data.lineConnectorsList[i].line = new LeaderLine(
 						this.document.getElementById(start),
 						this.document.getElementById(end), {
-							size: 6,
-							outlineColor: '#red',
-							outline: true,
-							endPlugOutline: true,
-							dash: true,
-							path: 'arc',
+							// size: 6,
+							// outlineColor: '#red',
+							// outline: true,
+							// endPlugOutline: true,
+							// dash: true,
+							// path: 'arc',
 							startSocket: 'auto',
 							endSocket: 'auto'
 						}
