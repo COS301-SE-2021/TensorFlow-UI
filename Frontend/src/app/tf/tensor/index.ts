@@ -1,3 +1,7 @@
 export * from './constant'
 export * from './tensor'
 export * from './variable'
+export * from './fill'
+export * from './linspace'
+export * from './ones'
+export * from './zeros'
