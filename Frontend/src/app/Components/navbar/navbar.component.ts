@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit {
   // This adds a LOADED node from storage to the data service "nodes" array.
   LoadNode(node: NodeData | undefined) {
     if (node == undefined) return;
+    console.log("Node: " + JSON.stringify(node))
       this.data.nodes.push({
         num: node.num,
         name: node.name,
