@@ -75,12 +75,12 @@ export class ExportComponent implements OnInit {
       } else {
         var el = document.getElementsByClassName("draggable");
         if (el != null){
-          let lst = {};
+          var lst1 = {};
           for (var k = 1; k < el.length; k++) {
-            lst[k-1] = el[k].outerHTML;
+            lst1[k-1] = el[k].outerHTML;
           }
 
-          var jsonData = JSON.stringify(lst);
+          var jsonData = JSON.stringify(lst1);
           var file = new Blob([jsonData], {type: 'application/json'});
           var reader = new FileReader();
           var base64dta ;
@@ -88,11 +88,9 @@ export class ExportComponent implements OnInit {
           reader.onloadend = function (){
             base64dta = reader.result;
             base64dta = base64dta.substr(29);
-            console.log(base64dta);
             commit(exportAs, base64dta);
           }
           this.showhide();
-          //"bXkgbmV3IGZpbGUgY29udGVudHM="
         }
       }
     }
