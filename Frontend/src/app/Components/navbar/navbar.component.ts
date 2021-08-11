@@ -24,16 +24,15 @@ export class NavbarComponent implements OnInit {
     let ws;
     if(temp!=null) {
       ws = JSON.parse(temp);
-      this.LoadNode(ws[0])
+      this.LoadNode(ws.nodes)
     }
-
 	}
 
 	ngOnInit(): void {
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
-  LoadNode(nodes: NodeData[] | undefined | null) {
+  LoadNode(nodes: NodeData[] | undefined) {
     if (nodes == undefined) return;
     for (let i = 0; i < nodes.length; i++) {
       let node = nodes[i]
