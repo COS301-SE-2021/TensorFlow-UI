@@ -20,15 +20,20 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
   nodes: NodeData[];
 	constructor(private data: DataService, private store: Store) {
+	  let that = this;
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
+	  this.nodes$.forEach(function(array){
+	    that.LoadNode(array.pop())
+    })
 	}
 
 	ngOnInit(): void {
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
-  LoadNode(node: NodeData) {
-    this.data.nodes.push({
+  LoadNode(node: NodeData | undefined) {
+    if(node == undefined) return;
+	  this.data.nodes.push({
       num: node.num,
       name: node.name,
       type: node.type,
