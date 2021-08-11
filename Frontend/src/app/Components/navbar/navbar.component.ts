@@ -20,10 +20,11 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
   nodes: NodeData[];
 	constructor(private data: DataService, private store: Store) {
-	  let that = this;
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
-	  this.nodes$.subscribe(function(array){
-	    that.LoadNode(array.pop())
+    let that = this;
+    this.nodes$.forEach(function(array){
+      that.data.nodes = array;
+      return
     })
 	}
 
