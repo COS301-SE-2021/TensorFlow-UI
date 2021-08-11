@@ -39,8 +39,6 @@ export class ExportComponent implements OnInit {
         for (var i = 1; i < el.length; i++) {
           lst[i-1] = el[i].outerHTML;
         }
-        console.log(lst);
-
         var jsonData = JSON.stringify(lst);
 
         this.download(jsonData, exportAs+'.json', 'application/json');
@@ -64,10 +62,14 @@ export class ExportComponent implements OnInit {
       alert("Please name your Project and try again.");
     } else {
       var exists = false;
-      var lst = GetList();
-      for (var i = 0; i < lst.length; i++) {
-        if (exportAs == lst[i]){
-          exists = true;
+      GetList();
+      var keep = exportAs + ".json";
+      var cbox = document.getElementById("TFUIlib");
+      if(cbox!= null) {
+        for (let i = 0; i < cbox.children.length; i++) {
+          if (keep == cbox.children[i].innerHTML){
+            exists = true;
+          }
         }
       }
       if (exists){
