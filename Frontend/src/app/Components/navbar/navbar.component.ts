@@ -21,10 +21,12 @@ export class NavbarComponent implements OnInit {
 	constructor(private data: DataService, private store: Store) {
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
 	  let temp = localStorage.getItem("@@STATE")
+    console.log("TEMP: "+temp)
     let ws;
     if(temp!=null) {
       ws = JSON.parse(temp);
       this.LoadNode(ws.nodes)
+      console.log("WORKSPACE: " + JSON.stringify(ws.nodes))
     }
 	}
 
