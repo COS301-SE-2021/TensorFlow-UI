@@ -24,11 +24,17 @@ export class NavbarComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	  this.data.nodes = [];
+	  const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    for(let i=0; i<storageNodes.length; ++i){
+	    this.loadNode(storageNodes[i]);
+    }
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
-  LoadNode(node: NodeData) {
-    this.data.nodes.push({
+  loadNode(node: NodeData) {
+	  this.data.nodes.push({
       num: node.num,
       name: node.name,
       type: node.type,
@@ -36,7 +42,7 @@ export class NavbarComponent implements OnInit {
       x: node.x,
       y: node.y
     });
-    this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
+    //this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
   }
 
   // This adds a new node to the data service "nodes" array.
