@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
 	constructor(private data: DataService, private store: Store) {
 	  let that = this;
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
-	  this.nodes$.forEach(function(array){
+	  this.nodes$.subscribe(function(array){
 	    that.LoadNode(array.pop())
     })
 	}
