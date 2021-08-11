@@ -101,6 +101,8 @@ export class NodeElementComponent implements OnInit {
         // endPlugOutline: true,
         // dash: true,
         // path: 'arc',
+        path: 'grid',
+        startPlug: 'disc',
         startSocket: 'auto',
         endSocket: 'auto'
       }
@@ -136,6 +138,8 @@ export class NodeElementComponent implements OnInit {
 							// endPlugOutline: true,
 							// dash: true,
 							// path: 'arc',
+              path: 'grid',
+              startPlug: 'disc',
 							startSocket: 'auto',
 							endSocket: 'auto'
 						}

@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
+import {NodeData} from "../../node-data";
 
 @Component({
 	selector: 'app-workspace-boundary',
@@ -8,8 +9,11 @@ import {DataService} from "../../data.service";
 })
 export class WorkspaceBoundaryComponent implements OnInit {
 
+  @Input() storageNode: NodeData[]
+  @Input() storageLines: NodeData[]
 
-	constructor(public data: DataService) {
+  constructor(public data: DataService) {
+
 	}
 
 	ngOnInit(): void {
