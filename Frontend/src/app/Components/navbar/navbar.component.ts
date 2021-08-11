@@ -34,14 +34,14 @@ export class NavbarComponent implements OnInit {
     const nodeType = this.data.type;
 
     this.data.nodes.push({
-      num: nodeNum,
-      name: nodeName,
-      type: nodeType,
-      value: "",
-      x: 0,
-      y: 0
+      num: node.num,
+      name: node.name,
+      type: node.type,
+      value: node.value,
+      x: node.x,
+      y: node.y
     });
-    this.addNodeToStorage(nodeNum,nodeName,nodeType,"",0,0);
+    this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
   }
 
   // This adds a new node to the data service "nodes" array.
