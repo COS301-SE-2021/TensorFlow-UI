@@ -20,28 +20,33 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
 	constructor(private data: DataService, private store: Store) {
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
-    let that = this;
-    this.nodes$.forEach(function(array){
-      that.data.nodes = array;
-      return
-    })
+	  let temp = localStorage.getItem("@@STATE")
+    let ws;
+    if(temp!=null) {
+      ws = JSON.parse(temp);
+      this.LoadNode(ws[0])
+    }
+
 	}
 
 	ngOnInit(): void {
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
-  LoadNode(node: NodeData | undefined) {
-    if(node == undefined) return;
-	  this.data.nodes.push({
-      num: node.num,
-      name: node.name,
-      type: node.type,
-      value: node.value,
-      x: node.x,
-      y: node.y
-    });
-    this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
+  LoadNode(nodes: NodeData[] | undefined | null) {
+    if (nodes == undefined) return;
+    for (let i = 0; i < nodes.length; i++) {
+      let node = nodes[i]
+      this.data.nodes.push({
+        num: node.num,
+        name: node.name,
+        type: node.type,
+        value: node.value,
+        x: node.x,
+        y: node.y
+      });
+    }
+    //this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
   }
 
   // This adds a new node to the data service "nodes" array.
