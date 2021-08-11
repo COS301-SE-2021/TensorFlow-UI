@@ -6,6 +6,7 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
 .side-menu {
   position: absolute;
   top: -30px;
@@ -53,4 +54,38 @@
 }
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+#functionalNodeInput{
+  position: relative;
+  height: 35%;
+  width: 99%;
+  left: -0.5%;
+  border: 1px solid blue;
+}
+
+.functionalNodeSearch{
+  position: absolute;
+  width: 20%;
+  height: 13vh;
+  top: 24.8%;
+  border: 3px solid black;
+  background-color: white;
+  z-index: 3;
+}
+
+.functionalNodeSearch button{
+  margin-left: 25%;
+}
+
+#functionalNodeButton{
+  position: absolute;
+  bottom: 0;
+  letter-spacing: 1px;
+  padding: 6px 13px;
+  background-color: #ff8C00;
+  text-align: center;
+  width: max-content;
+  cursor: pointer;
+  transition: all 0.3s 0s ease-in-out;
 }

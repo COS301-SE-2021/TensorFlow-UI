@@ -14,16 +14,16 @@ export class FuncNodeElementComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	createFunctionalNode() {
-		const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
-
-		this.data.nodes.push({
-			num: this.data.nodes.length + 1,
-			name: nodeName,
-			type: "functional",
-			x: 0,
-			y: 0
-		});
-	}
+	// createFunctionalNode() {
+	// 	const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
+  //
+	// 	this.data.nodes.push({
+	// 		num: this.data.nodes.length + 1,
+	// 		name: nodeName,
+	// 		type: "functional",
+	// 		x: 0,
+	// 		y: 0
+	// 	});
+	// }
 
 }

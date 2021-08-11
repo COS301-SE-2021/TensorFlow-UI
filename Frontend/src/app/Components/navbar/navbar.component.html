@@ -26,16 +26,26 @@
                     <app-export></app-export>
                 </div>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                    <app-func-node-element></app-func-node-element>
+                  <button class="createComponentButton" mat-raised-button color="primary" (click)="showNodeSearch()">
+                    Create Functional Node
+                  </button>
                 </div>
             </mat-nav-list>
             <mat-nav-list>
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
+
+            <div class="functionalNodeSearch" [style.display]="isVisible ? 'block' : 'none'">
+              <input list="brow" id="functionalNodeInput" placeholder="Search or Select functional Node type" #reference>
+              <button id="functionalNodeButton" (click)="createFunctionalNode()" mat-raised-button>Create Node</button>
+            </div>
+
+            <datalist id="brow">
+              <option *ngFor="let element of functionsList" value="{{element}}"></option>
+            </datalist>
             <app-workspace-boundary>
             </app-workspace-boundary>
         </mat-sidenav-content>
-
     </mat-sidenav-container>
 </div>
