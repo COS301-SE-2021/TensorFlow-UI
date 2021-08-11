@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GetList} from '../../GITApi.js'
 
 @Component({
   selector: 'app-import',
@@ -12,4 +13,23 @@ export class ImportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showhide(){
+    var el = document.getElementById('hidden1');
+    if (el != null){
+      if ( el.style.display == 'none'){
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+  }
+
+  ImportFromPC(){
+
+  }
+
+  ImportFromLib(){
+
+  }
 }

@@ -1,1 +1,10 @@
-<p>import works!</p>
+<button class="export" (click)="showhide()" mat-raised-button color="primary">Export</button>
+<div id = "hidden1" class = "hidden1">
+  <div class="Group">
+    <input type="file"/>
+    <button class="import" (click)="ImportFromPC()" mat-raised-button color="primary">Import From PC</button>
+  </div>
+  <div class="Group">
+    <button class="import" (click)="ImportFromLib()" mat-raised-button color="primary">Import From Community Library</button><br/>
+  </div>
+</div>
