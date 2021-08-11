@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
 
   nodes$: Observable<NodeData[]>;
   public functionsList: string[] = ["add","subtract","multiply","divide"];
-  nodes: NodeData[];
 	constructor(private data: DataService, private store: Store) {
 	  this.nodes$ = this.store.select(WorkspaceState.getNodes);
     let that = this;
