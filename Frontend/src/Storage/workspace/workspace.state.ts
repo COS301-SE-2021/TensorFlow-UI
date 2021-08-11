@@ -21,6 +21,9 @@ export interface WorkspaceStateModel{
 @Injectable()
 export class WorkspaceState{
 
+  constructor() {
+  }
+
   @Selector()
   static getNodes(state: WorkspaceStateModel){
       return state.nodes;

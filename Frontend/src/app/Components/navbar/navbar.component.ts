@@ -20,11 +20,29 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
 
 	constructor(private data: DataService, private store: Store) {
-	  this.nodes$ = this.store.select(state => state.nodes.nodes)
+	  this.nodes$ = this.store.select(WorkspaceState.getNodes)
+
 	}
 
 	ngOnInit(): void {
 	}
+
+  // This adds a LOADED node from storage to the data service "nodes" array.
+  LoadNode(node: NodeData) {
+    const nodeNum = this.data.nodes.length+1;
+    const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
+    const nodeType = this.data.type;
+
+    this.data.nodes.push({
+      num: nodeNum,
+      name: nodeName,
+      type: nodeType,
+      value: "",
+      x: 0,
+      y: 0
+    });
+    this.addNodeToStorage(nodeNum,nodeName,nodeType,"",0,0);
+  }
 
   // This adds a new node to the data service "nodes" array.
 	createNode() {
