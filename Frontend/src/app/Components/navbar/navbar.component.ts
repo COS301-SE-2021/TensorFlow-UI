@@ -40,10 +40,8 @@ export class NavbarComponent implements OnInit {
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
-  LoadNode(nodes: NodeData[] | undefined) {
-    if (nodes == undefined) return;
-    for (let i = 0; i < nodes.length; i++) {
-      let node = nodes[i]
+  LoadNode(node: NodeData | undefined) {
+    if (node == undefined) return;
       this.data.nodes.push({
         num: node.num,
         name: node.name,
@@ -52,7 +50,6 @@ export class NavbarComponent implements OnInit {
         x: node.x,
         y: node.y
       });
-    }
     //this.addNodeToStorage(node.num,node.name,node.type,node.value,node.x,node.y);
   }
 
