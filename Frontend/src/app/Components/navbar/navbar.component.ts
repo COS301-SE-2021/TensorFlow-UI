@@ -29,9 +29,6 @@ export class NavbarComponent implements OnInit {
 
   // This adds a LOADED node from storage to the data service "nodes" array.
   LoadNode(node: NodeData) {
-    const nodeNum = this.data.nodes.length+1;
-    const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
-    const nodeType = this.data.type;
 
     this.data.nodes.push({
       num: node.num,
