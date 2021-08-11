@@ -1,5 +1,5 @@
-import {TFOperator} from "./operator";
-import {TFNode} from "../node";
+import {TFOperator} from "../operator";
+import {TFNode} from "../../node";
 
 export class TFSigmoid extends TFOperator {
 	constructor(public x: TFNode | undefined = undefined) {
