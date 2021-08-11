@@ -81,10 +81,24 @@ export class ExportComponent implements OnInit {
           }
 
           var jsonData = JSON.stringify(lst);
+          this.strToBase64File(jsonData);
         }
         commit(exportAs, "bXkgbmV3IGZpbGUgY29udGVudHM=");
         this.showhide();
       }
     }
+  }
+
+  strToBase64File(inpt){
+    var file = new Blob([inpt], {type: 'application/json'});
+    var reader = new FileReader();
+    var base64dta;
+    reader.readAsDataURL(file);
+    reader.onloadend = function (){
+      base64dta = reader.result;
+      console.log(base64dta);
+    }
+
+    return base64dta;
   }
 }
