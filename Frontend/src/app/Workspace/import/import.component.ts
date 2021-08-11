@@ -22,7 +22,7 @@ export class ImportComponent implements OnInit {
         el.style.display = 'none';
       }
     }
-    console.log(GetList());
+    GetList();
   }
 
   ImportFromPC(){

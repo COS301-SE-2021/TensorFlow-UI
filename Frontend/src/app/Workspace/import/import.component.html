@@ -1,10 +1,13 @@
-<button class="export" (click)="showhide()" mat-raised-button color="primary">Export</button>
+<button class="export" (click)="showhide()" mat-raised-button color="primary">Import</button>
 <div id = "hidden1" class = "hidden1">
   <div class="Group">
-    <input type="file"/>
+    <input type="file"/><br/>
     <button class="import" (click)="ImportFromPC()" mat-raised-button color="primary">Import From PC</button>
   </div>
   <div class="Group">
+    <label for="TFUIlib">Choose a project:</label>
+    <select name="TFUIlib" id="TFUIlib">
+    </select><br/>
     <button class="import" (click)="ImportFromLib()" mat-raised-button color="primary">Import From Community Library</button><br/>
   </div>
 </div>
