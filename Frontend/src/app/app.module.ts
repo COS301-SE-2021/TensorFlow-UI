@@ -37,12 +37,12 @@ const modules = [
       registrationStrategy: 'registerWhenStable:30000'
     }),
     modules,
+    NgxsStoragePluginModule.forRoot(),
     NgxsModule.forRoot([
       WorkspaceState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
