@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import commit from '../../GITApi.js'
+import {GetList} from '../../GITApi.js'
+import application from "@angular-devkit/build-angular/src/babel/presets/application";
 
 @Component({
   selector: 'app-export',
@@ -27,22 +29,25 @@ export class ExportComponent implements OnInit {
   }
 
   exportToPc(){
-    var el = document.getElementsByClassName("draggable");
-    if (el != null){
-      let lst = {};
-      for (var i = 1; i < el.length; i++) {
-        var html = el[i].outerHTML;
-        var data1 = {html : html};
-        //console.log(JSON.stringify(data1));
-        lst[i-1] = data1;
+    var exportAs = prompt("Name Your Project:", "");
+    if (exportAs == null || exportAs == ""){
+      alert("Please name your Project and try again.")
+    } else {
+      var el = document.getElementsByClassName("draggable");
+      if (el != null){
+        let lst = {};
+        for (var i = 1; i < el.length; i++) {
+          lst[i-1] = el[i].outerHTML;
+        }
+        console.log(lst);
+
+        var jsonData = JSON.stringify(lst);
+
+        this.download(jsonData, exportAs+'.json', 'application/json');
       }
-      console.log(lst);
-
-      var jsonData = JSON.stringify(lst);
-
-      this.download(jsonData, 'TFUIProject.json', 'text/plain');
+      this.showhide();
     }
-    this.showhide();
+
   }
 
   download(content, fileName, contentType) {
@@ -54,7 +59,32 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib() {
-    commit("Test15", "bXkgbmV3IGZpbGUgY29udGVudHM=");
-    this.showhide();
+    var exportAs = prompt("Name Your Project:", "");
+    if (exportAs == null || exportAs == ""){
+      alert("Please name your Project and try again.");
+    } else {
+      var exists = false;
+      var lst = GetList();
+      for (var i = 0; i < lst.length; i++) {
+        if (exportAs == lst[i]){
+          exists = true;
+        }
+      }
+      if (exists){
+        alert('A file with the same name already exists in the library.');
+      } else {
+        var el = document.getElementsByClassName("draggable");
+        if (el != null){
+          let lst = {};
+          for (var k = 1; k < el.length; k++) {
+            lst[k-1] = el[k].outerHTML;
+          }
+
+          var jsonData = JSON.stringify(lst);
+        }
+        commit(exportAs, "bXkgbmV3IGZpbGUgY29udGVudHM=");
+        this.showhide();
+      }
+    }
   }
 }

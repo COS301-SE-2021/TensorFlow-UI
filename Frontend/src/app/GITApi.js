@@ -29,10 +29,11 @@ export default function Commit (Name, Data){
     .catch(error => console.log('error', error));
 }
 
-export function GetList (){
-
+export function GetList(){
+  var lst = {};
+  return lst;
 }
 
-export function GetData (ID){
+export function GetData(ID){
 
 }
