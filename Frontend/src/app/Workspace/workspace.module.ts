@@ -44,12 +44,13 @@ import { ImportComponent } from './import/import.component';
         CanvasComponent,
         ImportComponent,
     ],
-    exports: [
-        WorkspaceBoundaryComponent,
-        CreateNodeSectionComponent,
-        CanvasComponent,
-        NodeElementComponent
-    ]
+  exports: [
+    WorkspaceBoundaryComponent,
+    CreateNodeSectionComponent,
+    CanvasComponent,
+    NodeElementComponent,
+    ImportComponent
+  ]
 
 })
 export class WorkspaceModule {
