@@ -1,8 +1,9 @@
-import { TFTensor } from "./tensor";
+import {TFTensor} from "./tensor";
 
 export class TFOnes extends TFTensor {
-	constructor() {
-		super();
+	constructor(public data: Number | undefined = undefined,
+				public name: String | undefined = undefined) {
+		super(data, name, 1);
 	}
 
 	code() {

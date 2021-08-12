@@ -6,7 +6,7 @@ export class TFMultiply extends TFOperator {
 		public x: TFNode | undefined = undefined,
 		public y: TFNode | undefined = undefined
 	) {
-		super();
+		super("TFMultiply");
 	}
 
 	code() {
