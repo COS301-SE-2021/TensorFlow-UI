@@ -174,7 +174,10 @@ export class CodeGeneratorService {
   }
 
   createCompile(loss : string | null, optimiser : string |  null, metric : string | null) {
-    
+    var lossString : string = "loss='binary_crossentropy'";
+    var optimiserString : string = "optimiser='sgd'";
+    var metricString : string = "metrics='accuracy'";
+
   }
 
   createTrain() {}

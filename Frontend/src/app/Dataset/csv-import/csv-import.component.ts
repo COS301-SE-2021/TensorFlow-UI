@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-csv-import',
@@ -10,18 +10,19 @@ export class CsvImportComponent implements OnInit {
   header = false;
 
 
-  constructor(private ngxCsvParser: NgxCsvParser) { }
+  constructor(private ngxCsvParser: NgxCsvParser) {
+  }
 
   ngOnInit(): void {
   }
 
-  fileChangeListener($event: any): void {
+  saveCSV(): void {
 
     // Select the files from the event
-    const files = $event.srcElement.files;
+    const files = document.getElementById("csv-file")
 
     // Parse the file you want to select for the operation along with the configuration
-    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
+    this.ngxCsvParser.parse(files[0], {header: this.header, delimiter: ','})
       .pipe().subscribe((result: Array<any>) => {
 
       console.log('Result', result);
@@ -29,4 +30,5 @@ export class CsvImportComponent implements OnInit {
     }, (error: NgxCSVParserError) => {
       console.log('Error', error);
     });
+  }
 }
