@@ -13,7 +13,7 @@ export class WorkspaceBoundaryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.data.nodes = [];
-		this.data.lineConnectorsList = [];
+		//this.data.nodes = [];
+		//this.data.lineConnectorsList = [];
 	}
 }
