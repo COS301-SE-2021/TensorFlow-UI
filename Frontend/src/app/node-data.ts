@@ -1,18 +1,16 @@
-export interface lineConnectors{
-  id: number;
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-  sourceNode: NodeData;
-  targetNode: NodeData;
+import * as LeaderLine from "leader-line-new";
+
+export interface lineConnectors {
+	start: string;
+	end: string;
+	line: LeaderLine|null;
 }
 
 export interface NodeData {
-  num: number
-  name: string
-  type: string
-  connectors: lineConnectors[];
-  x: number
-  y: number
+	num: number
+	name: string
+	type: string
+  value: string
+	x: number
+	y: number
 }

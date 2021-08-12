@@ -1,70 +1,79 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {NodeData} from "./node-data";
+import {lineConnectors, NodeData} from "./node-data";
+import {TFOperator, TFTensor} from "./tf";
 
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class DataService {
-  get nodes(): NodeData[] {
-    return this._nodes;
-  }
+	get TFTensors(): TFTensor[] {
+		return this._TFTensors;
+	}
 
-  set nodes(value: NodeData[]) {
-    this._nodes = value;
-  }
-  get type(): string {
-    return this._type;
-  }
+	set TFTensors(value: TFTensor[]) {
+		this._TFTensors = value;
+	}
+	get TFOperator(): TFOperator[] {
+		return this._TFOperator;
+	}
 
-  get name(): string {
-    return this._name;
-  }
+	set TFOperator(value: TFOperator[]) {
+		this._TFOperator = value;
+	}
+	get lineConnectorsList(): lineConnectors[] {
+		return this._lineConnectorsList;
+	}
 
-  set currentNode(node: NodeData){
-    this._currentNode = node;
-  }
+	set lineConnectorsList(value: lineConnectors[]) {
+		this._lineConnectorsList = value;
+	}
 
-  get currentNode(): NodeData{
-    return this._currentNode;
-  }
+	get nodes(): NodeData[] {
+		return this._nodes;
+	}
 
-  private _name = "";
-  private _type = "";
-  private _x:number=0; //change to private
-  private _y:number=0; //change to private
+	set nodes(value: NodeData[]) {
+		this._nodes = value;
+	}
 
-  private _nodes: NodeData[];
-  private _currentNode: NodeData;
+	get type(): string {
+		return this._type;
+	}
 
-  private tempNode: NodeData[] = [];
+	get name(): string {
+		return this._name;
+	}
 
-  private createNodeSource = new BehaviorSubject(false); //default = false
-  private createFormSource = new BehaviorSubject(false); //default = false
+	set currentNode(node: NodeData) {
+		this._currentNode = node;
+	}
 
-  createNodeBoolean = this.createNodeSource.asObservable();
-  createFormBoolean = this.createFormSource.asObservable();
+	get currentNode(): NodeData {
+		return this._currentNode;
+	}
 
+	private _name = "";
+	private _type = "";
 
-  constructor() {
-  }
-
-  changeCreateNodeBoolean(createNodeSection: boolean) {
-    this.createNodeSource.next(createNodeSection)
-  }
-
-  changeCreateFormBoolean(createFormSection: boolean) {
-    this.createFormSource.next(createFormSection)
-  }
-
-  passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
-    this._name = nodeName;
-    this._type = nodeDataType;
-  }
+	private _nodes: NodeData[];
+	private _currentNode: NodeData;
+	private _lineConnectorsList: lineConnectors[];
+	private _TFOperator: TFOperator[];
+	private _TFTensors: TFTensor[];
 
 
-  applyZoomableBehaviour() {}
-  applyDraggableBehaviour() {}
-  getForceDirectedGraph() {}
+	private createNodeSource = new BehaviorSubject(false); //default = false
+
+	createNodeBoolean = this.createNodeSource.asObservable();
+
+	constructor() {
+	}
+
+
+	passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string) {
+		this._name = nodeName;
+		this._type = nodeDataType;
+	}
 }
