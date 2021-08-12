@@ -9,15 +9,18 @@ import {NodeData} from "../../node-data";
 })
 export class WorkspaceBoundaryComponent implements OnInit {
 
-  @Input() storageNode: NodeData[]
-  @Input() storageLines: NodeData[]
+	@Input() storageNode: NodeData[];
+	@Input() storageLines: NodeData[];
 
-  constructor(public data: DataService) {
+	constructor(public data: DataService) {
 
 	}
 
 	ngOnInit(): void {
 		this.data.nodes = [];
 		this.data.lineConnectorsList = [];
+		
+		// this.data.TFOperator = [];
+		// this.data.TFTensors = [];
 	}
 }
