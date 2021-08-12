@@ -1,0 +1,27 @@
+.createNode{
+  position: relative;
+  width: 250px;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+
+}
+
+.createNode button{
+  position: relative;
+}
+
+.createNodeButton{
+  background-color: #FF9B01;
+  color: white;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

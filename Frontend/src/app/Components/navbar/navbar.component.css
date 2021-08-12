@@ -1,0 +1,97 @@
+.navigator{
+  position: relative;
+  height: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.side-menu {
+  position: absolute;
+  top: -30px;
+  bottom: -30px;
+  left: 0;
+  right: -30px;
+  /*background: #afc3c4;*/
+}
+
+.createComponentButton{
+  display: table-cell;
+  width: 250px;
+  margin: 8px 8px 8px 0;
+}
+
+.container {
+  height: 90%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.sidenav {
+  user-select: none;
+  background-color: #879b9c;
+}
+.full-width {
+  width: 100%;
+}
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  /*padding-left: 30px;*/
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
+.NodeInput{
+  position: relative;
+  height: 35%;
+  width: 99%;
+  left: -0.5%;
+  border: 1px solid blue;
+}
+
+.NodeSearch{
+  position: absolute;
+  width: 20%;
+  height: 13vh;
+  top: 24.8%;
+  border: 3px solid black;
+  background-color: #333642;
+  z-index: 3;
+  border-radius: 4%;
+}
+
+.NodeSearch button{
+  margin-left: 25%;
+}
+
+.NodeButton{
+  position: absolute;
+  bottom: 0;
+  letter-spacing: 1px;
+  padding: 6px 13px;
+  background-color: #ff8C00;
+  text-align: center;
+  width: max-content;
+  cursor: pointer;
+  transition: all 0.3s 0s ease-in-out;
+}
+
+#tensorNodeSearch{
+  top: 10%;
+}

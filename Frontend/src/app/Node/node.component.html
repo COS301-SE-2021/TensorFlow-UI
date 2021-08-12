@@ -1,0 +1,10 @@
+<div *ngFor="let item of tftensor; let i = index" [attr.data-index]="i">
+    <button class="componentButton" mat-raised-button color="primary" (click)="createComponent(item)">
+        {{item}}
+    </button>
+</div>
+<div *ngFor="let item of tfoperator; let i = index" [attr.data-index]="i">
+    <button class="componentButton" mat-raised-button color="primary" (click)="createComponent(item)">
+        {{item}}
+    </button>
+</div>
