@@ -1,4 +1,5 @@
 .draggable {
+  position: relative;
   width: 10%;
   height: 15%;
   background-color: #29e;

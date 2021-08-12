@@ -1,9 +1,10 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
-import { NodeData} from "../../node-data";
+import {lineConnectors, NodeData} from "../../node-data";
 import interact from "interactjs";
 import {FormControl} from '@angular/forms';
 import * as LeaderLine from "leader-line-new"
+import * as d3 from "d3";
 import {DOCUMENT} from "@angular/common";
 import {
   AddLineConnectorToStorage,
@@ -11,13 +12,14 @@ import {
   UpdateNodeInStorage
 } from "../../../Storage/workspace/workspace.actions";
 import {Store} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace/workspace.state";
 
 @Component({
 	selector: 'app-node-element',
 	templateUrl: './node-element.component.html',
 	styleUrls: ['./node-element.component.css']
 })
-export class NodeElementComponent implements OnInit {
+export class NodeElementComponent implements OnInit,AfterViewInit {
 
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
@@ -31,28 +33,48 @@ export class NodeElementComponent implements OnInit {
     this.lastSelected = [];
 	}
 
+  ngAfterViewInit(){
+    var node = document.getElementById(this.nodeData.name);
+
+    if(node!=null ) {
+      node.style.transform = 'translate(' + Number(this.nodeData.x) + 'px, ' + Number(this.nodeData.y) + 'px)'
+
+      node.setAttribute('data-x',this.nodeData.x.toString());
+      node.setAttribute('data-y',this.nodeData.y.toString());
+    }
+
+    for(let i=0; i<this.data.lineConnectorsList.length; ++i){
+      this.addStorageLines(this.data.lineConnectorsList[i]);
+    }
+
+    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    for(let i=0; i<storageLines.length; ++i) {
+      this.linkNode(storageLines[i]);
+    }
+  }
+
 	//Initialise the drag functionality for each node-element.
 	initialiseDraggable() {
-	  const that = this;
-		interact('.draggable')
-			.draggable({
-				inertia: true,
-				modifiers: [
-					interact.modifiers.restrictRect({
+    const that = this;
+    interact('.draggable')
+      .draggable({
+        inertia: true,
+        modifiers: [
+          interact.modifiers.restrictRect({
             restriction: '.workspace-boundary',
-						endOnly: true
-					})
-				],
-				autoScroll: true,
-				listeners: {
-					move: this.dragListener,
-					end(event) {
+            endOnly: true
+          })
+        ],
+        autoScroll: true,
+        listeners: {
+          move: this.dragListener,
+          end(event) {
 
-					  const target = event.target;
-					  const nodeId = event.target.id;
-					  const node = that.data.nodes.find(element => element.name == nodeId);
+            const target = event.target;
+            const nodeId = event.target.id;
+            const node = that.data.nodes.find(element => element.name == nodeId);
 
-            if(node!=null){
+            if (node != null) {
               //Update node coordinates
               node.x = target.getAttribute('data-x')
               node.y = target.getAttribute('data-y')
@@ -60,10 +82,10 @@ export class NodeElementComponent implements OnInit {
               //Update Node coordinates in the storage
               that.store.dispatch(new UpdateNodeInStorage(node));
             }
-					}
-				}
-			});
-	}
+          }
+        }
+      })
+  }
 
 	dragListener(event) {
 		var target = event.target
@@ -114,8 +136,62 @@ export class NodeElementComponent implements OnInit {
 				line: lineObj,
 			});
 		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
-
 	}
+
+	//To reload stored nodes into the canvas
+	linkNode(line: lineConnectors){
+
+    const lineStartName = line.start;
+    const lineEndName = line.end;
+
+    // console.log();
+    // console.log(document.getElementById(lineEndName));
+    const startDiv = document.getElementById(lineStartName);
+    const endDiv = document.getElementById(lineEndName);
+
+    if(startDiv!=null && endDiv!=null){
+      const lineObj = new LeaderLine(
+        this.document.getElementById(lineStartName),
+        this.document.getElementById(lineEndName), {
+          // size: 6,
+          // outlineColor: '#red',
+          // outline: true,
+          // endPlugOutline: true,
+          // dash: true,
+          // path: 'arc',
+          startSocket: 'auto',
+          endSocket: 'auto'
+        }
+      );
+
+      this.data.lineConnectorsList.push({
+        start: lineStartName,
+        end: lineEndName,
+        line: lineObj,
+      });
+
+    }
+  }
+
+  addStorageLines(line: lineConnectors){
+    console.log(line.start);
+    console.log(line.end);
+
+    console.log(document.getElementById(line.start))
+    const lineObj = new LeaderLine(
+      this.document.getElementById(line.start.toString()),
+      this.document.getElementById(line.end.toString()), {
+        // size: 6,
+        // outlineColor: '#red',
+        // outline: true,
+        // endPlugOutline: true,
+        // dash: true,
+        // path: 'arc',
+        startSocket: 'auto',
+        endSocket: 'auto'
+      }
+    );
+  }
 
 	// Redraw lines for each component.
 	reload() {
