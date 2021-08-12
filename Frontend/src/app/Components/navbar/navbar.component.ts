@@ -1,13 +1,15 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store, Select } from "@ngxs/store";
 import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
 import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
-import { NodeData } from "../../node-data";
+import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {state} from "@angular/animations";
 import {variable} from "@angular/compiler/src/output/output_ast";
+import {DOCUMENT} from "@angular/common";
+import * as LeaderLine from "leader-line-new";
 
 @Component({
 	selector: 'app-navbar',
@@ -18,15 +20,19 @@ export class NavbarComponent implements OnInit {
 
   nodes$: Observable<NodeData[]>;
   public functionsList: string[] = ["add","subtract","multiply","divide"];
-	constructor(private data: DataService, private store: Store) {}
+	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store) {}
 
 	ngOnInit(): void {
     this.data.nodes = [];
+    this.data.lineConnectorsList = [];
     const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
     for(let i=0; i<storageNodes.length; ++i){
       this.loadNode(storageNodes[i]);
     }
+    // for(let i=0; i<storageLines.length; ++i){
+    //   this.loadLine(storageLines[i]);
+    // }
 	}
 
   // This adds a LOADED node from storage to the data service "nodes" array.
@@ -39,6 +45,34 @@ export class NavbarComponent implements OnInit {
       x: node.x,
       y: node.y
 	  });
+  }
+
+  loadLine(line: lineConnectors){
+    this.data.lineConnectorsList.push({
+      start: line.start,
+      end: line.end,
+      line: line.line
+    })
+    // this.addStorageLines(line);
+  }
+
+  addStorageLines(line: lineConnectors){
+	  console.log(line.start);
+    console.log(line.end);
+
+    const lineObj = new LeaderLine(
+      this.document.getElementById(line.start.toString()),
+      this.document.getElementById(line.end.toString()), {
+        // size: 6,
+        // outlineColor: '#red',
+        // outline: true,
+        // endPlugOutline: true,
+        // dash: true,
+        // path: 'arc',
+        startSocket: 'auto',
+        endSocket: 'auto'
+      }
+    );
   }
 
   // This adds a new node to the data service "nodes" array.
