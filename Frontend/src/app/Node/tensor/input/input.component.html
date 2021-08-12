@@ -1,0 +1,12 @@
+<ol>
+    <li>
+        <button mat-raised-button (click)="openDialog()">Input</button>
+    </li>
+    <li *ngIf="inputCount < 2">
+        <i>{{inputData[0]}}</i>
+    </li>
+    <li>
+        <i>{{inputData[0]}}</i>
+        <i>{{inputData[1]}}</i>
+    </li>
+</ol>
