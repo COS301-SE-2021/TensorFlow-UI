@@ -4,15 +4,9 @@ import {lineConnectors, NodeData} from "../../node-data";
 import interact from "interactjs";
 import {FormControl} from '@angular/forms';
 import * as LeaderLine from "leader-line-new"
-import * as d3 from "d3";
 import {DOCUMENT} from "@angular/common";
-import {
-  AddLineConnectorToStorage,
-  AddNodeToStorage,
-  UpdateNodeInStorage
-} from "../../../Storage/workspace/workspace.actions";
 import {Store} from "@ngxs/store";
-import {WorkspaceState} from "../../../Storage/workspace/workspace.state";
+import {WorkspaceState,AddLineConnectorToStorage,UpdateNodeInStorage} from '../../../Storage/workspace'
 
 @Component({
 	selector: 'app-node-element',
@@ -29,12 +23,18 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 		this.initialiseDraggable();
 	}
 
+	//Initialises the lastSelected string array
 	ngOnInit(): void {
     this.lastSelected = [];
 	}
 
+  /*
+    - After the View has been initialised, a node's position is updated based on its stored X and Y data
+    - When page reloads, nodeData is restored for each specific node
+    - All lines are redrawn onto the canvas for each Node
+  */
   ngAfterViewInit(){
-    var node = document.getElementById(this.nodeData.name);
+    const node = document.getElementById(this.nodeData.name);
 
     if(node!=null ) {
       node.style.transform = 'translate(' + Number(this.nodeData.x) + 'px, ' + Number(this.nodeData.y) + 'px)'
@@ -43,13 +43,19 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
       node.setAttribute('data-y',this.nodeData.y.toString());
     }
 
-    for(let i=0; i<this.data.lineConnectorsList.length; ++i){
-      this.addStorageLines(this.data.lineConnectorsList[i]);
-    }
-
+    //All lines saved to the ngxs storage retrieved here
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+
+    //Load all connectors which exist for a Node from the storageLines array
     for(let i=0; i<storageLines.length; ++i) {
-      this.linkNode(storageLines[i]);
+      /*
+       - If line is the endPoint of a connector then load it
+       - Cannot use the start as the end node will/might not have been created yet
+        (e.g. Node 1 has been loaded but not Node2, start exists but end doesn't)
+      */
+      if(storageLines[i].end == this.nodeData.name){
+        this.loadLineFromStorageToCanvas(storageLines[i]);
+      }
     }
   }
 
@@ -87,24 +93,29 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
       })
   }
 
+  //Called from the initialiseDraggable function and will be called each time a node is moved/dragged
 	dragListener(event) {
-		var target = event.target
-		// keep the dragged position in the data-x/data-y attributes
-		var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-		var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    const target = event.target;
+    // keep the dragged position in the data-x/data-y attributes
+    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-		// translate the element
+    // translate the element
 		target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
 
 		// update the position attributes
 		target.setAttribute('data-x', x)
 		target.setAttribute('data-y', y)
-
 	}
 
-	// Initial linking between two node elements.
+	/*
+	 - Saves the lastSelected option from the output List and uses it for creating line links
+	 - LeaderLine object created for a visual connection between two nodes
+	 - newly created line pushed to the lineConnectorsList so it can be outputted on the canvas
+	*/
 	linkNodes() {
 
+	  //lastSelected used because simply using data from the nodesArray is not sufficient
     for(let i=0; i<this.nodesArray.value.length; ++i){
       if(this.lastSelected.indexOf(this.nodesArray.value[i].name) === -1){
         this.lastSelected.push(this.nodesArray.value[i].name);
@@ -138,21 +149,24 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
 	}
 
-	//To reload stored nodes into the canvas
-	linkNode(line: lineConnectors){
+  /*
+    - Function loads a line from storage
+    - Creates a LeaderLine object using the start and end line strings
+    - Then pushes the newly created LeaderLine object to the lineConnectorsList array
+    - ToDo: Add comments inside the interface/constructors for Node and LineConnector objects
+  */
+  loadLineFromStorageToCanvas(line: lineConnectors){
 
     const lineStartName = line.start;
     const lineEndName = line.end;
 
-    // console.log();
-    // console.log(document.getElementById(lineEndName));
-    const startDiv = document.getElementById(lineStartName);
-    const endDiv = document.getElementById(lineEndName);
+    const startDiv = this.document.getElementById(lineStartName);
+    const endDiv = this.document.getElementById(lineEndName);
 
     if(startDiv!=null && endDiv!=null){
       const lineObj = new LeaderLine(
-        this.document.getElementById(lineStartName),
-        this.document.getElementById(lineEndName), {
+        startDiv,
+        endDiv, {
           // size: 6,
           // outlineColor: '#red',
           // outline: true,
@@ -173,27 +187,7 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
     }
   }
 
-  addStorageLines(line: lineConnectors){
-    console.log(line.start);
-    console.log(line.end);
-
-    console.log(document.getElementById(line.start))
-    const lineObj = new LeaderLine(
-      this.document.getElementById(line.start.toString()),
-      this.document.getElementById(line.end.toString()), {
-        // size: 6,
-        // outlineColor: '#red',
-        // outline: true,
-        // endPlugOutline: true,
-        // dash: true,
-        // path: 'arc',
-        startSocket: 'auto',
-        endSocket: 'auto'
-      }
-    );
-  }
-
-	// Redraw lines for each component.
+	// Redraw lines for each component on mousemove
 	reload() {
 		if (this.data?.lineConnectorsList != null) {
 			if (this.data.lineConnectorsList.length > 0) {
