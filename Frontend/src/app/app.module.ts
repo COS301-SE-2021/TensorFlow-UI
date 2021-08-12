@@ -9,6 +9,7 @@ import {ComponentsModule} from "./components/components.module";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
+import { CsvImportComponent } from './Dataset/csv-import/csv-import.component';
 
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
@@ -18,6 +19,7 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
+    CsvImportComponent,
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
