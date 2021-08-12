@@ -77,13 +77,13 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 					}
 				}
 			})
-		var nodes = localStorage.getItem("nodeArray");
+		/*var nodes = localStorage.getItem("nodeArray");
 		console.log("from LS: " + nodes);
 		if (nodes != null) this.data.nodes = JSON.parse(nodes);
 		console.log("node array: " + this.data.nodes)
 		for (var i = 0; i < this.data.nodes.length; i++) {
 			this.addNodeToCanvas(true)
-		}
+		}*/
 	}
 
 	addNodeToCanvas(givenNode: boolean) {
