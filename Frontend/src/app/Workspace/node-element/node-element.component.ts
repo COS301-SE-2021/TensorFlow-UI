@@ -11,6 +11,8 @@ import {
   UpdateNodeInStorage
 } from "../../../Storage/workspace/workspace.actions";
 import {Store} from "@ngxs/store";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+
 
 @Component({
 	selector: 'app-node-element',
@@ -24,7 +26,7 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 	private lastSelected: Array<string>;
   public selectOptions: string[];
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store, public dialog: MatDialog) {
 		this.initialiseDraggable();
 	}
 
@@ -32,8 +34,10 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
     this.lastSelected = [];
     this.selectOptions = [];
     for(let i=0; i<this.data.nodes.length;++i){
-      if(this.data.nodes[i].name != this.nodeData.name){
-        this.selectOptions.push(this.data.nodes[i].name);
+      if(this.data.nodes[i]){
+        if(this.data.nodes[i].name != this.nodeData.name){
+          this.selectOptions.push(this.data.nodes[i].name);
+        }
       }
     }
 	}
@@ -98,8 +102,6 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
         this.lastSelected.push(this.nodesArray.value[i]);
       }
     }
-
-    console.log(this.lastSelected[this.lastSelected.length-1]);
 	  const lineStartName = this.nodeData.name;
 	  const lineEndName = this.lastSelected[this.lastSelected.length-1];
 
@@ -130,6 +132,35 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	}
 
+	openDeleteDialog(){
+	  const dialog= this.dialog.open(NodeDeleteDialog, {
+	    data: {nodeData2: this.nodeData}
+    });
+
+
+	  dialog.afterClosed().subscribe(result => {
+      const deleteNodeBoolean = dialog.disableClose;
+
+      if(deleteNodeBoolean){
+        // this.data.nodes.filter(element => element.name == this.nodeData.name);
+        for(let i=0; i<this.data.nodes.length; ++i){
+          if(this.data.nodes[i].name == this.nodeData.name){
+            // delete this.data.nodes[i];
+            const index: number = this.data.nodes.indexOf(this.nodeData);
+
+            if(index!=-1){
+              this.data.nodes.splice(index,1);
+            }
+          }
+        }
+
+      }
+      else{
+
+      }
+    })
+  }
+
 	updateSelectedOptions(){
     this.selectOptions = [];
     for(let i=0; i<this.data.nodes.length;++i){
@@ -147,25 +178,27 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 
 					const start = this.data.lineConnectorsList[i].start;
 					let end = this.data.lineConnectorsList[i].end;
+
+          if(this.document.getElementById(start) && this.document.getElementById(end)){
             // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							// size: 6,
-							// outlineColor: '#red',
-							// outline: true,
-							// endPlugOutline: true,
-							// dash: true,
-							// path: 'arc',
-              path: 'grid',
-              startPlug: 'disc',
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
+            this.data.lineConnectorsList[i].line.remove();
 
-					);
-
+            this.data.lineConnectorsList[i].line = new LeaderLine(
+              this.document.getElementById(start),
+              this.document.getElementById(end), {
+                // size: 6,
+                // outlineColor: '#red',
+                // outline: true,
+                // endPlugOutline: true,
+                // dash: true,
+                // path: 'arc',
+                path: 'grid',
+                startPlug: 'disc',
+                startSocket: 'auto',
+                endSocket: 'auto'
+              }
+            );
+          }
 				}
 			}
 		}
@@ -173,5 +206,21 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	addLineToStorage(line){
     this.store.dispatch(new AddLineConnectorToStorage(line));
+  }
+}
+
+@Component({
+  selector: 'node-element-delete-node-dialog',
+  templateUrl: 'node-element-delete-node-dialog.html',
+})
+export class NodeDeleteDialog {
+
+  public removeNodeBool: boolean = false;
+  constructor( public dialogRef: MatDialogRef<NodeDeleteDialog>, @Inject(MAT_DIALOG_DATA) public nodeData: NodeData) {
+  }
+
+  removeNode(){
+    this.dialogRef.close();
+    this.dialogRef.disableClose = true;
   }
 }

@@ -4,7 +4,9 @@
         <p>Node: {{nodeData.num}}</p>
       </div>
     </mat-list>
-
+    <button id="deleteButton" mat-icon-button (click)="openDeleteDialog()">
+      <mat-icon>-</mat-icon>
+    </button>
     <button class="createComponentButton" id="outputButton" mat-raised-button color="primary">Add Output</button>
     <mat-form-field class="NodesArr" appearance="fill" (mouseenter)="updateSelectedOptions()">
       <mat-select [formControl]="nodesArray" multiple (click)="updateSelectedOptions()" (selectionChange)="linkNodes()"

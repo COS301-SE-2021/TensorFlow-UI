@@ -7,7 +7,10 @@
   touch-action: none;
   user-select: none;
   transform: translate(0px,0px);
-  border-radius: 4%;
+  border-radius: 5%;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 10%;
+
 }
 
 .NodesArr{
@@ -17,14 +20,23 @@
   width: 100%;
 }
 
+#deleteButton{
+  position: absolute;
+  right: -5%;
+  top: -10%;
+}
+
+#deleteButton mat-icon{
+  color: black;
+}
+
 .mat-form div{
   background: white;
 }
 
-
 mat-select{
   left: 100%;
-  background: white;
+  /*background: white;*/
   padding: 0;
   margin: 0;
 }
@@ -87,15 +99,15 @@ mat-select{
 .nodeName{
   position: absolute;
   /*border: 2px solid black;*/
-  top: 1%;
-  left: -0.2%;
-  width: 100.5%;
-  height: 30%;
+  top: 0;
+  left: -0.1%;
+  width: 100.2%;
+  height: 30.5%;
   font-size: 16px;
   margin: 0 auto;
   background-color: #ff8C00;
-  border-top-right-radius: 4%;
-  border-top-left-radius: 4%;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 10%;
 }
 
 .nodeName p{
