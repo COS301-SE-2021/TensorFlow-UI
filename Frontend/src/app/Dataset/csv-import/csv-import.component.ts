@@ -17,7 +17,6 @@ export class CsvImportComponent implements OnInit {
   }
 
   saveCSV(): void {
-
     // Select the files from the event
     const files = document.getElementById("csv-file")
 
@@ -31,4 +30,6 @@ export class CsvImportComponent implements OnInit {
       console.log('Error', error);
     });
   }
+
+  readCSV(files) : 
 }

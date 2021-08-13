@@ -2,3 +2,10 @@
   <input type="file" id="csv-file" name="csv-input">
   <input type="submit">
 </form>
+
+<div class="dropzone">
+  <input type="file" #fileDropRef id="fileDropRef" multiple  (change)="fileBrowseHandler($event.target.files)" />
+  <h3>Drag and drop files here!</h3>
+  <h3>or</h3>
+  <label for="fileDropRef">Browse</label>
+</div>
