@@ -180,8 +180,8 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 					let end = this.data.lineConnectorsList[i].end;
 
           if(this.document.getElementById(start) && this.document.getElementById(end)){
-            // @ts-ignore
-            this.data.lineConnectorsList[i].line.remove();
+
+            this.data.lineConnectorsList[i].line?.remove();
 
             this.data.lineConnectorsList[i].line = new LeaderLine(
               this.document.getElementById(start),
