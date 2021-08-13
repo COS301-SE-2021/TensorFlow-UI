@@ -12,10 +12,35 @@
 
 .NodesArr{
   position: absolute;
-  width: 100%;
-  font-size: 0.6rem;
   /*border: 3px solid #ff8C00;*/
-  bottom: -12%;
+  top: 80%;
+  width: 100%;
+}
+
+.mat-form div{
+  background: white;
+}
+
+
+mat-select{
+  left: 100%;
+  background: white;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-option{
+  background: orange;
+  font-size: 0.5rem;
+}
+
+/*#mat-select-0-panel{*/
+/*  min-width: 0;*/
+/*  width: 20px;*/
+/*}*/
+
+.mat-option:hover{
+  background: #de9000;
 }
 
 .mat-list-item{
@@ -24,9 +49,9 @@
   bottom: 30%;
 }
 
-.mat-option{
-  font-size: 0.7rem;
-}
+/*.mat-option{*/
+/*  font-size: 0.7rem;*/
+/*}*/
 
 .functionalNode{
   height: 6rem;
@@ -77,4 +102,15 @@
   position: absolute;
   top:15%;
   margin-left: 23%;
+}
+
+#outputButton{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  font-size: 0.7rem;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }

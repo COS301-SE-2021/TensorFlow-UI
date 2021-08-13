@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import { NodeData} from "../../node-data";
 import interact from "interactjs";
@@ -17,11 +17,12 @@ import {Store} from "@ngxs/store";
 	templateUrl: './node-element.component.html',
 	styleUrls: ['./node-element.component.css']
 })
-export class NodeElementComponent implements OnInit {
+export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
 	private lastSelected: Array<string>;
+  public selectOptions: string[];
 
 	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.initialiseDraggable();
@@ -29,9 +30,18 @@ export class NodeElementComponent implements OnInit {
 
 	ngOnInit(): void {
     this.lastSelected = [];
+    this.selectOptions = [];
+    for(let i=0; i<this.data.nodes.length;++i){
+      if(this.data.nodes[i].name != this.nodeData.name){
+        this.selectOptions.push(this.data.nodes[i].name);
+      }
+    }
 	}
 
-	//Initialise the drag functionality for each node-element.
+	ngAfterViewInit() {
+  }
+
+  //Initialise the drag functionality for each node-element.
 	initialiseDraggable() {
 	  const that = this;
 		interact('.draggable')
@@ -84,11 +94,12 @@ export class NodeElementComponent implements OnInit {
 	linkNodes() {
 
     for(let i=0; i<this.nodesArray.value.length; ++i){
-      if(this.lastSelected.indexOf(this.nodesArray.value[i].name) === -1){
-        this.lastSelected.push(this.nodesArray.value[i].name);
+      if(this.lastSelected.indexOf(this.nodesArray.value[i]) === -1){
+        this.lastSelected.push(this.nodesArray.value[i]);
       }
     }
 
+    console.log(this.lastSelected[this.lastSelected.length-1]);
 	  const lineStartName = this.nodeData.name;
 	  const lineEndName = this.lastSelected[this.lastSelected.length-1];
 
@@ -118,6 +129,15 @@ export class NodeElementComponent implements OnInit {
 		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
 
 	}
+
+	updateSelectedOptions(){
+    this.selectOptions = [];
+    for(let i=0; i<this.data.nodes.length;++i){
+      if(this.data.nodes[i].name != this.nodeData.name){
+        this.selectOptions.push(this.data.nodes[i].name);
+      }
+    }
+  }
 
 	// Redraw lines for each component.
 	reload() {
