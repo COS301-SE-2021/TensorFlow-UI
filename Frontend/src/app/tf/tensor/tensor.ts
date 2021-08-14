@@ -7,8 +7,8 @@ export abstract class TFTensor extends TFNode {
 		public name: String | undefined = undefined,
 		public count: number
 	) {
-		super(name);
+		super(name, undefined, undefined);
 	}
 
-	protected code(){}
+	code(){}
 }
