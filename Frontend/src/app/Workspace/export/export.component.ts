@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import commit from '../../GITApi.js'
 import {GetList} from '../../GITApi.js'
-import application from "@angular-devkit/build-angular/src/babel/presets/application";
+import tensorList from "../import/import.component";
 
 @Component({
   selector: 'app-export',
@@ -62,15 +62,14 @@ export class ExportComponent implements OnInit {
     } else {
       var exists = false;
       GetList();
+
       var keep = exportAs + ".json";
-      var cbox = document.getElementById("TFUIlib");
-      if(cbox!= null) {
-        for (let i = 0; i < cbox.children.length; i++) {
-          if (keep == cbox.children[i].innerHTML){
-            exists = true;
-          }
+      for (let i = 0; i < tensorList.length; i++) {
+        if (keep == tensorList[i]){
+          exists = true;
         }
       }
+
       if (exists){
         alert('A file with the same name already exists in the library.');
       } else {
