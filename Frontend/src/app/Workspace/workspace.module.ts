@@ -26,11 +26,12 @@ import {AppModule} from "../app.module";
 import {Node} from "../Node/node.component";
 import {nodeModule} from "../Node/node.module";
 import {MatDialogModule} from "@angular/material/dialog";
-//import { ImportComponent } from './import/import.component';
+import { ImportComponent } from './import/import.component';
 
 @NgModule({
   imports: [
     CommonModule,
+
     DragDropModule,
     FormsModule,
     MatCardModule,
@@ -48,19 +49,21 @@ import {MatDialogModule} from "@angular/material/dialog";
     declarations: [
         WorkspaceBoundaryComponent,
         CreateNodeSectionComponent,
+        ImportComponent,
         NodeElementComponent,
         NodeDeleteDialog,
         CanvasComponent,
         FuncNodeElementComponent,
     ],
-    exports: [
-        WorkspaceBoundaryComponent,
-        CreateNodeSectionComponent,
-        CanvasComponent,
-        NodeElementComponent,
-        NodeDeleteDialog,
-        FuncNodeElementComponent
-    ]
+  exports: [
+    WorkspaceBoundaryComponent,
+    CreateNodeSectionComponent,
+    CanvasComponent,
+    NodeElementComponent,
+    NodeDeleteDialog,
+    FuncNodeElementComponent,
+    ImportComponent
+  ]
 
 })
 export class WorkspaceModule {

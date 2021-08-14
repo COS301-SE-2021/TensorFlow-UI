@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GetList} from '../../GITApi.js'
+
+let tensorList: string[] = [""];
+export default tensorList;
+
 
 @Component({
   selector: 'app-import',
@@ -7,6 +11,7 @@ import {GetList} from '../../GITApi.js'
   styleUrls: ['./import.component.css']
 })
 export class ImportComponent implements OnInit {
+  public tensorL: string[] = [""];
 
   constructor() { }
 
@@ -14,6 +19,9 @@ export class ImportComponent implements OnInit {
   }
 
   showhide(){
+    this.libSelection.nativeElement.value = "";
+    GetList();
+    this.tensorL = tensorList;
     var el = document.getElementById('hidden1');
     if (el != null){
       if ( el.style.display == 'none'){
@@ -22,7 +30,6 @@ export class ImportComponent implements OnInit {
         el.style.display = 'none';
       }
     }
-    GetList();
   }
 
   ImportFromPC() {
@@ -57,8 +64,9 @@ export class ImportComponent implements OnInit {
     }
   }
 
+  @ViewChild('libSelection') libSelection: ElementRef;
 
-  ImportFromLib(){
-
+  ImportFromLib() {
+    console.log(this.libSelection.nativeElement.value);
   }
 }

@@ -10,4 +10,9 @@ button{
 
 .Group{
   border: solid 2px black;
+  text-align: center;
+}
+
+.NodeSearch button{
+  margin-left: 25%;
 }
