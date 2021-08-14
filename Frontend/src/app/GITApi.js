@@ -1,8 +1,7 @@
 import {PAT} from './config.js'
 import {user} from './config.js'
 import {mail} from './config.js'
-
-
+import tensorList from './Workspace/import/import.component.ts'
 
 export default function Commit (Name, Data){
   var myHeaders = new Headers();
@@ -64,14 +63,18 @@ export function GetData(ID){
 }
 
 function poplst(l){
-  var cbox = document.getElementById("TFUIlib");
-  if (cbox != null){
-    cbox.innerHTML = "";
+  // var cbox = document.getElementById("TFUIlib");
+  // if (cbox != null){
+  //   cbox.innerHTML = "";
+  for (let k = 0; k < tensorList.length; k++) {
+    tensorList[k] = "";
+  }
     for (let i = 0; i < l.length; i++) {
-      var opt = document.createElement('option');
-      opt.value = l[i];
-      opt.innerHTML = l[i];
-      cbox.appendChild(opt);
-    }
+      tensorList[i] = l[i];
+      // var opt = document.createElement('option');
+      // opt.value = l[i];
+      // opt.innerHTML = l[i];
+      // cbox.appendChild(opt);
+    // }
   }
 }
