@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {GetList} from '../../GITApi.js'
+import {GetData, GetList} from '../../GITApi.js'
 
 let tensorList: string[] = [""];
 export default tensorList;
@@ -67,6 +67,11 @@ export class ImportComponent implements OnInit {
   @ViewChild('libSelection') libSelection: ElementRef;
 
   ImportFromLib() {
-    console.log(this.libSelection.nativeElement.value);
+    if (this.libSelection.nativeElement.value == ""){
+      alert("Please select a project to import and try again.");
+    } else{
+      GetData(this.libSelection.nativeElement.value);
+      this.libSelection.nativeElement.value = "";
+    }
   }
 }
