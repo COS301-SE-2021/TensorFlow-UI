@@ -18,7 +18,6 @@ import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NodeDeleteDialog, NodeElementComponent} from './node-element/node-element.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
-import { FuncNodeElementComponent } from './func-node-element/func-node-element.component';
 import {nodeModule} from "../Node/node.module";
 import {MatDialogModule} from "@angular/material/dialog";
 //import { ImportComponent } from './import/import.component';
@@ -43,14 +42,12 @@ import {MatDialogModule} from "@angular/material/dialog";
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog,
-        FuncNodeElementComponent,
+        NodeDeleteDialog
     ],
     exports: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
         NodeDeleteDialog,
-        FuncNodeElementComponent
     ]
 
 })
