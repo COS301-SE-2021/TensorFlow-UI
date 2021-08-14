@@ -1,27 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { NgxCsvParser } from 'ngx-csv-parser';
+import { NgxCSVParserError } from 'ngx-csv-parser';
 
 @Component({
-  selector: 'app-csv-import',
-  templateUrl: './csv-import.component.html',
-  styleUrls: ['./csv-import.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class CsvImportComponent implements OnInit {
+
+export class AppComponent {
+
   csvRecords: any[] = [];
   header = false;
-
 
   constructor(private ngxCsvParser: NgxCsvParser) {
   }
 
-  ngOnInit(): void {
-  }
+  @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
 
-  saveCSV(): void {
+  // Your applications input change listener for the CSV File
+  fileChangeListener($event: any): void {
+
     // Select the files from the event
-    const files = document.getElementById("csv-file")
+    const files = $event.srcElement.files;
 
     // Parse the file you want to select for the operation along with the configuration
-    this.ngxCsvParser.parse(files[0], {header: this.header, delimiter: ','})
+    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
       .pipe().subscribe((result: Array<any>) => {
 
       console.log('Result', result);
@@ -29,7 +34,6 @@ export class CsvImportComponent implements OnInit {
     }, (error: NgxCSVParserError) => {
       console.log('Error', error);
     });
-  }
 
-  readCSV(files) : 
+  }
 }

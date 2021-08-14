@@ -10,7 +10,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 import { CsvImportComponent } from './Dataset/csv-import/csv-import.component';
-import { DragAndDropDirective } from './Dataset/drag-and-drop.directive';
+import { DragAndDropDirective } from './Dataset/csv-import/drag-and-drop.directive';
 
 const modules = [
   BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule, ComponentsModule,
