@@ -35,4 +35,19 @@ export class CsvImportComponent {
     });
 
   }
+
+  importcsv(files: any): void {
+
+    // Parse the file you want to select for the operation along with the configuration
+    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
+      .pipe().subscribe((result) => {
+
+      console.log('Result', result);
+      this.csvRecords = result;
+      return result;
+    }, (error: NgxCSVParserError) => {
+      console.log('Error', error);
+    });
+
+  }
 }

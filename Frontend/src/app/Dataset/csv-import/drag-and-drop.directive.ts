@@ -1,4 +1,4 @@
-import {Directive, HostListener} from '@angular/core';
+import {Directive, HostListener, HostBinding, EventEmitter, Output} from '@angular/core';
 
 @Directive({
   selector: '[appDragAndDrop]'
@@ -6,6 +6,7 @@ import {Directive, HostListener} from '@angular/core';
 export class DragAndDropDirective {
 
   constructor() { }
+  @Output() onFileDropped = new EventEmitter<any>();
 
   @HostListener('dragover', ['$event']) ondragover(evt) {
     evt.preventDefault();
@@ -20,12 +21,10 @@ export class DragAndDropDirective {
   @HostListener('drop', ['$event']) public ondrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.fileOver = false;
-    const files = evt.dataTransfer.files;
-    if (files.length> 0) {
-
+    let files = evt.dataTransfer.files;
+    if (files.length > 0) {
+      this.onFileDropped.emit(files)
     }
   }
-
 }
 
