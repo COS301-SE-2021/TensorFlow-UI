@@ -117,11 +117,7 @@ export class Node implements OnInit {
     );
 
     //Setting the children of the newly connected nodes
-    let node = this.data.TFOperator.find(function (node) {
-      if (node.name == lineStartName) {
-        return this;
-      }
-    })
+    let node = this.data.TFOperator.find(element => element.name == lineStartName);
     console.log("Node found from array: " + JSON.stringify(node))
     if (otherNode.childOne == undefined) {
       otherNode.childOne = node
