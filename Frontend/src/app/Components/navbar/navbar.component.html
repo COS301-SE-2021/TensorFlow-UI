@@ -17,14 +17,17 @@
                         expand_more
                     </mat-icon>
                 </mat-list-item>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <app-import></app-import>
+              </div>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <app-export></app-export>
+              </div>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                     <button class="createComponentButton" mat-raised-button color="primary"
                             (click)="showTensorNodeSearch()">
                         Create Node
                     </button>
-                </div>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                    <app-export></app-export>
                 </div>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                     <button class="createComponentButton" mat-raised-button color="primary"
