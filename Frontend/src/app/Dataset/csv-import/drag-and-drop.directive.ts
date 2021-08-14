@@ -24,6 +24,7 @@ export class DragAndDropDirective {
     let files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.onFileDropped.emit(files)
+
     }
   }
 }
