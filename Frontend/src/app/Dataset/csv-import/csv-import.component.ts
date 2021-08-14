@@ -9,9 +9,8 @@ import { NgxCSVParserError } from 'ngx-csv-parser';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-
-  csvRecords: any[] = [];
+export class CsvImportComponent {
+  csvRecords: Array<any> | NgxCSVParserError= [];
   header = false;
 
   constructor(private ngxCsvParser: NgxCsvParser) {
@@ -27,7 +26,7 @@ export class AppComponent {
 
     // Parse the file you want to select for the operation along with the configuration
     this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
-      .pipe().subscribe((result: Array<any>) => {
+      .pipe().subscribe((result) => {
 
       console.log('Result', result);
       this.csvRecords = result;
