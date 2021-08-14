@@ -1,8 +1,9 @@
 export class TFNode {
-  leftChild: TFNode
-  rightChild: TFNode
 
-	constructor(public name: String | undefined = undefined) {}
+	constructor(public name: String | undefined = undefined,
+              public childOne: TFNode | undefined = undefined,
+              public childTwo: TFNode | undefined = undefined
+  ) {}
 
 	code() {}
 }
