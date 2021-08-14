@@ -197,7 +197,7 @@ export class Node implements OnInit {
             case this.tfoperator[0]: {
                 tfoperator = new TFAdd();
                 tfoperator.name = "TFAdd";
-                this.data.TFOperator.push(tfoperator);
+                  this.data.TFOperator.push(tfoperator);
                 console.log("TFAdd()");
                 break;
             }
