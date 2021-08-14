@@ -9,4 +9,6 @@ export abstract class TFTensor extends TFNode {
 	) {
 		super(name);
 	}
+
+	protected code(){}
 }
