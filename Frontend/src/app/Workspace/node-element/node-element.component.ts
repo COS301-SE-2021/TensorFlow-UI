@@ -151,6 +151,16 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
             if(index!=-1){
               this.data.nodes.splice(index,1);
             }
+            //go through line connectors here
+            while(true){
+              let line = this.data.lineConnectorsList.find(element => element.end == this.nodeData.name || element.start == this.nodeData.name)
+              console.log("Line to be deleted: " + JSON.stringify(line));
+              if(line != undefined) {
+                line.line?.remove();
+                this.data.lineConnectorsList.splice(this.data.lineConnectorsList.indexOf(line),1)
+              }else break;
+            }
+            console.log(this.data.lineConnectorsList)
           }
         }
 

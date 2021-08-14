@@ -10,7 +10,7 @@
   border-radius: 5%;
   border-top-right-radius: 10%;
   border-top-left-radius: 10%;
-
+  position: absolute;
 }
 
 .NodesArr{
