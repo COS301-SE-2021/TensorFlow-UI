@@ -25,7 +25,6 @@ export class ExportComponent implements OnInit {
         el.style.display = 'none';
       }
     }
-
   }
 
   exportToPc(){

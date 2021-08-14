@@ -1,16 +1,7 @@
 <div class="workspace-boundary">
-  <div id="canvas">
 
-  </div>
-  <div *ngIf="createNodeBool">
-    {{addNodeToWorkspace()}}
-  </div>
+    <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
 
-  <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
+<!--    <app-tensor *ngFor="let node of this.data.TFTensors" [_TFNodeData]="node"></app-tensor>-->
 
-  <!--<div *ngIf="editNodeBool">
-    <app-edit-node></app-edit-node>
-  </div>-->
-
-<!--  <app-edit-node></app-edit-node>-->
 </div>

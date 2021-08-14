@@ -13,7 +13,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatCardModule} from "@angular/material/card";
 import {WorkspaceModule} from "../Workspace/workspace.module";
 import {ExportComponent} from "../Workspace/export/export.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {nodeModule} from "../Node/node.module";
 
 @NgModule({
     imports: [
@@ -29,7 +29,7 @@ import {ReactiveFormsModule} from "@angular/forms";
         MatSliderModule,
         MatCardModule,
         WorkspaceModule,
-        ReactiveFormsModule,
+        nodeModule
     ],
     declarations: [
         NavbarComponent,
