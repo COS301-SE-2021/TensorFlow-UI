@@ -23,7 +23,7 @@ export class InputComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  inputData: string[];
+  inputData: string;
 
   constructor(public dialog: MatDialog) {}
 
@@ -34,9 +34,7 @@ export class InputComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(inputData => {
-      if (this._inputCount < 2) {
-        this.inputData[0] = inputData[0]
-      }
+        this.inputData = inputData
     });
   }
 }
