@@ -26,30 +26,27 @@ const modules = [
 ]
 
 @NgModule({
-	declarations: [
-		AppComponent
-	],
-	imports: [
-		ServiceWorkerModule.register('ngsw-worker.js', {
-			enabled: environment.production,
-			// Register the ServiceWorker as soon as the app is stable
-			// or after 30 seconds (whichever comes first).
-			registrationStrategy: 'registerWhenStable:30000'
-		}),
-		modules,
-		NgxsModule.forRoot([
-			WorkspaceState
-		]),
-		NgxsReduxDevtoolsPluginModule.forRoot(),
-		NgxsLoggerPluginModule.forRoot(),
-		NgxsStoragePluginModule.forRoot(),
-		FormsModule,
-		MatDialogModule,
-		MatFormFieldModule
-	],
-	providers: [],
-	bootstrap: [AppComponent],
-	exports: []
+  declarations: [
+    AppComponent,
+    Node
+  ],
+  imports: [
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    modules,
+    NgxsStoragePluginModule.forRoot(),
+    NgxsModule.forRoot([
+      WorkspaceState
+    ]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }
