@@ -1,13 +1,13 @@
-import {TFTensor} from "./tensor";
+import { TFTensor } from "./tensor";
 
-export class TFConstant extends TFTensor {
+export class TFFill extends TFTensor {
 	constructor(public data: Number | undefined = undefined,
 				public name: String | undefined = undefined) {
 		super(data, name, 1);
 	}
 
 	code() {
-		return `${this.name} = tf.constant(${
+		return `${this.name} = tf.fill(${
 			this.data?.toFixed(2) || "some value"
 		})`;
 	}

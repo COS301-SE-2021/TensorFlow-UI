@@ -22,22 +22,27 @@ import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 import { CanvasComponent } from './canvas/canvas.component';
 import {ExportComponent} from "./export/export.component";
 import { FuncNodeElementComponent } from './func-node-element/func-node-element.component';
+import {AppModule} from "../app.module";
+import {Node} from "../Node/node.component";
+import {nodeModule} from "../Node/node.module";
 //import { ImportComponent } from './import/import.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DragDropModule,
-        FormsModule,
-        MatCardModule,
-        MatListModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        DiagramModule,
-    ],
+	imports: [
+		CommonModule,
+		DragDropModule,
+		FormsModule,
+		MatCardModule,
+		MatListModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatSelectModule,
+		ReactiveFormsModule,
+		DiagramModule,
+		MatIconModule,
+		nodeModule
+	],
     declarations: [
         WorkspaceBoundaryComponent,
         CreateNodeSectionComponent,

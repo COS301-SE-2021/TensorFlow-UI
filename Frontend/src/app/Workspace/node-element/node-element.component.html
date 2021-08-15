@@ -1,7 +1,8 @@
 <div *ngIf="nodeData.type != 'functional'" class="draggable" id="{{nodeData.name}}" (mousemove)="reload()">
     <mat-list>
-        <h5>Node: {{nodeData.num}}</h5>
-        <mat-list-item> Name: {{nodeData.name}}</mat-list-item>
+      <div class="nodeName">
+        <p>Node: {{nodeData.num}}</p>
+      </div>
     </mat-list>
 
     <mat-form-field appearance="fill" class="NodesArr">
