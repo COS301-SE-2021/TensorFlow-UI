@@ -1,8 +1,10 @@
 <div class="draggableNode">
-    <mat-list>
+    <mat-label>
         <div class="nodeName">
             <p>Node: {{TFNodeData.name}}</p>
         </div>
+    </mat-label>
+    <mat-list style="position: relative">
+        <app-input [_inputCount]="TFNodeData.count"></app-input>
     </mat-list>
-    <app-input [_inputCount]="TFNodeData.count"></app-input>
 </div>
