@@ -19,7 +19,8 @@ export class WorkspaceBoundaryComponent implements OnInit {
 	ngOnInit(): void {
 		this.data.nodes = [];
 		this.data.lineConnectorsList = [];
-		
+
+		// Part of the new UI section
 		// this.data.TFOperator = [];
 		// this.data.TFTensors = [];
 	}
