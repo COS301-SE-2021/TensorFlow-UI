@@ -45,12 +45,14 @@ import {MatDialogModule} from "@angular/material/dialog";
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog
+        NodeDeleteDialog,
+        ImportComponent,
     ],
     exports: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
         NodeDeleteDialog,
+        ImportComponent,
     ]
 
 })
