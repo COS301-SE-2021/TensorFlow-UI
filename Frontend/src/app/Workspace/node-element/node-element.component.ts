@@ -10,7 +10,7 @@ import {
   WorkspaceState,
   AddLineConnectorToStorage,
   UpdateNodeInStorage,
-  RemoveNodeFromStorage
+  RemoveNodeFromStorage, RemoveLineFromStorage
 } from '../../../Storage/workspace'
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
@@ -229,6 +229,8 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
               let line = this.data.lineConnectorsList.find(element => element.end == this.nodeData.name || element.start == this.nodeData.name)
               //console.log("Line to be deleted: " + JSON.stringify(line));
               if(line != undefined) {
+                this.store.dispatch((new RemoveLineFromStorage(line)))
+                console.log(line)
                 line.line?.remove();
                 this.data.lineConnectorsList.splice(this.data.lineConnectorsList.indexOf(line),1)
               }else break;

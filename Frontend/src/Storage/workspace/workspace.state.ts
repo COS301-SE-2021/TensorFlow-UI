@@ -1,6 +1,12 @@
 import { State, Action,StateContext, Selector } from '@ngxs/store'
 import { NodeData, lineConnectors } from "../../app/node-data";
-import {AddLineConnectorToStorage, AddNodeToStorage, UpdateNodeInStorage , RemoveNodeFromStorage} from "./workspace.actions";
+import {
+  AddLineConnectorToStorage,
+  AddNodeToStorage,
+  UpdateNodeInStorage,
+  RemoveNodeFromStorage,
+  RemoveLineFromStorage
+} from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
 
@@ -62,11 +68,21 @@ export class WorkspaceState{
   }
 
   @Action(RemoveNodeFromStorage)
-  public removeNdoe(stateContext: StateContext<WorkspaceStateModel>, { node }: RemoveNodeFromStorage){
+  public removeNode(stateContext: StateContext<WorkspaceStateModel>, { node }: RemoveNodeFromStorage){
     stateContext.setState(
       patch({
         nodes: removeItem<NodeData>(element => element?.name === node)
       })
     )
+  }
+
+  @Action(RemoveLineFromStorage)
+  public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
+    stateContext.setState(
+      patch({
+        lines: removeItem<lineConnectors>(element => element?.line === line.line)
+      })
+    )
+    console.log(line)
   }
 }
