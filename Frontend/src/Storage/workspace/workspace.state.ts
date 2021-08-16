@@ -13,7 +13,7 @@ import {Injectable} from "@angular/core";
 export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
-  showWorkspace: Boolean
+  showWorkspace: boolean
 }
 
 @State<WorkspaceStateModel>({
@@ -22,7 +22,6 @@ export interface WorkspaceStateModel{
       nodes:[],
       lines: [],
       showWorkspace: true
-      // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
 })
 
@@ -90,6 +89,7 @@ export class WorkspaceState{
 
   @Action(ChangeBooleanValue)
   public changeValue(stateContext: StateContext<WorkspaceStateModel>, { element }: ChangeBooleanValue){
+    console.log("Element: "+element)
     stateContext.setState(
       patch({
         showWorkspace: element

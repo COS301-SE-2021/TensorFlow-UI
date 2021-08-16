@@ -37,6 +37,8 @@ import {nodeModule} from "../Node/node.module";
     ],
   exports: [
     NavbarComponent,
+    ExportComponent,
+
   ]
 })
 export class ComponentsModule {

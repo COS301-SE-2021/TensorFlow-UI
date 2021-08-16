@@ -23,6 +23,7 @@ import {AppModule} from "../app.module";
 import {Node} from "../Node/node.component";
 import {nodeModule} from "../Node/node.module";
 import {MatDialogModule} from "@angular/material/dialog";
+import {ImportComponent} from "./import/import.component";
 //import { ImportComponent } from './import/import.component';
 
 @NgModule({

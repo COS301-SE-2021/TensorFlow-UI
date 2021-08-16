@@ -33,5 +33,5 @@ export class AddLineConnectorToStorage{
 export class ChangeBooleanValue{
   public static readonly type = '[Workspace] Change Boolean';
 
-  constructor(public element: Boolean){}
+  constructor(public element: boolean){}
 }
