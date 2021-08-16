@@ -5,7 +5,7 @@ import {
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode
+  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode, AddRootNode
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -16,6 +16,7 @@ export interface WorkspaceStateModel{
   lines: lineConnectors[];
   TFNode: TFNode[];
   showWorkspace: Boolean;
+  rootNode: TFNode;
 }
 
 @State<WorkspaceStateModel>({
@@ -24,7 +25,8 @@ export interface WorkspaceStateModel{
       nodes:[],
       lines: [],
       TFNode: [],
-      showWorkspace: true
+      showWorkspace: true,
+      rootNode: new TFNode() //temporary, change later
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
 })
@@ -46,6 +48,10 @@ export class WorkspaceState{
   @Selector()
   static getTFNodes(state: WorkspaceStateModel){
     return state.TFNode;
+  }
+  @Selector()
+  static getRootNode(state: WorkspaceStateModel){
+    return state.rootNode;
   }
 
   @Action(AddNodeToStorage)
