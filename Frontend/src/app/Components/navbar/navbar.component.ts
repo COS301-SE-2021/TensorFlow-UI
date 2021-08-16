@@ -5,6 +5,7 @@ import {Store, Select} from "@ngxs/store";
 import {AddNodeToStorage} from "../../../Storage/workspace/workspace.actions";
 import {NodeData} from "../../node-data";
 import {Observable} from "rxjs";
+import {CodeGeneratorService} from "../../code-generator.service";
 
 
 @Component({
@@ -103,4 +104,14 @@ export class NavbarComponent implements OnInit {
 			this.isShowing = false;
 		}
 	}
+
+	runAndGenerate() {
+    const generator : CodeGeneratorService = new CodeGeneratorService();
+    // generator.runfile();
+  }
+
+  downloadCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+	  // generator.createFile();
+  }
 }

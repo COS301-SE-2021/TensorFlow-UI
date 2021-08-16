@@ -7,24 +7,17 @@ import * as FileSaver from "file-saver";
 })
 export class CodeGeneratorService {
   // NEW DATA STRUCTURE PY FILE IMPLEMENTATION BELOW HERE
-  generateFile(head : TFNode) : File {
-    const fs = require("fs");
-
-    const graph : TFGraph = new TFGraph(head);
-    let code : string = graph.generateCode(head);
-
-    fs.writeFileSync("../Storage/output.py", code, function (err) {
-      if (err) {
-        return console.log("FIle Error");
-      }
-    })
-
-    let file : File = fs.readFile("../Storage/output.py");
-
-    return file;
+  generateFile(head : TFNode) : string {
+    var graph : TFGraph = new TFGraph(head);
+    var code = graph.generateCode(head);
+    var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
+    FileSaver.saveAs(blob, "output.py");
   }
 
-  runfile (file : File, url : string) : string {
+  runfile (head : TFNode, url : string) : string {
+    var graph : TFGraph = new TFGraph(head);
+    var file : File = new File([graph.generateCode(head)], "output.py");
+
     var savedResponse : string = "";
 
     var data = file;
@@ -48,11 +41,6 @@ export class CodeGeneratorService {
   }
 
   createAndRun(head : TFNode, url : string) : string {
-    let file : File = this.generateFile(head);
-    return this.runfile(file, url);
-  }
-
-  downloadFile(file : File) {
-    FileSaver.saveAs(new Blob([file], { type: "application/x-python-code" }), 'output.py');
+    return this.runfile(head, url);
   }
 }
