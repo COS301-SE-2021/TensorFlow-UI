@@ -5,7 +5,7 @@ import {DataService} from "../data.service";
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
-import {UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
+import {AddTFNode, UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
 import * as LeaderLine from "leader-line-new";
 import {
     TFAdd, TFAddN,
