@@ -80,7 +80,7 @@ export class WorkspaceState{
   public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
     stateContext.setState(
       patch({
-        lines: removeItem<lineConnectors>(element => element?.line === line.line)
+        lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
       })
     )
     console.log(line)
