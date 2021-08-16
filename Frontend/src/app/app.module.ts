@@ -27,8 +27,7 @@ const modules = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    Node
+    AppComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
