@@ -12,7 +12,8 @@ import {DOCUMENT} from "@angular/common";
 })
 export class OperatorComponent implements OnInit {
 
-  selectedNode = new FormControl();
+  selectedNodeX = new FormControl();
+  selectedNodeY = new FormControl();
 
   @Input() _TFNodeDataOperator : TFOperator;
 
@@ -26,16 +27,16 @@ export class OperatorComponent implements OnInit {
 
     if (this._TFNodeDataOperator?.name != undefined) {
       const lineStartName = this._TFNodeDataOperator.name.toString();
-      const lineEndName = this.selectedNode.toString();
+      const lineEndName = selectedNode.toString();
       const lineObj = new LeaderLine(
           this.document.getElementById(lineStartName),
           this.document.getElementById(lineEndName), {
-            size: 6,
-            outlineColor: '#red',
-            outline: true,
-            endPlugOutline: true,
-            dash: true,
-            path: 'arc',
+            // size: 6,
+            // outlineColor: '#red',
+            // outline: true,
+            // endPlugOutline: true,
+            // dash: true,
+            // path: 'arc',
             startSocket: 'auto',
             endSocket: 'auto'
           }
@@ -57,17 +58,17 @@ export class OperatorComponent implements OnInit {
 
           const start = this.data.lineConnectorsList[i].start;
           let end = this.data.lineConnectorsList[i].end;
-          // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
+
+          this.data.lineConnectorsList[i].line?.remove();
           this.data.lineConnectorsList[i].line = new LeaderLine(
               this.document.getElementById(start),
               this.document.getElementById(end), {
-                size: 6,
-                outlineColor: '#red',
-                outline: true,
-                endPlugOutline: true,
-                dash: true,
-                path: 'arc',
+                // size: 6,
+                // outlineColor: '#red',
+                // outline: true,
+                // endPlugOutline: true,
+                // dash: true,
+                // path: 'arc',
                 startSocket: 'auto',
                 endSocket: 'auto'
               }
