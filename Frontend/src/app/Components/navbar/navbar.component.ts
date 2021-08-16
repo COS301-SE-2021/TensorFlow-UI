@@ -2,8 +2,8 @@ import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store, Select } from "@ngxs/store";
-import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
-import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
+import { AddNodeToStorage } from "../../../Storage/workspace";
+import { WorkspaceState } from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {state} from "@angular/animations";
@@ -20,6 +20,8 @@ export class NavbarComponent implements OnInit {
 
   nodes$: Observable<NodeData[]>;
   public functionsList: string[] = ["add","subtract","multiply","divide"];
+  public tensorList: string[] = ["variable", "constant", "tensor"];
+
 	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store) {}
 
 	ngOnInit(): void {
@@ -80,6 +82,7 @@ export class NavbarComponent implements OnInit {
 	  const nodeNum = this.data.nodes.length+1;
     const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
     const nodeType = this.data.type;
+    const value = this.tensorNodeSearchInput.nativeElement.value;
 
 		this.data.nodes.push({
 			num: nodeNum,
