@@ -1,5 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GetData, GetList} from '../../GITApi.js'
+import {Store} from "@ngxs/store";
+import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
 
 let tensorList: string[] = [""];
 export default tensorList;
@@ -13,7 +15,7 @@ export default tensorList;
 export class ImportComponent implements OnInit {
   public tensorL: string[] = [""];
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
@@ -67,11 +69,28 @@ export class ImportComponent implements OnInit {
   @ViewChild('libSelection') libSelection: ElementRef;
 
   ImportFromLib() {
-    if (this.libSelection.nativeElement.value == ""){
-      alert("Please select a project to import and try again.");
-    } else{
-      GetData(this.libSelection.nativeElement.value);
-      this.libSelection.nativeElement.value = "";
-    }
+      let workspace = document.getElementById("workspace-boundary");
+      const showWorkspace = this.store.selectSnapshot(WorkspaceState).showWorkspace;
+
+      this.store.dispatch(new ChangeBooleanValue(false));
+
+      if(workspace){
+        if(workspace.style.display=="none"){
+          workspace.style.display = "block";
+        }
+        else{
+          workspace.style.display = "none";
+        }
+      }
+
+    // workspace.style.display = "none";
+
+
+    // if (this.libSelection.nativeElement.value == ""){
+    //   alert("Please select a project to import and try again.");
+    // } else{
+    //   GetData(this.libSelection.nativeElement.value);
+    //   this.libSelection.nativeElement.value = "";
+    // }
   }
 }
