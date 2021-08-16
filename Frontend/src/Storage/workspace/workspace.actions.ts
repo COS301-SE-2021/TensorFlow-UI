@@ -1,4 +1,5 @@
 import {lineConnectors, NodeData} from "../../app/node-data";
+import {TFNode, TFOperator} from "../../app/tf";
 
 export class AddNodeToStorage{
   public static readonly type = '[Workspace] Add Node';
@@ -35,3 +36,10 @@ export class ChangeBooleanValue{
 
   constructor(public element: Boolean){}
 }
+
+export class AddTFNode{
+  public static readonly type = '[Workspace] Add TFNode';
+
+  constructor(public node: TFNode){}
+}
+
