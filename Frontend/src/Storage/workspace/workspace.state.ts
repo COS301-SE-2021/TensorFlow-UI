@@ -122,4 +122,12 @@ export class WorkspaceState{
     )
   }
 
+  @Action(UpdateTFNode)
+  public updateTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
+    stateContext.setState(
+      patch({
+        TFNode: updateItem<TFNode>(element => element === node, node)
+      })
+    )
+  }
 }
