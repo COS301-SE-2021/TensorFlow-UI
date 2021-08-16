@@ -13,12 +13,7 @@ export interface DialogData {
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-  get inputCount(): number {
-    return this._inputCount;
-  }
-
   input : string;
-  @Input() _inputCount : number;
 
   ngOnInit(): void {
   }
@@ -30,7 +25,7 @@ export class InputComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {inputData: this.inputData, inputCount: this._inputCount}
+      data: {inputData: this.inputData}
     });
 
     dialogRef.afterClosed().subscribe(inputData => {
