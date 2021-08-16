@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TFGraph, TFNode} from "./tf";
+import * as FileSaver from "file-saver";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class CodeGeneratorService {
   runfile (file : File, url : string) : string {
     var savedResponse : string = "";
 
-    var data = "<file contents here>";
+    var data = file;
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
@@ -49,5 +50,9 @@ export class CodeGeneratorService {
   createAndRun(head : TFNode, url : string) : string {
     let file : File = this.generateFile(head);
     return this.runfile(file, url);
+  }
+
+  downloadFile(file : File) {
+    FileSaver.saveAs(new Blob([file], { type: "application/x-python-code" }), 'output.py');
   }
 }
