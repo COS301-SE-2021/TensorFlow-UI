@@ -43,6 +43,10 @@ export class WorkspaceState{
   static getLines(state: WorkspaceStateModel){
     return state.lines;
   }
+  @Selector()
+  static getTFNodes(state: WorkspaceStateModel){
+    return state.TFNode;
+  }
 
   @Action(AddNodeToStorage)
   public addNode(stateContext: StateContext<WorkspaceStateModel>, { node }: AddNodeToStorage){
