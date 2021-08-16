@@ -1,4 +1,4 @@
-<div class="draggableNode" id="{{_TFNodeDataOperator.name}}">
+<div class="draggableNode" id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
     <mat-label>
         <div class="nodeName">
             <p>Node: {{_TFNodeDataOperator.name}}</p>
@@ -7,7 +7,7 @@
     <mat-list style="position: relative">
         <mat-form-field style="width: 50%">
             <mat-label  style="width: 50%">X</mat-label>
-            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode.value.name)">
+            <mat-select [(value)]="selectedNodeX" (selectionChange)="linkNodes(selectedNodeX)">
                 <mat-option *ngFor="let node of this.data.TFTensors" [value]="node.name">
                     {{node.name}}
                 </mat-option>
@@ -15,7 +15,7 @@
         </mat-form-field>
         <mat-form-field style="width: 50%">
             <mat-label  style="width: 50%">Y</mat-label>
-            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode.value.name)">
+            <mat-select [(value)]="selectedNodeY" (selectionChange)="linkNodes(selectedNodeY)">
                 <mat-option *ngFor="let node of this.data.TFTensors" [value]="node.name">
                     {{node.name}}
                 </mat-option>
