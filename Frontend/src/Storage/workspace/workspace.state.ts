@@ -103,4 +103,14 @@ export class WorkspaceState{
       })
     )
   }
+
+  @Action(AddTFNode)
+  public addTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: AddTFNode){
+    stateContext.setState(
+      patch({
+        TFNode: append([node])
+      })
+    )
+  }
+
 }
