@@ -54,3 +54,9 @@ export class UpdateTFNode{
 
   constructor(public node: TFNode){}
 }
+
+export class AddRootNode{
+  public static readonly type = '[Workspace] add RootNode';
+
+  constructor(public root: TFNode){}
+}
