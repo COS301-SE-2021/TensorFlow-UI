@@ -7,25 +7,36 @@ import * as LeaderLine from "leader-line-new"
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import {WorkspaceState,AddLineConnectorToStorage,UpdateNodeInStorage} from '../../../Storage/workspace'
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-node-element',
 	templateUrl: './node-element.component.html',
 	styleUrls: ['./node-element.component.css']
 })
-export class NodeElementComponent implements OnInit,AfterViewInit {
+
+export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
 	private lastSelected: Array<string>;
+  public selectOptions: string[];
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store, public dialog: MatDialog) {
 		this.initialiseDraggable();
 	}
 
 	//Initialises the lastSelected string array
 	ngOnInit(): void {
     this.lastSelected = [];
+    this.selectOptions = [];
+    for(let i=0; i<this.data.nodes.length;++i){
+      if(this.data.nodes[i]){
+        if(this.data.nodes[i].name != this.nodeData.name){
+          this.selectOptions.push(this.data.nodes[i].name);
+        }
+      }
+    }
 	}
 
   /*
@@ -117,11 +128,10 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 
 	  //lastSelected used because simply using data from the nodesArray is not sufficient
     for(let i=0; i<this.nodesArray.value.length; ++i){
-      if(this.lastSelected.indexOf(this.nodesArray.value[i].name) === -1){
-        this.lastSelected.push(this.nodesArray.value[i].name);
+      if(this.lastSelected.indexOf(this.nodesArray.value[i]) === -1){
+        this.lastSelected.push(this.nodesArray.value[i]);
       }
     }
-
 	  const lineStartName = this.nodeData.name;
 	  const lineEndName = this.lastSelected[this.lastSelected.length-1];
 
@@ -190,6 +200,55 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
   }
 
 	// Redraw lines for each component on mousemove
+	openDeleteDialog(){
+	  const dialog= this.dialog.open(NodeDeleteDialog, {
+	    data: {nodeData2: this.nodeData}
+    });
+
+
+	  dialog.afterClosed().subscribe(result => {
+      const deleteNodeBoolean = dialog.disableClose;
+
+      if(deleteNodeBoolean){
+        // this.data.nodes.filter(element => element.name == this.nodeData.name);
+        for(let i=0; i<this.data.nodes.length; ++i){
+          if(this.data.nodes[i].name == this.nodeData.name){
+            // delete this.data.nodes[i];
+            const index: number = this.data.nodes.indexOf(this.nodeData);
+
+            if(index!=-1){
+              this.data.nodes.splice(index,1);
+            }
+            //go through line connectors here
+            while(true){
+              let line = this.data.lineConnectorsList.find(element => element.end == this.nodeData.name || element.start == this.nodeData.name)
+              console.log("Line to be deleted: " + JSON.stringify(line));
+              if(line != undefined) {
+                line.line?.remove();
+                this.data.lineConnectorsList.splice(this.data.lineConnectorsList.indexOf(line),1)
+              }else break;
+            }
+            console.log(this.data.lineConnectorsList)
+          }
+        }
+
+      }
+      else{
+
+      }
+    })
+  }
+
+	updateSelectedOptions(){
+    this.selectOptions = [];
+    for(let i=0; i<this.data.nodes.length;++i){
+      if(this.data.nodes[i].name != this.nodeData.name){
+        this.selectOptions.push(this.data.nodes[i].name);
+      }
+    }
+  }
+
+	// Redraw lines for each component.
 	reload() {
 		if (this.data?.lineConnectorsList != null) {
 			if (this.data.lineConnectorsList.length > 0) {
@@ -197,25 +256,27 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 
 					const start = this.data.lineConnectorsList[i].start;
 					let end = this.data.lineConnectorsList[i].end;
-            // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							// size: 6,
-							// outlineColor: '#red',
-							// outline: true,
-							// endPlugOutline: true,
-							// dash: true,
-							// path: 'arc',
-              path: 'grid',
-              startPlug: 'disc',
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
 
-					);
+          if(this.document.getElementById(start) && this.document.getElementById(end)){
 
+            this.data.lineConnectorsList[i].line?.remove();
+
+            this.data.lineConnectorsList[i].line = new LeaderLine(
+              this.document.getElementById(start),
+              this.document.getElementById(end), {
+                // size: 6,
+                // outlineColor: '#red',
+                // outline: true,
+                // endPlugOutline: true,
+                // dash: true,
+                // path: 'arc',
+                path: 'grid',
+                startPlug: 'disc',
+                startSocket: 'auto',
+                endSocket: 'auto'
+              }
+            );
+          }
 				}
 			}
 		}
@@ -223,5 +284,21 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 
 	addLineToStorage(line){
     this.store.dispatch(new AddLineConnectorToStorage(line));
+  }
+}
+
+@Component({
+  selector: 'node-element-delete-node-dialog',
+  templateUrl: 'node-element-delete-node-dialog.html',
+})
+export class NodeDeleteDialog {
+
+  public removeNodeBool: boolean = false;
+  constructor( public dialogRef: MatDialogRef<NodeDeleteDialog>, @Inject(MAT_DIALOG_DATA) public nodeData: NodeData) {
+  }
+
+  removeNode(){
+    this.dialogRef.close();
+    this.dialogRef.disableClose = true;
   }
 }

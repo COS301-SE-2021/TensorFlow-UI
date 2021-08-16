@@ -16,37 +16,41 @@ import {MatInputModule} from "@angular/material/input";
 import {FormBuilder} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
-import {NodeElementComponent } from './node-element/node-element.component';
+import {NodeDeleteDialog, NodeElementComponent} from './node-element/node-element.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 import {ExportComponent} from "./export/export.component";
 import {AppModule} from "../app.module";
 import {Node} from "../Node/node.component";
 import {nodeModule} from "../Node/node.module";
+import {MatDialogModule} from "@angular/material/dialog";
 //import { ImportComponent } from './import/import.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		DragDropModule,
-		FormsModule,
-		MatCardModule,
-		MatListModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatSelectModule,
-		ReactiveFormsModule,
-		DiagramModule,
-		MatIconModule,
-		nodeModule
-	],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    MatCardModule,
+    MatListModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    DiagramModule,
+    MatIconModule,
+    nodeModule,
+    MatDialogModule
+  ],
     declarations: [
         WorkspaceBoundaryComponent,
-        NodeElementComponent
+        NodeElementComponent,
+        NodeDeleteDialog
     ],
     exports: [
         WorkspaceBoundaryComponent,
-        NodeElementComponent
+        NodeElementComponent,
+        NodeDeleteDialog,
     ]
 
 })
