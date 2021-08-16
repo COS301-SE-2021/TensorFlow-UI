@@ -136,4 +136,13 @@ export class WorkspaceState{
       })
     )
   }
+
+  @Action(AddRootNode)
+  public addRootNode(stateContext: StateContext<WorkspaceStateModel>, { root }: AddRootNode){
+    stateContext.setState(
+      patch({
+        rootNode: root
+      })
+    )
+  }
 }
