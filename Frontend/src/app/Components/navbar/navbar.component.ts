@@ -136,8 +136,9 @@ export class NavbarComponent implements OnInit {
 	}
 
 	clearCanvas(){
+    this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
 	  this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-	  this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
+    this.data.lineConnectorsList.forEach(element => element.line?.remove())
 
     this.data.nodes.splice(0,this.data.nodes.length)
     this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)

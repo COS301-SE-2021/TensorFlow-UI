@@ -32,6 +32,12 @@
                         Create Functional Node
                     </button>
                 </div>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <button class="createComponentButton" mat-raised-button color="primary"
+                        (click)="clearCanvas()">
+                  Clear Canvas
+                </button>
+              </div>
                 <!-- This is for the V2 section of the node creation. -->
 <!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
 <!--                    <app-node></app-node>-->
