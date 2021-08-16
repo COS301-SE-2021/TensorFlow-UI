@@ -43,3 +43,9 @@ export class AddTFNode{
   constructor(public node: TFNode){}
 }
 
+export class RemoveTFNode{
+  public static readonly type = '[Workspace] Remove TFNode';
+
+  constructor(public node: TFNode){}
+}
+
