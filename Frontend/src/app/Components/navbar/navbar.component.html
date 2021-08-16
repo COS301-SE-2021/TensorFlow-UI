@@ -43,7 +43,7 @@
             <div class="NodeSearch" id="tensorNodeSearch" [style.display]="isTensorNodeVisible ? 'block' : 'none'">
                 <input list="tensorNodeDataList" class="NodeInput" placeholder="Search or Select Tensor Node type"
                        #tensorNodeInputReference>
-                <button class="NodeButton" (click)="createTensorNode()" mat-raised-button>Create Node</button>
+                <button class="NodeButton" (click)="createNode()" mat-raised-button>Create Node</button>
             </div>
 
             <datalist id="tensorNodeDataList">
