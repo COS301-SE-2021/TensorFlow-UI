@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import { Store, Select } from "@ngxs/store";
-import { AddNodeToStorage } from "../../../Storage/workspace";
-import { WorkspaceState } from "../../../Storage/workspace";
+import { Store} from "@ngxs/store";
+import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
+import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
 import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
-import {state} from "@angular/animations";
-import {variable} from "@angular/compiler/src/output/output_ast";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
 
