@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as node from "../index"
 import {TFTensor} from "../../tf";
+import {DataService} from "../../data.service";
 
 @Component({
 	selector: 'app-tensor',
@@ -17,7 +18,7 @@ export class TensorComponent implements OnInit {
 
 	@Input() _TFNodeData : TFTensor;
 
-	constructor() {
+	constructor(public data: DataService) {
 	}
 
 	ngOnInit(): void {

@@ -3,14 +3,13 @@ import {TFNode} from "../../node";
 
 export class TFReciprocal extends TFOperator {
 	constructor(
-		public x: TFNode | undefined = undefined
-	) {
-		super();
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code() {
 		return `${this.name} = tf.math.reciprocal(
-		${this.x?.name || "some value"}
+		${this.childOne?.name || "some value"}
 		})`;
 	}
 }
