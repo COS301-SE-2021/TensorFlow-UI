@@ -2,7 +2,11 @@ import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
-import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
+import {
+  AddNodeToStorage,
+  RemoveLineFromStorage,
+  RemoveNodeFromStorage
+} from "../../../Storage/workspace/workspace.actions";
 import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
 import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
@@ -130,6 +134,14 @@ export class NavbarComponent implements OnInit {
 	showTensorNodeSearch() {
 		this.isTensorNodeVisible = !this.isTensorNodeVisible; //Uncomment when doing demo
 	}
+
+	clearCanvas(){
+	  this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+	  this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
+
+    this.data.nodes.splice(0,this.data.nodes.length)
+    this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+  }
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
