@@ -18,6 +18,12 @@ export class RemoveNodeFromStorage{
   constructor(public node: string) {}
 }
 
+export class RemoveLineFromStorage{
+  public static readonly type = '[Workspace] Remove Line';
+
+  constructor(public line: lineConnectors) {}
+}
+
 export class AddLineConnectorToStorage{
   public static readonly type = '[Workspace] Add Line';
 
