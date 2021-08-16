@@ -13,30 +13,23 @@ export interface DialogData {
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-  get inputCount(): number {
-    return this._inputCount;
-  }
-
   input : string;
-  @Input() _inputCount : number;
 
   ngOnInit(): void {
   }
 
-  inputData: string[];
+  inputData: string;
 
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {inputData: this.inputData, inputCount: this._inputCount}
+      data: {inputData: this.inputData}
     });
 
     dialogRef.afterClosed().subscribe(inputData => {
-      if (this._inputCount < 2) {
-        this.inputData[0] = inputData[0]
-      }
+        this.inputData = inputData
     });
   }
 }

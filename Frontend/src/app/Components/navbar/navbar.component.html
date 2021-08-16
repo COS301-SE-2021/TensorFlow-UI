@@ -35,6 +35,10 @@
                         Create Functional Node
                     </button>
                 </div>
+                <!-- This is for the V2 section of the node creation. -->
+<!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                    <app-node></app-node>-->
+<!--                 </div>-->
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -42,7 +46,7 @@
             <div class="NodeSearch" id="tensorNodeSearch" [style.display]="isTensorNodeVisible ? 'block' : 'none'">
                 <input list="tensorNodeDataList" class="NodeInput" placeholder="Search or Select Tensor Node type"
                        #tensorNodeInputReference>
-                <button class="NodeButton" (click)="createTensorNode()" mat-raised-button>Create Node</button>
+                <button class="NodeButton" (click)="createNode()" mat-raised-button>Create Node</button>
             </div>
 
             <datalist id="tensorNodeDataList">

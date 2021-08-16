@@ -3,9 +3,10 @@ import {TFNode} from "../../node";
 
 export class TFAddN extends TFOperator {
 	constructor(
+		public name: string | undefined = undefined,
 		public args: TFNode[] | undefined = undefined,
 	) {
-		super();
+		super(name);
 	}
 
 	code() {

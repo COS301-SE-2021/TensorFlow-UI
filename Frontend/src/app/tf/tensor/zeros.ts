@@ -2,8 +2,8 @@ import {TFTensor} from "./tensor";
 
 export class TFZeros extends TFTensor {
 	constructor(public data: Number | undefined = undefined,
-				public name: String | undefined = undefined) {
-		super(data, name, 1);
+				public name: string | undefined = undefined) {
+		super(data, name);
 	}
 
 	code() {
