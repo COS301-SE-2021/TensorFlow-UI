@@ -5,7 +5,7 @@ import {
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage
+  RemoveLineFromStorage, ChangeBooleanValue
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -13,13 +13,15 @@ import {Injectable} from "@angular/core";
 export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
+  showWorkspace: Boolean
 }
 
 @State<WorkspaceStateModel>({
   name: 'workspace',
   defaults:{
       nodes:[],
-      lines: []
+      lines: [],
+      showWorkspace: true
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
 })
@@ -84,5 +86,14 @@ export class WorkspaceState{
       })
     )
     console.log(line)
+  }
+
+  @Action(ChangeBooleanValue)
+  public changeValue(stateContext: StateContext<WorkspaceStateModel>, { element }: ChangeBooleanValue){
+    stateContext.setState(
+      patch({
+        showWorkspace: element
+      })
+    )
   }
 }
