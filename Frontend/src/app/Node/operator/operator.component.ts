@@ -25,11 +25,11 @@ export class OperatorComponent implements OnInit {
   linkNodes(selectedNode: FormControl) {
 
     if (this._TFNodeDataOperator?.name != undefined) {
-      const lineStartName = this._TFNodeDataOperator.name;
-      const lineEndName = this.selectedNode.value[this.selectedNode.value.length - 1].name.toString();
+      const lineStartName = this._TFNodeDataOperator.name.toString();
+      const lineEndName = this.selectedNode.toString();
       const lineObj = new LeaderLine(
-          this.document.getElementById(this._TFNodeDataOperator.name),
-          this.document.getElementById(this.selectedNode.value[this.selectedNode.value.length - 1].name.toString()), {
+          this.document.getElementById(lineStartName),
+          this.document.getElementById(lineEndName), {
             size: 6,
             outlineColor: '#red',
             outline: true,

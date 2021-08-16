@@ -1,4 +1,4 @@
-<div class="draggableNode">
+<div class="draggableNode" id="{{_TFNodeDataOperator.name}}">
     <mat-label>
         <div class="nodeName">
             <p>Node: {{_TFNodeDataOperator.name}}</p>
@@ -7,28 +7,19 @@
     <mat-list style="position: relative">
         <mat-form-field style="width: 50%">
             <mat-label  style="width: 50%">X</mat-label>
-            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode)">
-                <mat-option *ngFor="let node of this.data.TFOperator" [value]="node.name">
+            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode.value.name)">
+                <mat-option *ngFor="let node of this.data.TFTensors" [value]="node.name">
                     {{node.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 50%">
             <mat-label  style="width: 50%">Y</mat-label>
-            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode)">
-                <mat-option *ngFor="let node of this.data.TFOperator" [value]="node.name">
+            <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode.value.name)">
+                <mat-option *ngFor="let node of this.data.TFTensors" [value]="node.name">
                     {{node.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </mat-list>
-<!--    <mat-list style="position: relative">-->
-
-<!--    </mat-list>-->
 </div>
-
-
-<!--<mat-radio-group aria-label="Select an option">-->
-<!--    <mat-radio-button value="1">Option 1</mat-radio-button>-->
-<!--    <mat-radio-button value="2">Option 2</mat-radio-button>-->
-<!--</mat-radio-group>-->
