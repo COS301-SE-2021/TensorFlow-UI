@@ -5,15 +5,17 @@ import {
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage, ChangeBooleanValue
+  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
+import {TFNode, TFOperator} from "../../app/tf";
 
 export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
-  showWorkspace: Boolean
+  TFNode: TFNode[];
+  showWorkspace: Boolean;
 }
 
 @State<WorkspaceStateModel>({
@@ -21,6 +23,7 @@ export interface WorkspaceStateModel{
   defaults:{
       nodes:[],
       lines: [],
+      TFNode: [],
       showWorkspace: true
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
