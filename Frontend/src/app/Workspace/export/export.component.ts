@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import commit from '../../GITApi.js'
 import {GetList} from '../../GITApi.js'
-import tensorList from "../import/import.component";
+import projectList from "../import/import.component";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
 
@@ -27,10 +27,10 @@ export class ExportComponent implements OnInit {
         el.style.display = 'none';
       }
     }
+    GetList();
   }
 
   exportToPc(){
-
     var exportAs = prompt("Name Your Project:", "");
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.")
@@ -41,16 +41,8 @@ export class ExportComponent implements OnInit {
       let doc = [];
       doc['nodes'] = storageNodes;
       doc['lines'] = storageLines;
-      // var el = document.getElementsByClassName("draggable");
-      // if (el != null){
-      //   let lst = {};
-      //   for (var i = 1; i < el.length; i++) {
-      //     lst[i-1] = el[i].outerHTML;
-      //   }
       var file = this.createDoc();
-
       this.download(file, exportAs+'.json');
-      // }
       this.showhide();
     }
 
@@ -64,32 +56,21 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib() {
-    // const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
-    // const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
     var exportAs = prompt("Name Your Project:", "");
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.");
     } else {
       var exists = false;
-      GetList();
 
       var keep = exportAs + ".json";
-      for (let i = 0; i < tensorList.length; i++) {
-        if (keep == tensorList[i]){
+      for (let i = 0; i < projectList.length; i++) {
+        if (keep == projectList[i]){
           exists = true;
         }
       }
       if (exists){
         alert('A file with the same name already exists in the library.');
       } else {
-        // var el = document.getElementsByClassName("draggable");
-        // if (el != null){
-        //   var lst1 = {};
-        //   for (var k = 1; k < el.length; k++) {
-        //     lst1[k-1] = el[k].outerHTML;
-        //   }
-        //
-        //   var jsonData = JSON.stringify(lst1);
         var file = this.createDoc();
         var reader = new FileReader();
         var base64dta ;
