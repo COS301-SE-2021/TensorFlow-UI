@@ -89,10 +89,10 @@ export class ExportComponent implements OnInit {
     //Export Functionality: Export retrieves data from storage here.
     const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
-    let doc = [];
+    let doc = {};
     doc['nodes'] = storageNodes;
     doc['lines'] = storageLines;
-    let jsonDta = JSON.stringify(doc)
+    let jsonDta = JSON.stringify(doc);
     var file = new Blob([jsonDta], {type: 'application/json'});
     return file;
   }
