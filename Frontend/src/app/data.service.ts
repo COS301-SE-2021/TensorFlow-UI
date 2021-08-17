@@ -1,66 +1,79 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {NodeData} from "./node-data";
+import {lineConnectors, NodeData} from "./node-data";
+import {TFOperator, TFTensor} from "./tf";
 
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class DataService {
-  get nodes(): NodeData[] {
-    return this._nodes;
-  }
+	get TFTensors(): TFTensor[] {
+		return this._TFTensors;
+	}
 
-  set nodes(value: NodeData[]) {
-    this._nodes = value;
-  }
-  get type(): string {
-    return this._type;
-  }
+	set TFTensors(value: TFTensor[]) {
+		this._TFTensors = value;
+	}
+	get TFOperator(): TFOperator[] {
+		return this._TFOperator;
+	}
 
-  get name(): string {
-    return this._name;
-  }
+	set TFOperator(value: TFOperator[]) {
+		this._TFOperator = value;
+	}
+	get lineConnectorsList(): lineConnectors[] {
+		return this._lineConnectorsList;
+	}
 
-  private _name = "";
-  private _type = "";
+	set lineConnectorsList(value: lineConnectors[]) {
+		this._lineConnectorsList = value;
+	}
 
-  private _nodes: NodeData[];
-  private createNodeSource = new BehaviorSubject(false); //default = false
-  private createFormSource = new BehaviorSubject(false); //default = false
-  //private addNodeSource = new BehaviorSubject(new ());
+	get nodes(): NodeData[] {
+		return this._nodes;
+	}
 
-  // private newNodeNameSource = new BehaviorSubject(this._nodes);
+	set nodes(value: NodeData[]) {
+		this._nodes = value;
+	}
 
-  createNodeBoolean = this.createNodeSource.asObservable();
-  createFormBoolean = this.createFormSource.asObservable();
-  //addNodeFunction = this.addNodeSource.asObservable();
+	get type(): string {
+		return this._type;
+	}
 
-  // nodeName = this.newNodeNameSource.asObservable();
-  //nodeDataType = this.newNodeDTypeSource.asObservable();
-  //nodeResult = this.newNodeResultSource.asObservable();
+	get name(): string {
+		return this._name;
+	}
 
-  constructor() {
-  }
+	set currentNode(node: NodeData) {
+		this._currentNode = node;
+	}
 
-  changeCreateNodeBoolean(createNodeSection: boolean) {
-    this.createNodeSource.next(createNodeSection)
-  }
+	get currentNode(): NodeData {
+		return this._currentNode;
+	}
 
-  changeCreateFormBoolean(createFormSection: boolean) {
-    this.createFormSource.next(createFormSection)
-  }
+	private _name = "";
+	private _type = "";
 
-  // passFormDataToNode(passedNodeData: Node){
-  //   this.newNodeDataSource.next(new Node());
-  // }
+	private _nodes: NodeData[];
+	private _currentNode: NodeData;
+	private _lineConnectorsList: lineConnectors[];
+	private _TFOperator: TFOperator[];
+	private _TFTensors: TFTensor[];
 
-  passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string){
-    this._name = nodeName;
-    this._type = nodeDataType;
-    //this.newNodeNameSource.next(nodeName);
-    //this.newNodeDTypeSource.next(nodeDataType);
-    //this.newNodeResultSource.next(nodeResult);
-  }
 
+	private createNodeSource = new BehaviorSubject(false); //default = false
+
+	createNodeBoolean = this.createNodeSource.asObservable();
+
+	constructor() {
+	}
+
+
+	passFormDataToNode(nodeName: string, nodeDataType: string, nodeResult: string) {
+		this._name = nodeName;
+		this._type = nodeDataType;
+	}
 }

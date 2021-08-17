@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LineConnectorComponent } from './line-connector.component';
+import { CanvasComponent } from './canvas.component';
 
-describe('LineConnectorComponent', () => {
-  let component: LineConnectorComponent;
-  let fixture: ComponentFixture<LineConnectorComponent>;
+describe('ChartComponent', () => {
+  let component: CanvasComponent;
+  let fixture: ComponentFixture<CanvasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LineConnectorComponent ]
+      declarations: [ CanvasComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LineConnectorComponent);
+    fixture = TestBed.createComponent(CanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
