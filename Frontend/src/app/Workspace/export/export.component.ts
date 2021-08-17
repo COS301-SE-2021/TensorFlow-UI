@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import commit from '../../GITApi.js'
 import {GetList} from '../../GITApi.js'
 import tensorList from "../import/import.component";
+import {WorkspaceState} from "../../../Storage/workspace";
+import {Store} from "@ngxs/store";
 
 @Component({
   selector: 'app-export',
@@ -10,7 +12,7 @@ import tensorList from "../import/import.component";
 })
 export class ExportComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
 
   ngOnInit(): void {
@@ -28,34 +30,42 @@ export class ExportComponent implements OnInit {
   }
 
   exportToPc(){
+
     var exportAs = prompt("Name Your Project:", "");
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.")
     } else {
-      var el = document.getElementsByClassName("draggable");
-      if (el != null){
-        let lst = {};
-        for (var i = 1; i < el.length; i++) {
-          lst[i-1] = el[i].outerHTML;
-        }
-        var jsonData = JSON.stringify(lst);
 
-        this.download(jsonData, exportAs+'.json', 'application/json');
-      }
+      const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+      const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+      let doc = [];
+      doc['nodes'] = storageNodes;
+      doc['lines'] = storageLines;
+      // var el = document.getElementsByClassName("draggable");
+      // if (el != null){
+      //   let lst = {};
+      //   for (var i = 1; i < el.length; i++) {
+      //     lst[i-1] = el[i].outerHTML;
+      //   }
+        var file = this.createDoc();
+
+        this.download(file, exportAs+'.json');
+      // }
       this.showhide();
     }
 
   }
 
-  download(content, fileName, contentType) {
+  download(file, fileName) {
     var a = document.createElement("a");
-    var file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
   }
 
   exportToLib() {
+    const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
     var exportAs = prompt("Name Your Project:", "");
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.");
@@ -94,5 +104,16 @@ export class ExportComponent implements OnInit {
         }
       }
     }
+  }
+
+  createDoc(){
+    const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    let doc = [];
+    doc['nodes'] = storageNodes;
+    doc['lines'] = storageLines;
+    let jsonDta = JSON.stringify(doc)
+    var file = new Blob([jsonDta], {type: 'application/json'});
+    return file;
   }
 }
