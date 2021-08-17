@@ -73,7 +73,16 @@ function poplst(l){
   }
 }
 
+export function dataToStore(dta){
+  var data = JSON.parse(dta);
+  console.log(data);
+  for (let i = 0; i < data.nodes.length; i++) {
+    // this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
+  }
+  for (let k = 0; k < data.lines.length; k++) {
 
+  }
+}
 
 
 
