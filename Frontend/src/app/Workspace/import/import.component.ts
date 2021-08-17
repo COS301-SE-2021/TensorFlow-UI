@@ -21,7 +21,6 @@ export class ImportComponent implements OnInit {
   }
 
   showhide(){
-    this.libSelection.nativeElement.value = "";
     GetList();
     this.projectL = projectList;
     var el = document.getElementById('hidden1');
@@ -63,10 +62,9 @@ export class ImportComponent implements OnInit {
         }
       }
       console.log(txt);
+      this.dataToStore(txt);
     }
   }
-
-  @ViewChild('libSelection') libSelection: ElementRef;
 
   ImportFromLib() {
       let workspace = document.getElementById("workspace-boundary");
@@ -84,13 +82,9 @@ export class ImportComponent implements OnInit {
       }
 
     // workspace.style.display = "none";
+  }
 
+  dataToStore(dta){
 
-    // if (this.libSelection.nativeElement.value == ""){
-    //   alert("Please select a project to import and try again.");
-    // } else{
-    //   GetData(this.libSelection.nativeElement.value);
-    //   this.libSelection.nativeElement.value = "";
-    // }
   }
 }
