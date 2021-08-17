@@ -16,9 +16,8 @@
   /*background: #afc3c4;*/
 }
 
-.createComponentButton{
-  display: table-cell;
-  width: 250px;
+.toolbarButton{
+  border: 2px solid black;
   margin: 8px 8px 8px 0;
 }
 
@@ -94,4 +93,40 @@
 
 #tensorNodeSearch{
   top: 10%;
+}
+
+.WorkspaceToolbar{
+  position: relative;
+  border: 2px solid black;
+  width: 82.5%;
+  height: 95%;
+  left: 5.8%;
+}
+
+#clearCanvas{
+  float: right;
+}
+
+#generateCodeButton{
+  float: right;
+  width: 15%;
+}
+
+#createNode{
+  width: 13.5%;
+  left: 8%;
+}
+
+#undoButton{
+  left: 22%;
+}
+
+#redoButton{
+  left: 21.5%;
+}
+
+.navigationButton{
+  position: relative;
+  width: 100%;
+  margin: 8px 0 8px 0;
 }

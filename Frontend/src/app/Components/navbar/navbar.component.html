@@ -5,6 +5,38 @@
             <mat-icon>menu</mat-icon>
         </button>
         <h1 class="app-name">Tensorflow UI</h1>
+        <div class="WorkspaceToolbar">
+
+          <button class="toolbarButton" id="createNode" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
+            Create Node
+          </button>
+          <button class="toolbarButton" id="undoButton" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
+            Undo
+          </button>
+          <button class="toolbarButton" id="redoButton" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
+            Redo
+          </button>
+          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary">Generate Code</button>
+          <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
+                  (click)="clearCanvas()">
+            Clear/Reset Canvas
+          </button>
+
+        </div>
+
+      <mat-menu #nodes="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
+        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Functional Node</button>
+      </mat-menu>
+
+      <mat-menu #tensorNodes="matMenu">
+        <button mat-menu-item *ngFor="let item of tensorList">{{item}}</button>
+      </mat-menu>
+
+      <mat-menu #functionalNodes="matMenu">
+        <button mat-menu-item *ngFor="let item of functionsList">{{item}}</button>
+      </mat-menu>
+
     </mat-toolbar>
     <mat-sidenav-container class="container" autosize>
         <mat-sidenav #sidenav class="sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
@@ -18,11 +50,17 @@
                     </mat-icon>
                 </mat-list-item>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                    <button class="createComponentButton" mat-raised-button color="primary"
-                            (click)="showTensorNodeSearch()">
-                        Create Node
-                    </button>
+                  <button class="navigationButton" mat-raised-button color="primary"
+                          >
+                    Create New Project
+                  </button>
                 </div>
+<!--                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                    <button class="createComponentButton" mat-raised-button color="primary"-->
+<!--                            (click)="showTensorNodeSearch()">-->
+<!--                        Create Node-->
+<!--                    </button>-->
+<!--                </div>-->
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                     <app-export></app-export>
                 </div>
@@ -32,6 +70,16 @@
                         Create Functional Node
                     </button>
                 </div>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <button class="createComponentButton" mat-raised-button color="primary"
+                        (click)="clearCanvas()">
+                  Clear Canvas
+                </button>
+              </div>
+                <!-- This is for the V2 section of the node creation. -->
+<!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                    <app-node></app-node>-->
+<!--                 </div>-->
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -39,7 +87,7 @@
             <div class="NodeSearch" id="tensorNodeSearch" [style.display]="isTensorNodeVisible ? 'block' : 'none'">
                 <input list="tensorNodeDataList" class="NodeInput" placeholder="Search or Select Tensor Node type"
                        #tensorNodeInputReference>
-                <button class="NodeButton" (click)="createTensorNode()" mat-raised-button>Create Node</button>
+                <button class="NodeButton" (click)="createNode()" mat-raised-button>Create Node</button>
             </div>
 
             <datalist id="tensorNodeDataList">

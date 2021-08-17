@@ -5,7 +5,7 @@ import {DataService} from "../data.service";
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
-import {UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
+import {AddTFNode, UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
 import * as LeaderLine from "leader-line-new";
 import {
     TFAdd, TFAddN,
@@ -97,7 +97,7 @@ export class Node implements OnInit {
 
     const lineObj = new LeaderLine(
         this.document.getElementById(this.nodeData.name),
-        this.document.getElementById(this.nodesArray.value[this.nodesArray.value.length - 1].name.toString()), {
+        this.document.getElementById(this.nodesArray.value.name.toString()), {
           size: 6,
           outlineColor: '#red',
           outline: true,
@@ -162,117 +162,103 @@ export class Node implements OnInit {
     createComponent(component: String) {
         let tftensor: TFTensor;
         let tfoperator: TFOperator;
+        let id: string = (this.data.TFTensors.length + this.data.TFOperator.length).toString();
         switch (component) {
             case this.tftensor[0]: {
                 tftensor = new TFConstant();
-                tftensor.name = "TFConstant";
+                tftensor.name = "TFConstant" + id;
                 this.data.TFTensors.push(tftensor);
-                console.log("new TFConstant()");
                 break;
             }
             case this.tftensor[1]: {
                 tftensor = new TFVariable();
-                tftensor.name = "TFVariable";
+                tftensor.name = "TFVariable" + id;
                 this.data.TFTensors.push(tftensor);
-                console.log("TFVariable()");
                 break;
             }
             case this.tftensor[2]: {
                 tftensor = new TFFill();
-                tftensor.name = "TFFill";
+                tftensor.name = "TFFill" + id;
                 this.data.TFTensors.push(tftensor);
-                console.log("TFFill()");
                 break;
             }
             case this.tftensor[3]: {
                 tftensor = new TFLinespace();
-                tftensor.name = "TFLinespace";
+                tftensor.name = "TFLinespace" + id;
                 this.data.TFTensors.push(tftensor);
-                console.log("TFLinespace()");
                 break;
             }
             case this.tftensor[4]: {
                 tftensor = new TFZeros();
+                tftensor.name = "TFZeros"  + id;
                 this.data.TFTensors.push(tftensor);
                 // this.tftensors[0]
-                console.log("new TFZeros()");
                 break;
             }
             case this.tftensor[5]: {
                 tftensor = new TFOnes();
-                tftensor.name = "TFOnes"
+                tftensor.name = "TFOnes" + id;
                 this.data.TFTensors.push();
-                console.log("TFOnes()");
                 break;
             }
             case this.tfoperator[0]: {
                 tfoperator = new TFAdd();
-                tfoperator.name = "TFAdd";
-                  this.data.TFOperator.push(tfoperator);
-                console.log("TFAdd()");
+                tfoperator.name = "TFAdd" + id;
+                this.data.TFOperator.push(tfoperator);
                 break;
             }
             case this.tfoperator[1]: {
                 tfoperator = new TFAddN();
-                tfoperator.name = "TFAdd_n";
+                tfoperator.name = "TFAdd_n" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFAdd_n()");
                 break;
             }
             case this.tfoperator[2]: {
                 tfoperator = new TFDivide();
-                tfoperator.name = "TFDivide";
+                tfoperator.name = "TFDivide" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFDivide()");
                 break;
             }
             case this.tfoperator[3]: {
                 tfoperator = new TFMod();
-                tfoperator.name = "TFMod";
+                tfoperator.name = "TFMod" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFMod()");
                 break;
             }
             case this.tfoperator[4]: {
                 tfoperator = new TFNegative();
-                tfoperator.name = "TFNegative";
+                tfoperator.name = "TFNegative" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFNegative()");
                 break;
             }
             case this.tfoperator[5]: {
                 tfoperator = new TFReciprocal();
-                tfoperator.name = "TFReciprocal";
+                tfoperator.name = "TFReciprocal" + id;
                 // this.data.TFOperator.push(tfoperator);
-                console.log("TFReciprocal()");
                 break;
             }
             case this.tfoperator[6]: {
                 tfoperator = new TFScalarMul();
                 tfoperator.name = "TFScalarMul";
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFScalarMul()");
                 break;
             }
             case this.tfoperator[7]: {
                 tfoperator = new TFSigmoid();
-                tfoperator.name = "TFSigmoid";
+                tfoperator.name = "TFSigmoid" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFSigmoid()");
                 break;
             }
             case this.tfoperator[8]: {
                 tfoperator = new TFSubtract();
-                tfoperator.name = "TF";
+                tfoperator.name = "TF" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFSubtract()");
                 break;
             }
             case this.tfoperator[9]: {
                 tfoperator = new TFMultiply();
-                tfoperator.name = "TF";
+                tfoperator.name = "TF" + id;
                 this.data.TFOperator.push(tfoperator);
-                console.log("TFMultiply()");
                 break;
             }
             default: {

@@ -4,8 +4,7 @@ export abstract class TFTensor extends TFNode {
 
 	protected constructor(
 		public data: Number | undefined = undefined,
-		public name: String | undefined = undefined,
-		public count: number
+		public name: string | undefined = undefined
 	) {
 		super(name, undefined, undefined);
 	}
