@@ -55,11 +55,12 @@ export function GetData(ID){
     headers: myHeaders,
     redirect: 'follow'
   };
-
+  let gloResult;
   fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/" + ID, requestOptions)
     .then(response => response.text())
-    .then(result => console.log(result))
+    .then(result => {console.log(result); gloResult = result})
     .catch(error => console.log('error', error));
+  return gloResult;
 }
 
 function poplst(l){
