@@ -1,0 +1,20 @@
+<h1> Project Details </h1>
+<div> Here you can edit or add the project name, description and type</div>
+<mat-form-field appearance="fill">
+  <div class="inputProjectDetails">
+    <p>Project Name: </p>
+    <input matInput [(ngModel)]="projectName">
+  </div>
+</mat-form-field>
+<br>
+<mat-form-field appearance="fill" id="projectDetails">
+  <div>
+    <p>Project Description: </p>
+    <textarea id="projectDetailsInput" matInput [(ngModel)]="projectDescription"></textarea>
+  </div>
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="saveDetails()">Save Details</button>
+  <button mat-button mat-dialog-close (click)="cancel()" >Cancel</button>
+</div>

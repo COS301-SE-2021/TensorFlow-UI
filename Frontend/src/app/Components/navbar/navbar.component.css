@@ -130,3 +130,12 @@
   width: 100%;
 }
 
+#settingsButton{
+  position: relative;
+  background: #ff8C00;
+  border: none;
+  left: 1%;
+  margin: 3px;
+  top:15%;
+  cursor: pointer;
+}

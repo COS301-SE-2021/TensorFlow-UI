@@ -14,6 +14,7 @@ import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
 import {MatDialog} from "@angular/material/dialog";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 
 @Component({
 	selector: 'app-navbar',
@@ -26,7 +27,8 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
   public tensorList: string[] = ["variable", "constant", "tensor"];
 
-	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store,public dialog: MatDialog) {}
+	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store,public dialog: MatDialog) {
+  }
 
 	ngOnInit(): void {
     this.data.nodes = [];
@@ -142,6 +144,18 @@ export class NavbarComponent implements OnInit {
 
         this.data.nodes.splice(0,this.data.nodes.length)
         this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+      }
+    })
+  }
+
+  showProjectDetails(){
+    const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent, {disableClose: true});
+
+    projectDetailsDialog.afterClosed().subscribe(result => {
+      const detailsAdded = projectDetailsDialog.disableClose;
+
+      if(detailsAdded){
+
       }
     })
   }

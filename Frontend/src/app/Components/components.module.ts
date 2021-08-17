@@ -16,32 +16,40 @@ import {ExportComponent} from "../Workspace/export/export.component";
 import {nodeModule} from "../Node/node.module";
 import {MatMenuModule} from "@angular/material/menu";
 import { NavbarDialogsComponent} from "./navbar-dialogs/navbar-dialogs.component";
+import { SettingsPageDialogComponent } from './settings-page-dialog/settings-page-dialog.component';
+import {FormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatListModule,
-        MatButtonModule,
-        MatSliderModule,
-        MatCardModule,
-        WorkspaceModule,
-        nodeModule,
-        MatMenuModule
-    ],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatListModule,
+    MatButtonModule,
+    MatSliderModule,
+    MatCardModule,
+    WorkspaceModule,
+    nodeModule,
+    MatMenuModule,
+    FormsModule,
+    MatInputModule,
+    MatDialogModule
+  ],
     declarations: [
         NavbarComponent,
         ExportComponent,
         NavbarDialogsComponent,
+        SettingsPageDialogComponent,
     ],
   exports: [
     NavbarComponent,
-    NavbarDialogsComponent
+    NavbarDialogsComponent,
   ]
 })
 export class ComponentsModule {
