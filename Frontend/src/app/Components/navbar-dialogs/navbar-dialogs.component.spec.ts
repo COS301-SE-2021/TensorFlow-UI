@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarDialogsComponent } from './navbar-dialogs.component';
+import { NavbarDialogsComponent} from './navbar-dialogs.component';
 
 describe('NavbarDialogsComponent', () => {
   let component: NavbarDialogsComponent;

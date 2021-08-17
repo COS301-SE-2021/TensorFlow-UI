@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NodeData} from "../../node-data";
-import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {SettingsPageData} from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-settings-page-dialog',
@@ -12,7 +12,7 @@ export class SettingsPageDialogComponent implements OnInit {
 
   public projectName: string;
   public projectDescription: string;
-  constructor(public dialogRef: MatDialogRef<NavbarDialogsComponent>,@Inject(MAT_DIALOG_DATA) public nodeData: NodeData){
+  constructor(public dialogRef: MatDialogRef<SettingsPageDialogComponent>,@Inject(MAT_DIALOG_DATA) public nodeData: SettingsPageData){
 
   }
 
