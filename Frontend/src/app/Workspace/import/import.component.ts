@@ -3,8 +3,8 @@ import {GetData, GetList} from '../../GITApi.js'
 import {Store} from "@ngxs/store";
 import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
 
-let tensorList: string[] = [""];
-export default tensorList;
+let projectList: string[] = [""];
+export default projectList;
 
 
 @Component({
@@ -13,7 +13,7 @@ export default tensorList;
   styleUrls: ['./import.component.css']
 })
 export class ImportComponent implements OnInit {
-  public tensorL: string[] = [""];
+  public projectL: string[] = [""];
 
   constructor(private store: Store) { }
 
@@ -23,7 +23,7 @@ export class ImportComponent implements OnInit {
   showhide(){
     this.libSelection.nativeElement.value = "";
     GetList();
-    this.tensorL = tensorList;
+    this.projectL = projectList;
     var el = document.getElementById('hidden1');
     if (el != null){
       if ( el.style.display == 'none'){
