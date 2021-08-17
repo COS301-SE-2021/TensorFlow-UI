@@ -47,9 +47,9 @@ export class ExportComponent implements OnInit {
       //   for (var i = 1; i < el.length; i++) {
       //     lst[i-1] = el[i].outerHTML;
       //   }
-        var file = this.createDoc();
+      var file = this.createDoc();
 
-        this.download(file, exportAs+'.json');
+      this.download(file, exportAs+'.json');
       // }
       this.showhide();
     }
@@ -64,8 +64,8 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib() {
-    const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
-    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    // const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    // const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
     var exportAs = prompt("Name Your Project:", "");
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.");
@@ -79,29 +79,27 @@ export class ExportComponent implements OnInit {
           exists = true;
         }
       }
-
       if (exists){
         alert('A file with the same name already exists in the library.');
       } else {
-        var el = document.getElementsByClassName("draggable");
-        if (el != null){
-          var lst1 = {};
-          for (var k = 1; k < el.length; k++) {
-            lst1[k-1] = el[k].outerHTML;
-          }
-
-          var jsonData = JSON.stringify(lst1);
-          var file = new Blob([jsonData], {type: 'application/json'});
-          var reader = new FileReader();
-          var base64dta ;
-          reader.readAsDataURL(file);
-          reader.onloadend = function (){
-            base64dta = reader.result;
-            base64dta = base64dta.substr(29);
-            commit(exportAs, base64dta);
-          }
-          this.showhide();
+        // var el = document.getElementsByClassName("draggable");
+        // if (el != null){
+        //   var lst1 = {};
+        //   for (var k = 1; k < el.length; k++) {
+        //     lst1[k-1] = el[k].outerHTML;
+        //   }
+        //
+        //   var jsonData = JSON.stringify(lst1);
+        var file = this.createDoc();
+        var reader = new FileReader();
+        var base64dta ;
+        reader.readAsDataURL(file);
+        reader.onloadend = function (){
+          base64dta = reader.result;
+          base64dta = base64dta.substr(29);
+          commit(exportAs, base64dta);
         }
+        this.showhide();
       }
     }
   }
