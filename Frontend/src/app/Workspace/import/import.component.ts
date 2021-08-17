@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {GetData, GetList} from '../../GITApi.js'
+import {GetList, data} from '../../GITApi.js'
 import {Store} from "@ngxs/store";
 import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
+import {dataToStore} from "../../GITApi.js";
 
 let projectList: string[] = [""];
 export default projectList;
-
 
 @Component({
   selector: 'app-import',
@@ -40,51 +40,47 @@ export class ImportComponent implements OnInit {
       if ('files' in x) {
         // @ts-ignore
         if (x.files.length == 0) {
-          txt = "Select one or more files.";
+          alert("Select one or more files.");
         } else {
-
-          txt += "<br><strong>" + (1) + ". file</strong><br>";
           // @ts-ignore
           var file = x.files[0];
           if ('name' in file) {
-            txt += "name: " + file.name + "<br>";
+            txt += "name: " + file.name + "\n";
           }
           if ('size' in file) {
-            txt += "size: " + file.size + " bytes <br> <br>";
+            txt += "size: " + file.size + " bytes";
           }
-
           var fr = new FileReader();
           fr.onload = function () {
-            console.log(fr.result);
+            let response = fr.result;
+            console.log(response);
+            dataToStore(response);
           }
           // @ts-ignore
           fr.readAsText(x.files[0]);
         }
       }
       console.log(txt);
-      this.dataToStore(txt);
     }
   }
 
   ImportFromLib() {
       let workspace = document.getElementById("workspace-boundary");
+      let importFromCommunity = document.getElementById("importFromCommunity");
       const showWorkspace = this.store.selectSnapshot(WorkspaceState).showWorkspace;
 
       this.store.dispatch(new ChangeBooleanValue(false));
 
-      if(workspace){
+      if(workspace && importFromCommunity){
         if(workspace.style.display=="none"){
           workspace.style.display = "block";
+          importFromCommunity.style.display = "none";
         }
         else{
           workspace.style.display = "none";
+          importFromCommunity.style.display = "block";
         }
       }
-
     // workspace.style.display = "none";
-  }
-
-  dataToStore(dta){
-
   }
 }

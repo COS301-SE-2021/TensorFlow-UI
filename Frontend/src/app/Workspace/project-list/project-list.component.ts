@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GetData} from "../../GITApi";
+import {importData, data} from "../../GITApi";
+import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
+import {Store} from "@ngxs/store";
 
 @Component({
   selector: 'app-project-list',
@@ -8,18 +10,27 @@ import {GetData} from "../../GITApi";
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
   @Input() element: string;
 
   ngOnInit(): void {
   }
 
   projectImport(ID){
-    console.log(ID);
-    this.dataToStore(GetData(ID));
-  }
+    importData(ID);
 
-  dataToStore(dta){
-
+    let workspace = document.getElementById("workspace-boundary");
+    let importFromCommunity = document.getElementById("importFromCommunity");
+    this.store.dispatch(new ChangeBooleanValue(false));
+    if(workspace && importFromCommunity){
+      if(workspace.style.display=="none"){
+        workspace.style.display = "block";
+        importFromCommunity.style.display = "none";
+      }
+      else{
+        workspace.style.display = "none";
+        importFromCommunity.style.display = "block";
+      }
+    }
   }
 }
