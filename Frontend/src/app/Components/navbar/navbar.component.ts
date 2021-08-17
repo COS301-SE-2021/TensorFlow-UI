@@ -3,7 +3,7 @@ import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
 import {
-  AddNodeToStorage,
+  AddNodeToStorage, AddRootNode,
   RemoveLineFromStorage,
   RemoveNodeFromStorage
 } from "../../../Storage/workspace/workspace.actions";
@@ -167,13 +167,14 @@ export class NavbarComponent implements OnInit {
 		}
 	}
 
+	// Code generation section
 	runAndGenerate() {
     const generator : CodeGeneratorService = new CodeGeneratorService();
-    // generator.runfile();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
   }
 
   downloadCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
-	  // generator.createFile();
+	  generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
   }
 }
