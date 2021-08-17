@@ -16,7 +16,7 @@
           <button class="toolbarButton" id="redoButton" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
             Redo
           </button>
-          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary">Generate Code</button>
+          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
           <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
                   (click)="clearCanvas()">
             Clear/Reset Canvas
