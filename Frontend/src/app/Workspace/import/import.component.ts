@@ -44,20 +44,23 @@ export class ImportComponent implements OnInit {
         } else {
           // @ts-ignore
           var file = x.files[0];
-          if ('name' in file) {
-            txt += "name: " + file.name + "\n";
+          if (file.type !="application/json"){
+            alert("Please upload a file of type application/json");
+          } else {
+            if ('name' in file) {
+              txt += "name: " + file.name + "\n";
+            }
+            if ('size' in file) {
+              txt += "size: " + file.size + " bytes";
+            }
+            var fr = new FileReader();
+            fr.onload = function () {
+              let response = fr.result;
+              dataToStore(response);
+            }
+            // @ts-ignore
+            fr.readAsText(x.files[0]);
           }
-          if ('size' in file) {
-            txt += "size: " + file.size + " bytes";
-          }
-          var fr = new FileReader();
-          fr.onload = function () {
-            let response = fr.result;
-            console.log(response);
-            dataToStore(response);
-          }
-          // @ts-ignore
-          fr.readAsText(x.files[0]);
         }
       }
       console.log(txt);
