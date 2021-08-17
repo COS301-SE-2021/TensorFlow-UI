@@ -12,6 +12,7 @@ export class CodeGeneratorService {
     var code = graph.generateCode(head);
     var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
     FileSaver.saveAs(blob, "output.py");
+    return code;
   }
 
   runfile (head : TFNode, url : string) : string {
