@@ -64,6 +64,9 @@
             </datalist>
             <app-workspace-boundary>
             </app-workspace-boundary>
+            <div id="SampleTodo">
+              <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
+            </div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
