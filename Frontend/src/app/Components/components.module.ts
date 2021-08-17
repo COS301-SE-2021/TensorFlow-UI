@@ -14,6 +14,7 @@ import {MatCardModule} from "@angular/material/card";
 import {WorkspaceModule} from "../Workspace/workspace.module";
 import {ExportComponent} from "../Workspace/export/export.component";
 import {nodeModule} from "../Node/node.module";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import {nodeModule} from "../Node/node.module";
         MatSliderModule,
         MatCardModule,
         WorkspaceModule,
-        nodeModule
+        nodeModule,
+        MatMenuModule
     ],
     declarations: [
         NavbarComponent,
