@@ -15,6 +15,7 @@ import {WorkspaceModule} from "../Workspace/workspace.module";
 import {ExportComponent} from "../Workspace/export/export.component";
 import {nodeModule} from "../Node/node.module";
 import {MatMenuModule} from "@angular/material/menu";
+import { NavbarDialogsComponent} from "./navbar-dialogs/navbar-dialogs.component";
 
 @NgModule({
     imports: [
@@ -36,9 +37,11 @@ import {MatMenuModule} from "@angular/material/menu";
     declarations: [
         NavbarComponent,
         ExportComponent,
+        NavbarDialogsComponent,
     ],
   exports: [
     NavbarComponent,
+    NavbarDialogsComponent
   ]
 })
 export class ComponentsModule {

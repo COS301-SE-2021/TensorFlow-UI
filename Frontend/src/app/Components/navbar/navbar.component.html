@@ -30,11 +30,11 @@
       </mat-menu>
 
       <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tensorList">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of tensorList" (click)="createNode(item)">{{item}}</button>
       </mat-menu>
 
       <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of functionsList">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of functionsList" (click)="createFunctionalNode(item)">{{item}}</button>
       </mat-menu>
 
     </mat-toolbar>
@@ -50,8 +50,7 @@
                     </mat-icon>
                 </mat-list-item>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                  <button class="navigationButton" mat-raised-button color="primary"
-                          >
+                  <button class="navigationButton" mat-raised-button color="primary">
                     Create New Project
                   </button>
                 </div>
@@ -64,18 +63,6 @@
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                     <app-export></app-export>
                 </div>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                    <button class="createComponentButton" mat-raised-button color="primary"
-                            (click)="showFuncNodeSearch()">
-                        Create Functional Node
-                    </button>
-                </div>
-              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <button class="createComponentButton" mat-raised-button color="primary"
-                        (click)="clearCanvas()">
-                  Clear Canvas
-                </button>
-              </div>
                 <!-- This is for the V2 section of the node creation. -->
 <!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
 <!--                    <app-node></app-node>-->
@@ -83,26 +70,6 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-
-            <div class="NodeSearch" id="tensorNodeSearch" [style.display]="isTensorNodeVisible ? 'block' : 'none'">
-                <input list="tensorNodeDataList" class="NodeInput" placeholder="Search or Select Tensor Node type"
-                       #tensorNodeInputReference>
-                <button class="NodeButton" (click)="createNode()" mat-raised-button>Create Node</button>
-            </div>
-
-            <datalist id="tensorNodeDataList">
-                <option *ngFor="let element of tensorList" value="{{element}}"></option>
-            </datalist>
-
-            <div class="NodeSearch" [style.display]="isFunctionalNodeVisible ? 'block' : 'none'">
-                <input list="funcNodeDataList" class="NodeInput" placeholder="Search or Select functional Node type"
-                       #functionalNodeInputReference>
-                <button class="NodeButton" (click)="createFunctionalNode()" mat-raised-button>Create Node</button>
-            </div>
-
-            <datalist id="funcNodeDataList">
-                <option *ngFor="let element of functionsList" value="{{element}}"></option>
-            </datalist>
             <app-workspace-boundary>
             </app-workspace-boundary>
         </mat-sidenav-content>

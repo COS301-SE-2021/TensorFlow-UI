@@ -12,6 +12,8 @@ import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
+import {MatDialog} from "@angular/material/dialog";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
 @Component({
 	selector: 'app-navbar',
@@ -24,7 +26,7 @@ export class NavbarComponent implements OnInit {
   public functionsList: string[] = ["add","subtract","multiply","divide"];
   public tensorList: string[] = ["variable", "constant", "tensor"];
 
-	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store) {}
+	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store,public dialog: MatDialog) {}
 
 	ngOnInit(): void {
     this.data.nodes = [];
@@ -80,46 +82,38 @@ export class NavbarComponent implements OnInit {
   }
 
   // This adds a new node to the data service "nodes" array.
-	createNode() {
+	createNode(type: string) {
 	  const nodeNum = this.data.nodes.length+1;
     const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
     const nodeType = this.data.type;
-    const value = this.tensorNodeSearchInput.nativeElement.value;
 
 		this.data.nodes.push({
 			num: nodeNum,
 			name: nodeName,
 			type: nodeType,
-			value: value,
+			value: type,
 			x: 0,
 			y: 0
 		});
-		this.addNodeToStorage(nodeNum, nodeName, nodeType, "", 0, 0);
-		//Reset search section after creation of node
-		this.tensorNodeSearchInput.nativeElement.value = "";
-		this.isTensorNodeVisible = !this.isTensorNodeVisible;
+		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
 	}
 
 	// This adds a new node to the data service "nodes" array. However the type is set to 'functional'
-	createFunctionalNode() {
+	createFunctionalNode(type: string) {
 		const nodeNum = this.data.nodes.length + 1;
 		const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
-		const value = this.functionalNodeSearchInput.nativeElement.value;
 
 		this.data.nodes.push({
 			num: nodeNum,
 			name: nodeName,
 			type: "functional",
-			value: value,
+			value: type,
 			x: 0,
 			y: 0
 		});
 
-		this.addNodeToStorage(nodeNum, nodeName, "functional", value, 0, 0);
+		this.addNodeToStorage(nodeNum, nodeName, "functional", type, 0, 0);
 
-		//Reset search section after creation of node
-		this.functionalNodeSearchInput.nativeElement.value = "";
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
 	}
 
 	addNodeToStorage(num, name, type, value, x, y) {
@@ -136,12 +130,20 @@ export class NavbarComponent implements OnInit {
 	}
 
 	clearCanvas(){
-    this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
-	  this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-    this.data.lineConnectorsList.forEach(element => element.line?.remove())
+	  const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
-    this.data.nodes.splice(0,this.data.nodes.length)
-    this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+    clearDialog.afterClosed().subscribe(result => {
+      const clearCanvasBoolean = clearDialog.disableClose;
+
+      if (clearCanvasBoolean) {
+        this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
+        this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+        this.data.lineConnectorsList.forEach(element => element.line?.remove())
+
+        this.data.nodes.splice(0,this.data.nodes.length)
+        this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+      }
+    })
   }
 
 	@ViewChild('sidenav') sidenav: MatSidenav;

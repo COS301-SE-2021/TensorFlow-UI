@@ -100,7 +100,7 @@
   border: 2px solid black;
   width: 82.5%;
   height: 95%;
-  left: 5.8%;
+  left: 4.8rem;
 }
 
 #clearCanvas{
@@ -128,5 +128,5 @@
 .navigationButton{
   position: relative;
   width: 100%;
-  margin: 8px 0 8px 0;
 }
+

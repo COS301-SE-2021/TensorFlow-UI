@@ -241,9 +241,6 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
         }
 
       }
-      else{
-
-      }
     })
   }
 
