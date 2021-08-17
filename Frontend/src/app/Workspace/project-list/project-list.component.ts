@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {GetData} from "../../GITApi";
 
 @Component({
   selector: 'app-project-list',
@@ -15,5 +16,10 @@ export class ProjectListComponent implements OnInit {
 
   projectImport(ID){
     console.log(ID);
+    this.dataToStore(GetData(ID));
+  }
+
+  dataToStore(dta){
+
   }
 }
