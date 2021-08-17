@@ -2,6 +2,7 @@ import {PAT} from './config.js'
 import {user} from './config.js'
 import {mail} from './config.js'
 import projectList from './Workspace/import/import.component.ts'
+import { AddNodeToStorage } from "../Storage/workspace/workspace.actions";
 
 export default function Commit (Name, Data){
   var myHeaders = new Headers();
@@ -36,8 +37,8 @@ export function GetList(){
     if(this.readyState === 4) {
       var json = JSON.parse(this.responseText);
       var lst = new Array(json.length-1)
-      for (let i = 1; i < json.length; i++) {
-        lst[i-1]= json[i].name;
+      for (let i = 0; i < json.length; i++) {
+        lst[i]= json[i].name;
       }
         poplst(lst);
     }
@@ -47,7 +48,7 @@ export function GetList(){
   xhr.send();
 }
 
-export function GetData(ID){
+export function importData(ID){
   var myHeaders = new Headers();
 
   var requestOptions = {
@@ -55,27 +56,24 @@ export function GetData(ID){
     headers: myHeaders,
     redirect: 'follow'
   };
-  let gloResult;
   fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/" + ID, requestOptions)
     .then(response => response.text())
-    .then(result => {console.log(result); gloResult = result})
+    .then(result => dataToStore(result))
     .catch(error => console.log('error', error));
-  return gloResult;
 }
 
 function poplst(l){
-  // var cbox = document.getElementById("TFUIlib");
-  // if (cbox != null){
-  //   cbox.innerHTML = "";
-  for (let k = 0; k < projectList.length; k++) {
-    projectList[k] = "";
+  while (projectList.length > 0){
+    projectList.pop();
   }
-    for (let i = 0; i < l.length; i++) {
-      projectList[i] = l[i];
-      // var opt = document.createElement('option');
-      // opt.value = l[i];
-      // opt.innerHTML = l[i];
-      // cbox.appendChild(opt);
+  for (let i = 0; i < l.length; i++) {
+    if (l[i] !== "README.md"){
+      projectList.push(l[i]);
     }
-
+  }
 }
+
+
+
+
+
