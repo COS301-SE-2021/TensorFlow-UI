@@ -1,5 +1,4 @@
 <div class="workspace-boundary" id="workspace-boundary">
-  TEST
     <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
 
     <!-- Part of the new UI section-->
@@ -8,7 +7,7 @@
 
 </div>
 
-<div class="importFromCommunity">
-  Import From Community
+<div class="importFromCommunity" id="importFromCommunity">
+  <div><h1>Import From Community Library:</h1></div>
   <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
 </div>
