@@ -8,7 +8,6 @@ import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
-import projectList from "../../Workspace/import/import.component";
 
 @Component({
 	selector: 'app-navbar',
@@ -16,7 +15,6 @@ import projectList from "../../Workspace/import/import.component";
 	styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public projectL = projectList;
 
   nodes$: Observable<NodeData[]>;
   public functionsList: string[] = ["add","subtract","multiply","divide"];
