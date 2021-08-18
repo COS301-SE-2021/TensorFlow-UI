@@ -17,7 +17,6 @@ export class CodeGeneratorService {
     topNode.childOne = var1;
     topNode.childTwo = var2;
     head = topNode;
-    
      */
 
     var graph : TFGraph = new TFGraph(head);
@@ -32,26 +31,19 @@ export class CodeGeneratorService {
   runfile (head : TFNode, url : string) : string {
     var graph : TFGraph = new TFGraph(head);
     var file : File = new File([graph.generateCode(head)], "output.py");
-
     var savedResponse : string = "";
-
     var data = file;
-
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-
     xhr.addEventListener("readystatechange", function() {
       if(this.readyState === 4) {
         console.log(this.responseText);
         savedResponse = this.responseText;
       }
     });
-
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/octet-stream");
-
     xhr.send(data);
-
     return savedResponse;
   }
 
