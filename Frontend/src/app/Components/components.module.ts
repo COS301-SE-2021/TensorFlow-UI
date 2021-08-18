@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {CommonModule } from '@angular/common';
+import {NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -21,7 +22,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {NavbarComponent} from "./navbar/navbar.component";
 
 @NgModule({
   imports: [

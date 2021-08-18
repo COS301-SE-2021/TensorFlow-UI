@@ -26,7 +26,7 @@ export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
   TFNode: TFNode[];
-  showWorkspace: Boolean;
+  showWorkspace: boolean;
   rootNode: TFNode;
   projectName: string;
   projectDescription: string;

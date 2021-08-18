@@ -19,6 +19,8 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import { NodeElementDeleteNodeDialogComponent } from './node-element-delete-node-dialog/node-element-delete-node-dialog.component';
 import {NodeElementComponent} from "./node-element/node-element.component";
 //import { ImportComponent } from './import/import.component';
+import { ImportComponent } from './import/import.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @NgModule({
   imports: [
@@ -40,11 +42,15 @@ import {NodeElementComponent} from "./node-element/node-element.component";
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
+        ImportComponent,
+        ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
     ],
     exports: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
+        ImportComponent,
+        ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
     ],
     providers: [
