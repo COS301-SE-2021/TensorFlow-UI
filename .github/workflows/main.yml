@@ -1,7 +1,7 @@
 name: Maven Integration Testing
 
 on:
-  push:
+  pull_request:
     branches:
       -master
       -development
