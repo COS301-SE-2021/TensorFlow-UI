@@ -3,6 +3,7 @@ import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
 import {TFGraph, TFNode} from "../../tf";
 import {Store} from "@ngxs/store";
+import projectList from "../import/import.component";
 
 @Component({
 	selector: 'app-workspace-boundary',
@@ -10,7 +11,7 @@ import {Store} from "@ngxs/store";
 	styleUrls: ['./workspace-boundary.component.css']
 })
 export class WorkspaceBoundaryComponent implements OnInit {
-
+  public projectL = projectList
 	@Input() TFNodes: TFNode[];
 
 	@Input() storageNode: NodeData[];

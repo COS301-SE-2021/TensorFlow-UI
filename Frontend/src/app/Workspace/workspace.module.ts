@@ -42,7 +42,6 @@ import { ProjectListComponent } from './project-list/project-list.component';
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog,
         ImportComponent,
         ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
@@ -50,7 +49,6 @@ import { ProjectListComponent } from './project-list/project-list.component';
     exports: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog,
         ImportComponent,
         ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
