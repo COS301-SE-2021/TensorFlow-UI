@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import * as LeaderLine from "leader-line-new";
 import {FormControl} from "@angular/forms";
-import {AddLineConnectorToStorage, UpdateNodeInStorage, WorkspaceState} from "../../../Storage/workspace";
+import {AddLineConnectorToStorage, AddRootNode, UpdateNodeInStorage, WorkspaceState} from "../../../Storage/workspace";
 import {TFNode} from "../../tf";
 import {DataService} from "../../data.service";
 import {DOCUMENT} from "@angular/common";
@@ -25,6 +25,7 @@ export class RootnodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new AddRootNode(this._root))
   }
 
 
@@ -91,8 +92,10 @@ export class RootnodeComponent implements OnInit {
                 that.store.dispatch(new UpdateNodeInStorage(node));
               }
             }
+
           }
         });
+    this.store.dispatch(new AddRootNode(this._root))
   }
 
   dragListener(event) {

@@ -220,7 +220,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 			if (clearCanvasBoolean) {
 				this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-				this.linesList.forEach(element => element.line?.remove())
+				//this.linesList.forEach(element => element.line?.remove())
 				this.linesList.splice(0, this.linesList.length)
 
         this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
