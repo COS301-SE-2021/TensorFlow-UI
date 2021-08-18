@@ -21,17 +21,14 @@ export class ExportComponent implements OnInit {
   }
 
   exportToPc(){
-    var exportAs = prompt("Name Your Project:", "");
+    //const procName = this.store.selectSnapshot(WorkspaceState).projectName;
+    var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
     if (exportAs == null || exportAs == ""){
-      alert("Please name your Project and try again.")
+      alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
     } else {
-
-      const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
-      const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
-      let doc = [];
-      doc['nodes'] = storageNodes;
-      doc['lines'] = storageLines;
-      var file = this.createDoc();
+      //const procDescription = this.store.selectSnapshot(WorkspaceState).projectDescription;
+      var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
+      var file = this.createDoc(description);
       this.download(file, exportAs+'.json');
     }
 
@@ -45,9 +42,10 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib() {
-    var exportAs = prompt("Name Your Project:", "");
+    //const storageProject = this.store.selectSnapshot(WorkspaceState).project;
+    var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
     if (exportAs == null || exportAs == ""){
-      alert("Please name your Project and try again.");
+      alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
     } else {
       var exists = false;
 
@@ -60,7 +58,8 @@ export class ExportComponent implements OnInit {
       if (exists){
         alert('Export failed:\nA file with the same name already exists in the library.');
       } else {
-        var file = this.createDoc();
+        var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
+        var file = this.createDoc(description);
         var reader = new FileReader();
         var base64dta ;
         reader.readAsDataURL(file);
@@ -68,17 +67,19 @@ export class ExportComponent implements OnInit {
         reader.onloadend = function (){
           base64dta = reader.result;
           base64dta = base64dta.substr(29);
-          that.API.commit(exportAs, base64dta);
+          that.API.commit(exportAs, base64dta, description);
         }
       }
     }
   }
 
-  createDoc(){
+  createDoc(descript){
     //Export Functionality: Export retrieves data from storage here.
     const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+
     let doc = {};
+    doc['description'] = descript;
     doc['nodes'] = storageNodes;
     doc['lines'] = storageLines;
     let jsonDta = JSON.stringify(doc);
