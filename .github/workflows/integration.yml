@@ -15,4 +15,5 @@ jobs:
       - uses: actions/setup-Node@v1
         with:
           node-version: 12
-      - run: npm test
+      - run: ../Frontend/npm test
+
