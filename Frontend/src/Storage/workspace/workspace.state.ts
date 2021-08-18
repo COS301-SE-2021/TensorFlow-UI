@@ -11,7 +11,12 @@ import {
   AddTFNode,
   UpdateTFNode,
   AddRootNode,
-  AddProjectName, AddProjectDescription
+  AddProjectName,
+  AddProjectDescription,
+  RemoveLineConnectionOne,
+  RemoveLineConnection,
+  RemoveLineConnectionTwo,
+  UpdateLineConnection
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -171,6 +176,47 @@ export class WorkspaceState{
       patch({
         projectDescription: description
       })
+    )
+  }
+
+
+
+  @Action(RemoveLineConnection)
+  public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.toString())
+        })
+    )
+  }
+
+  @Action(RemoveLineConnectionOne)
+  public removeLineConnectionOne(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionOne) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childOne?.name?.toString())
+        })
+    )
+  }
+
+  @Action(RemoveLineConnectionTwo)
+  public removeLineConnectionTwo(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionTwo) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childTwo?.name?.toString())
+        })
+    )
+  }
+
+  @Action(UpdateLineConnection)
+  public updateLineConnection(stateContext: StateContext<WorkspaceStateModel>, {line}: UpdateLineConnection) {
+    stateContext.setState(
+        patch({
+          lines: updateItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end , patch(line))
+        })
     )
   }
 }

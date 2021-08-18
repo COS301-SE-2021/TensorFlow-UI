@@ -69,8 +69,10 @@ export class AddProjectName{
 
 export class AddProjectDescription{
   public static readonly type = '[Workspace] Add Project Description';
-
   constructor(public description: string){}
+}
+
+export class RemoveLineConnection {
   public static readonly type = '[Workspace] remove Line';
 
   constructor(public node: string) {
@@ -94,7 +96,5 @@ export class RemoveLineConnectionOne {
 export class RemoveLineConnectionTwo {
   public static readonly type = '[Workspace] Remove Line2';
 
-  constructor(public node: TFNode) {
-  }
-export class RemoveLineConnection {
+  constructor(public node: TFNode) {}
 }

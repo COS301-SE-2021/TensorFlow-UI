@@ -3,7 +3,8 @@ import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import {Store} from "@ngxs/store";
 import {
-	AddNodeToStorage, AddRootNode, AddTFNode,
+	AddNodeToStorage,
+	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
 	RemoveLineFromStorage,
 	RemoveNodeFromStorage
 } from "../../../Storage/workspace";
@@ -234,6 +235,7 @@ export class NavbarComponent implements OnInit {
 
 	// Code generation section
 	runAndGenerate() {
+		const generator : CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
 	}
 
