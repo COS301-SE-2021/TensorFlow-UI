@@ -15,9 +15,8 @@ export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
   TFNode: TFNode[];
-  showWorkspace: Boolean;
-  rootNode: TFNode;
   showWorkspace: boolean;
+  rootNode: TFNode;
 }
 
 @State<WorkspaceStateModel>({
@@ -29,7 +28,6 @@ export interface WorkspaceStateModel{
       showWorkspace: true,
       rootNode: new TFNode() //temporary, change later
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
-      showWorkspace: true
   },
 })
 

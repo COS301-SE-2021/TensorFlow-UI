@@ -25,7 +25,6 @@
     "@ngxs/devtools-plugin": "^3.7.2",
     "@ngxs/logger-plugin": "^3.7.2",
     "@ngxs/storage-plugin": "^3.7.2",
-
     "@ngxs/store": "^3.7.2",
     "@syncfusion/ej2-angular-diagrams": "^19.1.69",
     "@types/file-saver": "^2.0.3",

@@ -57,9 +57,11 @@ export class ImportComponent implements OnInit {
             fr.onload = function () {
               let response = fr.result;
               dataToStore(response);
+
             }
             // @ts-ignore
-            fr.readAsText(x.files[0]);
+            x.files[0] = "";
+            fr.readAsText(file);
           }
         }
       }
