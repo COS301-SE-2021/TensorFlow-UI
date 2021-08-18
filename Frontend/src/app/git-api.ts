@@ -1,7 +1,7 @@
 import {Store} from "@ngxs/store";
 import {mail, PAT, user} from "./config";
 import projectList from "./Workspace/import/import.component";
-import {AddLineConnectorToStorage, AddNodeToStorage} from "../Storage/workspace";
+import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription} from "../Storage/workspace";
 
 
 export class GitAPI {
@@ -10,13 +10,13 @@ export class GitAPI {
 
   }
 
-  public commit(Name, Data){
+  public commit(Name, Data, description){
     var myHeaders = new Headers();
     myHeaders.append("Authorization", PAT);
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "message": "Project Export From TFUI",
+      "message": description,
       "committer": {
         "name": user,
         "email": mail
@@ -65,6 +65,7 @@ export class GitAPI {
   public dataToStore(dta){
     try{
       var data = JSON.parse(dta);
+      this.store.dispatch(new AddProjectDescription(data.description));
       for (let i = 0; i < data.nodes.length; i++) {
         var num=data.nodes[i].num;
         var name=data.nodes[i].name;
