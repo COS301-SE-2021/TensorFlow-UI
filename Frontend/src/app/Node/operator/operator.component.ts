@@ -1,10 +1,16 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {TFNode, TFOperator, TFTensor} from "../../tf";
+import {AfterViewInit, Component, Inject, Input, OnInit} from '@angular/core';
+import {TFNode,} from "../../tf";
 import {FormControl} from "@angular/forms";
 import {DataService} from "../../data.service";
 import * as LeaderLine from "leader-line-new";
 import {DOCUMENT} from "@angular/common";
-import {RemoveLineConnectionOne, RemoveLineConnectionTwo, UpdateNodeInStorage} from "../../../Storage/workspace";
+import {
+	AddLineConnectorToStorage,
+	RemoveLineConnectionOne,
+	RemoveLineConnectionTwo,
+	UpdateNodeInStorage,
+	WorkspaceState
+} from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
 
@@ -13,7 +19,9 @@ import interact from "interactjs";
 	templateUrl: './operator.component.html',
 	styleUrls: ['./operator.component.css']
 })
-export class OperatorComponent implements OnInit {
+export class OperatorComponent implements OnInit, AfterViewInit {
+
+	nodes: TFNode[];
 
 	selectedNodeX = new FormControl();
 	selectedNodeY = new FormControl();
@@ -25,6 +33,20 @@ export class OperatorComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	}
+
+	ngAfterViewInit() {
+		//
+		// if (this._TFNodeDataOperator.name != undefined) {
+		// 	const node = document.getElementById(this._TFNodeDataOperator.name);
+		//
+		// 	if (node != null) {
+		// 		node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.) + 'px, ' + Number(this._TFNodeDataOperator.y) + 'px)'
+		//
+		// 		node.setAttribute('data-x', this._TFNodeDataOperator.x.toString());
+		// 		node.setAttribute('data-y', this._TFNodeDataOperator.y.toString());
+		// 	}
+		// }
 	}
 
 	// Initial linking between two node elements.
@@ -41,12 +63,11 @@ export class OperatorComponent implements OnInit {
 				}
 			);
 
-			this.data.lineConnectorsList.push({
-					start: lineStartName,
-					end: lineEndName,
-					line: lineObj,
-				}
-			);
+			this.store.dispatch(new AddLineConnectorToStorage({
+				start: lineStartName,
+				end: lineEndName,
+				line: lineObj
+			}))
 		}
 	}
 
@@ -65,26 +86,18 @@ export class OperatorComponent implements OnInit {
 
 	// Redraw lines for each component.
 	reload() {
-		if (this.data?.lineConnectorsList != null) {
-			if (this.data.lineConnectorsList.length > 0) {
-				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
+		this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 
-					const start = this.data.lineConnectorsList[i].start;
-					let end = this.data.lineConnectorsList[i].end;
+		if (this.store.select(WorkspaceState) != null && this.store.selectSnapshot(WorkspaceState).lines.length > 0) {
+			for (let i = 0; i < this.store.selectSnapshot(WorkspaceState).lines.length; i++) {
 
-					this.data.lineConnectorsList[i].line?.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
-					);
-
-				}
+				let l: LeaderLine;
+				l = this.store.selectSnapshot(WorkspaceState).lines[i]["line"];
+				l?.position();
 			}
 		}
 	}
+
 	initialiseDraggable() {
 		const that = this;
 		interact('.draggableNode')
@@ -100,11 +113,12 @@ export class OperatorComponent implements OnInit {
 				listeners: {
 					move: this.dragListener,
 					end(event) {
-						console.log(event.target);
+						// console.log(event.target);
 
 						const target = event.target;
 						const nodeId = event.target.id;
-						const node = that.data.nodes.find(element => element.name == nodeId);
+						// const node = that.data.nodes.find(element => element.name == nodeId);
+						const node = that.store.selectSnapshot(WorkspaceState).TFNode.find(element => element.name == nodeId);
 
 						if(node!=null){
 							//Update node coordinates

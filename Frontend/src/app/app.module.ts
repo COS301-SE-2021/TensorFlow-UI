@@ -5,23 +5,23 @@ import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ComponentsModule} from "./components/components.module";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 
 //ngxs storage
 import {NgxsModule} from '@ngxs/store';
-import {WorkspaceState} from "../Storage/workspace/workspace.state";
+import {WorkspaceState} from "../Storage/workspace";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
+import {ComponentsModule} from "./Components/components.module";
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
-	ComponentsModule, WorkspaceModule, MatCardModule, MatDialogModule
+	 WorkspaceModule, MatCardModule, MatDialogModule
 ]
 
 @NgModule({
@@ -41,7 +41,8 @@ const modules = [
       WorkspaceState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    ComponentsModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

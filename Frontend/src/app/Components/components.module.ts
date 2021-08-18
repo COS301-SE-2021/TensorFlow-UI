@@ -38,7 +38,6 @@ import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-
     MatSliderModule,
     MatCardModule,
     WorkspaceModule,
-    nodeModule,
     MatMenuModule,
     FormsModule,
     MatInputModule,

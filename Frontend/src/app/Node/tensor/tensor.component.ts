@@ -3,6 +3,8 @@ import {TFNode, TFTensor} from "../../tf";
 import {DataService} from "../../data.service";
 import * as LeaderLine from "leader-line-new";
 import {DOCUMENT} from "@angular/common";
+import {WorkspaceState} from "../../../Storage/workspace";
+import {Store} from "@ngxs/store";
 
 @Component({
 	selector: 'app-tensor',
@@ -14,9 +16,11 @@ export class TensorComponent implements OnInit {
 		return this._TFNodeData;
 	}
 
+	nodes: TFNode[];
+
 	@Input() _TFNodeData : TFNode;
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document) {
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 	}
 
 	ngOnInit(): void {
@@ -24,29 +28,14 @@ export class TensorComponent implements OnInit {
 
 	// Redraw lines for each component.
 	reload() {
-		if (this.data?.lineConnectorsList != null) {
-			if (this.data.lineConnectorsList.length > 0) {
-				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
+		this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 
-					const start = this.data.lineConnectorsList[i].start;
-					let end = this.data.lineConnectorsList[i].end;
-					this.data.lineConnectorsList[i].line?.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							// size: 6,
-							// outlineColor: '#red',
-							// outline: true,
-							// endPlugOutline: true,
-							// dash: true,
-							// path: 'arc',
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
+		if (this.store.select(WorkspaceState) != null && this.store.selectSnapshot(WorkspaceState).lines.length > 0) {
+			for (let i = 0; i < this.store.selectSnapshot(WorkspaceState).lines.length; i++) {
 
-					);
-
-				}
+				let l: LeaderLine;
+				l = this.store.selectSnapshot(WorkspaceState).lines[i]["line"];
+				l?.position();
 			}
 		}
 	}

@@ -50,6 +50,7 @@ export class RootnodeComponent implements OnInit {
   }
   // Redraw lines for each component.
   reload() {
+    this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 
     if (this.store.select(WorkspaceState) != null && this.store.selectSnapshot(WorkspaceState).lines.length > 0) {
       for (let i = 0; i < this.store.selectSnapshot(WorkspaceState).lines.length; i++) {
@@ -79,7 +80,7 @@ export class RootnodeComponent implements OnInit {
 
               const target = event.target;
               const nodeId = event.target.id;
-              const node = that.data.nodes.find(element => element.name == nodeId);
+              const node = that.store.selectSnapshot(WorkspaceState).TFNode.find(element => element.name == nodeId);
 
               if(node!=null){
                 //Update node coordinates

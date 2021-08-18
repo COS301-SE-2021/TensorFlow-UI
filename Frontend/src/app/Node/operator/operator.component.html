@@ -1,23 +1,23 @@
-<div *ngIf="_TFNodeDataOperator.type == 'Operator'" class="draggableNode" id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
+<div *ngIf="_TFNodeDataOperator && _TFNodeDataOperator.type == 'Operator'" class="draggableNode" id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
     <mat-label>
         <div class="nodeName">
-            <p>{{_TFNodeDataOperator.name}}</p>
+            <p>{{_TFNodeDataOperator.selector}}</p>
         </div>
     </mat-label>
     <mat-list style="position: relative">
         <mat-form-field style="width: 50%">
             <mat-label style="width: 50%">X</mat-label>
             <mat-select [(value)]="selectedNodeX" (selectionChange)="linkNodes(selectedNodeX)">
-                <mat-option *ngFor="let node of this.data.TFNodes" [value]="node.name">
-                    {{node.name}}
+                <mat-option *ngFor="let node of this.nodes" [value]="node.name">
+                    {{node.selector}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 50%">
             <mat-label style="width: 50%">Y</mat-label>
             <mat-select [(value)]="selectedNodeY" (selectionChange)="linkNodes(selectedNodeY)">
-                <mat-option *ngFor="let node of this.data.TFNodes" [value]="node.name">
-                    {{node.name}}
+                <mat-option *ngFor="let node of this.nodes" [value]="node.name">
+                    {{node.selector}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

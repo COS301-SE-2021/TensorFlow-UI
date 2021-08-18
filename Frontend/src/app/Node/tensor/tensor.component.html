@@ -1,7 +1,7 @@
-<div *ngIf="_TFNodeData.type == 'Tensor'" class="draggableNode" id="{{TFNodeData.name}}" (mousemove)="reload()">
+<div *ngIf="_TFNodeData && _TFNodeData.type == 'Tensor'" class="draggableNode" id="{{TFNodeData.name}}" (mousemove)="reload()">
     <mat-label>
         <div class="nodeName">
-            <p>Node: {{TFNodeData.name}}</p>
+            <p>Node: {{TFNodeData.selector}}</p>
         </div>
     </mat-label>
     <mat-list style="position: relative">

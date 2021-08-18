@@ -1,4 +1,4 @@
-<div *ngIf="nodeData.type != 'functional'" class="draggable" id="{{nodeData.name}}" (mousemove)="reload()">
+<div *ngIf="nodeData && nodeData.type != 'functional'" class="draggable" id="{{nodeData.name}}" (mousemove)="reload()">
     <mat-list>
       <div class="nodeName">
         <p>Node: {{nodeData.num}}</p>
@@ -18,7 +18,7 @@
     </mat-form-field>
 </div>
 
-<div *ngIf="nodeData.type == 'functional'" class="draggable functionalNode" id="{{nodeData.name}}" (mousemove)="reload()">
+<div *ngIf="nodeData && nodeData.type == 'functional'" class="draggable functionalNode" id="{{nodeData.name}}" (mousemove)="reload()">
   <div class="typeOfFunctionalNode">
     {{nodeData.value}}
   </div>
