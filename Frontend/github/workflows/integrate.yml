@@ -3,19 +3,30 @@ name: Tensorflow UI Project Comtinuos intergration Testing
 on:
   pull_request:
     branches:
-      -master
+      -main
       -development
+      -development_tester
+      -development_Worspace_tester
+      -Frontend_Development
+      -Frontend_Development_Workspace
+  push:
+    branches:
+      -main
+      -development
+      -development_tester
+      -development_Worspace_tester
       -Frontend_Development
       -Frontend_Development_Workspace
 
-  jobs:
-    test_pull_request:
-      runs on: ubuntu-latest
+jobs:
+  build:
 
-      steps:
-      uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-        - run: npm ci
-        - run: npm test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-Node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm test
