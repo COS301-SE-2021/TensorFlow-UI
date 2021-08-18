@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-Node@v1
         with:
           node-version: 12
-      - name: Clean install dependencies and build
+      - name: Install and Run npm testing
         run: npm install
              npm test
         working-directory: ./Frontend
