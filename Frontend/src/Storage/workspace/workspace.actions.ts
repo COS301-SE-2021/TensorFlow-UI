@@ -1,4 +1,4 @@
-import {lineConnectors, NodeData} from "../../app/node-data";
+import {lineConnectors, NodeData, Project} from "../../app/node-data";
 import {TFNode, TFOperator} from "../../app/tf";
 
 export class AddNodeToStorage{
@@ -56,7 +56,19 @@ export class UpdateTFNode{
 }
 
 export class AddRootNode{
-  public static readonly type = '[Workspace] add RootNode';
+  public static readonly type = '[Workspace] Add RootNode';
 
   constructor(public root: TFNode){}
+}
+
+export class AddProjectName{
+  public static readonly type = '[Workspace] Add Project Name';
+
+  constructor(public name: string){}
+}
+
+export class AddProjectDescription{
+  public static readonly type = '[Workspace] Add Project Description';
+
+  constructor(public description: string){}
 }
