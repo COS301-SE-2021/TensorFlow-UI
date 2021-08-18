@@ -262,11 +262,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	projectDetailsUpdatedSnackbar(dataOk: boolean) {
-		let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
-			{
-				duration: 1000,
-				data: dataOk
-			})
+		// let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
+		// 	{
+		// 		duration: 1000,
+		// 		data: dataOk
+		// 	})
 	}
 
 	@ViewChild('sidenav') sidenav: MatSidenav;

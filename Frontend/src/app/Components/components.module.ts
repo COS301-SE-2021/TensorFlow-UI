@@ -23,7 +23,6 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/ma
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {NavbarComponent} from "./navbar/navbar.component";
 
-
 @NgModule({
   imports: [
     CommonModule,
