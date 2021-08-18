@@ -1,4 +1,4 @@
-name: Maven Integration Testing
+name: Tensorflow UI Project Comtinuos intergration Testing
 
 on:
   pull_request:
@@ -24,9 +24,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-Node@v1
-      with:
-         node-version: 12
-    - run: npm ci
-    - run: npm test 
+      - uses: actions/checkout@v2
+      - uses: actions/setup-Node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm test 
