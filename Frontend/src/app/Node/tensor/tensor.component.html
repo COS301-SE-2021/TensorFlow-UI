@@ -1,0 +1,10 @@
+<div class="draggableNode" *ngIf="_TFNodeData" id="{{TFNodeData.name}}" (mousemove)="reload()">
+    <mat-label>
+        <div class="nodeName">
+            <p>Node: {{TFNodeData.name}}</p>
+        </div>
+    </mat-label>
+    <mat-list style="position: relative">
+        <app-input></app-input>
+    </mat-list>
+</div>

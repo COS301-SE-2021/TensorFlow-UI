@@ -6,18 +6,18 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
 .side-menu {
   position: absolute;
   top: -30px;
   bottom: -30px;
   left: 0;
   right: -30px;
-  background: #eee;
+  /*background: #afc3c4;*/
 }
 
-.createComponentButton{
-  display: table-cell;
-  width: 250px;
+.toolbarButton{
+  border: 2px solid black;
   margin: 8px 8px 8px 0;
 }
 
@@ -33,6 +33,7 @@
 }
 .sidenav {
   user-select: none;
+  background-color: #879b9c;
 }
 .full-width {
   width: 100%;
@@ -53,4 +54,88 @@
 }
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+.NodeInput{
+  position: relative;
+  height: 35%;
+  width: 99%;
+  left: -0.5%;
+  border: 1px solid blue;
+}
+
+.NodeSearch{
+  position: absolute;
+  width: 20%;
+  height: 13vh;
+  top: 24.8%;
+  border: 3px solid black;
+  background-color: #333642;
+  z-index: 3;
+  border-radius: 4%;
+}
+
+.NodeSearch button{
+  margin-left: 25%;
+}
+
+.NodeButton{
+  position: absolute;
+  bottom: 0;
+  letter-spacing: 1px;
+  padding: 6px 13px;
+  background-color: #ff8C00;
+  text-align: center;
+  width: max-content;
+  cursor: pointer;
+  transition: all 0.3s 0s ease-in-out;
+}
+
+#tensorNodeSearch{
+  top: 10%;
+}
+
+.WorkspaceToolbar{
+  position: relative;
+  border: 2px solid black;
+  width: 82.5%;
+  height: 95%;
+  left: 4.8rem;
+}
+
+#clearCanvas{
+  float: right;
+}
+
+#generateCodeButton{
+  float: right;
+  width: 15%;
+}
+
+#createNode{
+  width: 13.5%;
+  left: 8%;
+}
+
+#undoButton{
+  left: 22%;
+}
+
+#redoButton{
+  left: 21.5%;
+}
+
+.navigationButton{
+  position: relative;
+  width: 100%;
+}
+
+#settingsButton{
+  position: relative;
+  background: #ff8C00;
+  border: none;
+  left: 1%;
+  margin: 3px;
+  top:15%;
+  cursor: pointer;
 }

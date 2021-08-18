@@ -1,58 +1,205 @@
-import {
-  Component, OnInit, ViewChild
-} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
+import { Store} from "@ngxs/store";
+import {
+  AddNodeToStorage,
+  RemoveLineFromStorage,
+  RemoveNodeFromStorage
+} from "../../../Storage/workspace";
+import { WorkspaceState } from "../../../Storage/workspace";
+import {lineConnectors, NodeData} from "../../node-data";
+import { Observable } from "rxjs";
+import {DOCUMENT} from "@angular/common";
+import * as LeaderLine from "leader-line-new";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+
+export interface SettingsPageData{
+  projectName: string,
+  projectDetails: string
+}
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+	selector: 'app-navbar',
+	templateUrl: './navbar.component.html',
+	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
 
-  createNodeBool: boolean;
+  nodes$: Observable<NodeData[]>;
+  projectName: string;
+  projectDetails: string;
+  public functionsList: string[] = ["add","subtract","multiply","divide"];
+  public tensorList: string[] = ["variable", "constant", "tensor"];
 
-  constructor(private data : DataService) {
-    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
+	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store,public dialog: MatDialog
+  , private snackBar: MatSnackBar) {
   }
 
-  ngOnInit(): void {
-    this.data.createNodeBoolean.subscribe(nodeBool =>this.createNodeBool = nodeBool)
-  }
-
-  // createNodeForm(){
-  //   this.data.changeCreateFormBoolean(true);
-  // }
-
-  nodeName = "DefaultName";
-  nodeType = "DefaultType";
-
-
-  createNode(){
-    this.data.changeCreateNodeBoolean(true);
-    this.data.passFormDataToNode(this.nodeName, this.nodeType, "")
-  }
-
-  createFunctionalNode(){
-
-  }
-
-  @ViewChild('sidenav') sidenav: MatSidenav;
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
+	ngOnInit(): void {
+    this.data.nodes = [];
+    this.data.lineConnectorsList = [];
+    const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    for(let i=0; i<storageNodes.length; ++i){
+      this.loadNode(storageNodes[i]);
     }
+    // for(let i=0; i<storageLines.length; ++i){
+    //   this.loadLine(storageLines[i]);
+    // }
+	}
+
+  // This adds a LOADED node from storage to the data service "nodes" array.
+  loadNode(node: NodeData) {
+	  this.data.nodes.push({
+      num: node.num,
+      name: node.name,
+      type: node.type,
+      value: node.value,
+      x: node.x,
+      y: node.y
+	  });
   }
 
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
+  loadLine(line: lineConnectors){
+    this.data.lineConnectorsList.push({
+      start: line.start,
+      end: line.end,
+      line: line.line
+    })
+    // this.addStorageLines(line);
   }
+
+  addStorageLines(line: lineConnectors){
+	  console.log(line.start);
+    console.log(line.end);
+
+    const lineObj = new LeaderLine(
+      this.document.getElementById(line.start.toString()),
+      this.document.getElementById(line.end.toString()), {
+        // size: 6,
+        // outlineColor: '#red',
+        // outline: true,
+        // endPlugOutline: true,
+        // dash: true,
+        // path: 'arc',
+        startSocket: 'auto',
+        endSocket: 'auto'
+      }
+    );
+  }
+
+  // This adds a new node to the data service "nodes" array.
+	createNode(type: string) {
+	  const nodeNum = this.data.nodes.length+1;
+    const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
+    const nodeType = this.data.type;
+
+		this.data.nodes.push({
+			num: nodeNum,
+			name: nodeName,
+			type: nodeType,
+			value: type,
+			x: 0,
+			y: 0
+		});
+		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
+	}
+
+	// This adds a new node to the data service "nodes" array. However the type is set to 'functional'
+	createFunctionalNode(type: string) {
+		const nodeNum = this.data.nodes.length + 1;
+		const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
+
+		this.data.nodes.push({
+			num: nodeNum,
+			name: nodeName,
+			type: "functional",
+			value: type,
+			x: 0,
+			y: 0
+		});
+
+		this.addNodeToStorage(nodeNum, nodeName, "functional", type, 0, 0);
+
+	}
+
+	addNodeToStorage(num, name, type, value, x, y) {
+		this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}))
+	}
+
+	clearCanvas(){
+
+	  const clearDialog = this.dialog.open(NavbarDialogsComponent);
+
+    clearDialog.afterClosed().subscribe(result => {
+      const clearCanvasBoolean = clearDialog.disableClose;
+
+      if (clearCanvasBoolean) {
+        this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
+        this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+        this.data.lineConnectorsList.forEach(element => element.line?.remove())
+
+        this.data.nodes.splice(0,this.data.nodes.length)
+        this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+      }
+    })
+  }
+
+  showProjectDetails(){
+    const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
+      {
+        disableClose: true,
+        data: {projectName: this.projectName, projectDetails: this.projectDetails}
+      }
+      );
+
+    projectDetailsDialog.afterClosed().subscribe(result => {
+      const detailsAdded = projectDetailsDialog.disableClose;
+
+      if(detailsAdded){
+        //Add to details to ngxs storage and display snackbar
+        const dialogData = projectDetailsDialog.componentInstance;
+        let dataOK: boolean = false;
+        if(dialogData.projectName!=undefined && dialogData.projectDescription!=undefined){
+          dataOK = true;
+        }
+        this.projectDetailsUpdatedSnackbar(dataOK);
+      }
+    })
+  }
+
+  projectDetailsUpdatedSnackbar(dataOk: boolean){
+    let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
+      {
+        duration: 1000,
+        data: dataOk
+      })
+  }
+
+	@ViewChild('sidenav') sidenav: MatSidenav;
+	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
+	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
+	isExpanded = true;
+
+	showSubmenu: boolean = false;
+	isShowing = false;
+	isFunctionalNodeVisible = false;
+	isTensorNodeVisible = false;
+
+	mouseenter() {
+		if (!this.isExpanded) {
+			this.isShowing = true;
+		}
+	}
+
+	mouseleave() {
+		if (!this.isExpanded) {
+			this.isShowing = false;
+		}
+	}
 }
