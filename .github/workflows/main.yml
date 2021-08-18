@@ -2,13 +2,6 @@ name: Tensorflow UI Project Comtinuos intergration Testing
 
 on:
   pull_request:
-    branches:
-      -main
-      -development
-      -development_tester
-      -development_Worspace_tester
-      -Frontend_Development
-      -Frontend_Development_Workspace
   push:
     branches:
       -main
