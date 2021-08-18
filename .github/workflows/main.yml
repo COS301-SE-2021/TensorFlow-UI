@@ -3,7 +3,7 @@ name: Maven Integration Testing
 on:
   pull_request:
     branches:
-      -master
+      -main
       -development
       -development_tester
       -development_Worspace_tester
@@ -11,7 +11,7 @@ on:
       -Frontend_Development_Workspace
   push:
     branches:
-      -master
+      -main
       -development
       -development_tester
       -development_Worspace_tester
