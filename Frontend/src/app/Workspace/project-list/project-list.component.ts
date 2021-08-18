@@ -10,9 +10,9 @@ import {GitAPI} from "../../git-api";
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private store: Store, private API: GitAPI) { }
+  constructor(private store: Store) { }
   @Input() element: string;
-
+  public API: GitAPI= new GitAPI(this.store);
   ngOnInit(): void {
   }
 
