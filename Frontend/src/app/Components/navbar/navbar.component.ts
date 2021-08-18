@@ -3,7 +3,7 @@ import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
 import {
-  AddNodeToStorage,
+  AddNodeToStorage, AddRootNode,
   RemoveLineFromStorage,
   RemoveNodeFromStorage
 } from "../../../Storage/workspace";
@@ -12,6 +12,7 @@ import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
+import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
@@ -210,4 +211,15 @@ export class NavbarComponent implements OnInit {
 			this.isShowing = false;
 		}
 	}
+
+	// Code generation section
+	runAndGenerate() {
+    const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
+  }
+
+  downloadCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+	  generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
+  }
 }
