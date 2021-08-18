@@ -10,9 +10,8 @@ import {GitAPI} from "../../git-api";
   styleUrls: ['./export.component.css']
 })
 export class ExportComponent implements OnInit {
-
-  constructor(private store: Store, public API: GitAPI) { }
-
+  constructor(private store: Store) { }
+  public API: GitAPI= new GitAPI(this.store);
 
   ngOnInit(): void {
   }
