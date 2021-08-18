@@ -8,6 +8,13 @@ on:
       -development_tester
       -Frontend_Development
       -Frontend_Development_Workspace
+  push:
+    branches:
+      -master
+      -development
+      -development_tester
+      -Frontend_Development
+      -Frontend_Development_Workspace
 
 jobs:
   build:
