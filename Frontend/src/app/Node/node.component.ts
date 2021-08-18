@@ -5,7 +5,7 @@ import {DataService} from "../data.service";
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
-import {UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
+import {AddTFNode, UpdateNodeInStorage} from "../../Storage/workspace/workspace.actions";
 import * as LeaderLine from "leader-line-new";
 import {
     TFAdd, TFAddN,
@@ -91,9 +91,10 @@ export class Node implements OnInit {
 
   // Initial linking between two node elements.
   linkNodes() {
-
+    let otherNode = this.nodesArray.value[this.nodesArray.value.length - 1];
     const lineStartName = this.nodeData.name;
-    const lineEndName = this.nodesArray.value[this.nodesArray.value.length - 1].name.toString();
+    const lineEndName = otherNode.name.toString();
+
     const lineObj = new LeaderLine(
         this.document.getElementById(this.nodeData.name),
         this.document.getElementById(this.nodesArray.value.name.toString()), {
@@ -113,7 +114,17 @@ export class Node implements OnInit {
           end: lineEndName,
           line: lineObj,
         }
-    );}
+    );
+
+    //Setting the children of the newly connected nodes
+    let node = this.data.TFOperator.find(element => element.name == lineStartName);
+    console.log("Node found from array: " + JSON.stringify(node))
+    if (otherNode.childOne == undefined) {
+      otherNode.childOne = node
+    }else{
+      otherNode.childTwo = node
+    }
+  }
 
   // Redraw lines for each component.
   reload() {

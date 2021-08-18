@@ -17,12 +17,13 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {FormsModule, NgSelectOption} from "@angular/forms";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule,
-	ComponentsModule, WorkspaceModule, MatCardModule,
+	ComponentsModule, WorkspaceModule, MatCardModule, MatDialogModule
 ]
 
 @NgModule({
@@ -44,7 +45,12 @@ const modules = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+    {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+    {provide: MatSnackBarRef, useValue: {}}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

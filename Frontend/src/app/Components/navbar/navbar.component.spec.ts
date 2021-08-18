@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {NavbarComponent} from "./navbar.component";
+import {NgxsModule} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace";
 
-class NavbarComponent {
-}
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -9,6 +10,9 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgxsModule.forRoot([
+        WorkspaceState
+      ]),],
       declarations: [ NavbarComponent ]
     })
     .compileComponents();

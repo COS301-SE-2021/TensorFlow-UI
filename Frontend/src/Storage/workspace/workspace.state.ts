@@ -5,15 +5,19 @@ import {
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage, ChangeBooleanValue
+  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode, AddRootNode
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
+import {TFNode, TFOperator} from "../../app/tf";
 
 export interface WorkspaceStateModel{
   nodes: NodeData[];
   lines: lineConnectors[];
-  showWorkspace: boolean
+  TFNode: TFNode[];
+  showWorkspace: Boolean;
+  rootNode: TFNode;
+  showWorkspace: boolean;
 }
 
 @State<WorkspaceStateModel>({
@@ -21,6 +25,10 @@ export interface WorkspaceStateModel{
   defaults:{
       nodes:[],
       lines: [],
+      TFNode: [],
+      showWorkspace: true,
+      rootNode: new TFNode() //temporary, change later
+      // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
       showWorkspace: true
   },
 })
@@ -38,6 +46,14 @@ export class WorkspaceState{
   @Selector()
   static getLines(state: WorkspaceStateModel){
     return state.lines;
+  }
+  @Selector()
+  static getTFNodes(state: WorkspaceStateModel){
+    return state.TFNode;
+  }
+  @Selector()
+  static getRootNode(state: WorkspaceStateModel){
+    return state.rootNode;
   }
 
   @Action(AddNodeToStorage)
@@ -89,10 +105,45 @@ export class WorkspaceState{
 
   @Action(ChangeBooleanValue)
   public changeValue(stateContext: StateContext<WorkspaceStateModel>, { element }: ChangeBooleanValue){
-    console.log("Element: "+element)
     stateContext.setState(
       patch({
         showWorkspace: element
+      })
+    )
+  }
+
+  @Action(AddTFNode)
+  public addTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: AddTFNode){
+    stateContext.setState(
+      patch({
+        TFNode: append([node])
+      })
+    )
+  }
+
+  @Action(RemoveTFNode)
+  public removeTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: RemoveTFNode){
+    stateContext.setState(
+      patch({
+        TFNode: removeItem<TFNode>(element => element === node)
+      })
+    )
+  }
+
+  @Action(UpdateTFNode)
+  public updateTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
+    stateContext.setState(
+      patch({
+        TFNode: updateItem<TFNode>(element => element === node, node)
+      })
+    )
+  }
+
+  @Action(AddRootNode)
+  public addRootNode(stateContext: StateContext<WorkspaceStateModel>, { root }: AddRootNode){
+    stateContext.setState(
+      patch({
+        rootNode: root
       })
     )
   }

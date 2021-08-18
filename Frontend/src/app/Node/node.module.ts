@@ -4,7 +4,7 @@ import {TensorComponent} from "./tensor/tensor.component";
 import {InputComponent} from "./tensor/input/input.component";
 import {DialogComponent} from "./tensor/input/dialog/dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {CommonModule} from "@angular/common";
@@ -35,7 +35,7 @@ import {MatSelectModule} from "@angular/material/select";
 		MatCardModule,
 		MatTableModule,
 		ReactiveFormsModule,
-		MatSelectModule
+		MatSelectModule,
 	],
 	exports: [
 		TensorComponent,
@@ -43,7 +43,11 @@ import {MatSelectModule} from "@angular/material/select";
 		DialogComponent,
 		Node,
 		OperatorComponent
-	]
+	],
+  providers: [
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+  ]
 })
 
 export class nodeModule {

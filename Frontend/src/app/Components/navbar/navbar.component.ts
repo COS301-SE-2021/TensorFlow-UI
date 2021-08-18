@@ -1,13 +1,28 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
-import { AddNodeToStorage } from "../../../Storage/workspace/workspace.actions";
-import { WorkspaceState } from "../../../Storage/workspace/workspace.state";
+import {
+  AddNodeToStorage, AddRootNode,
+  RemoveLineFromStorage,
+  RemoveNodeFromStorage
+} from "../../../Storage/workspace";
+import { WorkspaceState } from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
+import {CodeGeneratorService} from "../../code-generator.service";
+import {MatDialog} from "@angular/material/dialog";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
+
+export interface SettingsPageData{
+  projectName: string,
+  projectDetails: string
+}
 
 @Component({
 	selector: 'app-navbar',
@@ -17,10 +32,14 @@ import * as LeaderLine from "leader-line-new";
 export class NavbarComponent implements OnInit {
 
   nodes$: Observable<NodeData[]>;
+  projectName: string;
+  projectDetails: string;
   public functionsList: string[] = ["add","subtract","multiply","divide"];
   public tensorList: string[] = ["variable", "constant", "tensor"];
 
-	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store) {}
+	constructor(private data: DataService,@Inject(DOCUMENT) private document, private store: Store,public dialog: MatDialog
+  , private snackBar: MatSnackBar) {
+  }
 
 	ngOnInit(): void {
     this.data.nodes = [];
@@ -76,46 +95,38 @@ export class NavbarComponent implements OnInit {
   }
 
   // This adds a new node to the data service "nodes" array.
-	createNode() {
+	createNode(type: string) {
 	  const nodeNum = this.data.nodes.length+1;
     const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
     const nodeType = this.data.type;
-    const value = this.tensorNodeSearchInput.nativeElement.value;
 
 		this.data.nodes.push({
 			num: nodeNum,
 			name: nodeName,
 			type: nodeType,
-			value: value,
+			value: type,
 			x: 0,
 			y: 0
 		});
-		this.addNodeToStorage(nodeNum, nodeName, nodeType, "", 0, 0);
-		//Reset search section after creation of node
-		this.tensorNodeSearchInput.nativeElement.value = "";
-		this.isTensorNodeVisible = !this.isTensorNodeVisible;
+		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
 	}
 
 	// This adds a new node to the data service "nodes" array. However the type is set to 'functional'
-	createFunctionalNode() {
+	createFunctionalNode(type: string) {
 		const nodeNum = this.data.nodes.length + 1;
 		const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
-		const value = this.functionalNodeSearchInput.nativeElement.value;
 
 		this.data.nodes.push({
 			num: nodeNum,
 			name: nodeName,
 			type: "functional",
-			value: value,
+			value: type,
 			x: 0,
 			y: 0
 		});
 
-		this.addNodeToStorage(nodeNum, nodeName, "functional", value, 0, 0);
+		this.addNodeToStorage(nodeNum, nodeName, "functional", type, 0, 0);
 
-		//Reset search section after creation of node
-		this.functionalNodeSearchInput.nativeElement.value = "";
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
 	}
 
 	addNodeToStorage(num, name, type, value, x, y) {
@@ -130,6 +141,54 @@ export class NavbarComponent implements OnInit {
 	showTensorNodeSearch() {
 		this.isTensorNodeVisible = !this.isTensorNodeVisible; //Uncomment when doing demo
 	}
+
+	clearCanvas(){
+	  const clearDialog = this.dialog.open(NavbarDialogsComponent);
+
+    clearDialog.afterClosed().subscribe(result => {
+      const clearCanvasBoolean = clearDialog.disableClose;
+
+      if (clearCanvasBoolean) {
+        this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
+        this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+        this.data.lineConnectorsList.forEach(element => element.line?.remove())
+
+        this.data.nodes.splice(0,this.data.nodes.length)
+        this.data.lineConnectorsList.splice(0,this.data.lineConnectorsList.length)
+      }
+    })
+  }
+
+  showProjectDetails(){
+    const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
+      {
+        disableClose: true,
+        data: {projectName: this.projectName, projectDetails: this.projectDetails}
+      }
+      );
+
+    projectDetailsDialog.afterClosed().subscribe(result => {
+      const detailsAdded = projectDetailsDialog.disableClose;
+
+      if(detailsAdded){
+        //Add to details to ngxs storage and display snackbar
+        const dialogData = projectDetailsDialog.componentInstance;
+        let dataOK: boolean = false;
+        if(dialogData.projectName!=undefined && dialogData.projectDescription!=undefined){
+          dataOK = true;
+        }
+        this.projectDetailsUpdatedSnackbar(dataOK);
+      }
+    })
+  }
+
+  projectDetailsUpdatedSnackbar(dataOk: boolean){
+    let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
+      {
+        duration: 1000,
+        data: dataOk
+      })
+  }
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
@@ -152,4 +211,15 @@ export class NavbarComponent implements OnInit {
 			this.isShowing = false;
 		}
 	}
+
+	// Code generation section
+	runAndGenerate() {
+    const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
+  }
+
+  downloadCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+	  generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
+  }
 }

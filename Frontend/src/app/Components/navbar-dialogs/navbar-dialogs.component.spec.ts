@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScatterComponent } from './scatter.component';
+import { NavbarDialogsComponent} from './navbar-dialogs.component';
 
-describe('ScatterComponent', () => {
-  let component: ScatterComponent;
-  let fixture: ComponentFixture<ScatterComponent>;
+describe('NavbarDialogsComponent', () => {
+  let component: NavbarDialogsComponent;
+  let fixture: ComponentFixture<NavbarDialogsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScatterComponent ]
+      declarations: [ NavbarDialogsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScatterComponent);
+    fixture = TestBed.createComponent(NavbarDialogsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
