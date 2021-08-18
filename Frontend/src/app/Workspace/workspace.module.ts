@@ -52,5 +52,5 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
     ],
 })
 export class WorkspaceModule {
-    workModeName: string;
+
 }
