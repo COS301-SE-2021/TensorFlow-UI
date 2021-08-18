@@ -17,14 +17,6 @@ export class ExportComponent implements OnInit {
   }
 
   showhide(){
-    var el = document.getElementById('hidden');
-    if (el != null){
-      if ( el.style.display == 'none'){
-        el.style.display = 'block';
-      } else {
-        el.style.display = 'none';
-      }
-    }
     this.API.GetList();
   }
 
@@ -41,7 +33,6 @@ export class ExportComponent implements OnInit {
       doc['lines'] = storageLines;
       var file = this.createDoc();
       this.download(file, exportAs+'.json');
-      this.showhide();
     }
 
   }
@@ -67,7 +58,7 @@ export class ExportComponent implements OnInit {
         }
       }
       if (exists){
-        alert('A file with the same name already exists in the library.');
+        alert('Export failed:\nA file with the same name already exists in the library.');
       } else {
         var file = this.createDoc();
         var reader = new FileReader();
@@ -79,7 +70,6 @@ export class ExportComponent implements OnInit {
           base64dta = base64dta.substr(29);
           that.API.commit(exportAs, base64dta);
         }
-        this.showhide();
       }
     }
   }
