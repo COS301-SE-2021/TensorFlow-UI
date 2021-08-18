@@ -4,10 +4,9 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+  push:
+    branches: [ master ,development, Frontend_Development, Frontend_Development_Workspace]
 
 jobs:
   build:
