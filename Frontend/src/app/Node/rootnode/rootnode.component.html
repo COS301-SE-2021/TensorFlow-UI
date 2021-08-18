@@ -4,8 +4,8 @@
     </div>
     <mat-form-field style="width: 100%; position: center">
         <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode)">
-            <mat-option *ngFor="let node of this.data.TFNodes" [value]="node.name">
-                {{node.name}}
+            <mat-option *ngFor="let node of this.nodes" [value]="node.name">
+                {{node.selector}}
             </mat-option>
         </mat-select>
     </mat-form-field>
