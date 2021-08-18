@@ -30,6 +30,7 @@ export class RootnodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new AddRootNode(this._root))
   }
 
   checkChild(selectedNode: FormControl) {
@@ -107,8 +108,10 @@ export class RootnodeComponent implements OnInit {
                 that.store.dispatch(new UpdateNodeInStorage(node));
               }
             }
+
           }
         });
+    this.store.dispatch(new AddRootNode(this._root))
   }
 
   dragListener(event) {

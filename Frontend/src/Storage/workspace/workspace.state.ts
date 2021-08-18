@@ -23,7 +23,7 @@ import {Injectable} from "@angular/core";
 import {TFNode, TFOperator} from "../../app/tf";
 
 export interface WorkspaceStateModel{
-  nodes: NodeData[];
+  //nodes: NodeData[];
   lines: lineConnectors[];
   TFNode: TFNode[];
   showWorkspace: boolean;
@@ -35,7 +35,7 @@ export interface WorkspaceStateModel{
 @State<WorkspaceStateModel>({
   name: 'workspace',
   defaults:{
-      nodes:[],
+      //nodes:[],
       lines: [],
       TFNode: [],
       showWorkspace: true,
@@ -52,10 +52,10 @@ export class WorkspaceState{
   constructor() {
   }
 
-  @Selector()
+  /*@Selector()
   static getNodes(state: WorkspaceStateModel){
       return state.nodes;
-  }
+  }*/
   @Selector()
   static getLines(state: WorkspaceStateModel){
     return state.lines;
@@ -69,14 +69,14 @@ export class WorkspaceState{
     return state.rootNode;
   }
 
-  @Action(AddNodeToStorage)
+  /*@Action(AddNodeToStorage)
   public addNode(stateContext: StateContext<WorkspaceStateModel>, { node }: AddNodeToStorage){
     stateContext.setState(
       patch({
         nodes: append([node])
       })
     );
-  }
+  }*/
 
   @Action(AddLineConnectorToStorage)
   public addLine(stateContext: StateContext<WorkspaceStateModel>, { line }: AddLineConnectorToStorage){
@@ -87,7 +87,7 @@ export class WorkspaceState{
     );
   }
 
-  @Action(UpdateNodeInStorage)
+  /*@Action(UpdateNodeInStorage)
   public updateNode(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateNodeInStorage){
     const state =stateContext.getState();
     stateContext.setState(
@@ -104,7 +104,7 @@ export class WorkspaceState{
         nodes: removeItem<NodeData>(element => element?.name === node)
       })
     )
-  }
+  }*/
 
   @Action(RemoveLineFromStorage)
   public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
