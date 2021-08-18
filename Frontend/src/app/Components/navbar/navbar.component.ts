@@ -12,11 +12,11 @@ import {lineConnectors, NodeData} from "../../node-data";
 import { Observable } from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
-import {MatDialog} from "@angular/material/dialog";
-import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
 export interface SettingsPageData{
   projectName: string,
@@ -132,16 +132,8 @@ export class NavbarComponent implements OnInit {
 		this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}))
 	}
 
-	/* Enables nodes search section to be shown, so the user can select a type */
-	showFuncNodeSearch() {
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible; //Uncomment when doing demo
-	}
-
-	showTensorNodeSearch() {
-		this.isTensorNodeVisible = !this.isTensorNodeVisible; //Uncomment when doing demo
-	}
-
 	clearCanvas(){
+
 	  const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
     clearDialog.afterClosed().subscribe(result => {
