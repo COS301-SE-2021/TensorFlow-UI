@@ -3,6 +3,7 @@ import {user} from './config.js'
 import {mail} from './config.js'
 import projectList from './Workspace/import/import.component.ts'
 import {AddLineConnectorToStorage, AddNodeToStorage} from "../Storage/workspace/workspace.actions";
+import {Store} from "@ngxs/store";
 
 export default function Commit (Name, Data){
   var myHeaders = new Headers();
@@ -32,20 +33,10 @@ export default function Commit (Name, Data){
 }
 
 export function GetList(){
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener("readystatechange", function() {
-    if(this.readyState === 4) {
-      var json = JSON.parse(this.responseText);
-      var lst = new Array(json.length-1)
-      for (let i = 0; i < json.length; i++) {
-        lst[i]= json[i].name;
-      }
-        poplst(lst);
-    }
-  });
-
-  xhr.open("GET", "https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents");
-  xhr.send();
+  fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents", {method: 'GET', redirect: 'follow'})
+    .then(response => response.text())
+    .then(result => poplst(result))
+    .catch(error => console.log('error', error));
 }
 
 export function importData(ID){
@@ -74,6 +65,7 @@ function poplst(l){
 }
 
 export function dataToStore(dta){
+
   try{
     var data = JSON.parse(dta);
 
@@ -84,13 +76,13 @@ export function dataToStore(dta){
       var value=data.nodes[i].value;
       var x=data.nodes[i].x;
       var y =data.nodes[i].y;
-      this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
+      store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
     }
     for (let k = 0; k < data.lines.length; k++) {
       var start = data.lines[k].start;
       var end = data.lines[k].end;
       var line = data.lines[k].line;
-      this.store.dispatch(new AddLineConnectorToStorage({start, end, line}));
+      store.dispatch(new AddLineConnectorToStorage({start, end, line}));
     }
   } catch (e){
     console.log(e);
