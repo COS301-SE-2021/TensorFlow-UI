@@ -32,4 +32,5 @@ export class InputComponent implements OnInit {
         this.inputData = inputData
     });
   }
+  //ToDo: Add module for input so providers can be added for the Dialog
 }

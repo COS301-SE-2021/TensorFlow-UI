@@ -1,5 +1,4 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import * as node from "../index"
 import {TFTensor} from "../../tf";
 import {DataService} from "../../data.service";
 import * as LeaderLine from "leader-line-new";

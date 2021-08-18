@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {NodeData} from "../../node-data";
 import {SettingsPageData} from "../navbar/navbar.component";
 
 @Component({
@@ -26,5 +25,6 @@ export class SettingsPageDialogComponent implements OnInit {
 
   cancel(){
     this.dialogRef.close();
+    this.dialogRef.disableClose = false;
   }
 }

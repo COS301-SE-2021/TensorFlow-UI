@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProjectDetailsUpdatedSnackbarComponent } from './project-details-updated-snackbar.component';
+
 
 describe('ProjectDetailsUpdatedSnackbarComponent', () => {
   let component: ProjectDetailsUpdatedSnackbarComponent;

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
@@ -182,7 +182,6 @@ export class NavbarComponent implements OnInit {
   }
 
   projectDetailsUpdatedSnackbar(dataOk: boolean){
-	  console.log(dataOk)
     let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
       {
         duration: 1000,

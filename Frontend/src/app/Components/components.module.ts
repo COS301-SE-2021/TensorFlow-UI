@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {CommonModule } from '@angular/common';
-import {NavbarComponent } from './navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -20,8 +19,10 @@ import { SettingsPageDialogComponent } from './settings-page-dialog/settings-pag
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import { ProjectDetailsUpdatedSnackbarComponent } from './project-details-updated-snackbar/project-details-updated-snackbar.component';
-import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
+import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {NavbarComponent} from "./navbar/navbar.component";
+
 
 @NgModule({
   imports: [
@@ -53,11 +54,16 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     ],
   exports: [
     NavbarComponent,
+    ExportComponent,
     NavbarDialogsComponent,
+    SettingsPageDialogComponent,
+    ProjectDetailsUpdatedSnackbarComponent,
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},
-    {provide: MatDialogRef, useValue: {}}
+    {provide: MatDialogRef, useValue: {}},
+    {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+    {provide: MatSnackBarRef, useValue: {}}
   ],
 })
 export class ComponentsModule {

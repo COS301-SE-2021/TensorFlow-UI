@@ -1,4 +1,4 @@
-<div class="draggableNode" id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
+<div class="draggableNode" *ngIf="_TFNodeDataOperator" id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
     <mat-label>
         <div class="nodeName">
             <p>Node: {{_TFNodeDataOperator.name}}</p>
