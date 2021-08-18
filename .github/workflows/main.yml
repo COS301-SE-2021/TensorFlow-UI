@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       -master
+      -main
       -development
       -development_tester
       -development_Worspace_tester
@@ -12,6 +13,7 @@ on:
   push:
     branches:
       -master
+      -main
       -development
       -development_tester
       -development_Worspace_tester
