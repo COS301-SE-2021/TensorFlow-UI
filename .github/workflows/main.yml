@@ -4,9 +4,9 @@ on:
   push:
     branches:
       -master
-      -main
-      -Frontend
-      -Frontend_development
+      -development
+      -Frontend_Development
+      -Frontend_Development_Workspace
 
 jobs:
   build:
