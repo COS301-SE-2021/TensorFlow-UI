@@ -6,6 +6,7 @@ on:
       -master
       -development
       -development_tester
+      -development_Worspace_tester
       -Frontend_Development
       -Frontend_Development_Workspace
   push:
@@ -13,6 +14,7 @@ on:
       -master
       -development
       -development_tester
+      -development_Worspace_tester
       -Frontend_Development
       -Frontend_Development_Workspace
 
