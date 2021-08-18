@@ -4,6 +4,7 @@ export class TFNode {
 	public selector: string | undefined = undefined;
 
 	constructor(public name: string | undefined = undefined,
-				public type: string | undefined = undefined) {}
+				public type: string | undefined = undefined,
+        public data: Number | undefined = undefined) {}
 	code() {}
 }

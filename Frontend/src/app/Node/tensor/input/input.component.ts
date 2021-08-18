@@ -32,7 +32,7 @@ export class InputComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe(inputData => {
-			this.inputData = inputData
+			this.TFNodeData.data = this.inputData = inputData
 		});
 	}
 }
