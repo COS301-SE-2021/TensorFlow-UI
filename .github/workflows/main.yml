@@ -5,6 +5,7 @@ on:
     branches:
       -master
       -development
+      -development_tester
       -Frontend_Development
       -Frontend_Development_Workspace
 
