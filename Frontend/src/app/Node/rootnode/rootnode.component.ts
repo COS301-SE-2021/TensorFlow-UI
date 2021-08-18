@@ -39,7 +39,7 @@ export class RootnodeComponent implements OnInit {
         this.store.dispatch(new RemoveLineConnectionOne(this._root));
         templine != undefined ? templine["line"].remove() : "";
         this._root.childOne = this.nodes.find(element => element.name == selectedNode.toString());
-        this.store.dispatch(new UpdateTFNode(this._root));
+        this.store.dispatch(new AddRootNode(this._root));
 
     }
   }

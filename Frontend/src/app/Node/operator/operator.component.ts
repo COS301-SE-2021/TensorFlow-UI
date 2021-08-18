@@ -76,7 +76,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 	checkChild(selectedNode: FormControl) {
 		if (selectedNode == this.selectedNodeX) {
 			if (selectedNode.toString() != this._TFNodeDataOperator.childOne?.name) {
-				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && element.end == this._TFNodeDataOperator?.childOne?.name || element.end != this._TFNodeDataOperator?.childTwo?.name);
+				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && (element.end == this._TFNodeDataOperator?.childOne?.name || element.end != this._TFNodeDataOperator?.childTwo?.name ) && element.start != "rootNode");
 				this.store.dispatch(new RemoveLineConnectionOne(this._TFNodeDataOperator));
 				templine != undefined ? templine["line"].remove() : "";
 				this._TFNodeDataOperator.childOne = this.nodes.find(element => element.name == selectedNode.toString());
@@ -86,7 +86,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 		}
 		if (selectedNode == this.selectedNodeY) {
 			if (selectedNode.toString() != this._TFNodeDataOperator.childTwo?.name) {
-				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && element.end == this._TFNodeDataOperator?.childTwo?.name || element.end != this._TFNodeDataOperator?.childOne?.name);
+				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && (element.end == this._TFNodeDataOperator?.childTwo?.name || element.end != this._TFNodeDataOperator?.childOne?.name) && element.start != "rootNode");
 				this.store.dispatch(new RemoveLineConnectionTwo(this._TFNodeDataOperator))
 				templine != undefined ? templine["line"].remove() : "";
 				this._TFNodeDataOperator.childTwo = this.nodes.find(element => element.name == selectedNode.toString());
@@ -105,7 +105,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
 				let l: LeaderLine;
 				l = this.store.selectSnapshot(WorkspaceState).lines[i] != undefined ? this.store.selectSnapshot(WorkspaceState).lines[i]["line"] : undefined;
-				l != undefined ? l.position(): "";
+				l != undefined ? l?.position(): "";
 			}
 		}
 	}
