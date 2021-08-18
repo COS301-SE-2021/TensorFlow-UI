@@ -38,7 +38,6 @@ import {NavbarComponent} from "./navbar/navbar.component";
     MatSliderModule,
     MatCardModule,
     WorkspaceModule,
-    nodeModule,
     MatMenuModule,
     FormsModule,
     MatInputModule,

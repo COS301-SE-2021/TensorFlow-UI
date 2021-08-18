@@ -23,8 +23,8 @@ import { RootnodeComponent } from './rootnode/rootnode.component';
 		InputComponent,
 		DialogComponent,
 		Node,
-  OperatorComponent,
-  RootnodeComponent
+		OperatorComponent,
+  		RootnodeComponent
 	],
 	imports: [
 		FormsModule,
@@ -44,7 +44,8 @@ import { RootnodeComponent } from './rootnode/rootnode.component';
 		InputComponent,
 		DialogComponent,
 		Node,
-		OperatorComponent
+		OperatorComponent,
+		RootnodeComponent
 	],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},
