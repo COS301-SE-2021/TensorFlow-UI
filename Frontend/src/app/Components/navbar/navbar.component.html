@@ -32,11 +32,11 @@
       </mat-menu>
 
       <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tensorList" (click)="createNode(item)">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of tftensor" (click)="createComponent(item)">{{item}}</button>
       </mat-menu>
 
       <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of functionsList" (click)="createFunctionalNode(item)">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
       </mat-menu>
 
     </mat-toolbar>
@@ -66,7 +66,7 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-            <app-workspace-boundary>
+            <app-workspace-boundary [TFNodes]="TFNodeList">
             </app-workspace-boundary>
         </mat-sidenav-content>
     </mat-sidenav-container>
