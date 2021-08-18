@@ -1,7 +1,8 @@
 import {Store} from "@ngxs/store";
 import {mail, PAT, user} from "./config";
 import projectList from "./Workspace/import/import.component";
-import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription} from "../Storage/workspace";
+import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
+import {TFVariable} from "./tf";
 
 
 export class GitAPI {
@@ -67,19 +68,19 @@ export class GitAPI {
       var data = JSON.parse(dta);
       this.store.dispatch(new AddProjectDescription(data.description));
       for (let i = 0; i < data.nodes.length; i++) {
-        var num=data.nodes[i].num;
-        var name=data.nodes[i].name;
-        var type=data.nodes[i].type;
-        var value=data.nodes[i].value;
-        var x=data.nodes[i].x;
-        var y =data.nodes[i].y;
-        this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
+        let tfnode = new TFVariable();
+        tfnode.name= data.nodes[i].name;
+        tfnode.type=data.nodes[i].type;
+        tfnode.selector = data.nodes[i].selector;
+        // tfnode.x=data.nodes[i].x;
+        // tfnode.y =data.nodes[i].y;
+        this.store.dispatch(new AddTFNode(tfnode));
       }
       for (let k = 0; k < data.lines.length; k++) {
         var start = data.lines[k].start;
         var end = data.lines[k].end;
         var line = data.lines[k].line;
-        this.store.dispatch(new AddLineConnectorToStorage({start, end, line}));
+        this.store.dispatch(new AddLineConnectorToStorage({end: end, line:line, start: start}));
       }
     } catch (e){
       console.log(e);
