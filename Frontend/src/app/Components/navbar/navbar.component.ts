@@ -214,7 +214,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	clearCanvas() {
 		const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-		let lineObject: LeaderLine;
+		let lineObject: LeaderLine | null;
 		for (let i = 0; i < templine.length; i++) {
 			lineObject = templine[i]["line"];
 		this.store.dispatch(new RemoveLineFromStorage(templine[i]));
