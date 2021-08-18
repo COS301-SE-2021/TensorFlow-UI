@@ -1,11 +1,17 @@
 import { State, Action,StateContext, Selector } from '@ngxs/store'
-import { NodeData, lineConnectors } from "../../app/node-data";
+import {NodeData, lineConnectors, Project} from "../../app/node-data";
 import {
   AddLineConnectorToStorage,
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode, AddRootNode
+  RemoveLineFromStorage,
+  ChangeBooleanValue,
+  RemoveTFNode,
+  AddTFNode,
+  UpdateTFNode,
+  AddRootNode,
+  AddProjectName, AddProjectDescription
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -17,6 +23,8 @@ export interface WorkspaceStateModel{
   TFNode: TFNode[];
   showWorkspace: Boolean;
   rootNode: TFNode;
+  projectName: string;
+  projectDescription: string;
 }
 
 @State<WorkspaceStateModel>({
@@ -26,7 +34,9 @@ export interface WorkspaceStateModel{
       lines: [],
       TFNode: [],
       showWorkspace: true,
-      rootNode: new TFNode() //temporary, change later
+      rootNode: new TFNode(), //temporary, change later
+      projectName: "",
+      projectDescription: ""
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
 })
@@ -142,6 +152,24 @@ export class WorkspaceState{
     stateContext.setState(
       patch({
         rootNode: root
+      })
+    )
+  }
+
+  @Action(AddProjectName)
+  public addProjectName(stateContext: StateContext<WorkspaceStateModel>, { name }: AddProjectName){
+    stateContext.setState(
+      patch({
+        projectName: name
+      })
+    )
+  }
+
+  @Action(AddProjectDescription)
+  public addProjectDescription(stateContext: StateContext<WorkspaceStateModel>, { description }: AddProjectDescription){
+    stateContext.setState(
+      patch({
+        projectDescription: description
       })
     )
   }
