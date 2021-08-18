@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import commit from '../../GITApi.js'
-import {GetList} from '../../GITApi.js'
 import projectList from "../import/import.component";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
+import {GitAPI} from "../../git-api";
 
 @Component({
   selector: 'app-export',
@@ -12,7 +11,7 @@ import {Store} from "@ngxs/store";
 })
 export class ExportComponent implements OnInit {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, public API: GitAPI) { }
 
 
   ngOnInit(): void {
@@ -27,7 +26,7 @@ export class ExportComponent implements OnInit {
         el.style.display = 'none';
       }
     }
-    GetList();
+    this.API.GetList();
   }
 
   exportToPc(){
@@ -75,10 +74,11 @@ export class ExportComponent implements OnInit {
         var reader = new FileReader();
         var base64dta ;
         reader.readAsDataURL(file);
+        let that = this;
         reader.onloadend = function (){
           base64dta = reader.result;
           base64dta = base64dta.substr(29);
-          commit(exportAs, base64dta);
+          that.API.commit(exportAs, base64dta);
         }
         this.showhide();
       }

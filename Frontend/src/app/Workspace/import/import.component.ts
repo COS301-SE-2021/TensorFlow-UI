@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {GetList, data} from '../../GITApi.js'
+import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
-import {dataToStore} from "../../GITApi.js";
+import {GitAPI} from "../../git-api";
 
 let projectList: string[] = [""];
 export default projectList;
@@ -15,13 +14,14 @@ export default projectList;
 export class ImportComponent implements OnInit {
   public projectL: string[] = [""];
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private API: GitAPI) { }
 
   ngOnInit(): void {
   }
 
   showhide(){
-    GetList();
+    this.API.commit("","");
+    this.API.GetList();
     this.projectL = projectList;
     var el = document.getElementById('hidden1');
     if (el != null){
@@ -54,10 +54,10 @@ export class ImportComponent implements OnInit {
               txt += "size: " + file.size + " bytes";
             }
             var fr = new FileReader();
+            let that = this;
             fr.onload = function () {
               let response = fr.result;
-              dataToStore(response);
-
+              that.API.dataToStore(response);
             }
             // @ts-ignore
             x.files[0] = "";
@@ -72,7 +72,6 @@ export class ImportComponent implements OnInit {
   ImportFromLib() {
       let workspace = document.getElementById("workspace-boundary");
       let importFromCommunity = document.getElementById("importFromCommunity");
-      const showWorkspace = this.store.selectSnapshot(WorkspaceState).showWorkspace;
 
       this.store.dispatch(new ChangeBooleanValue(false));
 
