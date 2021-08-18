@@ -144,10 +144,10 @@ export class WorkspaceState{
   }
 
   @Action(UpdateTFNode)
-  public updateTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
+  public updateTFNode(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
     stateContext.setState(
       patch({
-        TFNode: updateItem<TFNode>(element => element === node, node)
+        TFNode: updateItem<TFNode>(element => element?.name === node.name, node)
       })
     )
   }
@@ -185,7 +185,6 @@ export class WorkspaceState{
   public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {
     stateContext.setState(
         patch({
-          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
           lines: removeItem<lineConnectors>(element => element?.start === node.toString())
         })
     )
@@ -195,8 +194,7 @@ export class WorkspaceState{
   public removeLineConnectionOne(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionOne) {
     stateContext.setState(
         patch({
-          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
-          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childOne?.name?.toString())
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childTwo?.name?.toString())
         })
     )
   }
@@ -205,8 +203,7 @@ export class WorkspaceState{
   public removeLineConnectionTwo(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionTwo) {
     stateContext.setState(
         patch({
-          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
-          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childTwo?.name?.toString())
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childOne?.name?.toString())
         })
     )
   }
