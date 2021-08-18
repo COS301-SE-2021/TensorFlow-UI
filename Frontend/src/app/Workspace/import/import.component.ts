@@ -13,14 +13,13 @@ export default projectList;
 })
 export class ImportComponent implements OnInit {
   public projectL: string[] = [""];
-
-  constructor(private store: Store, private API: GitAPI) { }
+  public API: GitAPI= new GitAPI(this.store);
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
   showhide(){
-    this.API.commit("","");
     this.API.GetList();
     this.projectL = projectList;
     var el = document.getElementById('hidden1');
@@ -60,7 +59,7 @@ export class ImportComponent implements OnInit {
               that.API.dataToStore(response);
             }
             // @ts-ignore
-            x.files[0] = "";
+            //x.files[0] = "";
             fr.readAsText(file);
           }
         }
