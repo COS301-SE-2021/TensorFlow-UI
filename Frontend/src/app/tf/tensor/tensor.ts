@@ -6,8 +6,7 @@ export abstract class TFTensor extends TFNode {
 		public data: Number | undefined = undefined,
 		public name: string | undefined = undefined
 	) {
-		// super(name, undefined, undefined);
-    super(name);
+		super(name, "Tensor");
 	}
 
 	code(){}
