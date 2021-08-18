@@ -43,6 +43,7 @@ export class ExportComponent implements OnInit {
 
   exportToLib() {
     //const storageProject = this.store.selectSnapshot(WorkspaceState).project;
+    this.API.GetList();
     var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
@@ -75,12 +76,11 @@ export class ExportComponent implements OnInit {
 
   createDoc(descript){
     //Export Functionality: Export retrieves data from storage here.
-    const storageNodes = this.store.selectSnapshot(WorkspaceState).TFnodes;
+    const storageNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
-
     let doc = {};
     doc['description'] = descript;
-    doc['nodes'] = storageNodes;
+    doc['TFNode'] = storageNodes;
     doc['lines'] = storageLines;
     let jsonDta = JSON.stringify(doc);
     var file = new Blob([jsonDta], {type: 'application/json'});

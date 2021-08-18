@@ -26,7 +26,7 @@ export class GitAPI {
     });
 
     fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/" + Name +".json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
-      .then(response => {response.text(); if(!response.ok){alert("Export Failed. \n Error lodged on console.");} else {alert("Export Successful.");}})
+      .then(response => {response.text(); if(!response.ok){alert("Export Failed. \nError logged on console.");} else {alert("Export Successful.");}})
       // .then(result => {alert("Export Successful.")})
       .catch(error => console.log('error', error));
   }
@@ -67,11 +67,12 @@ export class GitAPI {
     try{
       var data = JSON.parse(dta);
       this.store.dispatch(new AddProjectDescription(data.description));
-      for (let i = 0; i < data.nodes.length; i++) {
+
+      for (let i = 0; i < data.TFNode.length; i++) {
         let tfnode = new TFVariable();
-        tfnode.name= data.nodes[i].name;
-        tfnode.type=data.nodes[i].type;
-        tfnode.selector = data.nodes[i].selector;
+        tfnode.name= data.TFNode[i].name;
+        tfnode.type=data.TFNode[i].type;
+        tfnode.selector = data.TFNode[i].selector;
         // tfnode.x=data.nodes[i].x;
         // tfnode.y =data.nodes[i].y;
         this.store.dispatch(new AddTFNode(tfnode));
@@ -82,6 +83,7 @@ export class GitAPI {
         var line = data.lines[k].line;
         this.store.dispatch(new AddLineConnectorToStorage({end: end, line:line, start: start}));
       }
+
     } catch (e){
       console.log(e);
       alert("File provided was not constructed by Tensorflow UI");
