@@ -1,4 +1,4 @@
-<div class="draggableNode" id="{{_root.name}}" (mousemove)="reload()">
+<div class="draggableNode" *ngIf="_root" id="{{_root.name}}" (mousemove)="reload()">
     <div class="nodeName">
         Start
     </div>

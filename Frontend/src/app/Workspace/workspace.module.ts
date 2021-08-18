@@ -11,12 +11,13 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
-import {NodeDeleteDialog, NodeElementComponent} from './node-element/node-element.component';
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
 import {nodeModule} from "../Node/node.module";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {NgxsModule} from "@ngxs/store";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
+import { NodeElementDeleteNodeDialogComponent } from './node-element-delete-node-dialog/node-element-delete-node-dialog.component';
+import {NodeElementComponent} from "./node-element/node-element.component";
 //import { ImportComponent } from './import/import.component';
 
 @NgModule({
@@ -39,12 +40,12 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog
+        NodeElementDeleteNodeDialogComponent
     ],
     exports: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
-        NodeDeleteDialog,
+        NodeElementDeleteNodeDialogComponent
     ],
     providers: [
       {provide: MAT_DIALOG_DATA, useValue: {}},
