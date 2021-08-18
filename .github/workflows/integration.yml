@@ -1,4 +1,4 @@
-name: Integration Testing 2
+name: Integration Testing Frontend
 
 on:
   pull_request:
