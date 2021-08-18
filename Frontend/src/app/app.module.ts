@@ -1,4 +1,4 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -12,17 +12,15 @@ import {MatCardModule} from '@angular/material/card';
 
 //ngxs storage
 import {NgxsModule} from '@ngxs/store';
-import {WorkspaceState, WorkspaceStateModel} from "../Storage/workspace/workspace.state";
+import {WorkspaceState} from "../Storage/workspace/workspace.state";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
-import {FormsModule, NgSelectOption} from "@angular/forms";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 
 const modules = [
-	BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule,
+	BrowserModule, BrowserAnimationsModule, DragDropModule,
 	ComponentsModule, WorkspaceModule, MatCardModule, MatDialogModule
 ]
 

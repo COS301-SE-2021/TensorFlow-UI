@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {TFTensor} from "../../tf";
+import {TFNode, TFTensor} from "../../tf";
 import {DataService} from "../../data.service";
 import * as LeaderLine from "leader-line-new";
 import {DOCUMENT} from "@angular/common";
@@ -10,14 +10,11 @@ import {DOCUMENT} from "@angular/common";
 	styleUrls: ['./tensor.component.css']
 })
 export class TensorComponent implements OnInit {
-	set TFNodeData(value: TFTensor) {
-		this._TFNodeData = value;
-	}
-	get TFNodeData(): TFTensor {
+	get TFNodeData(): TFNode {
 		return this._TFNodeData;
 	}
 
-	@Input() _TFNodeData : TFTensor;
+	@Input() _TFNodeData : TFNode;
 
 	constructor(public data: DataService, @Inject(DOCUMENT) private document) {
 	}

@@ -2,8 +2,8 @@
     <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
 
     <!-- Part of the new UI section-->
-    <!-- <app-tensor *ngFor="let node of this.data.TFTensors" [_TFNodeData]="node"></app-tensor>-->
-    <!-- <app-operator *ngFor="let node of this.data.TFOperator" [_TFNodeDataOperator]="node"></app-operator>-->
+     <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>
+     <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>
 
 </div>
 

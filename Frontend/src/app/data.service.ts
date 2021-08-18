@@ -1,13 +1,20 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {lineConnectors, NodeData} from "./node-data";
-import {TFOperator, TFTensor} from "./tf";
+import {TFNode, TFOperator, TFTensor} from "./tf";
 
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DataService {
+	get TFNodes(): TFNode[] {
+		return this._TFNodes;
+	}
+
+	set TFNodes(value: TFNode[]) {
+		this._TFNodes = value;
+	}
 	get TFTensors(): TFTensor[] {
 		return this._TFTensors;
 	}
@@ -62,7 +69,7 @@ export class DataService {
 	private _lineConnectorsList: lineConnectors[];
 	private _TFOperator: TFOperator[];
 	private _TFTensors: TFTensor[];
-
+	private _TFNodes: TFNode[];
 
 	private createNodeSource = new BehaviorSubject(false); //default = false
 

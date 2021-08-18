@@ -1,38 +1,30 @@
 import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
+import {TFGraph, TFNode} from "../../tf";
 import {Store} from "@ngxs/store";
-import projectList from "../import/import.component";
-import {
-  WorkspaceState,
-  AddLineConnectorToStorage,
-  UpdateNodeInStorage,
-  RemoveNodeFromStorage, RemoveLineFromStorage
-} from '../../../Storage/workspace'
 
 @Component({
 	selector: 'app-workspace-boundary',
 	templateUrl: './workspace-boundary.component.html',
 	styleUrls: ['./workspace-boundary.component.css']
 })
-export class WorkspaceBoundaryComponent implements OnInit, AfterContentInit {
-  public projectL = projectList;
+export class WorkspaceBoundaryComponent implements OnInit {
+
+	@Input() TFNodes: TFNode[];
+
 	@Input() storageNode: NodeData[];
 	@Input() storageLines: NodeData[];
-	public createWorkspace: boolean = true;
+	root: TFGraph = new TFGraph(new TFNode("rootNode", "root"));
 
-	constructor(public data: DataService,private store: Store) {
-
-  }
+	constructor(public data: DataService, public store: Store) {
+	}
 
 	ngOnInit(): void {
-		this.data.nodes = [];
-		this.data.lineConnectorsList = [];
+		//this.data.nodes = [];
+		//this.data.lineConnectorsList = [];
+
 		// this.data.TFOperator = [];
 		// this.data.TFTensors = [];
 	}
-
-	ngAfterContentInit() {
-
-  }
 }

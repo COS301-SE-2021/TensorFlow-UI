@@ -1,11 +1,22 @@
 import { State, Action,StateContext, Selector } from '@ngxs/store'
-import { NodeData, lineConnectors } from "../../app/node-data";
+import {NodeData, lineConnectors} from "../../app/node-data";
 import {
   AddLineConnectorToStorage,
   AddNodeToStorage,
   UpdateNodeInStorage,
   RemoveNodeFromStorage,
-  RemoveLineFromStorage, ChangeBooleanValue, RemoveTFNode, AddTFNode, UpdateTFNode, AddRootNode
+  RemoveLineFromStorage,
+  ChangeBooleanValue,
+  RemoveTFNode,
+  AddTFNode,
+  UpdateTFNode,
+  AddRootNode,
+  AddProjectName,
+  AddProjectDescription,
+  RemoveLineConnectionOne,
+  RemoveLineConnection,
+  RemoveLineConnectionTwo,
+  UpdateLineConnection
 } from "./workspace.actions";
 import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -17,6 +28,8 @@ export interface WorkspaceStateModel{
   TFNode: TFNode[];
   showWorkspace: boolean;
   rootNode: TFNode;
+  projectName: string;
+  projectDescription: string;
 }
 
 @State<WorkspaceStateModel>({
@@ -26,7 +39,9 @@ export interface WorkspaceStateModel{
       lines: [],
       TFNode: [],
       showWorkspace: true,
-      rootNode: new TFNode() //temporary, change later
+      rootNode: new TFNode(), //temporary, change later
+      projectName: "",
+      projectDescription: ""
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
   },
 })
@@ -143,6 +158,65 @@ export class WorkspaceState{
       patch({
         rootNode: root
       })
+    )
+  }
+
+  @Action(AddProjectName)
+  public addProjectName(stateContext: StateContext<WorkspaceStateModel>, { name }: AddProjectName){
+    stateContext.setState(
+      patch({
+        projectName: name
+      })
+    )
+  }
+
+  @Action(AddProjectDescription)
+  public addProjectDescription(stateContext: StateContext<WorkspaceStateModel>, { description }: AddProjectDescription){
+    stateContext.setState(
+      patch({
+        projectDescription: description
+      })
+    )
+  }
+
+
+
+  @Action(RemoveLineConnection)
+  public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.toString())
+        })
+    )
+  }
+
+  @Action(RemoveLineConnectionOne)
+  public removeLineConnectionOne(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionOne) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childOne?.name?.toString())
+        })
+    )
+  }
+
+  @Action(RemoveLineConnectionTwo)
+  public removeLineConnectionTwo(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionTwo) {
+    stateContext.setState(
+        patch({
+          // lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end === node?.childTwo?.name?.toString())
+        })
+    )
+  }
+
+  @Action(UpdateLineConnection)
+  public updateLineConnection(stateContext: StateContext<WorkspaceStateModel>, {line}: UpdateLineConnection) {
+    stateContext.setState(
+        patch({
+          lines: updateItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end , patch(line))
+        })
     )
   }
 }

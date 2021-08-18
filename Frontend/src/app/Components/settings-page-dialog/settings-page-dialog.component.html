@@ -3,14 +3,14 @@
 <mat-form-field appearance="fill">
   <div class="inputProjectDetails">
     <p>Project Name: </p>
-    <input matInput [(ngModel)]="projectName">
+    <input placeholder="{{projectName}}" matInput [(ngModel)]="projectName">
   </div>
 </mat-form-field>
 <br>
 <mat-form-field appearance="fill" id="projectDetails">
   <div>
     <p>Project Description: </p>
-    <textarea id="projectDetailsInput" matInput [(ngModel)]="projectDescription"></textarea>
+    <textarea placeholder="{{projectDescription}}" maxlength="500" id="projectDetailsInput" matInput [(ngModel)]="projectDescription"></textarea>
   </div>
 </mat-form-field>
 
