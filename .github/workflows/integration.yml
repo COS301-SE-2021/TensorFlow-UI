@@ -23,5 +23,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Integration Tests acrhive
-          path: IntegrationTestsAcrhive.txt
+          path: IntegrationTestsArchive.txt
 
