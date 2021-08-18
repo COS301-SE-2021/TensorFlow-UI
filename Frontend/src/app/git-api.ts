@@ -9,6 +9,7 @@ export class GitAPI {
   constructor(private store: Store ) {
 
   }
+
   public commit(Name, Data){
     var myHeaders = new Headers();
     myHeaders.append("Authorization", PAT);
@@ -71,17 +72,17 @@ export class GitAPI {
         var value=data.nodes[i].value;
         var x=data.nodes[i].x;
         var y =data.nodes[i].y;
-        this.store?.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
+        this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
       }
       for (let k = 0; k < data.lines.length; k++) {
         var start = data.lines[k].start;
         var end = data.lines[k].end;
         var line = data.lines[k].line;
-        this.store?.dispatch(new AddLineConnectorToStorage({start, end, line}));
+        this.store.dispatch(new AddLineConnectorToStorage({start, end, line}));
       }
     } catch (e){
       console.log(e);
-      alert("File provides was not constructed by TFUI");
+      alert("File provided was not constructed by Tensorflow UI");
     }
   }
 }
