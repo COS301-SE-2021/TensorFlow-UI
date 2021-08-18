@@ -1,7 +1,12 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import * as LeaderLine from "leader-line-new";
 import {FormControl} from "@angular/forms";
-import {AddLineConnectorToStorage, UpdateNodeInStorage, WorkspaceState} from "../../../Storage/workspace";
+import {
+  AddLineConnectorToStorage,
+  RemoveLineConnectionOne, RemoveLineConnectionTwo,
+  UpdateNodeInStorage, UpdateTFNode,
+  WorkspaceState
+} from "../../../Storage/workspace";
 import {TFNode} from "../../tf";
 import {DataService} from "../../data.service";
 import {DOCUMENT} from "@angular/common";
@@ -27,6 +32,16 @@ export class RootnodeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkChild(selectedNode: FormControl) {
+      if (selectedNode.toString() != this._root.childOne?.name) {
+        const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._root.name);
+        this.store.dispatch(new RemoveLineConnectionOne(this._root));
+        templine != undefined ? templine["line"].remove() : "";
+        this._root.childOne = this.nodes.find(element => element.name == selectedNode.toString());
+        this.store.dispatch(new UpdateTFNode(this._root));
+
+    }
+  }
 
   linkNodes(selectedNode: FormControl) {
     if (this._root?.name != undefined) {
@@ -39,6 +54,7 @@ export class RootnodeComponent implements OnInit {
             endSocket: 'auto'
           }
       );
+      this.checkChild(selectedNode);
 
       this.store.dispatch(new AddLineConnectorToStorage({
         start: lineStartName,

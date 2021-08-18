@@ -8,7 +8,7 @@ import {
 	AddLineConnectorToStorage,
 	RemoveLineConnectionOne,
 	RemoveLineConnectionTwo,
-	UpdateNodeInStorage,
+	UpdateNodeInStorage, UpdateTFNode,
 	WorkspaceState
 } from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
@@ -63,6 +63,8 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 				}
 			);
 
+			this.checkChild(selectedNode);
+
 			this.store.dispatch(new AddLineConnectorToStorage({
 				start: lineStartName,
 				end: lineEndName,
@@ -73,15 +75,25 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
 	checkChild(selectedNode: FormControl) {
 		if (selectedNode == this.selectedNodeX) {
-			if (selectedNode.value.toString() != this._TFNodeDataOperator.childOne?.name) {
-				this.store.dispatch(new RemoveLineConnectionOne(this._TFNodeDataOperator))
+			if (selectedNode.toString() != this._TFNodeDataOperator.childOne?.name) {
+				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && element.end == this._TFNodeDataOperator?.childOne?.name || element.end != this._TFNodeDataOperator?.childTwo?.name);
+				this.store.dispatch(new RemoveLineConnectionOne(this._TFNodeDataOperator));
+				templine != undefined ? templine["line"].remove() : "";
+				this._TFNodeDataOperator.childOne = this.nodes.find(element => element.name == selectedNode.toString());
+				this.store.dispatch(new UpdateTFNode(this._TFNodeDataOperator));
+
 			}
 		}
 		if (selectedNode == this.selectedNodeY) {
-			if (selectedNode.value.toString() != this._TFNodeDataOperator.childTwo?.name) {
+			if (selectedNode.toString() != this._TFNodeDataOperator.childTwo?.name) {
+				const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._TFNodeDataOperator.name && element.end == this._TFNodeDataOperator?.childTwo?.name || element.end != this._TFNodeDataOperator?.childOne?.name);
 				this.store.dispatch(new RemoveLineConnectionTwo(this._TFNodeDataOperator))
+				templine != undefined ? templine["line"].remove() : "";
+				this._TFNodeDataOperator.childTwo = this.nodes.find(element => element.name == selectedNode.toString());
+				this.store.dispatch(new UpdateTFNode(this._TFNodeDataOperator));
 			}
 		}
+
 	}
 
 	// Redraw lines for each component.
@@ -92,8 +104,8 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 			for (let i = 0; i < this.store.selectSnapshot(WorkspaceState).lines.length; i++) {
 
 				let l: LeaderLine;
-				l = this.store.selectSnapshot(WorkspaceState).lines[i]["line"];
-				l?.position();
+				l = this.store.selectSnapshot(WorkspaceState).lines[i] != undefined ? this.store.selectSnapshot(WorkspaceState).lines[i]["line"] : undefined;
+				l != undefined ? l.position(): "";
 			}
 		}
 	}
@@ -120,7 +132,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 						// const node = that.data.nodes.find(element => element.name == nodeId);
 						const node = that.store.selectSnapshot(WorkspaceState).TFNode.find(element => element.name == nodeId);
 
-						if(node!=null){
+						if (node != null) {
 							//Update node coordinates
 							node.x = target.getAttribute('data-x')
 							node.y = target.getAttribute('data-y')
