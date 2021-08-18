@@ -1,4 +1,4 @@
-import {lineConnectors, NodeData, Project} from "../../app/node-data";
+import {lineConnectors, NodeData} from "../../app/node-data";
 import {TFNode, TFOperator} from "../../app/tf";
 
 export class AddNodeToStorage{

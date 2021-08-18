@@ -1,5 +1,5 @@
 import { State, Action,StateContext, Selector } from '@ngxs/store'
-import {NodeData, lineConnectors, Project} from "../../app/node-data";
+import {NodeData, lineConnectors} from "../../app/node-data";
 import {
   AddLineConnectorToStorage,
   AddNodeToStorage,

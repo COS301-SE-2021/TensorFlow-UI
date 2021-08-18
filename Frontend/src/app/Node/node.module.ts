@@ -14,6 +14,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
+import { RootnodeComponent } from './rootnode/rootnode.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MatSelectModule} from "@angular/material/select";
 		InputComponent,
 		DialogComponent,
 		Node,
-  OperatorComponent
+  OperatorComponent,
+  RootnodeComponent
 	],
 	imports: [
 		FormsModule,
