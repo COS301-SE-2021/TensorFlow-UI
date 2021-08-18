@@ -5,7 +5,7 @@ import {Store} from "@ngxs/store";
 import {
 	AddLineConnectorToStorage,
 	AddNodeToStorage,
-	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
+	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
 	RemoveNodeFromStorage, RemoveTFNode
 } from "../../../Storage/workspace";
@@ -16,8 +16,6 @@ import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
 import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
-import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
-import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {
@@ -32,6 +30,8 @@ import {
 	TFVariable,
 	TFZeros
 } from "../../tf";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -213,20 +213,32 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	clearCanvas() {
-		const clearDialog = this.dialog.open(NavbarDialogsComponent);
+		const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+		let lineObject: LeaderLine;
+		for (let i = 0; i < templine.length; i++) {
+			lineObject = templine[i]["line"];
+		this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+		lineObject != undefined ? lineObject.remove() : "";
+		}
+		this.linesList = [];
 
-		clearDialog.afterClosed().subscribe(result => {
-			const clearCanvasBoolean = clearDialog.disableClose;
 
-			if (clearCanvasBoolean) {
-				this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-				this.linesList.forEach(element => element.line?.remove())
-				this.linesList.splice(0, this.linesList.length)
+
+		// const clearDialog = this.dialog.open(NavbarDialogsComponent);
+		//
+		// clearDialog.afterClosed().subscribe(result => {
+		// 	const clearCanvasBoolean = clearDialog.disableClose;
+		//
+		// 	if (clearCanvasBoolean) {
+		// 		this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+		// 		this.linesList.forEach(element => element.line?.remove())
+		// 		this.linesList.splice(0, this.linesList.length)
 
         this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
-        this.TFNodeList.splice(0,this.TFNodeList.length)
-			}
-		})
+		this.TFNodeList = [];
+        // this.TFNodeList.splice(0,this.TFNodeList.length)
+			// }
+		// })
 	}
 
 	showProjectDetails() {
