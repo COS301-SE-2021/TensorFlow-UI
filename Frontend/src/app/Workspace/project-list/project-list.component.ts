@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {importData, data} from "../../GITApi";
 import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
+import {GitAPI} from "../../git-api";
 
 @Component({
   selector: 'app-project-list',
@@ -10,14 +10,14 @@ import {Store} from "@ngxs/store";
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private API: GitAPI) { }
   @Input() element: string;
 
   ngOnInit(): void {
   }
 
   projectImport(ID){
-    importData(ID);
+    this.API.importData(ID);
 
     let workspace = document.getElementById("workspace-boundary");
     let importFromCommunity = document.getElementById("importFromCommunity");
