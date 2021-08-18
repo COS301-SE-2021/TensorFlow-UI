@@ -73,6 +73,9 @@ export class GitAPI {
         tfnode.name= data.TFNode[i].name;
         tfnode.type=data.TFNode[i].type;
         tfnode.selector = data.TFNode[i].selector;
+        if (data.TFNode[i].data != null){
+          tfnode.data = data.TFNode[i].data;
+        }
         // tfnode.x=data.nodes[i].x;
         // tfnode.y =data.nodes[i].y;
         this.store.dispatch(new AddTFNode(tfnode));
