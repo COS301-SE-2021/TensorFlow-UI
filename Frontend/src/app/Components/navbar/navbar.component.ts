@@ -176,7 +176,7 @@ export class NavbarComponent implements OnInit {
 
 				this.data.nodes.splice(0, this.data.nodes.length)
 				this.data.lineConnectorsList.splice(0, this.data.lineConnectorsList.length)
-        
+
         //new data structure
         this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
         this.TFNodeList.splice(0,this.TFNodeList.length)
@@ -201,6 +201,8 @@ export class NavbarComponent implements OnInit {
 				let dataOK: boolean = false;
 				if (dialogData.projectName != undefined && dialogData.projectDescription != undefined) {
 					dataOK = true;
+					this.store.dispatch(new AddProjectName(dialogData.projectName));
+          this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
 				}
 				this.projectDetailsUpdatedSnackbar(dataOK);
 			}
