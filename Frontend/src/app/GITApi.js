@@ -2,7 +2,7 @@ import {PAT} from './config.js'
 import {user} from './config.js'
 import {mail} from './config.js'
 import projectList from './Workspace/import/import.component.ts'
-import { AddNodeToStorage } from "../Storage/workspace/workspace.actions";
+import {AddLineConnectorToStorage, AddNodeToStorage} from "../Storage/workspace/workspace.actions";
 
 export default function Commit (Name, Data){
   var myHeaders = new Headers();
@@ -74,13 +74,27 @@ function poplst(l){
 }
 
 export function dataToStore(dta){
-  var data = JSON.parse(dta);
-  console.log(data);
-  for (let i = 0; i < data.nodes.length; i++) {
-    // this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
-  }
-  for (let k = 0; k < data.lines.length; k++) {
+  try{
+    var data = JSON.parse(dta);
 
+    for (let i = 0; i < data.nodes.length; i++) {
+      var num=data.nodes[i].num;
+      var name=data.nodes[i].name;
+      var type=data.nodes[i].type;
+      var value=data.nodes[i].value;
+      var x=data.nodes[i].x;
+      var y =data.nodes[i].y;
+      this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}));
+    }
+    for (let k = 0; k < data.lines.length; k++) {
+      var start = data.lines[k].start;
+      var end = data.lines[k].end;
+      var line = data.lines[k].line;
+      this.store.dispatch(new AddLineConnectorToStorage({start, end, line}));
+    }
+  } catch (e){
+    console.log(e);
+    alert("File provides was not constructed by TFUI");
   }
 }
 
