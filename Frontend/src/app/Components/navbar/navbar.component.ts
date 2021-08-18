@@ -3,10 +3,10 @@ import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import {Store} from "@ngxs/store";
 import {
-	AddNodeToStorage,
-	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
-	RemoveLineFromStorage,
-	RemoveNodeFromStorage
+  AddNodeToStorage,
+  AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
+  RemoveLineFromStorage,
+  RemoveNodeFromStorage, RemoveTFNode
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
@@ -176,6 +176,10 @@ export class NavbarComponent implements OnInit {
 
 				this.data.nodes.splice(0, this.data.nodes.length)
 				this.data.lineConnectorsList.splice(0, this.data.lineConnectorsList.length)
+        
+        //new data structure
+        this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
+        this.TFNodeList.splice(0,this.TFNodeList.length)
 			}
 		})
 	}
