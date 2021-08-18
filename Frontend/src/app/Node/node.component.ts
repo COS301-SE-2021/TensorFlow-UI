@@ -77,36 +77,6 @@ export class Node implements OnInit {
     }
   }
 
-  // Redraw lines for each component.
-  reload() {
-    if (this.data?.lineConnectorsList != null) {
-      if (this.data.lineConnectorsList.length > 0) {
-        for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
-
-          const start = this.data.lineConnectorsList[i].start;
-          let end = this.data.lineConnectorsList[i].end;
-          // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
-          this.data.lineConnectorsList[i].line = new LeaderLine(
-              this.document.getElementById(start),
-              this.document.getElementById(end), {
-                size: 6,
-                outlineColor: '#red',
-                outline: true,
-                endPlugOutline: true,
-                dash: true,
-                path: 'arc',
-                startSocket: 'auto',
-                endSocket: 'auto'
-              }
-
-          );
-
-        }
-      }
-    }
-  }
-
     // tftensor: String[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
     // tfoperator: String[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal",
     //     "Scalar Multiplication", "Sigmoid", "Subtract" , "Multiply"];

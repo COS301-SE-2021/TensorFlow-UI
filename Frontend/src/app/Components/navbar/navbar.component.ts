@@ -30,7 +30,6 @@ import {
 	TFVariable,
 	TFZeros
 } from "../../tf";
-import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 
 export interface SettingsPageData {
@@ -59,24 +58,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public tensorList: string[] = ["variable", "constant", "tensor"];
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-              private dialog: MatDialog) {
+				private dialog: MatDialog) {
 	}
 
 	ngOnInit(): void {
 		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
-
-
-		// const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
-		// this.data.nodes = [];
-		// this.data.lineConnectorsList = [];
-		// const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
-		// for (let i = 0; i < storageNodes.length; ++i) {
-		// 	this.loadNode(storageNodes[i]);
-		// }
-		// for(let i=0; i<storageLines.length; ++i){
-		//   this.loadLine(storageLines[i]);
-		// }
 	}
 
 
@@ -112,58 +99,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-
-	//
-	// loadlines(){
-	// 	if (this.linesList != undefined) {
-	//
-	// 		const lineStartName = this.linesList.name.toString();
-	// 		const lineEndName = selectedNode.toString();
-	// 		const lineObj = new LeaderLine(
-	// 			this.document.getElementById(lineStartName),
-	// 			this.document.getElementById(lineEndName), {
-	// 				startSocket: 'auto',
-	// 				endSocket: 'auto'
-	// 			}
-	// 		);
-	// 	}
-	// }
-
-
-	// This adds a LOADED node from storage to the data service "nodes" array.
-	// loadNode(node: NodeData) {
-	// 	this.data.nodes.push({
-	// 		num: node.num,
-	// 		name: node.name,
-	// 		type: node.type,
-	// 		value: node.value,
-	// 		x: node.x,
-	// 		y: node.y
-	// 	});
-	// }
-	//
-	// loadLine(line: lineConnectors) {
-	// 	this.data.lineConnectorsList.push({
-	// 		start: line.start,
-	// 		end: line.end,
-	// 		line: line.line
-	// 	})
-		// this.addStorageLines(line);
-	// }
-
-	// addStorageLines(line: lineConnectors) {
-	// 	console.log(line.start);
-	// 	console.log(line.end);
-	//
-	// 	const lineObj = new LeaderLine(
-	// 		this.document.getElementById(line.start.toString()),
-	// 		this.document.getElementById(line.end.toString()), {
-	// 			startSocket: 'auto',
-	// 			endSocket: 'auto'
-	// 		}
-	// 	);
-	// }
-
 	// This adds a new node to the data service "nodes" array.
 	createNode(type: string) {
 		const nodeNum = this.data.nodes.length + 1;
@@ -181,23 +116,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
 	}
 
-	// This adds a new node to the data service "nodes" array. However the type is set to 'functional'
-	createFunctionalNode(type: string) {
-		const nodeNum = this.data.nodes.length + 1;
-		const nodeName = "Functional" + (Number(this.data.nodes.length) + 1);
-
-		this.data.nodes.push({
-			num: nodeNum,
-			name: nodeName,
-			type: "functional",
-			value: type,
-			x: 0,
-			y: 0
-		});
-
-		this.addNodeToStorage(nodeNum, nodeName, "functional", type, 0, 0);
-
-	}
 
 	addNodeToStorage(num, name, type, value, x, y) {
 		this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}))
@@ -214,31 +132,17 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	clearCanvas() {
 		const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-		let lineObject: LeaderLine | null;
+		let lineObject: LeaderLine;
 		for (let i = 0; i < templine.length; i++) {
 			lineObject = templine[i]["line"];
-		this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-		lineObject != undefined ? lineObject.remove() : "";
+			this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+			lineObject != undefined ? lineObject.remove() : "";
 		}
 		this.linesList = [];
 
 
-
-		// const clearDialog = this.dialog.open(NavbarDialogsComponent);
-		//
-		// clearDialog.afterClosed().subscribe(result => {
-		// 	const clearCanvasBoolean = clearDialog.disableClose;
-		//
-		// 	if (clearCanvasBoolean) {
-		// 		this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-		// 		this.linesList.forEach(element => element.line?.remove())
-		// 		this.linesList.splice(0, this.linesList.length)
-
-        this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
+		this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
 		this.TFNodeList = [];
-        // this.TFNodeList.splice(0,this.TFNodeList.length)
-			// }
-		// })
 	}
 
 	showProjectDetails() {
@@ -259,7 +163,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				if (dialogData.projectName != undefined && dialogData.projectDescription != undefined) {
 					dataOK = true;
 					this.store.dispatch(new AddProjectName(dialogData.projectName));
-          this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
+					this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
 				}
 				this.projectDetailsUpdatedSnackbar(dataOK);
 			}
@@ -298,7 +202,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	// Code generation section
 	runAndGenerate() {
-		const generator : CodeGeneratorService = new CodeGeneratorService();
+		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
 	}
 
@@ -312,9 +216,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.TFNodeList.push(node);
 	}
 
-	// tftensor: String[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
-	// tfoperator: String[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal",
-	//     "Scalar Multiplication", "Sigmoid", "Subtract" , "Multiply"];
 	createComponent(component: string) {
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
@@ -432,12 +333,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				break;
 			}
 			default: {
-				//statements;
-				console.log("inside")
 				break;
 			}
 		}
-		console.log("outside")
 	}
 
 }

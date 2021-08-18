@@ -37,16 +37,16 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		//
-		// if (this._TFNodeDataOperator.name != undefined) {
-		// 	const node = document.getElementById(this._TFNodeDataOperator.name);
-		//
-		// 	if (node != null) {
-		// 		node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.) + 'px, ' + Number(this._TFNodeDataOperator.y) + 'px)'
-		//
-		// 		node.setAttribute('data-x', this._TFNodeDataOperator.x.toString());
-		// 		node.setAttribute('data-y', this._TFNodeDataOperator.y.toString());
-		// 	}
-		// }
+		if (this._TFNodeDataOperator.name != undefined) {
+			const node = document.getElementById(this._TFNodeDataOperator.name);
+
+			if (node != null) {
+				node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.positionX) + 'px, ' + Number(this._TFNodeDataOperator.positionY) + 'px)'
+
+				node.setAttribute('data-x', this._TFNodeDataOperator.positionX.toString());
+				node.setAttribute('data-y', this._TFNodeDataOperator.positionY.toString());
+			}
+		}
 	}
 
 	// Initial linking between two node elements.
@@ -134,11 +134,11 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
 						if (node != null) {
 							//Update node coordinates
-							node.x = target.getAttribute('data-x')
-							node.y = target.getAttribute('data-y')
+							node.positionX = target.getAttribute('data-x')
+							node.positionY = target.getAttribute('data-y')
 
 							//Update Node coordinates in the storage
-							that.store.dispatch(new UpdateNodeInStorage(node));
+							that.store.dispatch(new UpdateTFNode(node));
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnInit} from '@angular/core';
 import * as LeaderLine from "leader-line-new";
 import {FormControl} from "@angular/forms";
 import {
@@ -18,7 +18,7 @@ import interact from "interactjs";
   templateUrl: './rootnode.component.html',
   styleUrls: ['./rootnode.component.css']
 })
-export class RootnodeComponent implements OnInit {
+export class RootnodeComponent implements OnInit, AfterViewInit {
   nodes: TFNode[];
   selectedNode = new FormControl();
 
@@ -33,9 +33,22 @@ export class RootnodeComponent implements OnInit {
     this.store.dispatch(new AddRootNode(this._root))
   }
 
+  ngAfterViewInit() {
+    if (this._root.name != undefined) {
+      const node = document.getElementById(this._root.name);
+
+      if (node != null) {
+        node.style.transform = 'translate(' + Number(this._root.positionX) + 'px, ' + Number(this._root.positionY) + 'px)'
+
+        node.setAttribute('data-x', this._root.positionX.toString());
+        node.setAttribute('data-y', this._root.positionY.toString());
+      }
+    }
+  }
+
   checkChild(selectedNode: FormControl) {
       if (selectedNode.toString() != this._root.childOne?.name) {
-        const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._root.name);
+        const templine: LeaderLine = this.store.selectSnapshot(WorkspaceState).lines.find(element => element.start == this._root.name || element.end == this._root.name);
         this.store.dispatch(new RemoveLineConnectionOne(this._root));
         templine != undefined ? templine["line"].remove() : "";
         this._root.childOne = this.nodes.find(element => element.name == selectedNode.toString());
@@ -101,11 +114,11 @@ export class RootnodeComponent implements OnInit {
 
               if(node!=null){
                 //Update node coordinates
-                node.x = target.getAttribute('data-x')
-                node.y = target.getAttribute('data-y')
+                node.positionX = target.getAttribute('data-x')
+                node.positionY = target.getAttribute('data-y')
 
                 //Update Node coordinates in the storage
-                that.store.dispatch(new UpdateNodeInStorage(node));
+                that.store.dispatch(new AddRootNode(node));
               }
             }
 
