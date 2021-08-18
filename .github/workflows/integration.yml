@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 12
       - name: Clean install dependencies and build
-        run: npm test
+        run: npm install
+             npm test
         working-directory: ./Frontend
 
