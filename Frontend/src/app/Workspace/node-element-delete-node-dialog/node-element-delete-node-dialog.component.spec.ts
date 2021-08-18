@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NodeElementDeleteNodeDialogComponent } from './node-element-delete-node-dialog.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 
 describe('NodeElementDeleteNodeDialogComponent', () => {
   let component: NodeElementDeleteNodeDialogComponent;
@@ -8,7 +10,11 @@ describe('NodeElementDeleteNodeDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NodeElementDeleteNodeDialogComponent ]
+      declarations: [ NodeElementDeleteNodeDialogComponent ],
+      providers: [
+        {provide: MAT_DIALOG_DATA, useValue: {}},
+        {provide: MatDialogRef, useValue: {}},
+      ]
     })
     .compileComponents();
   });

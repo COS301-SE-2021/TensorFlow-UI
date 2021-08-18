@@ -58,9 +58,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
 	public tensorList: string[] = ["variable", "constant", "tensor"];
 
-
-
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar) {
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
+              private dialog: MatDialog) {
 	}
 
 	ngOnInit(): void {
@@ -165,8 +164,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	// 	);
 	// }
 
-
-
 	// This adds a new node to the data service "nodes" array.
 	createNode(type: string) {
 		const nodeNum = this.data.nodes.length + 1;
@@ -216,49 +213,45 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	clearCanvas() {
-		// const clearDialog = this.dialog.open(NavbarDialogsComponent);
+		const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
-		// clearDialog.afterClosed().subscribe(result => {
-		// 	const clearCanvasBoolean = clearDialog.disableClose;
-    //
-		// 	if (clearCanvasBoolean) {
-				this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
-				this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-				this.data.lineConnectorsList.forEach(element => element.line?.remove())
+		clearDialog.afterClosed().subscribe(result => {
+			const clearCanvasBoolean = clearDialog.disableClose;
 
-				this.data.nodes.splice(0, this.data.nodes.length)
-				this.data.lineConnectorsList.splice(0, this.data.lineConnectorsList.length)
+			if (clearCanvasBoolean) {
+				this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+				this.linesList.forEach(element => element.line?.remove())
+				this.linesList.splice(0, this.linesList.length)
 
-        //new data structure
         this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
         this.TFNodeList.splice(0,this.TFNodeList.length)
-		// 	}
-		// })
+			}
+		})
 	}
 
 	showProjectDetails() {
-		// const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
-		// 	{
-		// 		disableClose: true,
-		// 		data: {projectName: this.projectName, projectDetails: this.projectDetails}
-		// 	}
-		// );
+		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
+			{
+				disableClose: true,
+				data: {projectName: this.projectName, projectDetails: this.projectDetails}
+			}
+		);
 
-		// projectDetailsDialog.afterClosed().subscribe(result => {
-		// 	const detailsAdded = projectDetailsDialog.disableClose;
-    //
-		// 	if (detailsAdded) {
-		// 		//Add to details to ngxs storage and display snackbar
-		// 		const dialogData = projectDetailsDialog.componentInstance;
-		// 		let dataOK: boolean = false;
-		// 		if (dialogData.projectName != undefined && dialogData.projectDescription != undefined) {
-		// 			dataOK = true;
-		// 			this.store.dispatch(new AddProjectName(dialogData.projectName));
-    //       this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
-		// 		}
-		// 		this.projectDetailsUpdatedSnackbar(dataOK);
-		// 	}
-		// })
+		projectDetailsDialog.afterClosed().subscribe(result => {
+			const detailsAdded = projectDetailsDialog.disableClose;
+
+			if (detailsAdded) {
+				//Add to details to ngxs storage and display snackbar
+				const dialogData = projectDetailsDialog.componentInstance;
+				let dataOK: boolean = false;
+				if (dialogData.projectName != undefined && dialogData.projectDescription != undefined) {
+					dataOK = true;
+					this.store.dispatch(new AddProjectName(dialogData.projectName));
+          this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
+				}
+				this.projectDetailsUpdatedSnackbar(dataOK);
+			}
+		})
 	}
 
 	projectDetailsUpdatedSnackbar(dataOk: boolean) {
