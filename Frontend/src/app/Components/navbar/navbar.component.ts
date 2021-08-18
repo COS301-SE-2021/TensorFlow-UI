@@ -219,14 +219,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			const clearCanvasBoolean = clearDialog.disableClose;
 
 			if (clearCanvasBoolean) {
-				this.data.nodes.forEach(element => this.store.dispatch(new RemoveNodeFromStorage(element.name)))
-				this.data.lineConnectorsList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
-				this.data.lineConnectorsList.forEach(element => element.line?.remove())
+				this.linesList.forEach(element => this.store.dispatch(new RemoveLineFromStorage(element)))
+				this.linesList.forEach(element => element.line?.remove())
+				this.linesList.splice(0, this.linesList.length)
 
-				this.data.nodes.splice(0, this.data.nodes.length)
-				this.data.lineConnectorsList.splice(0, this.data.lineConnectorsList.length)
-
-        //new data structure
         this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
         this.TFNodeList.splice(0,this.TFNodeList.length)
 			}
