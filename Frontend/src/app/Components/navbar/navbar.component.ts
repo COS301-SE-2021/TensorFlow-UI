@@ -3,7 +3,7 @@ import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import { Store} from "@ngxs/store";
 import {
-  AddNodeToStorage, AddRootNode,
+  AddNodeToStorage, AddProjectDescription, AddProjectName, AddRootNode,
   RemoveLineFromStorage,
   RemoveNodeFromStorage
 } from "../../../Storage/workspace";
@@ -176,6 +176,8 @@ export class NavbarComponent implements OnInit {
         let dataOK: boolean = false;
         if(dialogData.projectName!=undefined && dialogData.projectDescription!=undefined){
           dataOK = true;
+          this.store.dispatch(new AddProjectName(dialogData.projectName))
+          this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
         }
         this.projectDetailsUpdatedSnackbar(dataOK);
       }
