@@ -1,12 +1,13 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import {Store} from "@ngxs/store";
 import {
-  AddNodeToStorage,
-  AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
-  RemoveLineFromStorage,
-  RemoveNodeFromStorage, RemoveTFNode
+	AddLineConnectorToStorage,
+	AddNodeToStorage,
+	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode,
+	RemoveLineFromStorage,
+	RemoveNodeFromStorage, RemoveTFNode
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
@@ -43,76 +44,128 @@ export interface SettingsPageData {
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
 
 	public TFNodeList: TFNode[] = [];
+	public linesList: lineConnectors[] = [];
 
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 	// TFList: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones", "Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 
-	nodes$: Observable<NodeData[]>;
 	projectName: string;
 	projectDetails: string;
 	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
 	public tensorList: string[] = ["variable", "constant", "tensor"];
 
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store,private snackBar: MatSnackBar) {
+
+
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar) {
 	}
 
 	ngOnInit(): void {
 		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
-		this.data.nodes = [];
-		this.data.lineConnectorsList = [];
-		const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
-		const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
-		for (let i = 0; i < storageNodes.length; ++i) {
-			this.loadNode(storageNodes[i]);
-		}
+		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
+
+
+		// const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+		// this.data.nodes = [];
+		// this.data.lineConnectorsList = [];
+		// const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+		// for (let i = 0; i < storageNodes.length; ++i) {
+		// 	this.loadNode(storageNodes[i]);
+		// }
 		// for(let i=0; i<storageLines.length; ++i){
 		//   this.loadLine(storageLines[i]);
 		// }
 	}
 
-	// This adds a LOADED node from storage to the data service "nodes" array.
-	loadNode(node: NodeData) {
-		this.data.nodes.push({
-			num: node.num,
-			name: node.name,
-			type: node.type,
-			value: node.value,
-			x: node.x,
-			y: node.y
-		});
+
+	ngAfterViewInit() {
+		this.loadlines();
 	}
 
-	loadLine(line: lineConnectors) {
-		this.data.lineConnectorsList.push({
-			start: line.start,
-			end: line.end,
-			line: line.line
-		})
-		// this.addStorageLines(line);
-	}
 
-	addStorageLines(line: lineConnectors) {
-		console.log(line.start);
-		console.log(line.end);
+	loadlines() {
+		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
+		if (this.linesList != null && this.linesList.length > 0) {
+			for (let i = 0; i < this.linesList.length; i++) {
 
-		const lineObj = new LeaderLine(
-			this.document.getElementById(line.start.toString()),
-			this.document.getElementById(line.end.toString()), {
-				// size: 6,
-				// outlineColor: '#red',
-				// outline: true,
-				// endPlugOutline: true,
-				// dash: true,
-				// path: 'arc',
-				startSocket: 'auto',
-				endSocket: 'auto'
+				const lineStartName = this.linesList[i].start;
+				const lineEndName = this.linesList[i].end;
+				const lineObj = new LeaderLine(
+					this.document.getElementById(lineStartName),
+					this.document.getElementById(lineEndName), {
+						startSocket: 'auto',
+						endSocket: 'auto'
+					}
+				);
+
+				this.store.dispatch(new RemoveLineFromStorage(this.linesList[i]));
+
+				this.store.dispatch(new AddLineConnectorToStorage({
+					end: lineStartName,
+					line: lineObj,
+					start: lineEndName
+
+				}))
 			}
-		);
+		}
 	}
+
+
+	//
+	// loadlines(){
+	// 	if (this.linesList != undefined) {
+	//
+	// 		const lineStartName = this.linesList.name.toString();
+	// 		const lineEndName = selectedNode.toString();
+	// 		const lineObj = new LeaderLine(
+	// 			this.document.getElementById(lineStartName),
+	// 			this.document.getElementById(lineEndName), {
+	// 				startSocket: 'auto',
+	// 				endSocket: 'auto'
+	// 			}
+	// 		);
+	// 	}
+	// }
+
+
+	// This adds a LOADED node from storage to the data service "nodes" array.
+	// loadNode(node: NodeData) {
+	// 	this.data.nodes.push({
+	// 		num: node.num,
+	// 		name: node.name,
+	// 		type: node.type,
+	// 		value: node.value,
+	// 		x: node.x,
+	// 		y: node.y
+	// 	});
+	// }
+	//
+	// loadLine(line: lineConnectors) {
+	// 	this.data.lineConnectorsList.push({
+	// 		start: line.start,
+	// 		end: line.end,
+	// 		line: line.line
+	// 	})
+		// this.addStorageLines(line);
+	// }
+
+	// addStorageLines(line: lineConnectors) {
+	// 	console.log(line.start);
+	// 	console.log(line.end);
+	//
+	// 	const lineObj = new LeaderLine(
+	// 		this.document.getElementById(line.start.toString()),
+	// 		this.document.getElementById(line.end.toString()), {
+	// 			startSocket: 'auto',
+	// 			endSocket: 'auto'
+	// 		}
+	// 	);
+	// }
+
+
 
 	// This adds a new node to the data service "nodes" array.
 	createNode(type: string) {
@@ -264,112 +317,112 @@ export class NavbarComponent implements OnInit {
 			case this.tftensor[0]: {
 				tfnode = new TFConstant();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tftensor[1]: {
 				tfnode = new TFVariable();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tftensor[2]: {
 				tfnode = new TFFill();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tftensor[3]: {
 				tfnode = new TFLinespace();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tftensor[4]: {
 				tfnode = new TFZeros();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tftensor[5]: {
 				tfnode = new TFOnes();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[0]: {
 				tfnode = new TFAdd();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[1]: {
 				tfnode = new TFAddN();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[2]: {
 				tfnode = new TFDivide();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[3]: {
 				tfnode = new TFMod();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[4]: {
 				tfnode = new TFNegative();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[5]: {
 				tfnode = new TFReciprocal();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[6]: {
 				tfnode = new TFScalarMul();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[7]: {
 				tfnode = new TFSigmoid();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[8]: {
 				tfnode = new TFSubtract();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
 			case this.tfoperator[9]: {
 				tfnode = new TFMultiply();
 				tfnode.name = component + id;
-				tfnode.selector = id;
+				tfnode.selector = component
 				this.addNewNode(tfnode);
 				break;
 			}
