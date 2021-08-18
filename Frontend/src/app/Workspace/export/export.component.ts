@@ -75,7 +75,7 @@ export class ExportComponent implements OnInit {
 
   createDoc(descript){
     //Export Functionality: Export retrieves data from storage here.
-    const storageNodes = this.store.selectSnapshot(WorkspaceState).nodes;
+    const storageNodes = this.store.selectSnapshot(WorkspaceState).TFnodes;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
 
     let doc = {};
