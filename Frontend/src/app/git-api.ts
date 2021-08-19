@@ -8,7 +8,6 @@ import {TFVariable} from "./tf";
 export class GitAPI {
 
   constructor(private store: Store ) {
-
   }
 
   public commit(Name, Data, description){

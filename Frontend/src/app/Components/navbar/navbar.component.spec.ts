@@ -84,7 +84,7 @@ describe('NavbarComponent', () => {
       component.createComponent("Constant");
 
       if(component.TFNodeList) {
-        expect(component.TFNodeList[0]).toBeInstanceOf(TFConstant);
+        expect(component.TFNodeList[component.TFNodeList.length-1]).toBeInstanceOf(TFConstant);
       }
     })
   })
