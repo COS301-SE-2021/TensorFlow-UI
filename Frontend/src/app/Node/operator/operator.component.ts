@@ -14,6 +14,7 @@ import {
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
 import {lineConnectors} from "../../node-data";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
 
 @Component({
     selector: 'app-operator',
@@ -26,10 +27,9 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
     selectedNodeX = new FormControl();
     selectedNodeY = new FormControl();
-
     @Input() _TFNodeDataOperator: TFNode;
 
-    constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
+    constructor(public nav: NavbarComponent, @Inject(DOCUMENT) private document, private store: Store) {
         this.initialiseDraggable();
     }
 
@@ -66,12 +66,11 @@ export class OperatorComponent implements OnInit, AfterViewInit {
                 }
             }
         }
-
+        this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeDataOperator),1);
     }
 
     // Initial linking between two node elements.
     linkNodes(selectedNode: FormControl) {
-
         if (this._TFNodeDataOperator?.name != undefined) {
             const lineStartName = this._TFNodeDataOperator.name.toString();
             const lineEndName = selectedNode.toString();
