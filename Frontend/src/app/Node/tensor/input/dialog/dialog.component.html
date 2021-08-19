@@ -1,0 +1,10 @@
+<mat-list>
+    <p>Enter data</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Data value</mat-label>
+        <input matInput [(ngModel)]="data.inputData">
+    </mat-form-field>
+
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.inputData" cdkFocusInitial>Ok</button>
+</mat-list>

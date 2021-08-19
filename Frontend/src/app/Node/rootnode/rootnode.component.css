@@ -1,0 +1,28 @@
+.draggableNode {
+    width: 8%;
+    height: 13%;
+    background-color: #767f7f;
+    border: 2px solid black;
+    touch-action: none;
+    user-select: none;
+    transform: translate(0px,0px);
+    border-radius: 10px;
+    position: relative;
+}
+
+.nodeName{
+    position: relative;
+    border-radius: 30%;
+    margin: 10%;
+    height: 25%;
+    font-size: 25px;
+    background-color: #ff8c00;
+}
+
+#rootNode{
+    border: 1px solid black;
+    background: #ff8C00;
+    width: 9%;
+    height: 5rem;
+    border-radius: 10px;
+}
