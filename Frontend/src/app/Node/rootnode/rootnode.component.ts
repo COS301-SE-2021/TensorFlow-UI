@@ -40,14 +40,16 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this._root.name != undefined) {
-      const node = document.getElementById(this._root.name);
+    if(this._root){
+      if (this._root.name != undefined) {
+        const node = document.getElementById(this._root.name);
 
-      if (node != null) {
-        node.style.transform = 'translate(' + Number(this._root.positionX) + 'px, ' + Number(this._root.positionY) + 'px)'
+        if (node != null) {
+          node.style.transform = 'translate(' + Number(this._root.positionX) + 'px, ' + Number(this._root.positionY) + 'px)'
 
-        node.setAttribute('data-x', this._root.positionX.toString());
-        node.setAttribute('data-y', this._root.positionY.toString());
+          node.setAttribute('data-x', this._root.positionX.toString());
+          node.setAttribute('data-y', this._root.positionY.toString());
+        }
       }
     }
   }

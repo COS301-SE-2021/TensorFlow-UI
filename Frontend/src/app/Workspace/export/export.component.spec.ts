@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportComponent } from './export.component';
+import {NgxsModule} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace";
+import {MatMenuModule} from "@angular/material/menu";
 
 describe('ExportComponent', () => {
   let component: ExportComponent;
@@ -8,6 +11,9 @@ describe('ExportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgxsModule.forRoot([
+        WorkspaceState
+      ]),MatMenuModule],
       declarations: [ ExportComponent ]
     })
     .compileComponents();

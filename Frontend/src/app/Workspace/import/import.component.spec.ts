@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImportComponent } from './import.component';
+import {NgxsModule} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace";
 
 describe('ImportComponent', () => {
   let component: ImportComponent;
@@ -8,6 +10,9 @@ describe('ImportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgxsModule.forRoot([
+        WorkspaceState
+      ]),],
       declarations: [ ImportComponent ]
     })
     .compileComponents();
