@@ -31,6 +31,7 @@ import {
 	TFZeros
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -131,21 +132,31 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	clearCanvas() {
-		const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-		let lineObject: LeaderLine;
-		for (let i = 0; i < templine.length; i++) {
-			lineObject = templine[i]["line"];
-			this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-			lineObject?.remove()
-		}
-		this.linesList = [];
+		const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
-    let root = this.store.selectSnapshot(WorkspaceState).rootNode
-    root.childOne = undefined;
-    this.store.dispatch(new AddRootNode(root))
+		clearDialog.afterClosed().subscribe(result => {
+			const clearCanvasBoolean = clearDialog.disableClose;
 
-		this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
-		this.TFNodeList = [];
+			if (clearCanvasBoolean) {
+				const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+				let lineObject: LeaderLine;
+				for (let i = 0; i < templine.length; i++) {
+					lineObject = templine[i]["line"];
+					this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+					lineObject?.remove()
+				}
+				this.linesList = [];
+
+				let root = this.store.selectSnapshot(WorkspaceState).rootNode
+				root.childOne = undefined;
+				this.store.dispatch(new AddRootNode(root))
+
+				this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
+				this.TFNodeList = [];
+			}
+		})
+
+
 	}
 
 	showProjectDetails() {
@@ -163,11 +174,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				//Add to details to ngxs storage and display snackbar
 				const dialogData = projectDetailsDialog.componentInstance;
 				let dataOK: boolean = false;
-				if (dialogData.projectName != undefined && dialogData.projectDescription != undefined) {
+				if ((dialogData.projectName != undefined && dialogData.projectName!="" && dialogData.projectName.match(/^ *$/) == null) && dialogData.projectDescription != undefined) {
 					dataOK = true;
 					this.store.dispatch(new AddProjectName(dialogData.projectName));
 					this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
 				}
+				console.log("|"+dialogData.projectName+"|");
+				console.log(dialogData.projectDescription);
 				this.projectDetailsUpdatedSnackbar(dataOK);
 			}
 		})
@@ -176,7 +189,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	projectDetailsUpdatedSnackbar(dataOk: boolean) {
 		let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
 			{
-				duration: 1000,
+				duration: 2000,
 				data: dataOk
 			})
 	}

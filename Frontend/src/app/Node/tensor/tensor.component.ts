@@ -14,6 +14,8 @@ import {Store} from "@ngxs/store";
 import interact from "interactjs";
 import {lineConnectors} from "../../node-data";
 import {NavbarComponent} from "../../Components/navbar/navbar.component";
+import {NodeDeleteDialogComponent} from "../node-delete-dialog/node-delete-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-tensor',
@@ -29,7 +31,8 @@ export class TensorComponent implements OnInit {
 
 	@Input() _TFNodeData: TFNode;
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store, public nav: NavbarComponent) {
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store, public nav: NavbarComponent,
+				private dialog: MatDialog) {
 	}
 
 	ngOnInit(): void {
@@ -99,19 +102,28 @@ export class TensorComponent implements OnInit {
 
 	}
 
-	deleteTFNode(){
-		this.store.dispatch(new RemoveTFNode(this._TFNodeData));
-		const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-		let lineObject: LeaderLine;
-		for (let i = 0; i < templine.length; i++) {
-			if(templine[i].start === this._TFNodeData.name || templine[i].end === this._TFNodeData.name) {
-				{
-					lineObject = templine[i]["line"];
-					this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-					lineObject?.remove();
+	deleteTFNode() {
+		const dialog = this.dialog.open(NodeDeleteDialogComponent, {});
+
+
+		dialog.afterClosed().subscribe(result => {
+			const deleteNodeBoolean = dialog.disableClose;
+
+			if (deleteNodeBoolean) {
+				this.store.dispatch(new RemoveTFNode(this._TFNodeData));
+				const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+				let lineObject: LeaderLine;
+				for (let i = 0; i < templine.length; i++) {
+					if (templine[i].start === this._TFNodeData.name || templine[i].end === this._TFNodeData.name) {
+						{
+							lineObject = templine[i]["line"];
+							this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+							lineObject?.remove();
+						}
+					}
 				}
+				this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeData), 1);
 			}
-		}
-		this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeData),1);
+		})
 	}
 }

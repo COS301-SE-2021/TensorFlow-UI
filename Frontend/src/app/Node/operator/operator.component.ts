@@ -15,6 +15,8 @@ import {Store} from "@ngxs/store";
 import interact from "interactjs";
 import {lineConnectors} from "../../node-data";
 import {NavbarComponent} from "../../Components/navbar/navbar.component";
+import {MatDialog} from "@angular/material/dialog";
+import {NodeDeleteDialogComponent} from "../node-delete-dialog/node-delete-dialog.component";
 
 @Component({
     selector: 'app-operator',
@@ -29,7 +31,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
     selectedNodeY = new FormControl();
     @Input() _TFNodeDataOperator: TFNode;
 
-    constructor(public nav: NavbarComponent, @Inject(DOCUMENT) private document, private store: Store) {
+    constructor(public nav: NavbarComponent, @Inject(DOCUMENT) private document, private store: Store, private dialog: MatDialog) {
         this.initialiseDraggable();
     }
 
@@ -53,20 +55,29 @@ export class OperatorComponent implements OnInit, AfterViewInit {
     }
 
     deleteTFNode(){
-        this.store.dispatch(new RemoveTFNode(this._TFNodeDataOperator));
-        var temp = document.getElementById("")
-        const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-        let lineObject: LeaderLine;
-        for (let i = 0; i < templine.length; i++) {
-            if(templine[i].start === this._TFNodeDataOperator.name || templine[i].end === this._TFNodeDataOperator.name) {
-                {
-                    lineObject = templine[i]["line"];
-                    this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-                    lineObject?.remove();
+        const dialog= this.dialog.open(NodeDeleteDialogComponent, {
+        });
+
+
+        dialog.afterClosed().subscribe(result => {
+            const deleteNodeBoolean = dialog.disableClose;
+
+            if(deleteNodeBoolean) {
+                this.store.dispatch(new RemoveTFNode(this._TFNodeDataOperator));
+                const tempLine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+                let lineObject: LeaderLine;
+                for (let i = 0; i < tempLine.length; i++) {
+                    if (tempLine[i].start === this._TFNodeDataOperator.name || tempLine[i].end === this._TFNodeDataOperator.name) {
+                        {
+                            lineObject = tempLine[i]["line"];
+                            this.store.dispatch(new RemoveLineFromStorage(tempLine[i]));
+                            lineObject?.remove();
+                        }
+                    }
                 }
+                this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeDataOperator), 1);
             }
-        }
-        this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeDataOperator),1);
+        })
     }
 
     // Initial linking between two node elements.

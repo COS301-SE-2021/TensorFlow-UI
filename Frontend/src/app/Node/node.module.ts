@@ -16,6 +16,7 @@ import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
 import { RootnodeComponent } from './rootnode/rootnode.component';
 import {MatIconModule} from "@angular/material/icon";
+import { NodeDeleteDialogComponent } from './node-delete-dialog/node-delete-dialog.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MatIconModule} from "@angular/material/icon";
 		DialogComponent,
 		Node,
 		OperatorComponent,
-  		RootnodeComponent
+  		RootnodeComponent,
+    NodeDeleteDialogComponent
 	],
 	imports: [
 		FormsModule,
