@@ -27,6 +27,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
   constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
     this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     this.initialiseDraggable();
+    this.store.dispatch(new AddRootNode(this._root))
   }
 
   ngOnInit(): void {
@@ -119,7 +120,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
               const target = event.target;
               const nodeId = event.target.id;
               const node = that.store.selectSnapshot(WorkspaceState).rootNode;
-              
+
               if(node!=null){
                 //Update node coordinates
                 node.positionX = target.getAttribute('data-x')
