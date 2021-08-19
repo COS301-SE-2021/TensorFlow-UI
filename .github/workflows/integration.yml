@@ -17,7 +17,7 @@ jobs:
           node-version: 12
       - name: Install and Run npm testing
         run: npm install
-          npm test
+             npm test
         working-directory: ./Frontend
       - name: Archive test artifacts
         uses: actions/upload-artifact@v2

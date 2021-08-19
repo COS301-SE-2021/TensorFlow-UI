@@ -31,11 +31,15 @@ import {
 	TFZeros
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
 export interface SettingsPageData {
 	projectName: string,
 	projectDetails: string
-
 }
 
 @Component({
@@ -181,6 +185,28 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
+  /*showProjectDetails(){
+    const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
+      {
+        disableClose: true,
+        data: {projectName: this.projectName, projectDetails: this.projectDetails}
+      }
+      );
+
+    projectDetailsDialog.afterClosed().subscribe(result => {
+      const detailsAdded = projectDetailsDialog.disableClose;
+
+      if(detailsAdded){
+        //Add to details to ngxs storage and display snackbar
+        const dialogData = projectDetailsDialog.componentInstance;
+        let dataOK: boolean = false;
+        if(dialogData.projectName!=undefined && dialogData.projectDescription!=undefined){
+          dataOK = true;
+        }
+        this.projectDetailsUpdatedSnackbar(dataOK);
+      }
+    })
+  }*/
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
