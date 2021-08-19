@@ -29,8 +29,28 @@ Demo 2 Documentation:
 -Architectural Document: https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing
 -SRSv2: https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing
 
+Demo 3:
+
 GitHub Project Board Link:
 https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2
+
+Coding Standards Document:
+https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Standards-Document.pdf
+
+Technical Installation Guide:
+https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Technical_Installation_Guide.pdf
+
+User Manual:
+https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Tensorflow-UI_User-manual.pdf
+
+SRS v3:
+https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-SRS.pdf
+
+Architectural Constraints:
+https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-Architectural-Requirements.pdf
+
+Demo 3 Video Link:
+https://drive.google.com/file/d/1cfWd-rA-IibknltVeRjOyc_gwND0TC6h/view?usp=sharing
 
 Profile Description of each Member of Try Catch Degree:
 -Felipe Jorge
