@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 from flask import Flask, flash, request, redirect, url_for
 from io import StringIO
@@ -28,6 +29,9 @@ def hello():
 # TODO make sure console readings etc are displayed to user on webpage
 @server.route("/upload", methods=['GET', 'POST'])
 def upload_file():
+	old_stdout = sys.stdout
+	sys.stdout = mystdout = StringIO()
+
 	if request.method == 'POST':
 		if 'file' not in request.files:
 			flash('No file part')
@@ -41,9 +45,9 @@ def upload_file():
 			saved_path = os.path.join(server.config['UPLOAD_FOLDER', filename])
 			file.save(saved_path)
 
-			exec(open(saved_path))
+   			exec(open(saved_path))
 
-			return redirect(url_for('download_file', name=filename))
+			return mystdout.getvalue
 
 # upload script for JSON objects
 # TODO convert JSON upload to python code - need structure for this to work

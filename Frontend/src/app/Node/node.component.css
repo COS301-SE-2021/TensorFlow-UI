@@ -1,6 +1,6 @@
 .draggableNode {
-    width: 13%;
-    height: 9.3%;
+    width: 50px;
+    height: 50px;
     background-color: #29e;
     border: 2px solid black;
     color: red;
@@ -8,6 +8,7 @@
     user-select: none;
     transform: translate(0px,0px);
     border-radius: 4%;
+    position: relative;
 }
 
 .componentButton{

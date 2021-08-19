@@ -8,10 +8,6 @@ import {Component, ViewChild, AfterViewInit } from '@angular/core';
 export class AppComponent implements AfterViewInit{
   title = 'Frontend';
 
-  //@ViewChild(ComponentsModule) child;
-
-  createNodeBool: Boolean;
-
   constructor() {
 
   }
