@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkspaceBoundaryComponent } from './workspace-boundary.component';
+import {NgxsModule} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace";
 
 describe('WorkspaceBoundaryComponent', () => {
   let component: WorkspaceBoundaryComponent;
@@ -8,6 +10,11 @@ describe('WorkspaceBoundaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        NgxsModule.forRoot([
+          WorkspaceState
+        ]),
+      ],
       declarations: [ WorkspaceBoundaryComponent ]
     })
     .compileComponents();

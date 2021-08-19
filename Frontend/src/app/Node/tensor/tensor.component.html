@@ -1,8 +1,15 @@
-<div class="draggableNode">
-    <mat-list>
+<div *ngIf="_TFNodeData && _TFNodeData.type == 'Tensor'" class="draggableNode" id="{{TFNodeData.name}}" (mousemove)="reload()">
+    <mat-label>
         <div class="nodeName">
-            <p>Node: {{TFNodeData.name}}</p>
+            <p>{{TFNodeData.selector}}</p>
         </div>
+        <mat-list>
+            <button id="deleteButton" mat-icon-button (click)="deleteTFNode()">
+                <mat-icon>-</mat-icon>
+            </button>
+        </mat-list>
+    </mat-label>
+    <mat-list style="position: relative">
+        <app-input [TFNodeData]="_TFNodeData"></app-input>
     </mat-list>
-    <app-input [_inputCount]="TFNodeData.count"></app-input>
 </div>

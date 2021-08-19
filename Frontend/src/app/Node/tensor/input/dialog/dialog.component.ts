@@ -19,5 +19,5 @@ export class DialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+//ToDo: Add module for dialog so providers can be added for the Dialog
 }

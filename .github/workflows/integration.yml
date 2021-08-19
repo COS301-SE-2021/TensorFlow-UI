@@ -1,0 +1,26 @@
+name: Integration Testing Frontend
+
+on:
+  pull_request:
+  push:
+    branches: [ master ,development, Frontend_Development, Frontend_Development_Workspace]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-Node@v1
+        with:
+          node-version: 12
+      - name: Install and Run npm testing
+        run: npm install
+          npm test
+        working-directory: ./Frontend
+      - name: Archive test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Integration Tests acrhive
+          path: IntegrationTestsArchive.txt

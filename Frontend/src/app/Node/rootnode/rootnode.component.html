@@ -1,0 +1,13 @@
+<div class="draggableNode" *ngIf="_root" id="{{_root.name}}" (mousemove)="reload()">
+    <div class="nodeName">
+        Start
+    </div>
+    <mat-form-field style="width: 100%; position: center">
+        <mat-select [(value)]="selectedNode" (selectionChange)="linkNodes(selectedNode)">
+            <mat-option *ngFor="let node of this.nodes" [value]="node.name"
+                        [ngStyle]="{ display: node.name==_root.name ? 'none': 'block'}">
+                {{node.selector}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

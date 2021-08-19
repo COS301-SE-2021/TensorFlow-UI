@@ -1,7 +1,15 @@
-<div class="workspace-boundary">
+<div class="workspace-boundary" id="workspace-boundary">
 
-    <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>
+<!--    <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>-->
 
-<!--    <app-tensor *ngFor="let node of this.data.TFTensors" [_TFNodeData]="node"></app-tensor>-->
+    <app-rootnode *ngIf="root.root" [_root]="root.root"></app-rootnode>
+    <!-- Part of the new UI section-->
+     <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>
+     <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>
 
+</div>
+
+<div class="importFromCommunity" id="importFromCommunity">
+  <div><h1>Import From Community Library:</h1></div>
+  <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
 </div>

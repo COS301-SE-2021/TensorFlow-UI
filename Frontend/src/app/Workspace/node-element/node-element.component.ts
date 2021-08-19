@@ -6,18 +6,26 @@ import {FormControl} from '@angular/forms';
 import * as LeaderLine from "leader-line-new"
 import {DOCUMENT} from "@angular/common";
 import {Store} from "@ngxs/store";
-import {WorkspaceState,AddLineConnectorToStorage,UpdateNodeInStorage} from '../../../Storage/workspace'
+import {
+  WorkspaceState,
+  AddLineConnectorToStorage,
+  UpdateNodeInStorage,
+  RemoveNodeFromStorage, RemoveLineFromStorage
+} from '../../../Storage/workspace'
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-node-element',
 	templateUrl: './node-element.component.html',
 	styleUrls: ['./node-element.component.css']
 })
-export class NodeElementComponent implements OnInit,AfterViewInit {
+
+export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
 	private lastSelected: Array<string>;
+    public selectOptions: string[];
 
 	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.initialiseDraggable();
@@ -26,6 +34,16 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 	//Initialises the lastSelected string array
 	ngOnInit(): void {
     this.lastSelected = [];
+    this.selectOptions = [];
+        if(this.data.nodes) {
+          for (let i = 0; i < this.data.nodes.length; ++i) {
+            if (this.data.nodes[i]) {
+              if (this.data.nodes[i].name != this.nodeData.name) {
+                this.selectOptions.push(this.data.nodes[i].name);
+              }
+            }
+          }
+        }
 	}
 
   /*
@@ -34,27 +52,29 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
     - All lines are redrawn onto the canvas for each Node
   */
   ngAfterViewInit(){
-    const node = document.getElementById(this.nodeData.name);
+    if(this.nodeData){
+      const node = document.getElementById(this.nodeData.name);
 
-    if(node!=null ) {
-      node.style.transform = 'translate(' + Number(this.nodeData.x) + 'px, ' + Number(this.nodeData.y) + 'px)'
+      if(node!=null ) {
+        node.style.transform = 'translate(' + Number(this.nodeData.x) + 'px, ' + Number(this.nodeData.y) + 'px)'
 
-      node.setAttribute('data-x',this.nodeData.x.toString());
-      node.setAttribute('data-y',this.nodeData.y.toString());
-    }
+        node.setAttribute('data-x',this.nodeData.x.toString());
+        node.setAttribute('data-y',this.nodeData.y.toString());
+      }
 
-    //All lines saved to the ngxs storage retrieved here
-    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+      //All lines saved to the ngxs storage retrieved here
+      const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
 
-    //Load all connectors which exist for a Node from the storageLines array
-    for(let i=0; i<storageLines.length; ++i) {
-      /*
-       - If line is the endPoint of a connector then load it
-       - Cannot use the start as the end node will/might not have been created yet
-        (e.g. Node 1 has been loaded but not Node2, start exists but end doesn't)
-      */
-      if(storageLines[i].end == this.nodeData.name){
-        this.loadLineFromStorageToCanvas(storageLines[i]);
+      //Load all connectors which exist for a Node from the storageLines array
+      for(let i=0; i<storageLines.length; ++i) {
+        /*
+         - If line is the endPoint of a connector then load it
+         - Cannot use the start as the end node will/might not have been created yet
+          (e.g. Node 1 has been loaded but not Node2, start exists but end doesn't)
+        */
+        if(storageLines[i].end == this.nodeData.name){
+          this.loadLineFromStorageToCanvas(storageLines[i]);
+        }
       }
     }
   }
@@ -117,11 +137,10 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 
 	  //lastSelected used because simply using data from the nodesArray is not sufficient
     for(let i=0; i<this.nodesArray.value.length; ++i){
-      if(this.lastSelected.indexOf(this.nodesArray.value[i].name) === -1){
-        this.lastSelected.push(this.nodesArray.value[i].name);
+      if(this.lastSelected.indexOf(this.nodesArray.value[i]) === -1){
+        this.lastSelected.push(this.nodesArray.value[i]);
       }
     }
-
 	  const lineStartName = this.nodeData.name;
 	  const lineEndName = this.lastSelected[this.lastSelected.length-1];
 
@@ -190,6 +209,55 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
   }
 
 	// Redraw lines for each component on mousemove
+	openDeleteDialog(){
+	  // const dialog= this.dialog.open(NodeDeleteDialog, {
+	  //   data: {nodeData2: this.nodeData}
+    // });
+    //
+    //
+	  // dialog.afterClosed().subscribe(result => {
+    //   const deleteNodeBoolean = dialog.disableClose;
+    //
+    //   if(deleteNodeBoolean){
+    //     // this.data.nodes.filter(element => element.name == this.nodeData.name);
+    //     for(let i=0; i<this.data.nodes.length; ++i){
+    //       if(this.data.nodes[i].name == this.nodeData.name){
+    //         // delete this.data.nodes[i];
+    //         const index: number = this.data.nodes.indexOf(this.nodeData);
+    //
+    //         if(index!=-1){
+    //           this.data.nodes.splice(index,1);
+    //         }
+    //         //go through line connectors here
+    //         while(true){
+    //           let line = this.data.lineConnectorsList.find(element => element.end == this.nodeData.name || element.start == this.nodeData.name)
+    //           //console.log("Line to be deleted: " + JSON.stringify(line));
+    //           if(line != undefined) {
+    //             this.store.dispatch((new RemoveLineFromStorage(line)))
+    //             console.log(line)
+    //             line.line?.remove();
+    //             this.data.lineConnectorsList.splice(this.data.lineConnectorsList.indexOf(line),1)
+    //           }else break;
+    //         }
+    //         //console.log(this.data.lineConnectorsList)
+    //         this.store.dispatch(new RemoveNodeFromStorage(this.nodeData.name))
+    //       }
+    //     }
+    //
+    //   }
+    // })
+  }
+
+	updateSelectedOptions(){
+    this.selectOptions = [];
+    for(let i=0; i<this.data.nodes.length;++i){
+      if(this.data.nodes[i].name != this.nodeData.name){
+        this.selectOptions.push(this.data.nodes[i].name);
+      }
+    }
+  }
+
+	// Redraw lines for each component.
 	reload() {
 		if (this.data?.lineConnectorsList != null) {
 			if (this.data.lineConnectorsList.length > 0) {
@@ -197,25 +265,27 @@ export class NodeElementComponent implements OnInit,AfterViewInit {
 
 					const start = this.data.lineConnectorsList[i].start;
 					let end = this.data.lineConnectorsList[i].end;
-            // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							// size: 6,
-							// outlineColor: '#red',
-							// outline: true,
-							// endPlugOutline: true,
-							// dash: true,
-							// path: 'arc',
-              path: 'grid',
-              startPlug: 'disc',
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
 
-					);
+          if(this.document.getElementById(start) && this.document.getElementById(end)){
 
+            this.data.lineConnectorsList[i].line?.remove();
+
+            this.data.lineConnectorsList[i].line = new LeaderLine(
+              this.document.getElementById(start),
+              this.document.getElementById(end), {
+                // size: 6,
+                // outlineColor: '#red',
+                // outline: true,
+                // endPlugOutline: true,
+                // dash: true,
+                // path: 'arc',
+                path: 'grid',
+                startPlug: 'disc',
+                startSocket: 'auto',
+                endSocket: 'auto'
+              }
+            );
+          }
 				}
 			}
 		}
