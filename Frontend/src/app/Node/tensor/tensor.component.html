@@ -3,6 +3,11 @@
         <div class="nodeName">
             <p>{{TFNodeData.selector}}</p>
         </div>
+        <mat-list>
+            <button id="deleteButton" mat-icon-button (click)="deleteTFNode()">
+                <mat-icon>-</mat-icon>
+            </button>
+        </mat-list>
     </mat-label>
     <mat-list style="position: relative">
         <app-input [TFNodeData]="_TFNodeData"></app-input>

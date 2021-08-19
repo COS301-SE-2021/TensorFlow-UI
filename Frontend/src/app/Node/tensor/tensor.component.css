@@ -23,3 +23,13 @@
     border-top-right-radius: 10%;
     border-top-left-radius: 10%;
 }
+
+#deleteButton{
+    position: absolute;
+    right: -5%;
+    top: -10%;
+}
+
+#deleteButton mat-icon{
+    color: black;
+}
