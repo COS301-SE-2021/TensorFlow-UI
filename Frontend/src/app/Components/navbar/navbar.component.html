@@ -18,7 +18,7 @@
           <button class="toolbarButton" id="redoButton" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
             Redo
           </button>
-          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary">Generate Code</button>
+          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
           <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
                   (click)="clearCanvas()">
             Clear/Reset Canvas
@@ -32,11 +32,11 @@
       </mat-menu>
 
       <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tensorList" (click)="createNode(item)">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of tftensor" (click)="createComponent(item)">{{item}}</button>
       </mat-menu>
 
       <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of functionsList" (click)="createFunctionalNode(item)">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
       </mat-menu>
 
     </mat-toolbar>
@@ -51,13 +51,16 @@
                         expand_more
                     </mat-icon>
                 </mat-list-item>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <app-import></app-import>
+              </div>
+              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+                <app-export></app-export>
+              </div>
                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                   <button class="navigationButton" mat-raised-button color="primary">
                     Create New Project
                   </button>
-                </div>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                    <app-export></app-export>
                 </div>
                 <!-- This is for the V2 section of the node creation. -->
 <!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
@@ -66,7 +69,7 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-            <app-workspace-boundary>
+            <app-workspace-boundary [TFNodes]="TFNodeList">
             </app-workspace-boundary>
         </mat-sidenav-content>
     </mat-sidenav-container>

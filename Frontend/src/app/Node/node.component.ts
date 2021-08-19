@@ -33,67 +33,19 @@ export class Node implements OnInit {
   nodesArray = new FormControl();
 
   constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
-    this.initialiseDraggable();
   }
 
   ngOnInit(): void {
   }
 
-  //Initialise the drag functionality for each node-element.
-  initialiseDraggable() {
-    const that = this;
-    interact('.draggableNode')
-        .draggable({
-          inertia: true,
-          modifiers: [
-            interact.modifiers.restrictRect({
-              restriction: '.workspace-boundary',
-              endOnly: true
-            })
-          ],
-          autoScroll: true,
-          listeners: {
-            move: this.dragListener,
-            end(event) {
-              console.log(event.target);
-
-              const target = event.target;
-              const nodeId = event.target.id;
-              const node = that.data.nodes.find(element => element.name == nodeId);
-
-              if(node!=null){
-                //Update node coordinates
-                node.x = target.getAttribute('data-x')
-                node.y = target.getAttribute('data-y')
-
-                //Update Node coordinates in the storage
-                that.store.dispatch(new UpdateNodeInStorage(node));
-              }
-            }
-          }
-        });
-  }
-
-  dragListener(event) {
-    const target = event.target;
-    // keep the dragged position in the data-x/data-y attributes
-    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-    // translate the element
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-
-    // update the position attributes
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
-
-  }
+  //Initialise the
 
   // Initial linking between two node elements.
   linkNodes() {
-
+    let otherNode = this.nodesArray.value[this.nodesArray.value.length - 1];
     const lineStartName = this.nodeData.name;
-    const lineEndName = this.nodesArray.value[this.nodesArray.value.length - 1].name.toString();
+    const lineEndName = otherNode.name.toString();
+
     const lineObj = new LeaderLine(
         this.document.getElementById(this.nodeData.name),
         this.document.getElementById(this.nodesArray.value.name.toString()), {
@@ -113,35 +65,15 @@ export class Node implements OnInit {
           end: lineEndName,
           line: lineObj,
         }
-    );}
+    );
 
-  // Redraw lines for each component.
-  reload() {
-    if (this.data?.lineConnectorsList != null) {
-      if (this.data.lineConnectorsList.length > 0) {
-        for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
-
-          const start = this.data.lineConnectorsList[i].start;
-          let end = this.data.lineConnectorsList[i].end;
-          // @ts-ignore
-          this.data.lineConnectorsList[i].line.remove();
-          this.data.lineConnectorsList[i].line = new LeaderLine(
-              this.document.getElementById(start),
-              this.document.getElementById(end), {
-                size: 6,
-                outlineColor: '#red',
-                outline: true,
-                endPlugOutline: true,
-                dash: true,
-                path: 'arc',
-                startSocket: 'auto',
-                endSocket: 'auto'
-              }
-
-          );
-
-        }
-      }
+    //Setting the children of the newly connected nodes
+    let node = this.data.TFOperator.find(element => element.name == lineStartName);
+    console.log("Node found from array: " + JSON.stringify(node))
+    if (otherNode.childOne == undefined) {
+      otherNode.childOne = node
+    }else{
+      otherNode.childTwo = node
     }
   }
 

@@ -14,6 +14,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
+import { RootnodeComponent } from './rootnode/rootnode.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {MatSelectModule} from "@angular/material/select";
 		InputComponent,
 		DialogComponent,
 		Node,
-  OperatorComponent
+		OperatorComponent,
+  		RootnodeComponent
 	],
 	imports: [
 		FormsModule,
@@ -36,13 +39,15 @@ import {MatSelectModule} from "@angular/material/select";
 		MatTableModule,
 		ReactiveFormsModule,
 		MatSelectModule,
+		MatIconModule,
 	],
 	exports: [
 		TensorComponent,
 		InputComponent,
 		DialogComponent,
 		Node,
-		OperatorComponent
+		OperatorComponent,
+		RootnodeComponent
 	],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

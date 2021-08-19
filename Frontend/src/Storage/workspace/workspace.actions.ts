@@ -34,7 +34,7 @@ export class AddLineConnectorToStorage{
 export class ChangeBooleanValue{
   public static readonly type = '[Workspace] Change Boolean';
 
-  constructor(public element: Boolean){}
+  constructor(public element: boolean){}
 }
 
 export class AddTFNode{
@@ -56,7 +56,45 @@ export class UpdateTFNode{
 }
 
 export class AddRootNode{
-  public static readonly type = '[Workspace] add RootNode';
+  public static readonly type = '[Workspace] Add RootNode';
 
   constructor(public root: TFNode){}
+}
+
+export class AddProjectName{
+  public static readonly type = '[Workspace] Add Project Name';
+
+  constructor(public name: string){}
+}
+
+export class AddProjectDescription{
+  public static readonly type = '[Workspace] Add Project Description';
+  constructor(public description: string){}
+}
+
+export class RemoveLineConnection {
+  public static readonly type = '[Workspace] remove Line';
+
+  constructor(public node: string) {
+  }
+}
+
+export class UpdateLineConnection {
+  public static readonly type = '[Workspace] Update Line';
+
+  constructor(public line: lineConnectors) {
+  }
+}
+
+export class RemoveLineConnectionOne {
+  public static readonly type = '[Workspace] Remove Line1';
+
+  constructor(public node: TFNode) {
+  }
+}
+
+export class RemoveLineConnectionTwo {
+  public static readonly type = '[Workspace] Remove Line2';
+
+  constructor(public node: TFNode) {}
 }

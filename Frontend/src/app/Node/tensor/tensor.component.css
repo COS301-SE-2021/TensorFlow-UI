@@ -1,8 +1,8 @@
 .draggableNode {
-    width: 10%;
-    height: 15%;
+    width: 8%;
+    height: 13%;
     background-color: #767f7f;
-    border: 2px solid black;
+    border: 1px solid black;
     /*color: red;*/
     touch-action: none;
     user-select: none;
@@ -22,4 +22,14 @@
     background-color: #ff8c00;
     border-top-right-radius: 10%;
     border-top-left-radius: 10%;
+}
+
+#deleteButton{
+    position: absolute;
+    right: -5%;
+    top: -10%;
+}
+
+#deleteButton mat-icon{
+    color: black;
 }
