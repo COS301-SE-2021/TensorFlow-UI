@@ -32,7 +32,9 @@ describe('ProjectListComponent', () => {
   describe('projectImport', ()=>{
     it('should call the API.importData(string) function and get the list of projects', ()=> {
 
+      component.projectImport("Test4.json");
 
+      expect(component).toBeTruthy()
     })
   })
 });
