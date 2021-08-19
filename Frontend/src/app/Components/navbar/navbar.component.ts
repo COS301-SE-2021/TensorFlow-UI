@@ -181,6 +181,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
+
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
 	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
