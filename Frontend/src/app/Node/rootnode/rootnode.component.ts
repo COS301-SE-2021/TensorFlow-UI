@@ -30,7 +30,13 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new AddRootNode(this._root))
+    let temp = this.store.selectSnapshot(WorkspaceState).rootNode;
+    console.log(temp)
+    if(temp != null) {
+      this._root = temp
+      console.log("rootNode: "+ JSON.stringify(temp))
+    }
+    else this.store.dispatch(new AddRootNode(this._root))
   }
 
   ngAfterViewInit() {
@@ -110,8 +116,8 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 
               const target = event.target;
               const nodeId = event.target.id;
-              const node = that.store.selectSnapshot(WorkspaceState).TFNode.find(element => element.name == nodeId);
-
+              const node = that.store.selectSnapshot(WorkspaceState).rootNode;
+              
               if(node!=null){
                 //Update node coordinates
                 node.positionX = target.getAttribute('data-x')
@@ -124,7 +130,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 
           }
         });
-    this.store.dispatch(new AddRootNode(this._root))
+    //this.store.dispatch(new AddRootNode(this._root))
   }
 
   dragListener(event) {
