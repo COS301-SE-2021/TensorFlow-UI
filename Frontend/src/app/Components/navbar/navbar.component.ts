@@ -140,6 +140,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		}
 		this.linesList = [];
 
+    let root = this.store.selectSnapshot(WorkspaceState).rootNode
+    root.childOne = undefined;
+    this.store.dispatch(new AddRootNode(root))
 
 		this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
 		this.TFNodeList = [];
