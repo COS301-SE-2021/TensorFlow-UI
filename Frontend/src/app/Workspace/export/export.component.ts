@@ -10,7 +10,7 @@ import {GitAPI} from "../../git-api";
   styleUrls: ['./export.component.css']
 })
 export class ExportComponent implements OnInit {
-  constructor(private store: Store) { }
+  constructor(public store: Store) { }
   public API: GitAPI= new GitAPI(this.store);
 
   ngOnInit(): void {
@@ -20,33 +20,37 @@ export class ExportComponent implements OnInit {
     this.API.GetList();
   }
 
-  exportToPc(){
+  exportToPc(): boolean{
     //const procName = this.store.selectSnapshot(WorkspaceState).projectName;
     var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
+      return false;
     } else {
       //const procDescription = this.store.selectSnapshot(WorkspaceState).projectDescription;
       var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
       var file = this.createDoc(description);
       this.download(file, exportAs+'.json');
     }
-
+    return true;
   }
 
-  download(file, fileName) {
+  download(file, fileName){
+
     var a = document.createElement("a");
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
+
   }
 
-  exportToLib() {
+  exportToLib(): boolean {
     //const storageProject = this.store.selectSnapshot(WorkspaceState).project;
     this.API.GetList();
     var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
     if (exportAs == null || exportAs == ""){
       alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
+      return false;
     } else {
       var exists = false;
 
@@ -58,6 +62,7 @@ export class ExportComponent implements OnInit {
       }
       if (exists){
         alert('Export failed:\nA file with the same name already exists in the library.');
+        return false;
       } else {
         var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
         var file = this.createDoc(description);
@@ -72,14 +77,15 @@ export class ExportComponent implements OnInit {
         }
       }
     }
+    return true;
   }
 
-  createDoc(descript){
+  createDoc(description){
     //Export Functionality: Export retrieves data from storage here.
     const storageNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
     let doc = {};
-    doc['description'] = descript;
+    doc['description'] = description;
     doc['TFNode'] = storageNodes;
     doc['lines'] = storageLines;
     let jsonDta = JSON.stringify(doc);

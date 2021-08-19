@@ -16,6 +16,7 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Import project data and based on the result, either display or hide the workspace and show/hide the import page
   projectImport(ID){
     this.API.importData(ID);
 

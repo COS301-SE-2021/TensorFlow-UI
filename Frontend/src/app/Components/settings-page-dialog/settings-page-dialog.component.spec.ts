@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsPageDialogComponent } from './settings-page-dialog.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
+import {NgxsModule} from "@ngxs/store";
+import {WorkspaceState} from "../../../Storage/workspace";
 
 describe('SettingsPageDialogComponent', () => {
   let component: SettingsPageDialogComponent;
@@ -7,7 +11,16 @@ describe('SettingsPageDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsPageDialogComponent ]
+      imports: [NgxsModule.forRoot([
+        WorkspaceState
+      ])],
+      declarations: [ SettingsPageDialogComponent ],
+      providers: [
+        {provide: MAT_DIALOG_DATA, useValue: {}},
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+        {provide: MatSnackBarRef, useValue: {}}
+      ],
     })
     .compileComponents();
   });
@@ -18,7 +31,7 @@ describe('SettingsPageDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

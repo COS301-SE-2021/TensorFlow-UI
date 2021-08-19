@@ -25,7 +25,7 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 	@Input() nodeData: NodeData
 	nodesArray = new FormControl();
 	private lastSelected: Array<string>;
-  public selectOptions: string[];
+    public selectOptions: string[];
 
 	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.initialiseDraggable();
@@ -35,15 +35,15 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
     this.lastSelected = [];
     this.selectOptions = [];
-    if(this.data.nodes) {
-      for (let i = 0; i < this.data.nodes.length; ++i) {
-        if (this.data.nodes[i]) {
-          if (this.data.nodes[i].name != this.nodeData.name) {
-            this.selectOptions.push(this.data.nodes[i].name);
+        if(this.data.nodes) {
+          for (let i = 0; i < this.data.nodes.length; ++i) {
+            if (this.data.nodes[i]) {
+              if (this.data.nodes[i].name != this.nodeData.name) {
+                this.selectOptions.push(this.data.nodes[i].name);
+              }
+            }
           }
         }
-      }
-    }
 	}
 
   /*
