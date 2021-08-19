@@ -7,12 +7,13 @@ import {DOCUMENT} from "@angular/common";
 import {
     AddLineConnectorToStorage,
     RemoveLineConnectionOne,
-    RemoveLineConnectionTwo,
+    RemoveLineConnectionTwo, RemoveLineFromStorage, RemoveTFNode,
     UpdateNodeInStorage, UpdateTFNode,
     WorkspaceState
 } from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
 import interact from "interactjs";
+import {lineConnectors} from "../../node-data";
 
 @Component({
     selector: 'app-operator',
@@ -49,6 +50,23 @@ export class OperatorComponent implements OnInit, AfterViewInit {
                 }
             }
         }
+    }
+
+    deleteTFNode(){
+        this.store.dispatch(new RemoveTFNode(this._TFNodeDataOperator));
+        var temp = document.getElementById("")
+        const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+        let lineObject: LeaderLine;
+        for (let i = 0; i < templine.length; i++) {
+            if(templine[i].start === this._TFNodeDataOperator.name || templine[i].end === this._TFNodeDataOperator.name) {
+                {
+                    lineObject = templine[i]["line"];
+                    this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+                    lineObject?.remove();
+                }
+            }
+        }
+
     }
 
     // Initial linking between two node elements.

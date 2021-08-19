@@ -15,6 +15,7 @@ import {MatTableModule} from "@angular/material/table";
 import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
 import { RootnodeComponent } from './rootnode/rootnode.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { RootnodeComponent } from './rootnode/rootnode.component';
 		MatTableModule,
 		ReactiveFormsModule,
 		MatSelectModule,
+		MatIconModule,
 	],
 	exports: [
 		TensorComponent,

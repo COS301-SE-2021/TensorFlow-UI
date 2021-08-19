@@ -90,9 +90,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				this.store.dispatch(new RemoveLineFromStorage(this.linesList[i]));
 
 				this.store.dispatch(new AddLineConnectorToStorage({
-					end: lineStartName,
+					end: lineEndName,
 					line: lineObj,
-					start: lineEndName
+					start: lineStartName
 
 				}))
 			}

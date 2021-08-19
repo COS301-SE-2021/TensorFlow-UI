@@ -135,7 +135,7 @@ export class WorkspaceState{
   }
 
   @Action(RemoveTFNode)
-  public removeTFOperator(stateContext: StateContext<WorkspaceStateModel>, { node }: RemoveTFNode){
+  public removeTFNode(stateContext: StateContext<WorkspaceStateModel>, { node }: RemoveTFNode){
     stateContext.setState(
       patch({
         TFNode: removeItem<TFNode>(element => element === node)

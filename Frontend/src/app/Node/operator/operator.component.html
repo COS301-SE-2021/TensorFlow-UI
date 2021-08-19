@@ -1,10 +1,15 @@
 <div *ngIf="_TFNodeDataOperator && _TFNodeDataOperator.type == 'Operator'" class="draggableNode"
      id="{{_TFNodeDataOperator.name}}" (mousemove)="reload()">
-    <mat-label>
+    <mat-list>
         <div class="nodeName">
             <p>{{_TFNodeDataOperator.selector}}</p>
         </div>
-    </mat-label>
+    </mat-list>
+    <mat-list>
+        <button id="deleteButton" mat-icon-button (click)="deleteTFNode()">
+            <mat-icon>-</mat-icon>
+        </button>
+    </mat-list>
     <mat-list style="position: relative">
         <mat-form-field style="width: 50%">
             <mat-label style="width: 50%">X</mat-label>
