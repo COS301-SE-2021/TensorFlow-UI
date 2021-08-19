@@ -2,12 +2,12 @@
     width: 8%;
     height: 13%;
     background-color: #767f7f;
-    border: 6px solid black;
+    border: 3px solid black;
     /*color: red;*/
     touch-action: none;
     user-select: none;
     transform: translate(0px,0px);
-    /*border-radius: 4%;*/
+    border-radius: 4%;
     position: absolute;
 }
 
