@@ -136,7 +136,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		for (let i = 0; i < templine.length; i++) {
 			lineObject = templine[i]["line"];
 			this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-			lineObject != undefined ? lineObject.remove() : "";
+			lineObject?.remove()
 		}
 		this.linesList = [];
 
@@ -337,5 +337,4 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
-
 }

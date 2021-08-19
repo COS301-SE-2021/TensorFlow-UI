@@ -8,7 +8,7 @@ export class TFGraph {
 	  if(current != undefined ) {
       stringCode += this.generateCode(current.childOne);
       stringCode += this.generateCode(current.childTwo);
-      stringCode += current.code() + "\n";
+      stringCode += (<TFNode>current).code() + "\n";
     }
     return stringCode;
   }
