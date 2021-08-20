@@ -31,10 +31,6 @@ import {
 	TFZeros
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
 export interface SettingsPageData {
