@@ -22,35 +22,30 @@ Our aim with this project is to make ML more accessible,
 and therefore allow the many benefits of machine learning to be used by more people,
 through lowering the barrier to entry of writing and training a model.
 
-Demo 2 - Video Link:
--https://drive.google.com/file/d/1HYKk4OLOlKEgtJXqOwwZIoP1omYD7oSF/view?usp=sharing
+### Demo 2:
 
-Demo 2 Documentation:
--Architectural Document: https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing
--SRSv2: https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing
+[Demo 2 Video](https://drive.google.com/file/d/1HYKk4OLOlKEgtJXqOwwZIoP1omYD7oSF/view?usp=sharing)
 
-Demo 3:
+[Architectural Document](https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing)
 
-GitHub Project Board Link:
-https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2
+[SRSv2](https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing)
 
-Coding Standards Document:
-https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Standards-Document.pdf
+### Demo 3
 
-Technical Installation Guide:
-https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Technical_Installation_Guide.pdf
+[GitHub Project Board](https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2)
 
-User Manual:
-https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Tensorflow-UI_User-manual.pdf
+[Coding Standards](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Standards-Document.pdf)
 
-SRS v3:
-https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-SRS.pdf
+[Technical Installation Guide](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Technical_Installation_Guide.pdf)
 
-Architectural Constraints:
-https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-Architectural-Requirements.pdf
+[User Manual](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Tensorflow-UI_User-manual.pdf)
 
-Demo 3 Video Link:
-https://drive.google.com/file/d/1cfWd-rA-IibknltVeRjOyc_gwND0TC6h/view?usp=sharing
+[SRSv3](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-SRS.pdf)
+
+[Architectural Constraints](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-Architectural-Requirements.pdf)
+
+[Demo 3 Video](https://drive.google.com/file/d/1cfWd-rA-IibknltVeRjOyc_gwND0TC6h/view?usp=sharing)
+
 
 Profile Description of each Member of Try Catch Degree:
 -Felipe Jorge
@@ -115,10 +110,8 @@ work on a project which makes it more accessible.
 ### APIs
   <img src="https://www.gstatic.com/devrel-devsite/prod/v0a30303ec7b067b5f3ae9ccc0662a5464fa8a5fb796392acd97bcfd40590684c/tensorflow/images/lockup.svg" width="200">
 
-  <img src="https://uploads.getpop.org/wp-content/uploads/2019/07/graphql.png" width="100">
-
 ### Backend
-![Spring-Boot](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![Docker](https://avatars.githubusercontent.com/u/5429470?s=200&v=4)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
 
