@@ -111,8 +111,5 @@ work on a project which makes it more accessible.
   <img src="https://www.gstatic.com/devrel-devsite/prod/v0a30303ec7b067b5f3ae9ccc0662a5464fa8a5fb796392acd97bcfd40590684c/tensorflow/images/lockup.svg" width="200">
 
 ### Backend
-![Docker](https://avatars.githubusercontent.com/u/5429470?s=200&v=4 | width=50)
+![Docker](https://avatars.githubusercontent.com/u/5429470?s=200&v=4)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-
-
-
