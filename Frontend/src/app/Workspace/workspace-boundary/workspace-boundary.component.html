@@ -1,9 +1,6 @@
-<div class="workspace-boundary" id="workspace-boundary">
-
-<!--    <app-node-element *ngFor="let node of this.data.nodes" [nodeData]="node"></app-node-element>-->
+<div class="workspace-boundary" id="workspace-boundary" (mousemove)="reload()">
 
     <app-rootnode *ngIf="root.root" [_root]="root.root"></app-rootnode>
-    <!-- Part of the new UI section-->
      <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>
      <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>
 

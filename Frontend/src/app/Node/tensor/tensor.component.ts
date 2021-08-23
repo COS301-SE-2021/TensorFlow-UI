@@ -38,18 +38,9 @@ export class TensorComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	// Redraw lines for each component.
+	// Reloads the list of components
 	reload() {
 		this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
-
-		if (this.store.select(WorkspaceState) != null && this.store.selectSnapshot(WorkspaceState).lines.length > 0) {
-			for (let i = 0; i < this.store.selectSnapshot(WorkspaceState).lines.length; i++) {
-
-				let l: LeaderLine;
-				l = this.store.selectSnapshot(WorkspaceState).lines[i]["line"];
-				l?.position();
-			}
-		}
 	}
 
 	initialiseDraggable() {
