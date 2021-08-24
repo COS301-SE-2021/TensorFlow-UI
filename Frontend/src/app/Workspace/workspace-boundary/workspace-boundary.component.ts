@@ -3,7 +3,6 @@ import {DataService} from "../../data.service";
 import {NodeData} from "../../node-data";
 import {TFGraph, TFNode} from "../../tf";
 import {Store} from "@ngxs/store";
-import projectList from "../import/import.component";
 import {WorkspaceState} from "../../../Storage/workspace";
 import * as LeaderLine from "leader-line-new";
 
@@ -13,7 +12,7 @@ import * as LeaderLine from "leader-line-new";
 	styleUrls: ['./workspace-boundary.component.css']
 })
 export class WorkspaceBoundaryComponent implements OnInit {
-  public projectL = projectList
+
 	@Input() TFNodes: TFNode[];
 
 	@Input() storageNode: NodeData[];
