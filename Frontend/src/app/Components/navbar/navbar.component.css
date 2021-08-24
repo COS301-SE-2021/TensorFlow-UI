@@ -138,3 +138,8 @@
   top:15%;
   cursor: pointer;
 }
+
+#importFromCommunity{
+  text-align: center;
+  display: none;
+}

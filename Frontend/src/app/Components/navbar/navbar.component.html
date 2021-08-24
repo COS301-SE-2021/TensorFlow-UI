@@ -67,6 +67,9 @@
 <!--                    <app-node></app-node>-->
 <!--                 </div>-->
             </mat-nav-list>
+            <div class="importFromCommunity" id="importFromCommunity">
+              <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
+            </div>
         </mat-sidenav>
         <mat-sidenav-content>
             <app-workspace-boundary [TFNodes]="TFNodeList">

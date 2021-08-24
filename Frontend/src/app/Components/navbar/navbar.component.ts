@@ -32,6 +32,7 @@ import {
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import projectList from "../../Workspace/import/import.component";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -48,6 +49,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
+  public projectL = projectList;
 
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
