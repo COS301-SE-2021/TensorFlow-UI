@@ -33,6 +33,7 @@ import {
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
+import {LiteGraph} from "litegraph.js";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -243,12 +244,24 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	createLiteNode(component:string) {
-		let node_const = litegraph.LiteGraph.createNode("basic/const");
-		node_const.pos = [200,200];
-		this.graph.add(node_const);
-		node_const.setValue(5.0);
+		//If the node we are creating is a tfNode, then create a basic/const
+		if(this.tftensor.includes(component)){
+			const node = new litegraph.LGraphNode();
+			node.title = component;
+			node.addOutput("Value","number")
+			node.pos = [200,200]; //ToDo: change this to be dynamic
+			this.graph.add(node);
+		}
+		else{
+			const node = new litegraph.LGraphNode();
+			node.title = component;
+			node.addInput("A","number"); //could be number,string and other types: TODO: Change to reflect all types
+			node.addInput("B","number");
+			node.addOutput("Result","number")
+			node.pos = [200,200];
+			this.graph.add(node);
+		}
 		this.graph.start();
-		node_const.title = component;
 	}
 
 	createComponent(component: string) {
@@ -373,5 +386,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				break;
 			}
 		}
+	}
+
+	binaryOperatorNode(){
+
 	}
 }

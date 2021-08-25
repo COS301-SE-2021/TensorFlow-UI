@@ -11,6 +11,7 @@
   display: none;
 }
 
-#workspaceCanvas{
+.lgraphcanvas{
   position: relative;
+  border: none;
 }

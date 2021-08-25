@@ -26,6 +26,7 @@ export class WorkspaceBoundaryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
 	}
 
 	reload() {
