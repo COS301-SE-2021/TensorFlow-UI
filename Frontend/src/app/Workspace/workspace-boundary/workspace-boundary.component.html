@@ -4,6 +4,8 @@
      <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>
      <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>
 
+    <button (click)="createLiteNode()">Click me!!</button>
+    <canvas id='mycanvas' width='1024' height='720' style='border: 1px solid'></canvas>
 </div>
 
 <div class="importFromCommunity" id="importFromCommunity">

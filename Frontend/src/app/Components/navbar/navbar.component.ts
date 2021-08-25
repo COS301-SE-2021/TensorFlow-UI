@@ -101,21 +101,21 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	// This adds a new node to the data service "nodes" array.
-	createNode(type: string) {
-		const nodeNum = this.data.nodes.length + 1;
-		const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
-		const nodeType = this.data.type;
-
-		this.data.nodes.push({
-			num: nodeNum,
-			name: nodeName,
-			type: nodeType,
-			value: type,
-			x: 0,
-			y: 0
-		});
-		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
-	}
+	// createNode(type: string) {
+	// 	const nodeNum = this.data.nodes.length + 1;
+	// 	const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
+	// 	const nodeType = this.data.type;
+	//
+	// 	this.data.nodes.push({
+	// 		num: nodeNum,
+	// 		name: nodeName,
+	// 		type: nodeType,
+	// 		value: type,
+	// 		x: 0,
+	// 		y: 0
+	// 	});
+	// 	this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
+	// }
 
 
 	addNodeToStorage(num, name, type, value, x, y) {
