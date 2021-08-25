@@ -33,7 +33,7 @@ import {
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
-import {LiteGraph} from "litegraph.js";
+import {LGraphNode, LiteGraph} from "litegraph.js";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
 
-	tftensor: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
+	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 	// TFList: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones", "Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 
@@ -244,11 +244,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	createLiteNode(component:string) {
-		//If the node we are creating is a tfNode, then create a basic/const
+		const temp = litegraph.LiteGraph.createNode("basic/const");
+		console.log(temp);
+
+
 		if(this.tftensor.includes(component)){
 			const node = new litegraph.LGraphNode();
 			node.title = component;
-			node.addOutput("Value","number")
+
+			this.insertTensorData(node,component);
+
 			node.pos = [200,200]; //ToDo: change this to be dynamic
 			this.graph.add(node);
 		}
@@ -388,7 +393,52 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	binaryOperatorNode(){
+	insertTensorData(node: LGraphNode, component: string){
+		switch (component){
+			case "Variable":{
+				node.addWidget("button", "initialValue", "tf.Tensor","variableName");
+				node.addWidget("toggle","trainable(optional)",false,"variableTrainable",{values: [true,false]})
+				node.addWidget("text","name(optional)","uniqueID","variableID");
+				node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addInput("tf.Tensor","Tensor");
+				node.addOutput("Variable","string");
+				//ToDo: Change how input is viewed
+				break;
+			}
+			case "Constant":{
+				node.addWidget("number","constant",0,"constant");
+				node.addOutput("Value","number")
+				break;
+			}
+			case "Fill":{
+				node.addWidget("text","shape","[0,4,2]","fillShape");
+				node.addWidget("text","value",0,"fillShape");
+				node.addWidget("combo","dtype(optional)","float","fillDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Fill","obj")
+				//Todo: Change default width
+				break;
+			}
+			case "Linspace":{
+				node.addWidget("number","start",0,"linspaceStart");
+				node.addWidget("number","stop",0,"linspaceStop");
+				node.addWidget("number","num",1,"linspaceNum");
+				node.addOutput("linspace sequence","Tensor1D")
+				break;
+			}
+			case "Zeros":{
+				node.addWidget("text","shape","[0,2,4]","zerosShape");
+				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Tensor zeros","Tensor")
+				break;
+			}
+			case "Ones":{
+				node.addWidget("text","shape","[0,2,4]","onesShape");
+				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Tensor ones","Tensor")
+				break;
+			}
+
+		}
 
 	}
 }
