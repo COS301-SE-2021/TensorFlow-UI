@@ -32,6 +32,7 @@ import {
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import * as litegraph from "litegraph.js";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -49,6 +50,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 
+	liteNodes: litegraph.LGraph[];
+	graph: litegraph.LGraph;
+
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 	// TFList: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones", "Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
@@ -65,6 +69,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
+
+		this.liteNodes = [];
+		this.graph = new litegraph.LGraph();
+
+		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
 	}
 
 
@@ -233,7 +242,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.TFNodeList.push(node);
 	}
 
+	createLiteNode(component:string) {
+		let node_const = litegraph.LiteGraph.createNode("basic/const");
+		node_const.pos = [200,200];
+		this.graph.add(node_const);
+		node_const.setValue(5.0);
+		this.graph.start();
+		node_const.title = component;
+	}
+
 	createComponent(component: string) {
+
+		this.createLiteNode(component);
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 		switch (component) {

@@ -10,3 +10,7 @@
 #importFromCommunity{
   display: none;
 }
+
+#workspaceCanvas{
+  position: relative;
+}
