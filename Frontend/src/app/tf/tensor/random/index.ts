@@ -1,0 +1,5 @@
+export * from "./TFRand"
+export * from "./TFMultinomial"
+export * from "./TFRandomGamma"
+export * from "./TFRandomNormal"
+export * from "./TFRandomUniform"
