@@ -239,158 +239,147 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	addNewNode(node: TFNode) {
 		this.store.dispatch(new AddTFNode(node));
+		// console.log(node.lGraphNode);
 		this.TFNodeList.push(node);
 	}
 
-	createLiteNode(component:string) {
-		const temp = litegraph.LiteGraph.createNode("basic/const");
+	createLiteNode(component:string, loadFromMemory: boolean): LGraphNode {
 
+        const node = new litegraph.LGraphNode();
+        node.title = component;
+        node.pos = [200,200]; //ToDo: change this to be dynamic
 		if(this.tftensor.includes(component)){
-			const node = new litegraph.LGraphNode();
-			node.title = component;
-
 			this.insertTensorData(node,component);
-
-			node.pos = [200,200]; //ToDo: change this to be dynamic
-			this.graph.add(node);
 		}
 		else{
-			const node = new litegraph.LGraphNode();
-			node.title = component;
-			// node.addInput("A","number"); //could be number,string and other types: TODO: Change to reflect all types
-			// node.addInput("B","number");
-			// node.addOutput("Result","number")
-
 			this.insertOperatorData(node,component);
-
-			node.pos = [200,200];
-			this.graph.add(node);
 		}
+        this.graph.add(node);
 		this.graph.start();
+
+		return node;
 	}
 
 	createComponent(component: string) {
 
-		this.createLiteNode(component);
+		const liteGraphNode = this.createLiteNode(component,false);
+		const links = this.graph.list_of_graphcanvas[0].graph.links;
+		console.log(liteGraphNode);
+		console.log(this.graph);
+		console.log(links);
+
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 		switch (component) {
 			case this.tftensor[0]: {
 				tfnode = new TFConstant();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[1]: {
 				tfnode = new TFVariable();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[2]: {
 				tfnode = new TFFill();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[3]: {
 				tfnode = new TFLinespace();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[4]: {
 				tfnode = new TFZeros();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[5]: {
 				tfnode = new TFOnes();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[0]: {
 				tfnode = new TFAdd();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[1]: {
 				tfnode = new TFAddN();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[2]: {
 				tfnode = new TFDivide();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[3]: {
 				tfnode = new TFMod();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[4]: {
 				tfnode = new TFNegative();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[5]: {
 				tfnode = new TFReciprocal();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[6]: {
 				tfnode = new TFScalarMul();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[7]: {
 				tfnode = new TFSigmoid();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[8]: {
 				tfnode = new TFSubtract();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[9]: {
 				tfnode = new TFMultiply();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			default: {
 				break;
 			}
 		}
+	}
+
+	//Sets all values which are the same across every switch statement
+	createComponentSwitchDefaults(node: TFNode,liteGraphNode: LGraphNode, component:string){
+		node.selector = component;
+		node.id = liteGraphNode.id;
+		node.positionX = liteGraphNode.pos[0];
+		node.positionY = liteGraphNode.pos[1];
+		this.addNewNode(node);
 	}
 
 	insertTensorData(node: LGraphNode, component: string){
@@ -442,8 +431,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	insertOperatorData(node: LGraphNode, component: string){
-
-
 		switch (component) {
 			case "Add":{
 				node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
@@ -497,6 +484,4 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
-
-
 }
