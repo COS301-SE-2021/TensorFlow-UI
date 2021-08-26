@@ -63,6 +63,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
 	public tensorList: string[] = ["variable", "constant", "tensor"];
 
+	@ViewChild('sidenav') sidenav: MatSidenav;
+	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
+	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
+	isExpanded = true;
+
+	showSubmenu: boolean = false;
+	isShowing = false;
+	isFunctionalNodeVisible = false;
+	isTensorNodeVisible = false;
+
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
 				private dialog: MatDialog) {
 	}
@@ -204,17 +214,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
-
-	@ViewChild('sidenav') sidenav: MatSidenav;
-	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
-	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
-	isExpanded = true;
-
-	showSubmenu: boolean = false;
-	isShowing = false;
-	isFunctionalNodeVisible = false;
-	isTensorNodeVisible = false;
-
 	mouseenter() {
 		if (!this.isExpanded) {
 			this.isShowing = true;
@@ -245,8 +244,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	createLiteNode(component:string) {
 		const temp = litegraph.LiteGraph.createNode("basic/const");
-		console.log(temp);
-
 
 		if(this.tftensor.includes(component)){
 			const node = new litegraph.LGraphNode();
@@ -260,9 +257,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		else{
 			const node = new litegraph.LGraphNode();
 			node.title = component;
-			node.addInput("A","number"); //could be number,string and other types: TODO: Change to reflect all types
-			node.addInput("B","number");
-			node.addOutput("Result","number")
+			// node.addInput("A","number"); //could be number,string and other types: TODO: Change to reflect all types
+			// node.addInput("B","number");
+			// node.addOutput("Result","number")
+
+			this.insertOperatorData(node,component);
+
 			node.pos = [200,200];
 			this.graph.add(node);
 		}
@@ -401,20 +401,20 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				node.addWidget("text","name(optional)","uniqueID","variableID");
 				node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
 				node.addInput("tf.Tensor","Tensor");
-				node.addOutput("Variable","string");
+				node.addOutput("Variable","tf.Tensor");
 				//ToDo: Change how input is viewed
 				break;
 			}
 			case "Constant":{
 				node.addWidget("number","constant",0,"constant");
-				node.addOutput("Value","number")
+				node.addOutput("Value","tf.Tensor")
 				break;
 			}
 			case "Fill":{
 				node.addWidget("text","shape","[0,4,2]","fillShape");
 				node.addWidget("text","value",0,"fillShape");
 				node.addWidget("combo","dtype(optional)","float","fillDType",{values: ["float32","int32","bool","complex64","string"]});
-				node.addOutput("Fill","obj")
+				node.addOutput("Fill","tf.Tensor")
 				//Todo: Change default width
 				break;
 			}
@@ -422,23 +422,81 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				node.addWidget("number","start",0,"linspaceStart");
 				node.addWidget("number","stop",0,"linspaceStop");
 				node.addWidget("number","num",1,"linspaceNum");
-				node.addOutput("linspace sequence","Tensor1D")
+				node.addOutput("linspace sequence","tf.Tensor")
 				break;
 			}
 			case "Zeros":{
 				node.addWidget("text","shape","[0,2,4]","zerosShape");
 				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
-				node.addOutput("Tensor zeros","Tensor")
+				node.addOutput("Tensor zeros","tf.Tensor")
 				break;
 			}
 			case "Ones":{
 				node.addWidget("text","shape","[0,2,4]","onesShape");
 				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
-				node.addOutput("Tensor ones","Tensor")
+				node.addOutput("Tensor ones","tf.Tensor")
 				break;
 			}
 
 		}
-
 	}
+
+	insertOperatorData(node: LGraphNode, component: string){
+
+
+		switch (component) {
+			case "Add":{
+				node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addOutput("A+B","tf.Tensor");
+				break;
+			}
+			case "Add_n":{
+				node.addInput("tensors(Array)","Array"); //ToDo: Ensure this array can receive a sample array, must be same shape and dtype
+				node.addOutput("Tensor list","tf.Tensor");
+				break;
+			}
+			case "Divide":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A/B","tf.Tensor");
+				break;
+			}
+			case "Multiply":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A*B","tf.Tensor");
+				break;
+			}
+			case "Mod":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A%B","tf.Tensor")
+				break;
+			}
+			case "Negative":{
+				node.addInput("A","tf.Tensor");
+				node.addOutput("-(A)","tf.Tensor");
+				break;
+			}
+			case "Reciprocal":{
+				node.addInput("X","tf.Tensor");
+				node.addOutput("1/X","tf.Tensor");
+				break;
+			}
+			case "Sigmoid":{
+				node.addInput("X","tf.Tensor");
+				node.addOutput("1/1+exp(-x)", "tf.Tensor");
+				break;
+			}
+			case "Subtract":{
+				node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addOutput("A-B","tf.Tensor");
+				break;
+			}
+		}
+	}
+
+
 }
