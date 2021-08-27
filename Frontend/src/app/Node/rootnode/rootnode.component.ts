@@ -65,6 +65,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	/*
 	linkNodes(selectedNode: FormControl) {
 		if (this._root?.name != undefined) {
 			const lineStartName = this._root.name.toString();
@@ -86,6 +87,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 
 		}
 	}
+	 */
 
 	// Reloads the list of components
 	reload() {

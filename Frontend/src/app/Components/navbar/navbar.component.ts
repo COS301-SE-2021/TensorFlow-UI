@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	DoCheck,
+	ElementRef,
+	Inject, IterableDiffer, IterableDiffers,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+	ViewChild
+} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
 import {Store} from "@ngxs/store";
@@ -11,7 +21,6 @@ import {
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
-import {Observable} from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
 import {CodeGeneratorService} from "../../code-generator.service";
@@ -46,13 +55,15 @@ export interface SettingsPageData {
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
+
+	public lines;
 
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
@@ -74,7 +85,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	isTensorNodeVisible = false;
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-				private dialog: MatDialog) {
+				private dialog: MatDialog, private iterableDiffers: IterableDiffers) {
 	}
 
 	ngOnInit(): void {
@@ -85,13 +96,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.graph = new litegraph.LGraph();
 
 		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
+		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 	}
 
 	ngAfterViewInit() {
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		if(storedNodes.length>0){
 			//recreate all these nodes;
-			console.log(storedNodes);
+			// console.log(storedNodes);
 			for(let i=0; i<storedNodes.length;++i){
 				this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]);
 			}
@@ -211,6 +223,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 					that2.updateNodePositionInLocalStorage();
 				}
 			}
+			node.onMouseEnter = function (){
+				that.updateNodeLinks();
+			}
 			if (this.tftensor.includes(component)) {
 				this.insertTensorData(node, component);
 			} else {
@@ -229,6 +244,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 					that2.updateNodePositionInLocalStorage();
 				}
 			}
+			node.onMouseEnter = function (){
+				that.updateNodeLinks();
+			}
 			if (this.tftensor.includes(<string>storedNode.selector)) {
 				this.insertTensorData(node,<string>storedNode.selector);
 			} else {
@@ -237,7 +255,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			this.graph.add(node);
 			this.graph.start();
 		}
-		this.updateNodePositionInLocalStorage();
 		return node;
 	}
 
@@ -255,7 +272,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			case this.tftensor[0]: {
 				tfnode = new TFConstant();
 				tfnode.name = component + id;
-
 				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
@@ -372,6 +388,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
 				node.addInput("tf.Tensor","Tensor");
 				node.addOutput("Variable","tf.Tensor");
+
 				//ToDo: Change how input is viewed
 				break;
 			}
@@ -408,19 +425,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				break;
 			}
 
-		}
-	}
-
-	updateNodePositionInLocalStorage(){
-		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
-		for(let key in selectedNodes){
-			const node = selectedNodes[key];
-			const nodeID = node.id;
-			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
-			const storedNode = storedNodesArray.find(element => element.id == nodeID);
-			// console.log(storedNode);
-			storedNode.position = node.pos;
-			this.store.dispatch(storedNode);
 		}
 	}
 
@@ -477,5 +481,47 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				break;
 			}
 		}
+	}
+
+	updateNodePositionInLocalStorage(){
+		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+		for(let key in selectedNodes){
+			const node = selectedNodes[key];
+			const nodeID = node.id;
+			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
+			const storedNode = storedNodesArray.find(element => element.id == nodeID);
+			// console.log(this.lines);
+			// console.log(node);
+			// console.log(storedNode);
+			storedNode.position = node.pos;
+			this.store.dispatch(storedNode);
+		}
+	}
+
+	updateNodeLinks(){
+
+		for(let key in this.lines){
+			const line = this.lines[key];
+
+			const lineObj: lineConnectors = {
+				id: line.id,
+				origin_id: line.origin_id,
+				origin_slot: line.origin_slot,
+				target_id: line.target_id,
+				target_slot: line.target_slot,
+				type: line.type
+			};
+
+			this.store.dispatch(new AddLineConnectorToStorage(lineObj));
+		}
+	}
+
+	isAnyInputConnected(node): boolean{
+		for(let i=0; i<node.inputs.length; ++i){
+			if(node.inputs[i].link != null){
+				return true;
+			}
+		}
+		return false;
 	}
 }

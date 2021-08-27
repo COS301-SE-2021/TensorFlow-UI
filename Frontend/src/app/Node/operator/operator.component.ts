@@ -54,6 +54,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	/*
 	deleteTFNode() {
 		const dialog = this.dialog.open(NodeDeleteDialogComponent, {});
 
@@ -78,8 +79,9 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 			}
 		})
 	}
-
+	*/
 	// Initial linking between two node elements.
+	/*
 	linkNodes(selectedNode: FormControl) {
 		if (this._TFNodeDataOperator?.name != undefined) {
 			const lineStartName = this._TFNodeDataOperator.name.toString();
@@ -101,7 +103,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 			}))
 		}
 	}
-
+	*/
 	checkChild(selectedNode: FormControl) {
 		if (selectedNode == this.selectedNodeX) {
 			if (selectedNode.toString() != this._TFNodeDataOperator.childOne?.name) {

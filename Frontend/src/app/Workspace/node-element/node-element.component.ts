@@ -72,9 +72,11 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
          - Cannot use the start as the end node will/might not have been created yet
           (e.g. Node 1 has been loaded but not Node2, start exists but end doesn't)
         */
+          /*
         if(storageLines[i].end == this.nodeData.name){
           this.loadLineFromStorageToCanvas(storageLines[i]);
         }
+           */
       }
     }
   }
@@ -162,11 +164,11 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 
 	  const self = lineObj.setOptions;
 
-		this.data.lineConnectorsList.push({
-				start: lineStartName,
-				end: lineEndName,
-				line: lineObj,
-			});
+		// this.data.lineConnectorsList.push({
+		// 		start: lineStartName,
+		// 		end: lineEndName,
+		// 		line: lineObj,
+		// 	});
 		this.addLineToStorage(this.data.lineConnectorsList[this.data.lineConnectorsList.length-1]);
 	}
 
@@ -176,6 +178,8 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
     - Then pushes the newly created LeaderLine object to the lineConnectorsList array
     - ToDo: Add comments inside the interface/constructors for Node and LineConnector objects
   */
+
+    /*
   loadLineFromStorageToCanvas(line: lineConnectors){
 
     const lineStartName = line.start;
@@ -208,6 +212,7 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
     }
   }
 
+     */
 	// Redraw lines for each component on mousemove
 	openDeleteDialog(){
 	  // const dialog= this.dialog.open(NodeDeleteDialog, {
@@ -258,6 +263,7 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
   }
 
 	// Redraw lines for each component.
+    /*
 	reload() {
 		if (this.data?.lineConnectorsList != null) {
 			if (this.data.lineConnectorsList.length > 0) {
@@ -290,6 +296,7 @@ export class NodeElementComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
+     */
 
 	addLineToStorage(line){
     this.store.dispatch(new AddLineConnectorToStorage(line));

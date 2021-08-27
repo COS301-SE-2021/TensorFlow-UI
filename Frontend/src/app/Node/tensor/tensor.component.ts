@@ -93,6 +93,7 @@ export class TensorComponent implements OnInit {
 
 	}
 
+	/*
 	deleteTFNode() {
 		const dialog = this.dialog.open(NodeDeleteDialogComponent, {});
 
@@ -117,4 +118,6 @@ export class TensorComponent implements OnInit {
 			}
 		})
 	}
+
+	 */
 }
