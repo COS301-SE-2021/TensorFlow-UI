@@ -205,7 +205,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			node.title = component;
 			node.pos = [200, 200]; //ToDo: change this to be dynamic
 			const that = this;
-			node.onMouseDown = function (event,pos,canvas){
+			node.onMouseDown = function (){
 				const that2 = that;
 				node.onMouseLeave = function (){
 					that2.updateNodePositionInLocalStorage();
@@ -223,7 +223,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			node.title = component;
 			node.pos = storedNode.position;
 			const that = this;
-			node.onMouseDown = function (event,pos,canvas){
+			node.onMouseDown = function (){
 				const that2 = that;
 				node.onMouseLeave = function (){
 					that2.updateNodePositionInLocalStorage();
@@ -419,6 +419,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
 			const storedNode = storedNodesArray.find(element => element.id == nodeID);
 			// console.log(storedNode);
+			storedNode.position = node.pos;
 			this.store.dispatch(storedNode);
 		}
 	}
