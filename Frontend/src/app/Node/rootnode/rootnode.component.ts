@@ -45,10 +45,10 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 				const node = document.getElementById(this._root.name);
 
 				if (node != null) {
-					node.style.transform = 'translate(' + Number(this._root.positionX) + 'px, ' + Number(this._root.positionY) + 'px)'
+					node.style.transform = 'translate(' + Number(this._root.position[0]) + 'px, ' + Number(this._root.position[1]) + 'px)'
 
-					node.setAttribute('data-x', this._root.positionX.toString());
-					node.setAttribute('data-y', this._root.positionY.toString());
+					node.setAttribute('data-x', this._root.position[0].toString());
+					node.setAttribute('data-y', this._root.position[1].toString());
 				}
 			}
 		}

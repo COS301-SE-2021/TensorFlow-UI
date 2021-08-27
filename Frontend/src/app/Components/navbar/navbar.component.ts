@@ -87,68 +87,24 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
 	}
 
-
 	ngAfterViewInit() {
-		this.loadlines();
-	}
-
-
-	loadlines() {
-		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
-		if (this.linesList != null && this.linesList.length > 0) {
-			for (let i = 0; i < this.linesList.length; i++) {
-
-				const lineStartName = this.linesList[i].start;
-				const lineEndName = this.linesList[i].end;
-				const lineObj = new LeaderLine(
-					this.document.getElementById(lineStartName),
-					this.document.getElementById(lineEndName), {
-						startSocket: 'auto',
-						endSocket: 'auto'
-					}
-				);
-
-				this.store.dispatch(new RemoveLineFromStorage(this.linesList[i]));
-
-				this.store.dispatch(new AddLineConnectorToStorage({
-					end: lineEndName,
-					line: lineObj,
-					start: lineStartName
-
-				}))
+		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
+		if(storedNodes.length>0){
+			//recreate all these nodes;
+			console.log(storedNodes);
+			for(let i=0; i<storedNodes.length;++i){
+				this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]);
 			}
 		}
 	}
 
-	// This adds a new node to the data service "nodes" array.
-	// createNode(type: string) {
-	// 	const nodeNum = this.data.nodes.length + 1;
-	// 	const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
-	// 	const nodeType = this.data.type;
-	//
-	// 	this.data.nodes.push({
-	// 		num: nodeNum,
-	// 		name: nodeName,
-	// 		type: nodeType,
-	// 		value: type,
-	// 		x: 0,
-	// 		y: 0
-	// 	});
-	// 	this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
-	// }
-
-
-	addNodeToStorage(num, name, type, value, x, y) {
-		this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}))
-	}
-
 	/* Enables nodes search section to be shown, so the user can select a type */
 	showFuncNodeSearch() {
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible; //Uncomment when doing demo
+		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
 	}
 
 	showTensorNodeSearch() {
-		this.isTensorNodeVisible = !this.isTensorNodeVisible; //Uncomment when doing demo
+		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
 
 	clearCanvas() {
@@ -239,30 +195,55 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	addNewNode(node: TFNode) {
 		this.store.dispatch(new AddTFNode(node));
-		// console.log(node.lGraphNode);
 		this.TFNodeList.push(node);
 	}
 
-	createLiteNode(component:string, loadFromMemory: boolean): LGraphNode {
+	createLiteNode(component:string, loadFromMemory: boolean, storedNode:TFNode): LGraphNode {
+		const node = new litegraph.LGraphNode();
 
-        const node = new litegraph.LGraphNode();
-        node.title = component;
-        node.pos = [200,200]; //ToDo: change this to be dynamic
-		if(this.tftensor.includes(component)){
-			this.insertTensorData(node,component);
+		if(!loadFromMemory) {
+			node.title = component;
+			node.pos = [200, 200]; //ToDo: change this to be dynamic
+			const that = this;
+			node.onMouseDown = function (event,pos,canvas){
+				const that2 = that;
+				node.onMouseLeave = function (){
+					that2.updateNodePositionInLocalStorage();
+				}
+			}
+			if (this.tftensor.includes(component)) {
+				this.insertTensorData(node, component);
+			} else {
+				this.insertOperatorData(node, component);
+			}
+			this.graph.add(node);
+			this.graph.start();
 		}
 		else{
-			this.insertOperatorData(node,component);
+			node.title = component;
+			node.pos = storedNode.position;
+			const that = this;
+			node.onMouseDown = function (event,pos,canvas){
+				const that2 = that;
+				node.onMouseLeave = function (){
+					that2.updateNodePositionInLocalStorage();
+				}
+			}
+			if (this.tftensor.includes(<string>storedNode.selector)) {
+				this.insertTensorData(node,<string>storedNode.selector);
+			} else {
+				this.insertOperatorData(node, <string>storedNode.selector);
+			}
+			this.graph.add(node);
+			this.graph.start();
 		}
-        this.graph.add(node);
-		this.graph.start();
-
+		this.updateNodePositionInLocalStorage();
 		return node;
 	}
 
 	createComponent(component: string) {
 
-		const liteGraphNode = this.createLiteNode(component,false);
+		const liteGraphNode = this.createLiteNode(component,false,new TFNode());
 		const links = this.graph.list_of_graphcanvas[0].graph.links;
 		console.log(liteGraphNode);
 		console.log(this.graph);
@@ -274,6 +255,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			case this.tftensor[0]: {
 				tfnode = new TFConstant();
 				tfnode.name = component + id;
+
 				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
@@ -377,16 +359,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	createComponentSwitchDefaults(node: TFNode,liteGraphNode: LGraphNode, component:string){
 		node.selector = component;
 		node.id = liteGraphNode.id;
-		node.positionX = liteGraphNode.pos[0];
-		node.positionY = liteGraphNode.pos[1];
+		node.position = liteGraphNode.pos;
 		this.addNewNode(node);
 	}
 
 	insertTensorData(node: LGraphNode, component: string){
 		switch (component){
 			case "Variable":{
-				node.addWidget("button", "initialValue", "tf.Tensor","variableName");
-				node.addWidget("toggle","trainable(optional)",false,"variableTrainable",{values: [true,false]})
+				// node.addWidget("button", "initialValue", "tf.Tensor","variableName");
+				node.addWidget("toggle","trainable(optional)",false,"onDeselected",{values: [true,false]})
 				node.addWidget("text","name(optional)","uniqueID","variableID");
 				node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
 				node.addInput("tf.Tensor","Tensor");
@@ -427,6 +408,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				break;
 			}
 
+		}
+	}
+
+	updateNodePositionInLocalStorage(){
+		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+		for(let key in selectedNodes){
+			const node = selectedNodes[key];
+			const nodeID = node.id;
+			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
+			const storedNode = storedNodesArray.find(element => element.id == nodeID);
+			// console.log(storedNode);
+			this.store.dispatch(storedNode);
 		}
 	}
 

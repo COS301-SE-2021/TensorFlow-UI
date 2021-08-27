@@ -45,10 +45,10 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 				const node = document.getElementById(this._TFNodeDataOperator.name);
 
 				if (node != null) {
-					node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.positionX) + 'px, ' + Number(this._TFNodeDataOperator.positionY) + 'px)'
+					node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.position[0]) + 'px, ' + Number(this._TFNodeDataOperator.position[1]) + 'px)'
 
-					node.setAttribute('data-x', this._TFNodeDataOperator.positionX.toString());
-					node.setAttribute('data-y', this._TFNodeDataOperator.positionY.toString());
+					node.setAttribute('data-x', this._TFNodeDataOperator.position[0].toString());
+					node.setAttribute('data-y', this._TFNodeDataOperator.position[1].toString());
 				}
 			}
 		}
