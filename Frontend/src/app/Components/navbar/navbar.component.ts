@@ -33,6 +33,7 @@ import {
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 
+
 export interface SettingsPageData {
 	projectName: string,
 	projectDetails: string
