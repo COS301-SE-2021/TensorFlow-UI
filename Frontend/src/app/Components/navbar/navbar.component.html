@@ -49,21 +49,21 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)="drawer.toggle()">
+                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export')">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle()">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
                             <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle()">
+                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Account')">
                             <mat-icon class="accountIcon" [inline]="true" mat-list-icon>perm_identity</mat-icon>
                         </button>
                     </div>
@@ -112,7 +112,13 @@
 <!--        </mat-sidenav-content>-->
         <mat-drawer-container class="sidenav-Content-Container">
 
-            <mat-drawer #drawer >I'm a drawer</mat-drawer>
+            <mat-drawer #drawer>
+                <div *ngIf="currentDrawer=='Import/Export'">
+                    <app-import></app-import>
+                    <app-export></app-export>
+                </div>
+
+            </mat-drawer>
             <mat-drawer-content>
                 <app-workspace-boundary [TFNodes]="TFNodeList">
                 </app-workspace-boundary>

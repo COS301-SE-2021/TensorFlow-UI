@@ -59,6 +59,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
 	public tensorList: string[] = ["variable", "constant", "tensor"];
 
+	public currentDrawer:string = "Import/Export";
+
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
 				private dialog: MatDialog) {
 	}
@@ -195,6 +197,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
+	setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
+	}
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
