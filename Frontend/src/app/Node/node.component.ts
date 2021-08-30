@@ -41,6 +41,8 @@ export class Node implements OnInit {
   //Initialise the
 
   // Initial linking between two node elements.
+
+    /*
   linkNodes() {
     let otherNode = this.nodesArray.value[this.nodesArray.value.length - 1];
     const lineStartName = this.nodeData.name;
@@ -76,6 +78,7 @@ export class Node implements OnInit {
       otherNode.childTwo = node
     }
   }
+  */
 
     // tftensor: String[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
     // tfoperator: String[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal",

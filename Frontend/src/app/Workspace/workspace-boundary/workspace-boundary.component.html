@@ -1,10 +1,12 @@
-<div class="workspace-boundary" id="workspace-boundary" (mousemove)="reload()">
 
-    <app-rootnode *ngIf="root.root" [_root]="root.root"></app-rootnode>
-     <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>
-     <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>
 
-</div>
+<!--    <app-rootnode *ngIf="root.root" [_root]="root.root"></app-rootnode>-->
+<!--     <app-tensor *ngFor="let node of this.TFNodes" [_TFNodeData]="node"></app-tensor>-->
+<!--     <app-operator *ngFor="let node of this.TFNodes" [_TFNodeDataOperator]="node"></app-operator>-->
+
+<!--    <button (click)="createLiteNode()">Click me!!</button>-->
+<canvas id='workspaceCanvas' width='1275' height='706'></canvas>
+
 
 <div class="importFromCommunity" id="importFromCommunity">
   <div><h1>Import From Community Library:</h1></div>

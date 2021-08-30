@@ -45,15 +45,16 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 				const node = document.getElementById(this._TFNodeDataOperator.name);
 
 				if (node != null) {
-					node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.positionX) + 'px, ' + Number(this._TFNodeDataOperator.positionY) + 'px)'
+					node.style.transform = 'translate(' + Number(this._TFNodeDataOperator.position[0]) + 'px, ' + Number(this._TFNodeDataOperator.position[1]) + 'px)'
 
-					node.setAttribute('data-x', this._TFNodeDataOperator.positionX.toString());
-					node.setAttribute('data-y', this._TFNodeDataOperator.positionY.toString());
+					node.setAttribute('data-x', this._TFNodeDataOperator.position[0].toString());
+					node.setAttribute('data-y', this._TFNodeDataOperator.position[1].toString());
 				}
 			}
 		}
 	}
 
+	/*
 	deleteTFNode() {
 		const dialog = this.dialog.open(NodeDeleteDialogComponent, {});
 
@@ -78,8 +79,9 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 			}
 		})
 	}
-
+	*/
 	// Initial linking between two node elements.
+	/*
 	linkNodes(selectedNode: FormControl) {
 		if (this._TFNodeDataOperator?.name != undefined) {
 			const lineStartName = this._TFNodeDataOperator.name.toString();
@@ -101,7 +103,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 			}))
 		}
 	}
-
+	*/
 	checkChild(selectedNode: FormControl) {
 		if (selectedNode == this.selectedNodeX) {
 			if (selectedNode.toString() != this._TFNodeDataOperator.childOne?.name) {

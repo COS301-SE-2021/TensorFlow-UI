@@ -83,7 +83,7 @@ export class GitAPI {
         var start = data.lines[k].start;
         var end = data.lines[k].end;
         var line = data.lines[k].line;
-        this.store.dispatch(new AddLineConnectorToStorage({end: end, line:line, start: start}));
+        // this.store.dispatch(new AddLineConnectorToStorage({end: end, line:line, start: start}));
       }
 
     } catch (e){

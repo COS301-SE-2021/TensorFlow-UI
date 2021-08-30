@@ -10,3 +10,8 @@
 #importFromCommunity{
   display: none;
 }
+
+.lgraphcanvas{
+  position: relative;
+  border: none;
+}
