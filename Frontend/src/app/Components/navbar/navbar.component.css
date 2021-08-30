@@ -213,3 +213,13 @@ mat-list-item{
 .sidenav-buttons .documentIcon{
   font-size: 1.75rem;
 }
+
+.sidenav-Content-Container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #555;
+}
+
+mat-drawer{
+  width: 13%;
+}

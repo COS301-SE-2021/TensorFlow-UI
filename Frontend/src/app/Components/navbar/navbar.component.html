@@ -36,8 +36,9 @@
       </mat-menu>
 
     </mat-toolbar>
+
     <mat-sidenav-container class="container" autosize>
-        <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
+        <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
@@ -48,21 +49,21 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)="drawer.toggle()">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle()">
                             <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle()">
                             <mat-icon class="accountIcon" [inline]="true" mat-list-icon>perm_identity</mat-icon>
                         </button>
                     </div>
@@ -75,7 +76,7 @@
                     </div>
                 </mat-list-item>
             </mat-nav-list>
-
+        </mat-sidenav>
 <!--            <mat-nav-list>-->
 <!--                <mat-list-item class="sidenav-icons">-->
 <!--                    <div class="sidenav-icons-Div">-->
@@ -104,10 +105,19 @@
 <!--&lt;!&ndash;                    <app-node></app-node>&ndash;&gt;-->
 <!--&lt;!&ndash;                 </div>&ndash;&gt;-->
 <!--            </mat-nav-list>-->
-        </mat-sidenav>
-        <mat-sidenav-content>
-            <app-workspace-boundary [TFNodes]="TFNodeList">
-            </app-workspace-boundary>
-        </mat-sidenav-content>
+
+<!--        <mat-sidenav-content>-->
+<!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
+<!--            </app-workspace-boundary>-->
+<!--        </mat-sidenav-content>-->
+        <mat-drawer-container class="sidenav-Content-Container">
+
+            <mat-drawer #drawer >I'm a drawer</mat-drawer>
+            <mat-drawer-content>
+                <app-workspace-boundary [TFNodes]="TFNodeList">
+                </app-workspace-boundary>
+            </mat-drawer-content>
+        </mat-drawer-container>
     </mat-sidenav-container>
+
 </div>
