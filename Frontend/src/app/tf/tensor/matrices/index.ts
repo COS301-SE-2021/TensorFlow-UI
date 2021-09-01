@@ -1,1 +1,1 @@
-export * from "./TFEinsum"
+export * from "./einsum"
