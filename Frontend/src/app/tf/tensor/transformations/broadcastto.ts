@@ -1,15 +1,18 @@
-// tf.spaceToBatchND (x, blockShape, paddings)
+// tf.broadcastTo (x, shape)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
-export class TFSpaceToBatchND extends TFTensor {
+
+export class TFBroadcastTo extends TFTensor {
 	constructor(public data: number | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
 
 	code() {
-		return `${this.name} = tf.spaceToBatchND(${
+		return `${this.name} = tf.batchToSpaceND(${
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }
