@@ -34,6 +34,7 @@ import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import projectList from "../../Workspace/import/import.component";
 
+
 export interface SettingsPageData {
 	projectName: string,
 	projectDetails: string
@@ -59,6 +60,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	projectDetails: string;
 	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
 	public tensorList: string[] = ["variable", "constant", "tensor"];
+
+	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
 				private dialog: MatDialog) {
@@ -196,6 +199,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
+	setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
+	}
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
@@ -220,6 +226,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	// Code generation section
+
+  runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+  }
+
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
