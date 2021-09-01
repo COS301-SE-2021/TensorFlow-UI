@@ -275,3 +275,8 @@ mat-drawer{
 #importDataHeader h5{
   top: 36%;
 }
+
+#importFromCommunity{
+  text-align: center;
+  display: none;
+}
