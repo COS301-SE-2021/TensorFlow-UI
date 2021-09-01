@@ -1,14 +1,16 @@
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
-export class TFTruncatedNormal extends TFTensor {
+export class TFRange extends TFTensor {
 	constructor(public data: number | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
 
 	code() {
-		return `${this.name} = tf.truncatedNormal(${
+		return `${this.name} = tf.range(${
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }
