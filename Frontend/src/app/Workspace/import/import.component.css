@@ -3,9 +3,9 @@
 }
 
 button{
-  display: table-cell;
+  /*display: table-cell;*/
   width: 100%;
-  margin: 8px 8px 8px 0;
+  /*margin: 8px 8px 8px 0;*/
 }
 
 .Group{

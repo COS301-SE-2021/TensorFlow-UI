@@ -223,3 +223,50 @@ mat-list-item{
 mat-drawer{
   width: 13%;
 }
+
+.importExportProject{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+  height: 30vh;
+  margin-bottom: 3%;
+}
+
+.importExportProject h5{
+  text-align: center;
+}
+
+.importData{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+  height: 30vh;
+}
+
+.importData h5{
+  text-align: center;
+}
+
+#importExportProjectHeader, #importDataHeader {
+  /*border: 2px solid coral;*/
+  width: 69%;
+  border-bottom: 2px solid #ff8C00;
+  height: 15%;
+  margin-left: 15%;
+}
+
+#importExportProjectHeader h5, #importDataHeader h5 {
+  position: absolute;
+  top:2%;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+#importDataHeader{
+  margin-left: 28%;
+  width: 38%;
+}
+
+#importDataHeader h5{
+  top: 36%;
+}

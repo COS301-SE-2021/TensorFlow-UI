@@ -49,7 +49,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export')">
+                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export')">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
@@ -114,8 +114,23 @@
 
             <mat-drawer #drawer>
                 <div *ngIf="currentDrawer=='Import/Export'">
-                    <app-import></app-import>
-                    <app-export></app-export>
+                    <div class="importExportProject">
+                        <div id="importExportProjectHeader">
+                            <h5>Import/Export Project</h5>
+                        </div>
+                        <mat-list-item>
+                            <app-import></app-import>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <app-export></app-export>
+                        </mat-list-item>
+                    </div>
+
+                    <div class="importData">
+                        <div id="importDataHeader">
+                            <h5>Import Data</h5>
+                        </div>
+                    </div>
                 </div>
 
             </mat-drawer>
