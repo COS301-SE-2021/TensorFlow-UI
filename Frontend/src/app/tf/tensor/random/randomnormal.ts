@@ -1,5 +1,6 @@
 // tf.randomNormal (shape, mean?, stdDev?, dtype?, seed?)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
 export class TFRandomNormal extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -12,4 +13,5 @@ export class TFRandomNormal extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }

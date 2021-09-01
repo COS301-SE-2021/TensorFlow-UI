@@ -1,5 +1,6 @@
 // tf.randomUniform (shape, minval?, maxval?, dtype?, seed?)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
 export class TFRandomUniform extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -12,4 +13,5 @@ export class TFRandomUniform extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }

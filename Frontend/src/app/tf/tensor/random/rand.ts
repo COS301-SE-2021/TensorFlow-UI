@@ -1,15 +1,17 @@
-// tf.randomGamma (shape, alpha, beta?, dtype?, seed?)
+// tf.rand (shape, randFunction, dtype?)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
-export class TFRandomGamma extends TFTensor {
+export class TFRand extends TFTensor {
 	constructor(public data: number | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
 
 	code() {
-		return `${this.name} = tf.randomGamma(${
+		return `${this.name} = tf.rand(${
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }
