@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {TFNode} from "../../node";
+import {LGraphNode} from "litegraph.js";
 
 export class TFAddN extends TFOperator {
 	constructor(
@@ -17,5 +18,10 @@ export class TFAddN extends TFOperator {
 		return `${this.name} = tf.math.add_n(
 		${attributes || "some value"},
 		})`;
+	}
+
+	UIStructure(node: LGraphNode) {
+		node.addInput("tensors(Array)","Array"); //ToDo: Ensure this array can receive a sample array, must be same shape and dtype
+		node.addOutput("Tensor list","tf.Tensor");
 	}
 }

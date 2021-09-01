@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {TFNode} from "../../node";
+import {LGraphNode} from "litegraph.js";
 
 export class TFMod extends TFOperator {
 	constructor(
@@ -12,5 +13,11 @@ export class TFMod extends TFOperator {
 		${this.childOne?.name || "some value"},
 		${this.childTwo?.name || "some value"
 		})`;
+	}
+
+	UIStructure(node: LGraphNode) {
+		node.addInput("A","tf.Tensor");
+		node.addInput("B","tf.Tensor");
+		node.addOutput("A%B","tf.Tensor");
 	}
 }

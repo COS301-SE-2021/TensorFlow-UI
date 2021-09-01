@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {TFNode} from "../../node";
+import {LGraphNode} from "litegraph.js";
 
 export class TFScalarMul extends TFOperator {
 	constructor(
@@ -13,4 +14,6 @@ export class TFScalarMul extends TFOperator {
 		${this.childTwo?.name || "some value"
 		})`;
 	}
+
+	UIStructure(node: LGraphNode) {}
 }
