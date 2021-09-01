@@ -205,7 +205,12 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
 	}
 
-	addNewNode(node: TFNode) {
+	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
+
+		console.log(node);
+		console.log(lgraphNode);
+
+
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
 	}
@@ -224,7 +229,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				}
 			}
 			node.onMouseEnter = function (){
-				that.updateNodeLinks();
+				that.updateNodeLinks()
 			}
 			if (this.tftensor.includes(component)) {
 				this.insertTensorData(node, component);
@@ -245,7 +250,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				}
 			}
 			node.onMouseEnter = function (){
-				that.updateNodeLinks();
+				that.updateNodeLinks()
 			}
 			if (this.tftensor.includes(<string>storedNode.selector)) {
 				this.insertTensorData(node,<string>storedNode.selector);
@@ -376,7 +381,9 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		node.selector = component;
 		node.id = liteGraphNode.id;
 		node.position = liteGraphNode.pos;
-		this.addNewNode(node);
+		node.inputs = liteGraphNode.inputs;
+		node.outputs = liteGraphNode.outputs;
+		this.addNewNode(node,liteGraphNode);
 	}
 
 	insertTensorData(node: LGraphNode, component: string){
