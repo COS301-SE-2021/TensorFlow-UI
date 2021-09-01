@@ -21,7 +21,7 @@ export class CodeGeneratorService {
 
     var graph : TFGraph = new TFGraph(head);
     var code = "import tensorflow as tf\n";
-    code += graph.generateCode(head);
+    code += graph.generateCode(head.childOne);
     console.log(code);
     var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
     FileSaver.saveAs(blob, "output.py");

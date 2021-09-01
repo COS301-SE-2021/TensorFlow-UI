@@ -1,28 +1,27 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ComponentsModule} from "./components/components.module";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {WorkspaceModule} from "./Workspace/workspace.module";
 import {MatCardModule} from '@angular/material/card';
 
 //ngxs storage
 import {NgxsModule} from '@ngxs/store';
-import {WorkspaceState, WorkspaceStateModel} from "../Storage/workspace/workspace.state";
+import {WorkspaceState} from "../Storage/workspace";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
-import {FormsModule, NgSelectOption} from "@angular/forms";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
+import {ComponentsModule} from "./Components/components.module";
 
 const modules = [
-	BrowserModule, BrowserAnimationsModule, ComponentsModule, DragDropModule, ComponentsModule,
-	ComponentsModule, WorkspaceModule, MatCardModule,
+	BrowserModule, BrowserAnimationsModule, DragDropModule,
+	 WorkspaceModule, MatCardModule, MatDialogModule
 ]
 
 @NgModule({
@@ -42,9 +41,15 @@ const modules = [
       WorkspaceState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    ComponentsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+    {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+    {provide: MatSnackBarRef, useValue: {}}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

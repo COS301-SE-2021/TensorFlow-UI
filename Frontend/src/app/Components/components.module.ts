@@ -19,38 +19,54 @@ import { NavbarDialogsComponent} from "./navbar-dialogs/navbar-dialogs.component
 import { SettingsPageDialogComponent } from './settings-page-dialog/settings-page-dialog.component';
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
+import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {RouterModule} from "@angular/router";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatListModule,
-    MatButtonModule,
-    MatSliderModule,
-    MatCardModule,
-    WorkspaceModule,
-    nodeModule,
-    MatMenuModule,
-    FormsModule,
-    MatInputModule,
-    MatDialogModule
-  ],
+    imports: [
+        CommonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatListModule,
+        MatButtonModule,
+        MatSliderModule,
+        MatCardModule,
+        WorkspaceModule,
+        MatMenuModule,
+        FormsModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        RouterModule,
+        MatTooltipModule
+    ],
     declarations: [
         NavbarComponent,
         ExportComponent,
         NavbarDialogsComponent,
         SettingsPageDialogComponent,
+        ProjectDetailsUpdatedSnackbarComponent,
     ],
   exports: [
     NavbarComponent,
+    ExportComponent,
     NavbarDialogsComponent,
-  ]
+    SettingsPageDialogComponent,
+    ProjectDetailsUpdatedSnackbarComponent,
+  ],
+  providers: [
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+    {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+    {provide: MatSnackBarRef, useValue: {}}
+  ],
 })
 export class ComponentsModule {
 

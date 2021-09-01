@@ -1,9 +1,21 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import * as node from "../index"
-import {TFTensor} from "../../tf";
+import {TFNode, TFTensor} from "../../tf";
 import {DataService} from "../../data.service";
 import * as LeaderLine from "leader-line-new";
 import {DOCUMENT} from "@angular/common";
+import {
+	AddRootNode,
+	RemoveLineFromStorage,
+	RemoveTFNode,
+	UpdateNodeInStorage,
+	WorkspaceState
+} from "../../../Storage/workspace";
+import {Store} from "@ngxs/store";
+import interact from "interactjs";
+import {lineConnectors} from "../../node-data";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
+import {NodeDeleteDialogComponent} from "../node-delete-dialog/node-delete-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-tensor',
@@ -11,48 +23,98 @@ import {DOCUMENT} from "@angular/common";
 	styleUrls: ['./tensor.component.css']
 })
 export class TensorComponent implements OnInit {
-	set TFNodeData(value: TFTensor) {
-		this._TFNodeData = value;
-	}
-	get TFNodeData(): TFTensor {
+	get TFNodeData(): TFNode {
 		return this._TFNodeData;
 	}
 
-	@Input() _TFNodeData : TFTensor;
+	nodes: TFNode[];
 
-	constructor(public data: DataService, @Inject(DOCUMENT) private document) {
+	@Input() _TFNodeData: TFNode;
+
+	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store, public nav: NavbarComponent,
+				private dialog: MatDialog) {
 	}
 
 	ngOnInit(): void {
 	}
 
-	// Redraw lines for each component.
+	// Reloads the list of components
 	reload() {
-		if (this.data?.lineConnectorsList != null) {
-			if (this.data.lineConnectorsList.length > 0) {
-				for (let i = 0; i < this.data.lineConnectorsList.length; i++) {
-
-					const start = this.data.lineConnectorsList[i].start;
-					let end = this.data.lineConnectorsList[i].end;
-					this.data.lineConnectorsList[i].line?.remove();
-					this.data.lineConnectorsList[i].line = new LeaderLine(
-						this.document.getElementById(start),
-						this.document.getElementById(end), {
-							// size: 6,
-							// outlineColor: '#red',
-							// outline: true,
-							// endPlugOutline: true,
-							// dash: true,
-							// path: 'arc',
-							startSocket: 'auto',
-							endSocket: 'auto'
-						}
-
-					);
-
-				}
-			}
-		}
+		this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 	}
 
+	initialiseDraggable() {
+		const that = this;
+		interact('.draggableNode')
+			.draggable({
+				inertia: true,
+				modifiers: [
+					interact.modifiers.restrictRect({
+						restriction: '.workspace-boundary',
+						endOnly: true
+					})
+				],
+				autoScroll: true,
+				listeners: {
+					move: this.dragListener,
+					end(event) {
+						console.log(event.target);
+
+						const target = event.target;
+						const nodeId = event.target.id;
+						const node = that.store.selectSnapshot(WorkspaceState).TFNode.find(element => element.name == nodeId);
+
+						if (node != null) {
+							//Update node coordinates
+							node.x = target.getAttribute('data-x')
+							node.y = target.getAttribute('data-y')
+
+							//Update Node coordinates in the storage
+							that.store.dispatch(new UpdateNodeInStorage(node));
+						}
+					}
+
+				}
+			});
+	}
+
+	dragListener(event) {
+		const target = event.target;
+		// keep the dragged position in the data-x/data-y attributes
+		const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+		const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+		// translate the element
+		target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+		// update the position attributes
+		target.setAttribute('data-x', x)
+		target.setAttribute('data-y', y)
+
+	}
+
+	deleteTFNode() {
+		const dialog = this.dialog.open(NodeDeleteDialogComponent, {});
+
+
+		dialog.afterClosed().subscribe(result => {
+			const deleteNodeBoolean = dialog.disableClose;
+
+			if (deleteNodeBoolean) {
+				this.store.dispatch(new RemoveTFNode(this._TFNodeData));
+				const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
+				let lineObject: LeaderLine;
+				for (let i = 0; i < templine.length; i++) {
+					if (templine[i].start === this._TFNodeData.name || templine[i].end === this._TFNodeData.name) {
+						{
+							lineObject = templine[i]["line"];
+							this.store.dispatch(new RemoveLineFromStorage(templine[i]));
+							lineObject?.remove();
+						}
+					}
+				}
+				this.nav.TFNodeList.splice(this.nav.TFNodeList.indexOf(this._TFNodeData), 1);
+			}
+		})
+	}
 }

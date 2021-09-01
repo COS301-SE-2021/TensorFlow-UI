@@ -4,7 +4,7 @@ import {TensorComponent} from "./tensor/tensor.component";
 import {InputComponent} from "./tensor/input/input.component";
 import {DialogComponent} from "./tensor/input/dialog/dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {CommonModule} from "@angular/common";
@@ -14,6 +14,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
+import { RootnodeComponent } from './rootnode/rootnode.component';
+import {MatIconModule} from "@angular/material/icon";
+import { NodeDeleteDialogComponent } from './node-delete-dialog/node-delete-dialog.component';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import {MatSelectModule} from "@angular/material/select";
 		InputComponent,
 		DialogComponent,
 		Node,
-  OperatorComponent
+		OperatorComponent,
+  		RootnodeComponent,
+    NodeDeleteDialogComponent
 	],
 	imports: [
 		FormsModule,
@@ -35,15 +40,21 @@ import {MatSelectModule} from "@angular/material/select";
 		MatCardModule,
 		MatTableModule,
 		ReactiveFormsModule,
-		MatSelectModule
+		MatSelectModule,
+		MatIconModule,
 	],
 	exports: [
 		TensorComponent,
 		InputComponent,
 		DialogComponent,
 		Node,
-		OperatorComponent
-	]
+		OperatorComponent,
+		RootnodeComponent
+	],
+  providers: [
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+  ]
 })
 
 export class nodeModule {

@@ -1,0 +1,13 @@
+.projectBox{
+  cursor: pointer;
+  width: 150px;
+  background-color: #de9000;
+  float: left;
+  padding-bottom: 65px;
+  padding-top: 65px;
+  text-align: center;
+  border: solid 2px black;
+  margin: 2px;
+  font-style: oblique;
+  font-weight: bold;
+}

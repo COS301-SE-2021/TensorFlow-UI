@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarDialogsComponent } from './navbar-dialogs.component';
+import { NavbarDialogsComponent} from './navbar-dialogs.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 
 describe('NavbarDialogsComponent', () => {
   let component: NavbarDialogsComponent;
@@ -8,7 +10,13 @@ describe('NavbarDialogsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarDialogsComponent ]
+      declarations: [ NavbarDialogsComponent ],
+      providers: [
+        {provide: MAT_DIALOG_DATA, useValue: {}},
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_SNACK_BAR_DATA, useValue: {}},
+        {provide: MatSnackBarRef, useValue: {}}
+      ]
     })
     .compileComponents();
   });
