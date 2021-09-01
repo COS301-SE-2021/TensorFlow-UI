@@ -112,6 +112,11 @@
   width: 15%;
 }
 
+#runCodeButton{
+  float: right;
+  width: 15%;
+}
+
 #createNode{
   width: 13.5%;
   left: 8%;

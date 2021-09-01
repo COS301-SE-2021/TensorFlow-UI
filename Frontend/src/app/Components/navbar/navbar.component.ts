@@ -184,13 +184,13 @@ export class NavbarComponent implements OnInit {
 	}
 
 	// Code generation section
-	runAndGenerate() {
-    const generator : CodeGeneratorService = new CodeGeneratorService();
-    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
-  }
-
   downloadCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
 	  generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
+  }
+
+  runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
   }
 }
