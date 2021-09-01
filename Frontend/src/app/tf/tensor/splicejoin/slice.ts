@@ -1,15 +1,17 @@
-// tf.split (x, numOrSizeSplits, axis?)
+// tf.slice (x, begin, size?)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
-export class TFSplit extends TFTensor {
+export class TFSlice extends TFTensor {
 	constructor(public data: number | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
 
 	code() {
-		return `${this.name} = tf.split(${
+		return `${this.name} = tf.slice(${
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }

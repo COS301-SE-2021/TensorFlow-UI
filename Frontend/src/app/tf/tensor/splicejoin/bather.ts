@@ -1,15 +1,17 @@
-// tf.slice (x, begin, size?)
+// tf.gather (x, indices, axis?, batchDims?)
 import {TFTensor} from "../tensor";
+import {LGraphNode} from "litegraph.js";
 
-export class TFSlice extends TFTensor {
+export class TFGather extends TFTensor {
 	constructor(public data: number | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
 
 	code() {
-		return `${this.name} = tf.slice(${
+		return `${this.name} = tf.gather(${
 			this.data || "some value"
 		})`;
 	}
+	UIStructure(node: LGraphNode){}
 }
