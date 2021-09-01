@@ -224,6 +224,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	// Code generation section
+
+  runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+  }
+
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
