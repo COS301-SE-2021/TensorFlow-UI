@@ -24,6 +24,7 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/ma
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {RouterModule} from "@angular/router";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { RunningDialogComponent } from './running-dialog/running-dialog/running-dialog.component';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         NavbarDialogsComponent,
         SettingsPageDialogComponent,
         ProjectDetailsUpdatedSnackbarComponent,
+        RunningDialogComponent,
     ],
   exports: [
     NavbarComponent,
