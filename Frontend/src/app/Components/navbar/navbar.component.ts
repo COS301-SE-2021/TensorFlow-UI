@@ -32,6 +32,7 @@ import {
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import {RunningDialogComponent} from "../running-dialog/running-dialog/running-dialog.component";
 
 
 export interface SettingsPageData {
@@ -226,8 +227,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	// Code generation section
 
   runCode() {
-	  const generator : CodeGeneratorService = new CodeGeneratorService();
-    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+	  // const generator : CodeGeneratorService = new CodeGeneratorService();
+    // generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+
+    const runningDialog = this.dialog.open(RunningDialogComponent);
   }
 
 	runAndGenerate() {
