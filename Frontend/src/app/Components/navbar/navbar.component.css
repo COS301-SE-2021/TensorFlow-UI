@@ -226,7 +226,7 @@ mat-list-item{
 }
 
 mat-drawer{
-  width: 13%;
+  width: 14%;
 }
 
 .importExportProject{
@@ -245,7 +245,7 @@ mat-drawer{
   border: 2px solid black;
   width: 98%;
   left:0;
-  height: 30vh;
+
 }
 
 .importData h5{
@@ -261,7 +261,6 @@ mat-drawer{
 }
 
 #importExportProjectHeader h5, #importDataHeader h5 {
-  position: absolute;
   top:2%;
   font-weight: bold;
   font-size: 0.8rem;
