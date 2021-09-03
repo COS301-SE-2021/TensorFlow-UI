@@ -9,14 +9,16 @@ export class TFAdd extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.add(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("A+B","tf.Tensor");
+		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("A+B", "tf.Tensor");
+
 	}
 }

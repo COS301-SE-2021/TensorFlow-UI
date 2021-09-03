@@ -1,5 +1,4 @@
 import {TFOperator} from "../operator";
-import {TFNode} from "../../node";
 import {LGraphNode} from "litegraph.js";
 
 export class TFReciprocal extends TFOperator {
@@ -10,12 +9,14 @@ export class TFReciprocal extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.reciprocal(
-		${this.childOne?.name || "some value"}
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("X","tf.Tensor");
-		node.addOutput("1/X","tf.Tensor");
+		node.addInput("X", "tf.Tensor");
+		node.addOutput("1/X", "tf.Tensor");
 	}
 }

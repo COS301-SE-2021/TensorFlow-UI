@@ -1,5 +1,4 @@
 import {TFOperator} from "../operator";
-import {TFNode} from "../../node";
 import {LGraphNode} from "litegraph.js";
 
 export class TFMod extends TFOperator {
@@ -10,8 +9,8 @@ export class TFMod extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.mod(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${!(this.inputs) || this.inputs[0]?.name || "some value"},
+			${!(this.inputs) || this.inputs[1]?.name || "some value"
 		})`;
 	}
 

@@ -1,5 +1,4 @@
 import {TFOperator} from "../operator";
-import {TFNode} from "../../node";
 import {LGraphNode} from "litegraph.js";
 
 export class TFSigmoid extends TFOperator {
@@ -9,7 +8,11 @@ export class TFSigmoid extends TFOperator {
 	}
 
 	code() {
-		return `${this.name} = tf.math.sigmoid(${this.childOne?.name || "some value"})`;
+		return `${this.name} = tf.math.sigmoid(
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
+		})`;
 	}
 
 	UIStructure(node: LGraphNode) {
