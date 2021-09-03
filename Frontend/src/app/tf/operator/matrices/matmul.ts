@@ -28,7 +28,11 @@ export class TFMatMul extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addWidget("toggle","transposeA",false,"onDeselected",{values: [true,false]})
+		node.addWidget("toggle","transposeB",false,"onDeselected",{values: [true,false]})
+		node.addOutput("A+B", "tf.Tensor");
 	}
 
 }

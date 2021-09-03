@@ -31,7 +31,11 @@ export class TFNorm extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addWidget("text","ord?","","");
+		node.addWidget("text","axis?","","");
+		node.addWidget("text","keepDims?","","");
+		node.addOutput("", "tf.Tensor");
 	}
 
 }

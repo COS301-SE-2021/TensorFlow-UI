@@ -25,7 +25,9 @@ export class TFTranspose extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addWidget("text","perm(optional)","","");
+		node.addOutput("", "tf.Tensor");
 	}
 
 }
