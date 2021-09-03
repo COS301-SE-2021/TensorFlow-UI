@@ -13,14 +13,16 @@ import {LGraphNode} from "litegraph.js";
 
 export class TFTranspose extends TFOperator {
 
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.transpose(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

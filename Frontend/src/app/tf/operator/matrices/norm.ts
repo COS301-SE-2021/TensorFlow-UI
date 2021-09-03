@@ -19,14 +19,16 @@ import {LGraphNode} from "litegraph.js";
 
 export class TFNorm extends TFOperator {
 
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.norm(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 
