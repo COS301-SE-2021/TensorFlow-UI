@@ -37,7 +37,13 @@ export class TFMaxPool3d extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("X","tf.Tensor");
+		node.addWidget("text","filter","2","");
+		node.addWidget("text","strides","1","");
+		node.addWidget("text","pad","valid","");
+		node.addWidget("text","dataFormat?","","");
+		node.addWidget("text","dilation?","","");
+		node.addOutput("tf.Tensor4D|tf.Tensor5D","tf.Tensor");
 	}
 
 }

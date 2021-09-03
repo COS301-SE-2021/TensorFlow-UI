@@ -33,7 +33,12 @@ export class TFMaxPoolWithArdMax extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("X","tf.Tensor");
+		node.addWidget("text","filter","2","");
+		node.addWidget("text","strides","1","");
+		node.addWidget("text","pad","valid","");
+		node.addWidget("text","includeBatchInIndex?","","");
+		node.addOutput("Name","tf.Tensor");
 	}
 
 }

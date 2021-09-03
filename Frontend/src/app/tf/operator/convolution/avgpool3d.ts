@@ -41,7 +41,11 @@ export class TFAvgPool3D extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("X","tf.Tensor");
+		node.addWidget("text","filterSize","2","");
+		node.addWidget("text","strides","1","");
+		node.addWidget("text","pad","valid","");
+		node.addOutput("Tensor4D|Tensor5D","tf.Tensor");
 	}
 
 }

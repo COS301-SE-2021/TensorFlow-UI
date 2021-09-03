@@ -32,7 +32,13 @@ export class TFConv1d extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("X","tf.Tensor");
+		node.addWidget("text","filterSize","2","");
+		node.addWidget("text","strides","1","");
+		node.addWidget("text","pad","valid","");
+		node.addWidget("text","dataFormat?","","");
+		node.addWidget("text","dilation?","","");
+		node.addWidget("text","dimRoundingMode?","","");
+		node.addOutput("tf.Tensor2D|tf.Tensor3D","tf.Tensor");
 	}
-
 }

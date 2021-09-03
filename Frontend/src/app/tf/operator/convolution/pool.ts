@@ -31,7 +31,13 @@ export class TFPool extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("input","tf.Tensor");
+		node.addWidget("text","WindowShape","2","");
+		node.addWidget("text","poolingType","","");
+		node.addWidget("text","pad","valid","");
+		node.addWidget("text","dilation?","","");
+		node.addWidget("text","strides?","1","");
+		node.addOutput("tf.Tensor3D|tf.Tensor4D","tf.Tensor");
 	}
 
 }
