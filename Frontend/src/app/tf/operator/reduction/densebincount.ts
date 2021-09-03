@@ -15,14 +15,16 @@ export class TFDenseBincount extends TFOperator {
 // size (number) Non-negative integer.
 // binaryOutput (boolean) Optional. Whether the kernel should count the appearance or number of occurrences. Defaults to False. Optional
 // Returns: tf.Tensor1D|tf.Tensor2D
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.denseBincount(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

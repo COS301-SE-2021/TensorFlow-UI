@@ -22,14 +22,16 @@ export class TFMean extends TFOperator {
 // keepDims (boolean) If true, retains reduced dimensions with size 1. Optional
 // Returns: tf.Tensor
 
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.mean(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

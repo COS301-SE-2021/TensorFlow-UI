@@ -21,14 +21,16 @@ export class TFArgMax extends TFOperator {
 // axis (number) The dimension to reduce. Defaults to 0 (outer-most dimension). Optional
 // Returns: tf.Tensor
 
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.argMax(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

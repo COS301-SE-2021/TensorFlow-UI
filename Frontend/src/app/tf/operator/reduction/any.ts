@@ -21,14 +21,16 @@ import {LGraphNode} from "litegraph.js";
 	// keepDims (boolean) If true, retains reduced dimensions with size 1. Optional
 	// Returns: tf.Tensor
 export class Any extends TFOperator {
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.any(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

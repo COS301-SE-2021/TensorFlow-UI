@@ -14,14 +14,16 @@ export class TFBincount extends TFOperator {
 // weights (tf.Tensor1D|TypedArray|Array) The weights tensor, must have the same shape as x, or a length-0 Tensor, in which case it acts as all weights equal to 1.
 // size (number) Non-negative integer.
 // Returns: tf.Tensor1D
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.bincount(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 

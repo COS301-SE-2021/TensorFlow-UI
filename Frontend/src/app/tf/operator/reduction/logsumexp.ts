@@ -21,14 +21,16 @@ import {LGraphNode} from "litegraph.js";
 // keepDims (boolean) If true, retains reduced dimensions with length of 1. Defaults to false. Optional
 // Returns: tf.Tensor
 export class TFLogSumExp extends TFOperator {
-	constructor() {
-		super();
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
 	}
 
 	code(){
 		return `${this.name} = tf.logSumExp(
-		${this.childOne?.name || "some value"},
-		${this.childTwo?.name || "some value"
+			${this.inputs?.forEach(function (key) {
+			key?.name + "," || `some value,`
+		})
 		})`;
 	}
 
