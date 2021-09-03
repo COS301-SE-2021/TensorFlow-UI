@@ -77,9 +77,6 @@
                     </div>
                 </mat-list-item>
             </mat-nav-list>
-            <div class="importFromCommunity" id="importFromCommunity">
-              <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
-            </div>
         </mat-sidenav>
 <!--            <mat-nav-list>-->
 <!--                <mat-list-item class="sidenav-icons">-->
@@ -133,6 +130,9 @@
                     <div class="importData">
                         <div id="importDataHeader">
                             <h5>Import Data</h5>
+                        </div>
+                        <div class="importFromCommunity" id="importFromCommunity">
+                          <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
                         </div>
                     </div>
                 </div>
