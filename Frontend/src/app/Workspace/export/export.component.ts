@@ -58,12 +58,8 @@ export class ExportComponent implements OnInit {
   }
 
   exportToLib(): boolean {
-    console.log("Export to lib")
-    const provider = new GoogleAuthProvider();
-    // const provider = new GithubAuthProvider();
-    console.log(provider)
+    const provider = new GithubAuthProvider();
     const auth = getAuth();
-    console.log(auth)
 
     // signInWithRedirect(auth, provider);
     // getRedirectResult(auth)
@@ -102,7 +98,7 @@ export class ExportComponent implements OnInit {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential!=null){
           const token = credential.accessToken;
-          console.log(token);
+          //console.log(token);
         }
         // The signed-in user info.
         const user = result.user;
@@ -120,7 +116,6 @@ export class ExportComponent implements OnInit {
       console.log(error);
       // ...
     });
-    console.log("I failed miserably");
 
 
     // const storageProject = this.store.selectSnapshot(WorkspaceState).project;
