@@ -11,13 +11,13 @@ import {
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import {Store} from "@ngxs/store";
+import {StateContext, Store} from "@ngxs/store";
 import {
 	AddLineConnectorToStorage,
 	AddNodeToStorage,
 	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
-	RemoveNodeFromStorage, RemoveTFNode
+	RemoveNodeFromStorage, RemoveTFNode, WorkspaceStateModel
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
@@ -71,8 +71,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	projectName: string;
 	projectDetails: string;
-	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
-	public tensorList: string[] = ["variable", "constant", "tensor"];
+
+	public oldLineConnectors: lineConnectors[] =[];
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
@@ -554,8 +554,14 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				type: line.type
 			};
 
-			this.store.dispatch(new AddLineConnectorToStorage(lineObj));
+			//Only add line Connectors which have not yet been added to the links array
+			if(this.objectIsNotInOldConnectorsArray(lineObj)){
+				this.oldLineConnectors.push(lineObj);
+				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
+			}
 		}
+
+
 	}
 
 	isAnyInputConnected(node): boolean{
@@ -566,4 +572,16 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		}
 		return false;
 	}
+
+	objectIsNotInOldConnectorsArray(lineObj: lineConnectors): boolean{
+
+		for(const line of this.oldLineConnectors){
+			if(line.id === lineObj.id && line.origin_id === lineObj.origin_id && line.target_id == lineObj.target_id){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }
