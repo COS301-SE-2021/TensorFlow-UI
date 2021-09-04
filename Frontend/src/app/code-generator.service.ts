@@ -30,14 +30,9 @@ export class CodeGeneratorService {
 
   runfile (head : TFNode, url : string) : string {
     var graph : TFGraph = new TFGraph(head);
-    var code = "import tensorflow as tf\n";
-    code += graph.generateCode(head);
-    console.log(code);
-    var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
+    var file : File = new File([graph.generateCode(head.childOne)], "output.py");
     var savedResponse : string = "";
-    var data = new FormData();
-    let filename = (Math.random() * 10).toString() + ".py";
-    data.append("file", blob, filename);
+    var data = file;
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function() {
@@ -47,8 +42,12 @@ export class CodeGeneratorService {
       }
     });
     xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/octet-stream");
     xhr.send(data);
     return savedResponse;
-    console.log(savedResponse);
+  }
+
+  createAndRun(head : TFNode, url : string) : string {
+    return this.runfile(head, url);
   }
 }
