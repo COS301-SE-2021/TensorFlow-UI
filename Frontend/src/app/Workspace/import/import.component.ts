@@ -21,15 +21,8 @@ export class ImportComponent implements OnInit {
 
   showhide(){
     this.API.GetList();
+    this.projectL = [""];
     this.projectL = projectList;
-    var el = document.getElementById('hidden1');
-    if (el != null){
-      if ( el.style.display == 'none'){
-        el.style.display = 'block';
-      } else {
-        el.style.display = 'none';
-      }
-    }
   }
 
   ImportFromPC() {
