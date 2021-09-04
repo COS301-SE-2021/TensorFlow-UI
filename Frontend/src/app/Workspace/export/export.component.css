@@ -4,6 +4,6 @@
 
 button{
   display: table-cell;
-  width: 100%;
+  width: 250px;
   margin: 8px 8px 8px 0;
 }
