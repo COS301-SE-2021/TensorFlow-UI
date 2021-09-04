@@ -1,27 +1,25 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
-        <h1 class="app-name">Tensorflow UI</h1>
-        <div class="WorkspaceToolbar">
-          <button id="settingsButton" (click)="showProjectDetails()">
+          <div class="app-name">Tensorflow UI</div>
+          <span id="settingsButton" (click)="showProjectDetails()">
             <mat-icon>settings</mat-icon>
-          </button>
-          <button class="toolbarButton" id="createNode" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
+          </span>
+          <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
             Create Node
-          </button>
-          <button class="toolbarButton" id="undoButton" mat-raised-button color="primary">
+          </span>
+          <span class="toolbarButton" id="undoButton">
             Undo
-          </button>
-          <button class="toolbarButton" id="redoButton" mat-raised-button color="primary">
+          </span>
+          <span class="toolbarButton" id="redoButton">
             Redo
-          </button>
-          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
-          <button class="toolbarButton" id="runCodeButton" mat-raised-button color="primary" (click)="runCode()">Run Code</button>
-          <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
+          </span>
+          <span class="toolbarButton" id="generateCodeButton" (click)="downloadCode()">Generate Code</span>
+          <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+          <span class="toolbarButton" id="clearCanvas"
                   (click)="clearCanvas()">
             Clear/Reset Canvas
-          </button>
+          </span>
 
-        </div>
 
       <mat-menu #nodes="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
