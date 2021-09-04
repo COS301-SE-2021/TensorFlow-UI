@@ -14,6 +14,38 @@ export class ProjectDetailsCommand extends Command{
   }
 
   execute(){
+    const projectDetailsDialog = this.nav.dialog.open(SettingsPageDialogComponent,
+      {
+        disableClose: true,
+        data: {projectName: this.nav.projectName, projectDetails: this.nav.projectDetails}
+      }
+    );
+
+    projectDetailsDialog.afterClosed().subscribe(result => {
+      const detailsAdded = projectDetailsDialog.disableClose;
+
+      if (detailsAdded) {
+        //Add to details to ngxs storage and display snackbar
+        const dialogData = projectDetailsDialog.componentInstance;
+        let dataOK: boolean = false;
+        if ((dialogData.projectName != undefined && dialogData.projectName!="" && dialogData.projectName.match(/^ *$/) == null) && dialogData.projectDescription != undefined) {
+          dataOK = true;
+          this.store.dispatch(new AddProjectName(dialogData.projectName));
+          this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
+        }
+        console.log("|"+dialogData.projectName+"|");
+        console.log(dialogData.projectDescription);
+        this.projectDetailsUpdatedSnackbar(dataOK);
+      }
+    })
+  }
+
+  projectDetailsUpdatedSnackbar(dataOk: boolean) {
+    let snackBarRef = this.nav.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
+      {
+        duration: 2000,
+        data: dataOk
+      })
   }
 
   undo() {
