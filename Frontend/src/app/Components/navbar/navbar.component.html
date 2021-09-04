@@ -6,7 +6,7 @@
         </button>
         <h1 class="app-name">Tensorflow UI</h1>
         <div class="WorkspaceToolbar">
-          <button id="settingsButton" (click)="showProjectDetails()">
+          <button id="settingsButton" (click)="projectDetailsCommand.execute()">
             <mat-icon>settings</mat-icon>
           </button>
           <button class="toolbarButton" id="createNode" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">

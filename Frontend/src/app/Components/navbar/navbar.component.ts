@@ -46,6 +46,7 @@ import {LGraphNode, LiteGraph} from "litegraph.js";
 import {Command} from "../../../Command/Command";
 import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
+import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -64,6 +65,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	public linesList: lineConnectors[] = [];
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
+  public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
@@ -92,8 +94,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	isTensorNodeVisible = false;
 
 
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-				public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
+              public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
 	}
 
 	ngOnInit(): void {
@@ -175,7 +177,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	}*/
 
-	showProjectDetails() {
+	/*showProjectDetails() {
 		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
 			{
 				disableClose: true,
@@ -200,15 +202,15 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				this.projectDetailsUpdatedSnackbar(dataOK);
 			}
 		})
-	}
+	}*/
 
-	projectDetailsUpdatedSnackbar(dataOk: boolean) {
+	/*projectDetailsUpdatedSnackbar(dataOk: boolean) {
 		let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
 			{
 				duration: 2000,
 				data: dataOk
 			})
-	}
+	}*/
 
 	setDrawerType(drawerType: string){
 		this.currentDrawer = drawerType;
