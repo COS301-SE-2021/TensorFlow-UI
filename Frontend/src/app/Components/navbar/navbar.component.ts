@@ -101,12 +101,41 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	ngAfterViewInit() {
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
+		const nodesOnCanvas: LGraphNode[] = [];
 		if(storedNodes.length>0){
 			//recreate all these nodes;
 			// console.log(storedNodes);
 			for(let i=0; i<storedNodes.length;++i){
-				this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]);
+			 	nodesOnCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
 			}
+
+			// recreate all line connectors from memory
+
+			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
+
+			console.log(storedLinks);
+			console.log(nodesOnCanvas);
+
+			for(let item of storedLinks){
+				const targetNodeID = item.target_id;
+				const originNodeID = item.origin_id;
+
+				const targetNode = nodesOnCanvas.find(element => element.id === targetNodeID);
+				const originNode = nodesOnCanvas.find(element => element.id === originNodeID);
+
+				if(originNode && targetNode) {
+					originNode.connect(item.origin_slot, targetNode, item.target_slot);
+					console.log("Testing")
+				}
+			}
+		}
+
+	}
+
+	findNodeByID(nodesArray: LGraphNode[],id: number){
+
+		for(let item of nodesArray){
+
 		}
 	}
 
