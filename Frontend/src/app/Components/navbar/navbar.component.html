@@ -113,18 +113,14 @@
 <!--        </mat-sidenav-content>-->
         <mat-drawer-container class="sidenav-Content-Container">
 
-            <mat-drawer #drawer>
+            <mat-drawer #drawer mode="side">
                 <div *ngIf="currentDrawer=='Import/Export'">
                     <div class="importExportProject">
                         <div id="importExportProjectHeader">
                             <h5>Import/Export Project</h5>
                         </div>
-                        <mat-list-item>
-                            <app-import></app-import>
-                        </mat-list-item>
-                        <mat-list-item>
-                            <app-export></app-export>
-                        </mat-list-item>
+                        <app-import></app-import>
+                        <app-export></app-export>
                     </div>
 
                     <div class="importData">
