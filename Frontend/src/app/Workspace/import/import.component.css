@@ -4,12 +4,12 @@
 
 button{
   /*display: table-cell;*/
-  width: 100%;
+  width: 97%;
+  margin: 2px 2px 2px 2px;
   /*margin: 8px 8px 8px 0;*/
 }
 
 .Group{
-  border: solid 2px black;
   text-align: center;
 }
 
