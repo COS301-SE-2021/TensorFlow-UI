@@ -18,8 +18,8 @@
           <button class="toolbarButton" id="redoButton" mat-raised-button color="primary">
             Redo
           </button>
-          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
-          <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary">
+          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="generateCodeCommand.execute()">Generate Code</button>
+          <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary" (click)="clearCanvasCommand.execute()">
             Clear/Reset Canvas
           </button>
 
