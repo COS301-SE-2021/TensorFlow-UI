@@ -69,21 +69,15 @@ export class ImportComponent implements OnInit {
   }
 
   ImportFromLib() {
-      let workspace = document.getElementById("workspace-boundary");
       let importFromCommunity = document.getElementById("importFromCommunity");
 
-      this.store.dispatch(new ChangeBooleanValue(false));
-
-      if(workspace && importFromCommunity){
-        if(workspace.style.display=="none"){
-          workspace.style.display = "block";
-          importFromCommunity.style.display = "none";
+      if(importFromCommunity){
+        if(importFromCommunity.style.display=="none"){
+          importFromCommunity.style.display = "block"
         }
         else{
-          workspace.style.display = "none";
-          importFromCommunity.style.display = "block";
+          importFromCommunity.style.display = "none";
         }
       }
-    // workspace.style.display = "none";
   }
 }
