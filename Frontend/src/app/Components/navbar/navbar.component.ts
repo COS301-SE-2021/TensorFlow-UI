@@ -501,11 +501,46 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 			// console.log(node);
 			// console.log(storedNode);
 			storedNode.position = node.pos;
-			this.store.dispatch(storedNode);
+			// this.store.dispatch(storedNode);
 		}
 	}
 
 	updateNodeLinks(){
+
+		let linesLength=0;
+
+		for(let key in this.lines){
+			++linesLength;
+		}
+
+		//To remove a line from storage when line connector is disconnected
+		//Iterate oldLines array and delete the item which does not match up to this.lines array
+		if(linesLength>0){
+			if(linesLength < this.oldLineConnectors.length){
+				for(let i=0; i<this.oldLineConnectors.length; ++i){
+
+					const line = this.oldLineConnectors[i];
+					let lineNotFound: boolean = false;
+
+					for(let key in this.lines) {
+
+						let item = this.lines[key];
+						if (item.id === line.id && item.origin_id == line.origin_id &&
+							item.target_id === line.target_id) {
+							lineNotFound = true;
+						}
+					}
+
+					//If line was not found in the litegraph lines array, then remove it from the oldLineConnectors array
+					if(!lineNotFound){
+						this.oldLineConnectors.splice(i,1);
+						console.log("Item removed");
+						this.store.dispatch(new RemoveLineFromStorage(line))
+						break;
+					}
+				}
+			}
+		}
 
 		for(let key in this.lines){
 			const line = this.lines[key];
