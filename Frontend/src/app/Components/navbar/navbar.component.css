@@ -279,3 +279,15 @@ mat-drawer{
   text-align: center;
   display: none;
 }
+
+mat-tab-group{
+  height: 100%;
+}
+
+mat-tab{
+  height: 100%;
+}
+
+mat-tab-group /deep/ .mat-tab-body-wrapper {
+  height: 100%;
+}
