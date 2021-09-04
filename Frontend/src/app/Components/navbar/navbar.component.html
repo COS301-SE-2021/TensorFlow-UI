@@ -48,7 +48,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export')">
+                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export'); popList()">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
@@ -113,24 +113,12 @@
 
             <mat-drawer #drawer mode="side">
                 <div *ngIf="currentDrawer=='Import/Export'">
-                    <div class="importExportProject">
-                        <div id="importExportProjectHeader">
-                            <h5>Import/Export Project</h5>
-                        </div>
-                        <app-import></app-import>
-                      <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none">somtin</button>
-                        <app-export></app-export>
-                    </div>
+                  <app-export></app-export>
+                  <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none"></button>
+                  <app-import></app-import>
+                  <div class="importFromCommunity" id="importFromCommunity">
 
-                    <div class="importData">
-                        <div id="importDataHeader">
-                            <h5>Import Data</h5>
-                        </div>
-                        <div class="importFromCommunity" id="importFromCommunity">
-                          <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
-
-                        </div>
-                    </div>
+                  </div>
                 </div>
 
             </mat-drawer>
@@ -140,7 +128,7 @@
                   <app-workspace-boundary [TFNodes]="TFNodeList"></app-workspace-boundary>
                 </mat-tab>
                 <mat-tab>
-                  <h1>I am Preview</h1>
+                  <h1>Community Project Preview</h1>
                   <div>
                     <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                   </div>

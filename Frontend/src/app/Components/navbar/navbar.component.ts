@@ -372,4 +372,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
+
+  popList() {
+    let el = document.getElementById("popCommunityList") as HTMLElement;
+    if(el){
+      el.click();
+    }
+  }
 }
