@@ -1,6 +1,6 @@
 .navigator{
   position: relative;
-  height: 99.5vh;
+  height: 100%;
   /*border: 2px solid salmon;*/
 }
 mat-toolbar{
@@ -20,7 +20,7 @@ mat-toolbar{
 /*}*/
 
 .container {
-  height: 92.4%;
+  height: 93.2%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 /*.sidenav-content {*/
