@@ -138,7 +138,6 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	}
 
-
 	showTensorNodeSearch() {
 		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
