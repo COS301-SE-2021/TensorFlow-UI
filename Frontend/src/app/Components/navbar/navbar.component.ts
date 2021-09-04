@@ -72,6 +72,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	projectName: string;
 	projectDetails: string;
 
+	public currentDrawer:string = "Import/Export";
+
 	public oldLineConnectors: lineConnectors[] =[];
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
@@ -132,16 +134,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	}
 
-	findNodeByID(nodesArray: LGraphNode[],id: number){
-
-		for(let item of nodesArray){
-
-		}
-	}
-
-	/* Enables nodes search section to be shown, so the user can select a type */
-	showFuncNodeSearch() {
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
+	setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
 	}
 
 	showTensorNodeSearch() {
