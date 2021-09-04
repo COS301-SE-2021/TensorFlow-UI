@@ -1,19 +1,20 @@
 .navigator{
   position: relative;
-  height: 100%;
+  height: 99.5vh;
+  /*border: 2px solid salmon;*/
 }
 
 .example-spacer {
   flex: 1 1 auto;
 }
 
-.side-menu {
-  position: absolute;
-  top: -30px;
-  bottom: -30px;
-  left: 0;
-  right: -30px;
-}
+/*.side-menu {*/
+/*  position: absolute;*/
+/*  top: -30px;*/
+/*  bottom: -30px;*/
+/*  left: 0;*/
+/*  right: -30px;*/
+/*}*/
 
 .toolbarButton{
   border: 2px solid black;
@@ -21,19 +22,16 @@
 }
 
 .container {
-  height: 90%;
+  height: 92.4%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
-.sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-.sidenav {
-  user-select: none;
-  background-color: #879b9c;
-}
+/*.sidenav-content {*/
+/*  display: flex;*/
+/*  height: 100%;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*}*/
+
 .full-width {
   width: 100%;
 }
@@ -111,6 +109,11 @@
   width: 15%;
 }
 
+#runCodeButton{
+  float: right;
+  width: 15%;
+}
+
 #createNode{
   width: 13.5%;
   left: 8%;
@@ -137,4 +140,138 @@
   margin: 3px;
   top:15%;
   cursor: pointer;
+}
+
+mat-sidenav{
+  background: radial-gradient(#58576c,#494860,#58576c);
+  width: 4.5%;
+  overflow: hidden;
+  /*border: 2px solid red;*/
+  height: 50rem;
+}
+
+.app-name{
+  cursor: pointer;
+}
+
+.homeIcon{
+
+}
+
+mat-nav-list{
+  position: relative;
+  height: 98%;
+  width: 55%;
+  left: 20%;
+  /*border: 1px solid yellow;*/
+  overflow: hidden;
+}
+
+.sidenav-icons{
+  position: relative;
+  width: 20%;
+  border: 2px solid blue;
+}
+
+.sidenav-icons-Div{
+  position: absolute;
+  /*border: 2px solid palegreen;*/
+  border-bottom: 2px solid white;
+  width: 2.2rem;
+  height: 85%;
+  left: 0;
+}
+
+.sidenav-icons-Div button{
+  width: 100%;
+  background-color: transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+.sidenav-buttons mat-icon{
+  position: relative;
+  font-size: 2rem;
+  left: -30%;
+}
+
+  /*.sidenav-icons-Div mat-icon{*/
+/*  position: relative;*/
+/*  !*border: 2px solid white;*!*/
+/*  font-size: 2.3rem;*/
+/*  top: 11%;*/
+/*  left: -12.5%;*/
+/*}*/
+
+mat-list-item{
+  top:2%;
+  margin-bottom: 20%;
+}
+
+.sidenav-buttons .settingsIcon{
+  font-size: 1.75rem;
+}
+
+.sidenav-buttons .documentIcon{
+  font-size: 1.75rem;
+}
+
+.sidenav-Content-Container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #555;
+}
+
+mat-drawer{
+  width: 13%;
+}
+
+.importExportProject{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+  height: 30vh;
+  margin-bottom: 3%;
+}
+
+.importExportProject h5{
+  text-align: center;
+}
+
+.importData{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+  height: 30vh;
+}
+
+.importData h5{
+  text-align: center;
+}
+
+#importExportProjectHeader, #importDataHeader {
+  /*border: 2px solid coral;*/
+  width: 69%;
+  border-bottom: 2px solid #ff8C00;
+  height: 15%;
+  margin-left: 15%;
+}
+
+#importExportProjectHeader h5, #importDataHeader h5 {
+  position: absolute;
+  top:2%;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+#importDataHeader{
+  margin-left: 28%;
+  width: 38%;
+}
+
+#importDataHeader h5{
+  top: 36%;
 }

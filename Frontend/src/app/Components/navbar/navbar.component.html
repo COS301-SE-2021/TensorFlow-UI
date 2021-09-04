@@ -1,9 +1,5 @@
 <div class="navigator">
-
     <mat-toolbar color="primary" class="toolbar">
-        <button mat-icon-button (click)="isExpanded = !isExpanded">
-            <mat-icon>menu</mat-icon>
-        </button>
         <h1 class="app-name">Tensorflow UI</h1>
         <div class="WorkspaceToolbar">
           <button id="settingsButton" (click)="showProjectDetails()">
@@ -19,6 +15,7 @@
             Redo
           </button>
           <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
+          <button class="toolbarButton" id="runCodeButton" mat-raised-button color="primary" (click)="runCode()">Run Code</button>
           <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
                   (click)="clearCanvas()">
             Clear/Reset Canvas
@@ -40,37 +37,109 @@
       </mat-menu>
 
     </mat-toolbar>
+
     <mat-sidenav-container class="container" autosize>
-        <mat-sidenav #sidenav class="sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
-                     (mouseleave)="mouseleave()">
+        <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
-                <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-                    <span class="full-width" *ngIf="isExpanded || isShowing">Navigation</span>
-                    <mat-icon mat-list-icon>home</mat-icon>
-                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
-                        expand_more
-                    </mat-icon>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right">
+                            <mat-icon class="homeIcon" [inline]="true" mat-list-icon>home</mat-icon>
+                        </button>
+                    </div>
                 </mat-list-item>
-              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <app-import></app-import>
-              </div>
-              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <app-export></app-export>
-              </div>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                  <button class="navigationButton" mat-raised-button color="primary">
-                    Create New Project
-                  </button>
-                </div>
-                <!-- This is for the V2 section of the node creation. -->
-<!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
-<!--                    <app-node></app-node>-->
-<!--                 </div>-->
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export')">
+                            <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
+                            <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Account')">
+                            <mat-icon class="accountIcon" [inline]="true" mat-list-icon>perm_identity</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right">
+                            <mat-icon class="documentIcon" [inline]="true" mat-list-icon>description</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content>
-            <app-workspace-boundary [TFNodes]="TFNodeList">
-            </app-workspace-boundary>
-        </mat-sidenav-content>
+<!--            <mat-nav-list>-->
+<!--                <mat-list-item class="sidenav-icons">-->
+<!--                    <div class="sidenav-icons-Div">-->
+<!--                        <mat-icon class="homeIcon" mat-list-icon>home</mat-icon>-->
+<!--                    </div>-->
+<!--                </mat-list-item>-->
+<!--                <mat-list-item>-->
+<!--                    <mat-icon id="someIcon" mat-list-icon>table</mat-icon>-->
+<!--                </mat-list-item>-->
+<!--                <mat-list-item>-->
+<!--                    <mat-icon>settings</mat-icon>-->
+<!--                </mat-list-item>-->
+<!--              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                <app-import></app-import>-->
+<!--              </div>-->
+<!--              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                <app-export></app-export>-->
+<!--              </div>-->
+<!--                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
+<!--                  <button class="navigationButton" mat-raised-button color="primary">-->
+<!--                    Create New Project-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; This is for the V2 section of the node creation. &ndash;&gt;-->
+<!--&lt;!&ndash;                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <app-node></app-node>&ndash;&gt;-->
+<!--&lt;!&ndash;                 </div>&ndash;&gt;-->
+<!--            </mat-nav-list>-->
+
+<!--        <mat-sidenav-content>-->
+<!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
+<!--            </app-workspace-boundary>-->
+<!--        </mat-sidenav-content>-->
+        <mat-drawer-container class="sidenav-Content-Container">
+
+            <mat-drawer #drawer>
+                <div *ngIf="currentDrawer=='Import/Export'">
+                    <div class="importExportProject">
+                        <div id="importExportProjectHeader">
+                            <h5>Import/Export Project</h5>
+                        </div>
+                        <mat-list-item>
+                            <app-import></app-import>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <app-export></app-export>
+                        </mat-list-item>
+                    </div>
+
+                    <div class="importData">
+                        <div id="importDataHeader">
+                            <h5>Import Data</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-drawer>
+            <mat-drawer-content>
+                <app-workspace-boundary [TFNodes]="TFNodeList">
+                </app-workspace-boundary>
+            </mat-drawer-content>
+        </mat-drawer-container>
     </mat-sidenav-container>
+
 </div>

@@ -44,6 +44,7 @@ import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component
 import * as litegraph from "litegraph.js";
 import {LGraphNode, LiteGraph} from "litegraph.js";
 
+
 export interface SettingsPageData {
 	projectName: string,
 	projectDetails: string
@@ -83,6 +84,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	isShowing = false;
 	isFunctionalNodeVisible = false;
 	isTensorNodeVisible = false;
+
+	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
 				private dialog: MatDialog, private iterableDiffers: IterableDiffers) {
@@ -211,6 +214,20 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 			})
 	}
 
+	/*setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
+	}
+
+	@ViewChild('sidenav') sidenav: MatSidenav;
+	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
+	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
+	isExpanded = true;
+
+	showSubmenu: boolean = false;
+	isShowing = false;
+	isFunctionalNodeVisible = false;
+	isTensorNodeVisible = false;*/
+
 	mouseenter() {
 		if (!this.isExpanded) {
 			this.isShowing = true;
@@ -224,6 +241,12 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	}
 
 	// Code generation section
+
+  runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+  }
+
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
