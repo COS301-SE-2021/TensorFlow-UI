@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
-  public command = new ClearCanvasCommand(this.store,this);
+  	public command = new ClearCanvasCommand(this.store,this);
 
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
@@ -89,7 +89,6 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	isFunctionalNodeVisible = false;
 	isTensorNodeVisible = false;
 
-	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
 				public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
@@ -139,9 +138,6 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	}
 
-	setDrawerType(drawerType: string){
-		this.currentDrawer = drawerType;
-	}
 
 	showTensorNodeSearch() {
 		this.isTensorNodeVisible = !this.isTensorNodeVisible;
@@ -231,7 +227,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	// Code generation section
 
-  runCode() {
+  	runCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
     generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
   }
