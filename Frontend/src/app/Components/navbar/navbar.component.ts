@@ -1,17 +1,26 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	DoCheck,
+	ElementRef,
+	Inject, IterableDiffer, IterableDiffers,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+	ViewChild
+} from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import {Store} from "@ngxs/store";
+import {StateContext, Store} from "@ngxs/store";
 import {
 	AddLineConnectorToStorage,
 	AddNodeToStorage,
 	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
-	RemoveNodeFromStorage, RemoveTFNode
+	RemoveNodeFromStorage, RemoveTFNode, WorkspaceStateModel
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
-import {Observable} from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import * as LeaderLine from "leader-line-new";
 import {CodeGeneratorService} from "../../code-generator.service";
@@ -32,6 +41,8 @@ import {
 } from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
+import * as litegraph from "litegraph.js";
+import {LGraphNode, LiteGraph} from "litegraph.js";
 
 
 export interface SettingsPageData {
@@ -45,93 +56,99 @@ export interface SettingsPageData {
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 
-	tftensor: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones"];
+	liteNodes: litegraph.LGraph[];
+	graph: litegraph.LGraph;
+
+	public lines;
+
+	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 	// TFList: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones", "Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 
 	projectName: string;
 	projectDetails: string;
-	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
-	public tensorList: string[] = ["variable", "constant", "tensor"];
+
+	public oldLineConnectors: lineConnectors[] =[];
+
+	@ViewChild('sidenav') sidenav: MatSidenav;
+	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
+	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
+	isExpanded = true;
+
+	showSubmenu: boolean = false;
+	isShowing = false;
+	isFunctionalNodeVisible = false;
+	isTensorNodeVisible = false;
 
 	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-				private dialog: MatDialog) {
+				private dialog: MatDialog, private iterableDiffers: IterableDiffers) {
 	}
 
 	ngOnInit(): void {
 		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
-	}
 
+		this.liteNodes = [];
+		this.graph = new litegraph.LGraph();
+
+		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
+		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
+	}
 
 	ngAfterViewInit() {
-		this.loadlines();
-	}
+		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
+		const nodesOnCanvas: LGraphNode[] = [];
+		if(storedNodes.length>0){
+			//recreate all these nodes;
+			// console.log(storedNodes);
+			for(let i=0; i<storedNodes.length;++i){
+			 	nodesOnCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
+			}
 
+			// recreate all line connectors from memory
 
-	loadlines() {
-		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
-		if (this.linesList != null && this.linesList.length > 0) {
-			for (let i = 0; i < this.linesList.length; i++) {
+			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
 
-				const lineStartName = this.linesList[i].start;
-				const lineEndName = this.linesList[i].end;
-				const lineObj = new LeaderLine(
-					this.document.getElementById(lineStartName),
-					this.document.getElementById(lineEndName), {
-						startSocket: 'auto',
-						endSocket: 'auto'
-					}
-				);
+			console.log(storedLinks);
+			console.log(nodesOnCanvas);
 
-				this.store.dispatch(new RemoveLineFromStorage(this.linesList[i]));
+			for(let item of storedLinks){
+				const targetNodeID = item.target_id;
+				const originNodeID = item.origin_id;
 
-				this.store.dispatch(new AddLineConnectorToStorage({
-					end: lineEndName,
-					line: lineObj,
-					start: lineStartName
+				const targetNode = nodesOnCanvas.find(element => element.id === targetNodeID);
+				const originNode = nodesOnCanvas.find(element => element.id === originNodeID);
 
-				}))
+				if(originNode && targetNode) {
+					originNode.connect(item.origin_slot, targetNode, item.target_slot);
+					console.log("Testing")
+				}
 			}
 		}
+
 	}
 
-	// This adds a new node to the data service "nodes" array.
-	createNode(type: string) {
-		const nodeNum = this.data.nodes.length + 1;
-		const nodeName = "Component" + (Number(this.data.nodes.length) + 1);
-		const nodeType = this.data.type;
+	findNodeByID(nodesArray: LGraphNode[],id: number){
 
-		this.data.nodes.push({
-			num: nodeNum,
-			name: nodeName,
-			type: nodeType,
-			value: type,
-			x: 0,
-			y: 0
-		});
-		this.addNodeToStorage(nodeNum, nodeName, nodeType, type, 0, 0);
-	}
+		for(let item of nodesArray){
 
-
-	addNodeToStorage(num, name, type, value, x, y) {
-		this.store.dispatch(new AddNodeToStorage({num, name, type, value, x, y}))
+		}
 	}
 
 	/* Enables nodes search section to be shown, so the user can select a type */
 	showFuncNodeSearch() {
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible; //Uncomment when doing demo
+		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
 	}
 
 	showTensorNodeSearch() {
-		this.isTensorNodeVisible = !this.isTensorNodeVisible; //Uncomment when doing demo
+		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
 
 	clearCanvas() {
@@ -197,7 +214,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			})
 	}
 
-	setDrawerType(drawerType: string){
+	/*setDrawerType(drawerType: string){
 		this.currentDrawer = drawerType;
 	}
 
@@ -209,7 +226,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	showSubmenu: boolean = false;
 	isShowing = false;
 	isFunctionalNodeVisible = false;
-	isTensorNodeVisible = false;
+	isTensorNodeVisible = false;*/
 
 	mouseenter() {
 		if (!this.isExpanded) {
@@ -240,125 +257,169 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
 	}
 
-	addNewNode(node: TFNode) {
+	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
+
+		console.log(node);
+		console.log(lgraphNode);
+
+
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
 	}
 
+	createLiteNode(component:string, loadFromMemory: boolean, storedNode:TFNode): LGraphNode {
+		const node = new litegraph.LGraphNode();
+
+		if(!loadFromMemory) {
+			node.title = component;
+			node.pos = [200, 200]; //ToDo: change this to be dynamic
+			const that = this;
+			node.onMouseDown = function (){
+				const that2 = that;
+				node.onMouseLeave = function (){
+					that2.updateNodePositionInLocalStorage();
+				}
+			}
+			node.onMouseEnter = function (){
+				that.updateNodeLinks()
+			}
+			if (this.tftensor.includes(component)) {
+				this.insertTensorData(node, component);
+			} else {
+				this.insertOperatorData(node, component);
+			}
+			this.graph.add(node);
+			this.graph.start();
+		}
+		else{
+			node.title = component;
+			node.pos = storedNode.position;
+			const that = this;
+			node.onMouseDown = function (){
+				const that2 = that;
+				node.onMouseLeave = function (){
+					that2.updateNodePositionInLocalStorage();
+				}
+			}
+			node.onMouseEnter = function (){
+				that.updateNodeLinks()
+			}
+			if (this.tftensor.includes(<string>storedNode.selector)) {
+				this.insertTensorData(node,<string>storedNode.selector);
+			} else {
+				this.insertOperatorData(node, <string>storedNode.selector);
+			}
+			this.graph.add(node);
+			this.graph.start();
+		}
+		return node;
+	}
+
 	createComponent(component: string) {
+
+		const liteGraphNode = this.createLiteNode(component,false,new TFNode());
+		const links = this.graph.list_of_graphcanvas[0].graph.links;
+		console.log(liteGraphNode);
+		console.log(this.graph);
+		console.log(links);
+
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 		switch (component) {
 			case this.tftensor[0]: {
 				tfnode = new TFConstant();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[1]: {
 				tfnode = new TFVariable();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[2]: {
 				tfnode = new TFFill();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[3]: {
 				tfnode = new TFLinespace();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[4]: {
 				tfnode = new TFZeros();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tftensor[5]: {
 				tfnode = new TFOnes();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[0]: {
 				tfnode = new TFAdd();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[1]: {
 				tfnode = new TFAddN();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[2]: {
 				tfnode = new TFDivide();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[3]: {
 				tfnode = new TFMod();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[4]: {
 				tfnode = new TFNegative();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[5]: {
 				tfnode = new TFReciprocal();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[6]: {
 				tfnode = new TFScalarMul();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[7]: {
 				tfnode = new TFSigmoid();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[8]: {
 				tfnode = new TFSubtract();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			case this.tfoperator[9]: {
 				tfnode = new TFMultiply();
 				tfnode.name = component + id;
-				tfnode.selector = component
-				this.addNewNode(tfnode);
+				this.createComponentSwitchDefaults(tfnode,liteGraphNode,component);
 				break;
 			}
 			default: {
@@ -366,4 +427,213 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			}
 		}
 	}
+
+	//Sets all values which are the same across every switch statement
+	createComponentSwitchDefaults(node: TFNode,liteGraphNode: LGraphNode, component:string){
+		node.selector = component;
+		node.id = liteGraphNode.id;
+		node.position = liteGraphNode.pos;
+		node.inputs = liteGraphNode.inputs;
+		node.outputs = liteGraphNode.outputs;
+		this.addNewNode(node,liteGraphNode);
+	}
+
+	insertTensorData(node: LGraphNode, component: string){
+		switch (component){
+			case "Variable":{
+				// node.addWidget("button", "initialValue", "tf.Tensor","variableName");
+				node.addWidget("toggle","trainable(optional)",false,"onDeselected",{values: [true,false]})
+				node.addWidget("text","name(optional)","uniqueID","variableID");
+				node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addInput("tf.Tensor","Tensor");
+				node.addOutput("Variable","tf.Tensor");
+
+				//ToDo: Change how input is viewed
+				break;
+			}
+			case "Constant":{
+				node.addWidget("number","constant",0,"constant");
+				node.addOutput("Value","tf.Tensor")
+				break;
+			}
+			case "Fill":{
+				node.addWidget("text","shape","[0,4,2]","fillShape");
+				node.addWidget("text","value",0,"fillShape");
+				node.addWidget("combo","dtype(optional)","float","fillDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Fill","tf.Tensor")
+				//Todo: Change default width
+				break;
+			}
+			case "Linspace":{
+				node.addWidget("number","start",0,"linspaceStart");
+				node.addWidget("number","stop",0,"linspaceStop");
+				node.addWidget("number","num",1,"linspaceNum");
+				node.addOutput("linspace sequence","tf.Tensor")
+				break;
+			}
+			case "Zeros":{
+				node.addWidget("text","shape","[0,2,4]","zerosShape");
+				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Tensor zeros","tf.Tensor")
+				break;
+			}
+			case "Ones":{
+				node.addWidget("text","shape","[0,2,4]","onesShape");
+				node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
+				node.addOutput("Tensor ones","tf.Tensor")
+				break;
+			}
+
+		}
+	}
+
+	insertOperatorData(node: LGraphNode, component: string){
+		switch (component) {
+			case "Add":{
+				node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addOutput("A+B","tf.Tensor");
+				break;
+			}
+			case "Add_n":{
+				node.addInput("tensors(Array)","Array"); //ToDo: Ensure this array can receive a sample array, must be same shape and dtype
+				node.addOutput("Tensor list","tf.Tensor");
+				break;
+			}
+			case "Divide":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A/B","tf.Tensor");
+				break;
+			}
+			case "Multiply":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A*B","tf.Tensor");
+				break;
+			}
+			case "Mod":{
+				node.addInput("A","tf.Tensor");
+				node.addInput("B","tf.Tensor");
+				node.addOutput("A%B","tf.Tensor")
+				break;
+			}
+			case "Negative":{
+				node.addInput("A","tf.Tensor");
+				node.addOutput("-(A)","tf.Tensor");
+				break;
+			}
+			case "Reciprocal":{
+				node.addInput("X","tf.Tensor");
+				node.addOutput("1/X","tf.Tensor");
+				break;
+			}
+			case "Sigmoid":{
+				node.addInput("X","tf.Tensor");
+				node.addOutput("1/1+exp(-x)", "tf.Tensor");
+				break;
+			}
+			case "Subtract":{
+				node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+				node.addOutput("A-B","tf.Tensor");
+				break;
+			}
+		}
+	}
+
+	updateNodePositionInLocalStorage(){
+		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+		for(let key in selectedNodes){
+			const node = selectedNodes[key];
+			const nodeID = node.id;
+			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
+			const storedNode = storedNodesArray.find(element => element.id == nodeID);
+			// console.log(this.lines);
+			// console.log(node);
+			// console.log(storedNode);
+			storedNode.position = node.pos;
+			// this.store.dispatch(storedNode);
+		}
+	}
+
+	updateNodeLinks(){
+
+		let linesLength=0;
+
+		for(let key in this.lines){
+			++linesLength;
+		}
+
+		//To remove a line from storage when line connector is disconnected
+		//Iterate oldLines array and delete the item which does not match up to this.lines array
+		if(linesLength>0){
+			if(linesLength < this.oldLineConnectors.length){
+				for(let i=0; i<this.oldLineConnectors.length; ++i){
+
+					const line = this.oldLineConnectors[i];
+					let lineNotFound: boolean = false;
+
+					for(let key in this.lines) {
+
+						let item = this.lines[key];
+						if (item.id === line.id && item.origin_id == line.origin_id &&
+							item.target_id === line.target_id) {
+							lineNotFound = true;
+						}
+					}
+
+					//If line was not found in the litegraph lines array, then remove it from the oldLineConnectors array
+					if(!lineNotFound){
+						this.oldLineConnectors.splice(i,1);
+						console.log("Item removed");
+						this.store.dispatch(new RemoveLineFromStorage(line))
+						break;
+					}
+				}
+			}
+		}
+
+		for(let key in this.lines){
+			const line = this.lines[key];
+
+			const lineObj: lineConnectors = {
+				id: line.id,
+				origin_id: line.origin_id,
+				origin_slot: line.origin_slot,
+				target_id: line.target_id,
+				target_slot: line.target_slot,
+				type: line.type
+			};
+
+			//Only add line Connectors which have not yet been added to the links array
+			if(this.objectIsNotInOldConnectorsArray(lineObj)){
+				this.oldLineConnectors.push(lineObj);
+				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
+			}
+		}
+
+
+	}
+
+	isAnyInputConnected(node): boolean{
+		for(let i=0; i<node.inputs.length; ++i){
+			if(node.inputs[i].link != null){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	objectIsNotInOldConnectorsArray(lineObj: lineConnectors): boolean{
+
+		for(const line of this.oldLineConnectors){
+			if(line.id === lineObj.id && line.origin_id === lineObj.origin_id && line.target_id == lineObj.target_id){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }

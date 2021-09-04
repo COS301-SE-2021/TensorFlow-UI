@@ -21,24 +21,26 @@ import {NodeElementComponent} from "./node-element/node-element.component";
 //import { ImportComponent } from './import/import.component';
 import { ImportComponent } from './import/import.component';
 import { ProjectListComponent } from './project-list/project-list.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    DiagramModule,
-    MatIconModule,
-    nodeModule,
-    MatDialogModule
-  ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        DiagramModule,
+        MatIconModule,
+        nodeModule,
+        MatDialogModule,
+        RouterModule
+    ],
     declarations: [
         WorkspaceBoundaryComponent,
         NodeElementComponent,
