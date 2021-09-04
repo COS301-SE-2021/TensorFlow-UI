@@ -75,6 +75,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		this.loadlines();
+		let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
+		if (el!=null){
+		  el.style.display = "none";
+    }
 	}
 
 

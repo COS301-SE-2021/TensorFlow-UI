@@ -135,8 +135,18 @@
 
             </mat-drawer>
             <mat-drawer-content>
-                <app-workspace-boundary [TFNodes]="TFNodeList">
-                </app-workspace-boundary>
+              <mat-tab-group #previewTabGroup>
+                <mat-tab>
+                  <app-workspace-boundary [TFNodes]="TFNodeList"></app-workspace-boundary>
+                </mat-tab>
+                <mat-tab>
+                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>
+                  <div>
+                    <button (click)="previewTabGroup.selectedIndex=0">Cancel</button><button>Import</button>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+
             </mat-drawer-content>
         </mat-drawer-container>
     </mat-sidenav-container>
