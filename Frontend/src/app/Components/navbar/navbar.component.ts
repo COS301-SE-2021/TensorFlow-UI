@@ -43,6 +43,8 @@ import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
 import {LGraphNode, LiteGraph} from "litegraph.js";
+import {Command} from "../../../Command/Command";
+import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -59,6 +61,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
+  public command = new ClearCanvasCommand(this.store,this);
 
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
@@ -86,8 +89,10 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	isFunctionalNodeVisible = false;
 	isTensorNodeVisible = false;
 
+	public currentDrawer:string = "Import/Export";
+
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-				private dialog: MatDialog, private iterableDiffers: IterableDiffers) {
+				public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
 	}
 
 	ngOnInit(): void {
@@ -113,7 +118,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 			// recreate all line connectors from memory
 
-			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
+			const storedLinks = this.store.selectSnapshot(WorkspaceState).lines;
 
 			console.log(storedLinks);
 			console.log(nodesOnCanvas);
@@ -142,7 +147,10 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
 
-	clearCanvas() {
+	/*clearCanvas() {
+	  this.command = new ClearCanvasCommand();
+	  this.command.execute();
+
 		const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
 		clearDialog.afterClosed().subscribe(result => {
@@ -168,7 +176,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		})
 
 
-	}
+	}*/
 
 	showProjectDetails() {
 		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
@@ -205,6 +213,10 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 			})
 	}
 
+	setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
+	}
+
 	mouseenter() {
 		if (!this.isExpanded) {
 			this.isShowing = true;
@@ -218,6 +230,12 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	}
 
 	// Code generation section
+
+  runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+  }
+
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
