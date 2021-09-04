@@ -70,7 +70,6 @@ export class ImportComponent implements OnInit {
 
   ImportFromLib() {
       let importFromCommunity = document.getElementById("importFromCommunity");
-
       if(importFromCommunity){
         if(importFromCommunity.style.display=="none"){
           importFromCommunity.style.display = "block"

@@ -118,6 +118,7 @@
                             <h5>Import/Export Project</h5>
                         </div>
                         <app-import></app-import>
+                      <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none">somtin</button>
                         <app-export></app-export>
                     </div>
 
@@ -127,6 +128,7 @@
                         </div>
                         <div class="importFromCommunity" id="importFromCommunity">
                           <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
+
                         </div>
                     </div>
                 </div>
@@ -138,10 +140,12 @@
                   <app-workspace-boundary [TFNodes]="TFNodeList"></app-workspace-boundary>
                 </mat-tab>
                 <mat-tab>
-                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>
+                  <h1>I am Preview</h1>
                   <div>
-                    <button (click)="previewTabGroup.selectedIndex=0">Cancel</button><button>Import</button>
+                    <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                   </div>
+                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>
+
                 </mat-tab>
               </mat-tab-group>
 
