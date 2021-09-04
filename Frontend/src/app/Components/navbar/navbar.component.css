@@ -154,7 +154,7 @@ span:hover{
 
 mat-sidenav{
   background: radial-gradient(#58576c,#494860,#58576c);
-  width: 4.5%;
+  width: 70px;
   overflow: hidden;
   /*border: 2px solid red;*/
   height: 100%;
@@ -237,7 +237,7 @@ mat-list-item{
 }
 
 mat-drawer{
-  width: 15%;
+  width: 300px;
 }
 
 .importExportProject{
