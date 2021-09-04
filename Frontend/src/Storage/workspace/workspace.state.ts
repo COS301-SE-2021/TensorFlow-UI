@@ -117,15 +117,15 @@ export class WorkspaceState{
     )
   }*/
 
-  // @Action(RemoveLineFromStorage)
-  // public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
-  //   stateContext.setState(
-  //     patch({
-  //       lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
-  //     })
-  //   )
-  //   console.log(line)
-  // }
+  @Action(RemoveLineFromStorage)
+  public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
+    stateContext.setState(
+      patch({
+        links: removeItem<lineConnectors>(element => element?.origin_id === line.origin_id && element?.target_id === line.target_id
+        && element?.origin_slot === line.origin_slot && element?.target_slot === line.target_slot)
+      })
+    )
+  }
 
   @Action(ChangeBooleanValue)
   public changeValue(stateContext: StateContext<WorkspaceStateModel>, { element }: ChangeBooleanValue){
