@@ -45,6 +45,7 @@ import * as litegraph from "litegraph.js";
 import {LGraphNode, LiteGraph} from "litegraph.js";
 import {Command} from "../../../Command/Command";
 import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
+import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -61,7 +62,8 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
-  	public command = new ClearCanvasCommand(this.store,this);
+	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
+	public generateCodeCommand = new GenerateCodeCommand(this.store);
 
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
@@ -236,10 +238,10 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
 	}
 
-	downloadCode() {
+	/*downloadCode() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
-	}
+	}*/
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 
