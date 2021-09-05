@@ -120,8 +120,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 			}
 
 			// recreate all line connectors from memory
-
-			const storedLinks = this.store.selectSnapshot(WorkspaceState).lines;
+			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
 
 			console.log(storedLinks);
 			console.log(nodesOnCanvas);
@@ -541,7 +540,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 			// console.log(node);
 			// console.log(storedNode);
 			storedNode.position = node.pos;
-			// this.store.dispatch(storedNode);
+			this.store.dispatch(storedNode);
 		}
 	}
 
@@ -600,8 +599,6 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
 			}
 		}
-
-
 	}
 
 	isAnyInputConnected(node): boolean{

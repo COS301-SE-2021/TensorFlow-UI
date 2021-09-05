@@ -16,7 +16,6 @@ export class WorkspaceBoundaryComponent implements OnInit {
 
 
   public projectL = projectList
-	@Input() TFNodes: TFNode[];
 
 	@Input() storageNode: NodeData[];
 	@Input() storageLines: NodeData[];

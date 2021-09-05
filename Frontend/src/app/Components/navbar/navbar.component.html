@@ -39,6 +39,7 @@
       </mat-menu>
 
     </mat-toolbar>
+
     <mat-sidenav-container class="container" autosize>
         <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
@@ -51,21 +52,21 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)=" setDrawerType('Import/Export')">
+                        <button class="sidenav-buttons" matTooltip="Import/Export Project" matTooltipPosition="right" (click)="drawer.toggle();setDrawerType('Import/Export')">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="setDrawerType('Settings')">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
                             <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)=" setDrawerType('Account')">
+                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Account')">
                             <mat-icon class="accountIcon" [inline]="true" mat-list-icon>perm_identity</mat-icon>
                         </button>
                     </div>
@@ -79,24 +80,23 @@
                 </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-<!--        <mat-drawer-container class="sidenav-Content-Container">-->
-
-<!--            <mat-drawer #drawer>-->
-<!--                <div *ngIf="currentDrawer=='Import/Export'">-->
-<!--                    <app-import></app-import>-->
-<!--                    <app-export></app-export>-->
-<!--                </div>-->
-
-<!--            </mat-drawer>-->
-<!--            <mat-drawer-content>-->
-<!--                <app-workspace-boundary [TFNodes]="TFNodeList">-->
-<!--                </app-workspace-boundary>-->
-<!--            </mat-drawer-content>-->
-<!--        </mat-drawer-container>-->
 
         <mat-sidenav-content>
-            <app-workspace-boundary [TFNodes]="TFNodeList">
-            </app-workspace-boundary>
+            <mat-drawer-container class="sidenav-Content-Container">
+
+                <mat-drawer #drawer>
+                    <div *ngIf="currentDrawer=='Import/Export'">
+                        <app-import></app-import>
+                        <app-export></app-export>
+                    </div>
+
+                </mat-drawer>
+                            <mat-drawer-content>
+                                <app-workspace-boundary>
+                                </app-workspace-boundary>
+                            </mat-drawer-content>
+            </mat-drawer-container>
         </mat-sidenav-content>
+
     </mat-sidenav-container>
 </div>
