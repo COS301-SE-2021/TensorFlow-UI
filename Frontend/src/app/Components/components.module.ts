@@ -44,7 +44,6 @@ import {MatTabsModule} from "@angular/material/tabs";
         MatInputModule,
         MatDialogModule,
         MatSnackBarModule,
-        RouterModule,
         MatTooltipModule,
         MatTabsModule
     ],

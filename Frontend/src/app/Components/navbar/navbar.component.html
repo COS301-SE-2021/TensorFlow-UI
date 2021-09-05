@@ -1,31 +1,27 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
-        <button mat-icon-button (click)="isExpanded = !isExpanded">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <h1 class="app-name">Tensorflow UI</h1>
-        <div class="WorkspaceToolbar">
-          <div class="app-name">Tensorflow UI</div>
-          <span id="settingsButton" (click)="projectDetailsCommand.execute()">
-            <mat-icon>settings</mat-icon>
-          </span>
-          <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
-            Create Node
-          </span>
-          <span class="toolbarButton" id="undoButton">
-            Undo
-          </span>
-          <span class="toolbarButton" id="redoButton">
-            Redo
-          </span>
-          <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
-          <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
-          <span class="toolbarButton" id="clearCanvas"
-                  (click)="clearCanvasCommand.execute()">
-            Clear/Reset Canvas
-          </span>
-
-        </div>
+      <button mat-icon-button (click)="isExpanded = !isExpanded">
+          <mat-icon>menu</mat-icon>
+      </button>
+        <div class="app-name">Tensorflow UI</div>
+        <span id="settingsButton" (click)="projectDetailsCommand.execute()">
+          <mat-icon>settings</mat-icon>
+        </span>
+        <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
+          Create Node
+        </span>
+        <span class="toolbarButton" id="undoButton">
+          Undo
+        </span>
+        <span class="toolbarButton" id="redoButton">
+          Redo
+        </span>
+        <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+        <span class="toolbarButton" id="clearCanvas"
+                (click)="clearCanvasCommand.execute()">
+          Clear/Reset Canvas
+        </span>
 
       <mat-menu #nodes="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>

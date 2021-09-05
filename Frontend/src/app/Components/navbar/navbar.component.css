@@ -20,8 +20,6 @@ mat-toolbar{
 /*}*/
 
 .toolbarButton{
-  border: 2px solid black;
-  margin: 8px 8px 8px 0;
 }
 
 .container {
@@ -103,25 +101,18 @@ mat-toolbar{
 }
 
 #clearCanvas{
-  float: right;
 }
 
 #generateCodeButton{
-  float: right;
-  width: 15%;
 }
 
 #createNode{
-  width: 13.5%;
-  left: 8%;
 }
 
 #undoButton{
-  left: 22%;
 }
 
 #redoButton{
-  left: 21.5%;
 }
 
 .navigationButton{
