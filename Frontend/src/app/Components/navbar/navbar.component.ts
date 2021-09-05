@@ -1,10 +1,8 @@
 import {
 	AfterViewInit,
 	Component,
-	DoCheck,
 	ElementRef,
-	Inject, IterableDiffer, IterableDiffers,
-	OnChanges,
+	Inject, IterableDiffers,
 	OnInit,
 	SimpleChanges,
 	ViewChild
@@ -38,11 +36,9 @@ import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
 
-
 export interface SettingsPageData {
 	projectName: string,
 	projectDetails: string
-
 }
 
 @Component({
@@ -56,15 +52,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public linesList: lineConnectors[] = [];
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
-  public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
-  public screenWidth = screen.width;
-  public screenHeight = screen.height;
+  	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
+  	public screenWidth = screen.width;
+  	public screenHeight = screen.height;
+	public lines;
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
-
-
-
-	public lines;
 
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	_operatorMath: string[] = operatorMath;
@@ -75,19 +68,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	projectDetails: string;
 
 	public currentDrawer:string = "Import/Export";
-
 	public oldLineConnectors: lineConnectors[] =[];
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
 	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
 	isExpanded = true;
-
-	showSubmenu: boolean = false;
-	isShowing = false;
-	isFunctionalNodeVisible = false;
-	isTensorNodeVisible = false;
-
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
               public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
@@ -122,8 +108,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			// recreate all line connectors from memory
 			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
 
-			console.log(storedLinks);
-			console.log(nodesOnCanvas);
+			// console.log(storedLinks);
+			// console.log(nodesOnCanvas);
 
 			for(let item of storedLinks){
 				const targetNodeID = item.target_id;
@@ -139,10 +125,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			}
 		}
 
-	}
-
-	showTensorNodeSearch() {
-		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
 
 	/*clearCanvas() {
@@ -213,18 +195,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	setDrawerType(drawerType: string){
 		this.currentDrawer = drawerType;
-	}
-
-	mouseenter() {
-		if (!this.isExpanded) {
-			this.isShowing = true;
-		}
-	}
-
-	mouseleave() {
-		if (!this.isExpanded) {
-			this.isShowing = false;
-		}
 	}
 
 	// Code generation section
@@ -303,14 +273,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	createComponent(component: string) {
 
-
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 
 		tfnode = newNode(component);
 		tfnode.name = component + id;
 		const liteGraphNode = this.createLiteNode(component, false, tfnode);
-		const links = this.graph.list_of_graphcanvas[0].graph.links;
+		const links = this.graph.list_of_graphcanvas[1].graph.links;
 		this.createComponentSwitchDefaults(tfnode, liteGraphNode, component);
 
 		// console.log(liteGraphNode);
@@ -318,12 +287,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		// console.log(links);
 	}
 
-  popList() {
-    let el = document.getElementById("popCommunityList") as HTMLElement;
-    if(el){
-      el.click();
-    }
-  }
+  	popList() {
+		let el = document.getElementById("popCommunityList") as HTMLElement;
+		if(el){
+			el.click();
+		}
+	  }
 
 	//Sets all values which are the same across every switch statement
 	createComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
@@ -335,17 +304,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.addNewNode(node,liteGraphNode);
 	}
 
-
 	updateNodePositionInLocalStorage() {
-		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+		const selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
+		console.log(this.graph);
 		for (let key in selectedNodes) {
 			const node = selectedNodes[key];
 			const nodeID = node.id;
 			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
 			const storedNode = storedNodesArray.find(element => element.id == nodeID);
-			// console.log(this.lines);
-			// console.log(node);
-			// console.log(storedNode);
 			storedNode.position = node.pos;
 			this.store.dispatch(storedNode);
 		}
@@ -406,15 +372,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
 			}
 		}
-	}
-
-	isAnyInputConnected(node): boolean {
-		for (let i = 0; i < node.inputs.length; ++i) {
-			if (node.inputs[i].link != null) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	objectIsNotInOldConnectorsArray(lineObj: lineConnectors): boolean{

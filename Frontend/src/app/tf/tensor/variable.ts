@@ -18,7 +18,7 @@ export class TFVariable extends TFTensor {
 		node.addWidget("toggle","trainable(optional)",false,"onDeselected",{values: [true,false]})
 		node.addWidget("text","name(optional)","uniqueID","variableID");
 		node.addWidget("combo","dtype(optional)","float","variableDType",{values: ["float32","int32","bool","complex64","string"]});
-		node.addInput("tf.Tensor","Tensor");
+		node.addInput("tf.Tensor","tf.Tensor");
 		node.addOutput("Variable","tf.Tensor");
 
 		//ToDo: Change how input is viewed

@@ -27,7 +27,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 	constructor(public data: DataService, @Inject(DOCUMENT) private document, private store: Store) {
 		this.nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.initialiseDraggable();
-		this.store.dispatch(new AddRootNode(this._root))
+		// this.store.dispatch(new AddRootNode(this._root))
 	}
 
 	ngOnInit(): void {
@@ -36,7 +36,8 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 		if (temp != null) {
 			this._root = temp
 			console.log("rootNode: " + JSON.stringify(temp))
-		} else this.store.dispatch(new AddRootNode(this._root))
+		}
+		// else this.store.dispatch(new AddRootNode(this._root))
 	}
 
 	ngAfterViewInit() {
@@ -60,7 +61,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 			this.store.dispatch(new RemoveLineConnectionOne(this._root));
 			templine != undefined ? templine["line"].remove() : "";
 			this._root.childOne = this.nodes.find(element => element.name == selectedNode.toString());
-			this.store.dispatch(new AddRootNode(this._root));
+			// this.store.dispatch(new AddRootNode(this._root));
 
 		}
 	}
@@ -121,7 +122,7 @@ export class RootnodeComponent implements OnInit, AfterViewInit {
 							node.positionY = target.getAttribute('data-y')
 
 							//Update Node coordinates in the storage
-							that.store.dispatch(new AddRootNode(node));
+							// that.store.dispatch(new AddRootNode(node));
 						}
 					}
 
