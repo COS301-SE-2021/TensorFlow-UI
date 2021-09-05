@@ -117,14 +117,14 @@
           <mat-drawer-content>
             <mat-tab-group #previewTabGroup>
               <mat-tab>
-                <canvas id='Canvas' width='1920%' height='1080%'></canvas>
+                <canvas id='Canvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
               <mat-tab>
                 <h1>Community Project Preview</h1>
                 <div>
                   <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                 </div>
-                <canvas id='previewCanvas' width='1920%' height='1080%'></canvas>
+                <canvas id='previewCanvas' width='window.innerWidth' height='1080%'></canvas>
               </mat-tab>
             </mat-tab-group>
 

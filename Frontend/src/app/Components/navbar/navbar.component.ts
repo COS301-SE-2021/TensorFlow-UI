@@ -68,9 +68,12 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
   public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
-
+  public screenWidth = screen.width;
+  public screenHeight = screen.height;
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
+
+
 
 	public lines;
 
