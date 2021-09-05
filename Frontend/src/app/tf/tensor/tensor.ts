@@ -1,4 +1,5 @@
 import {TFNode} from "../node";
+import {LGraphNode} from "litegraph.js";
 
 export abstract class TFTensor extends TFNode {
 

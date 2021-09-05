@@ -7,7 +7,8 @@ export class TFNode {
 	public inputs: litegraph.INodeInputSlot[];
 	public outputs: litegraph.INodeOutputSlot[];
 	public widgets: litegraph.widgetTypes[];
-	public selector: string;
+	public selector: string | undefined = undefined;
+	public TFChildInputs: TFNode[] | undefined = undefined;
 	public id:number;
 	public position: Vector2 = [0,0];
 
@@ -17,4 +18,5 @@ export class TFNode {
 				public type: string | undefined = undefined,
         public data: number | undefined = undefined) {}
 	code() {}
+	UIStructure(node: LGraphNode){}
 }
