@@ -152,8 +152,7 @@ mat-sidenav{
 }
 
 .app-name{
-  float:left;
-  left:20px;
+  margin-left:20px;
 }
 
 .homeIcon{
