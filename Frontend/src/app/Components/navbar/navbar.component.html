@@ -124,7 +124,7 @@
                 <div>
                   <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                 </div>
-                <canvas id='previewCanvas' width='window.innerWidth' height='1080%'></canvas>
+                <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
             </mat-tab-group>
 
