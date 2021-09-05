@@ -269,3 +269,10 @@ mat-tab{
 mat-tab-group /deep/ .mat-tab-body-wrapper {
   height: 100%;
 }
+
+mat-tab-group /deep/ .mat-tab-body-content{
+  overflow: hidden;
+}
+
+#previewCanvas, #Canvas{
+}

@@ -65,7 +65,6 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
-  public projectL = projectList;
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
   public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
@@ -107,12 +106,16 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 		this.liteNodes = [];
 		this.graph = new litegraph.LGraph();
-
-		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
 		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 	}
 
 	ngAfterViewInit() {
+	  let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
+    if (el!=null){
+      el.style.display = "none";
+    }
+    let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
+    let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesOnCanvas: LGraphNode[] = [];
 		if(storedNodes.length>0){
@@ -141,10 +144,7 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 				}
 			}
 		}
-    let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
-    if (el!=null){
-      el.style.display = "none";
-    }
+
 	}
 
 	showTensorNodeSearch() {
@@ -633,5 +633,4 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 		return true;
 	}
-
 }
