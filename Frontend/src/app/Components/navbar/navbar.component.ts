@@ -47,6 +47,8 @@ import {Command} from "../../../Command/Command";
 import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
+import projectList from "../../Workspace/import/import.component";
+
 
 export interface SettingsPageData {
 	projectName: string,
@@ -66,9 +68,12 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
   public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
-
+  public screenWidth = screen.width;
+  public screenHeight = screen.height;
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
+
+
 
 	public lines;
 
@@ -104,12 +109,16 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 		this.liteNodes = [];
 		this.graph = new litegraph.LGraph();
-
-		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
 		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 	}
 
 	ngAfterViewInit() {
+	  let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
+    if (el!=null){
+      el.style.display = "none";
+    }
+    let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
+    let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesOnCanvas: LGraphNode[] = [];
 		if(storedNodes.length>0){
@@ -415,6 +424,13 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 		}
 	}
 
+  popList() {
+    let el = document.getElementById("popCommunityList") as HTMLElement;
+    if(el){
+      el.click();
+    }
+  }
+
 	//Sets all values which are the same across every switch statement
 	createComponentSwitchDefaults(node: TFNode,liteGraphNode: LGraphNode, component:string){
 		node.selector = component;
@@ -620,5 +636,4 @@ export class NavbarComponent implements OnInit, AfterViewInit{
 
 		return true;
 	}
-
 }

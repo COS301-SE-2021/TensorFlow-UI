@@ -1,7 +1,10 @@
 .navigator{
   position: relative;
-  height: 99.5vh;
+  height: 100%;
   /*border: 2px solid salmon;*/
+}
+mat-toolbar{
+  padding-left: 2px;
 }
 
 .example-spacer {
@@ -17,12 +20,10 @@
 /*}*/
 
 .toolbarButton{
-  border: 2px solid black;
-  margin: 8px 8px 8px 0;
 }
 
 .container {
-  height: 92.4%;
+  height: 93.2%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 /*.sidenav-content {*/
@@ -95,31 +96,23 @@
 .WorkspaceToolbar{
   position: relative;
   border: 2px solid black;
-  width: 82.5%;
+  width: 100%;
   height: 95%;
-  left: 4.8rem;
 }
 
 #clearCanvas{
-  float: right;
 }
 
 #generateCodeButton{
-  float: right;
-  width: 15%;
 }
 
 #createNode{
-  width: 13.5%;
-  left: 8%;
 }
 
 #undoButton{
-  left: 22%;
 }
 
 #redoButton{
-  left: 21.5%;
 }
 
 .navigationButton{
@@ -127,26 +120,40 @@
   width: 100%;
 }
 
-#settingsButton{
-  position: relative;
-  background: #ff8C00;
-  border: none;
-  left: 1%;
-  margin: 3px;
-  top:15%;
+span{
   cursor: pointer;
+  border-bottom: 2px solid black;
+  padding: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  text-align: center;
+  width: 20%;
+}
+
+span:hover{
+  border-bottom: 2px solid aliceblue;
+  font-weight: bolder;
+  color: aliceblue;
+  background-color: chocolate;
+}
+
+#settingsButton{
+  background: #ff8C00;
+  border:none;
+  cursor: pointer;
+  width: 5%;
 }
 
 mat-sidenav{
   background: radial-gradient(#58576c,#494860,#58576c);
-  width: 4.5%;
+  width: 70px;
   overflow: hidden;
   /*border: 2px solid red;*/
-  height: 100rem;
+  height: 100%;
 }
 
 .app-name{
-  cursor: pointer;
+  float:left;
+  left:20px;
 }
 
 .homeIcon{
@@ -221,5 +228,51 @@ mat-list-item{
 }
 
 mat-drawer{
-  width: 13%;
+  width: 300px;
+}
+
+.importExportProject{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.importData{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+
+}
+
+.importData h5{
+  text-align: center;
+}
+
+#importExportProjectHeader, #importDataHeader, #importDataHeader2 {
+  /*border: 2px solid coral;*/
+  border-bottom: 2px solid #ff8C00;
+  margin-bottom: 10px;
+}
+
+#importFromCommunity{
+  text-align: center;
+  display: none;
+}
+
+mat-tab-group{
+  height: 100%;
+}
+
+mat-tab{
+  height: 100%;
+}
+
+mat-tab-group /deep/ .mat-tab-body-wrapper {
+  height: 100%;
+}
+
+mat-tab-group /deep/ .mat-tab-body-content{
+  overflow: hidden;
+}
+
+#previewCanvas, #Canvas{
 }

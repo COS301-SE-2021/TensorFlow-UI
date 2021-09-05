@@ -6,7 +6,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
-import {WorkspaceBoundaryComponent } from './workspace-boundary/workspace-boundary.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
@@ -42,14 +41,12 @@ import {RouterModule} from "@angular/router";
         RouterModule
     ],
     declarations: [
-        WorkspaceBoundaryComponent,
         NodeElementComponent,
         ImportComponent,
         ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
     ],
     exports: [
-        WorkspaceBoundaryComponent,
         NodeElementComponent,
         ImportComponent,
         ProjectListComponent,

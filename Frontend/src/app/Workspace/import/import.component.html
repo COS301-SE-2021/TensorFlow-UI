@@ -1,12 +1,10 @@
-<button class="export" (click)="showhide()" mat-raised-button color="primary" routerLink="/Import">Import</button>
-
-<div id = "hidden1" class = "hidden1">
-  <div class="Group">
-    <p>From PC:</p>
-    <input type="file" id="myfile"/><br/>
-    <button class="import" (click)="ImportFromPC()" mat-raised-button color="primary">Import From PC</button>
-  </div>
-  <div class="Group">
-    <button class="import" (click)="ImportFromLib()" mat-raised-button color="primary">Import From Community Library</button><br/>
-  </div>
+<button id="popCommunityList" (click)="showhide()" style="display: none">Import</button>
+<div class="Group">
+  <h4>Import From PC:</h4>
+  <input type="file" id="myfile"/><br/>
+  <button class="import" (click)="ImportFromPC()" mat-raised-button color="primary">PC</button>
+</div>
+<div class="Group">
+  <h4>Community Library:</h4>
+  <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
 </div>

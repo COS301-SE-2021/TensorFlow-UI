@@ -23,6 +23,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         MatInputModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatTabsModule
     ],
     declarations: [
         NavbarComponent,
