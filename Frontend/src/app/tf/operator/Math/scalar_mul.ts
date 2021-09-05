@@ -9,7 +9,7 @@ export class TFScalarMul extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.scalar_mul(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

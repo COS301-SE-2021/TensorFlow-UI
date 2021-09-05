@@ -9,8 +9,8 @@ export class TFMod extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.mod(
-			${!(this.inputs) || this.inputs[0]?.name || "some value"},
-			${!(this.inputs) || this.inputs[1]?.name || "some value"
+			${!(this.TFChildInputs) || this.TFChildInputs[0]?.name || "some value"},
+			${!(this.TFChildInputs) || this.TFChildInputs[1]?.name || "some value"
 		})`;
 	}
 

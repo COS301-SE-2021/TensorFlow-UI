@@ -23,7 +23,7 @@ export class TFMatMul extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.matMul(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

@@ -26,7 +26,7 @@ export class TFDilation extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.dilation2d(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

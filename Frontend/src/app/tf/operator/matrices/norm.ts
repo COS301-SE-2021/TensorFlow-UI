@@ -26,7 +26,7 @@ export class TFNorm extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.norm(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

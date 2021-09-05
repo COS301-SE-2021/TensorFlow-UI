@@ -11,13 +11,13 @@ import {
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import {Store} from "@ngxs/store";
+import {StateContext, Store} from "@ngxs/store";
 import {
 	AddLineConnectorToStorage,
 	AddNodeToStorage,
 	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
-	RemoveNodeFromStorage, RemoveTFNode
+	RemoveNodeFromStorage, RemoveTFNode, WorkspaceStateModel
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
@@ -32,6 +32,12 @@ import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
 import {LGraphNode, LiteGraph} from "litegraph.js";
+import {Command} from "../../../Command/Command";
+import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
+import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
+import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
+import projectList from "../../Workspace/import/import.component";
+
 
 export interface SettingsPageData {
 	projectName: string,
@@ -48,9 +54,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
-
+	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
+	public generateCodeCommand = new GenerateCodeCommand(this.store);
+  public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
+  public screenWidth = screen.width;
+  public screenHeight = screen.height;
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
+
+
 
 	public lines;
 
@@ -61,8 +73,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	projectName: string;
 	projectDetails: string;
-	public functionsList: string[] = ["add", "subtract", "multiply", "divide"];
-	public tensorList: string[] = ["variable", "constant", "tensor"];
+
+	public currentDrawer:string = "Import/Export";
+
+	public oldLineConnectors: lineConnectors[] =[];
 
 	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
@@ -74,8 +88,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	isFunctionalNodeVisible = false;
 	isTensorNodeVisible = false;
 
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, private snackBar: MatSnackBar,
-				private dialog: MatDialog, private iterableDiffers: IterableDiffers) {
+
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
+              public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
 	}
 
 	ngOnInit(): void {
@@ -84,33 +99,56 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		this.liteNodes = [];
 		this.graph = new litegraph.LGraph();
-
 		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
 		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 	}
 
 	ngAfterViewInit() {
+	  let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
+    if (el!=null){
+      el.style.display = "none";
+    }
+    let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
+    let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
-		if (storedNodes.length > 0) {
+		const nodesOnCanvas: LGraphNode[] = [];
+		if(storedNodes.length>0){
 			//recreate all these nodes;
 			// console.log(storedNodes);
-			for (let i = 0; i < storedNodes.length; ++i) {
-				//add type nodeObject
-				this.createLiteNode(storedNodes[i].selector, true, storedNodes[i], storedNodes[i]);
+			for(let i=0; i<storedNodes.length;++i){
+			 	nodesOnCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
+			}
+
+			// recreate all line connectors from memory
+			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
+
+			console.log(storedLinks);
+			console.log(nodesOnCanvas);
+
+			for(let item of storedLinks){
+				const targetNodeID = item.target_id;
+				const originNodeID = item.origin_id;
+
+				const targetNode = nodesOnCanvas.find(element => element.id === targetNodeID);
+				const originNode = nodesOnCanvas.find(element => element.id === originNodeID);
+
+				if(originNode && targetNode) {
+					originNode.connect(item.origin_slot, targetNode, item.target_slot);
+					console.log("Testing")
+				}
 			}
 		}
-	}
 
-	/* Enables nodes search section to be shown, so the user can select a type */
-	showFuncNodeSearch() {
-		this.isFunctionalNodeVisible = !this.isFunctionalNodeVisible;
 	}
 
 	showTensorNodeSearch() {
 		this.isTensorNodeVisible = !this.isTensorNodeVisible;
 	}
 
-	clearCanvas() {
+	/*clearCanvas() {
+	  this.command = new ClearCanvasCommand();
+	  this.command.execute();
+
 		const clearDialog = this.dialog.open(NavbarDialogsComponent);
 
 		clearDialog.afterClosed().subscribe(result => {
@@ -136,9 +174,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		})
 
 
-	}
+	}*/
 
-	showProjectDetails() {
+	/*showProjectDetails() {
 		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
 			{
 				disableClose: true,
@@ -163,14 +201,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				this.projectDetailsUpdatedSnackbar(dataOK);
 			}
 		})
-	}
+	}*/
 
-	projectDetailsUpdatedSnackbar(dataOk: boolean) {
+	/*projectDetailsUpdatedSnackbar(dataOk: boolean) {
 		let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
 			{
 				duration: 2000,
 				data: dataOk
 			})
+	}*/
+
+	setDrawerType(drawerType: string){
+		this.currentDrawer = drawerType;
 	}
 
 	mouseenter() {
@@ -186,23 +228,34 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	// Code generation section
+
+  	runCode() {
+	  const generator : CodeGeneratorService = new CodeGeneratorService();
+    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+  }
+
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
 	}
 
-	downloadCode() {
+	/*downloadCode() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
-	}
+	}*/
 
-	addNewNode(node: TFNode) {
+	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
+
+		console.log(node);
+		console.log(lgraphNode);
+
+
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
 	}
 
 	//add type TFnode object
-	createLiteNode(component: string, loadFromMemory: boolean, storedNode: TFNode, tfnode: TFNode): LGraphNode {
+	createLiteNode(component: string, loadFromMemory: boolean, tempNode: TFNode): LGraphNode {
 		const node = new litegraph.LGraphNode();
 
 		if (!loadFromMemory) {
@@ -218,13 +271,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			node.onMouseEnter = function () {
 				that.updateNodeLinks();
 			}
-			tfnode.UIStructure(node);
+			tempNode.UIStructure(node);
 
 			this.graph.add(node);
 			this.graph.start();
 		} else {
 			node.title = component;
-			node.pos = storedNode.position;
+			node.pos = tempNode.position;
 			const that = this;
 			node.onMouseDown = function () {
 				const that2 = that;
@@ -236,7 +289,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				that.updateNodeLinks();
 			}
 			// A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
-			let temp = newNode(<string>storedNode.selector)
+			let temp = newNode(<string>tempNode.selector)
 
 			temp.UIStructure(node);
 			// The stored node objects do not have UI components.
@@ -256,7 +309,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		tfnode = newNode(component);
 		tfnode.name = component + id;
-		const liteGraphNode = this.createLiteNode(component, false, new TFNode(), tfnode);
+		const liteGraphNode = this.createLiteNode(component, false, tfnode);
 		const links = this.graph.list_of_graphcanvas[0].graph.links;
 		this.createComponentSwitchDefaults(tfnode, liteGraphNode, component);
 
@@ -265,12 +318,21 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		// console.log(links);
 	}
 
+  popList() {
+    let el = document.getElementById("popCommunityList") as HTMLElement;
+    if(el){
+      el.click();
+    }
+  }
+
 	//Sets all values which are the same across every switch statement
 	createComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
 		node.selector = component;
 		node.id = liteGraphNode.id;
 		node.position = liteGraphNode.pos;
-		this.addNewNode(node);
+		node.inputs = liteGraphNode.inputs;
+		node.outputs = liteGraphNode.outputs;
+		this.addNewNode(node,liteGraphNode);
 	}
 
 
@@ -291,7 +353,42 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	updateNodeLinks() {
 
-		for (let key in this.lines) {
+		let linesLength=0;
+
+		for(let key in this.lines){
+			++linesLength;
+		}
+
+		//To remove a line from storage when line connector is disconnected
+		//Iterate oldLines array and delete the item which does not match up to this.lines array
+		if(linesLength>0){
+			if(linesLength < this.oldLineConnectors.length){
+				for(let i=0; i<this.oldLineConnectors.length; ++i){
+
+					const line = this.oldLineConnectors[i];
+					let lineNotFound: boolean = false;
+
+					for(let key in this.lines) {
+
+						let item = this.lines[key];
+						if (item.id === line.id && item.origin_id == line.origin_id &&
+							item.target_id === line.target_id) {
+							lineNotFound = true;
+						}
+					}
+
+					//If line was not found in the litegraph lines array, then remove it from the oldLineConnectors array
+					if(!lineNotFound){
+						this.oldLineConnectors.splice(i,1);
+						console.log("Item removed");
+						this.store.dispatch(new RemoveLineFromStorage(line))
+						break;
+					}
+				}
+			}
+		}
+
+		for(let key in this.lines){
 			const line = this.lines[key];
 
 			const lineObj: lineConnectors = {
@@ -303,7 +400,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				type: line.type
 			};
 
-			this.store.dispatch(new AddLineConnectorToStorage(lineObj));
+			//Only add line Connectors which have not yet been added to the links array
+			if(this.objectIsNotInOldConnectorsArray(lineObj)){
+				this.oldLineConnectors.push(lineObj);
+				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
+			}
 		}
 	}
 
@@ -315,5 +416,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		}
 		return false;
 	}
-}
 
+	objectIsNotInOldConnectorsArray(lineObj: lineConnectors): boolean{
+
+		for(const line of this.oldLineConnectors){
+			if(line.id === lineObj.id && line.origin_id === lineObj.origin_id && line.target_id == lineObj.target_id){
+				return false;
+			}
+		}
+
+		return true;
+	}
+}

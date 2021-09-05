@@ -10,7 +10,7 @@ export class TFConv3dtranspose extends TFOperator{
 
 	code(){
 		return `${this.name} = tf.conv3dTranspose(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

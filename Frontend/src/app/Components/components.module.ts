@@ -22,27 +22,31 @@ import {MatInputModule} from "@angular/material/input";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatListModule,
-    MatButtonModule,
-    MatSliderModule,
-    MatCardModule,
-    WorkspaceModule,
-    MatMenuModule,
-    FormsModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        CommonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatListModule,
+        MatButtonModule,
+        MatSliderModule,
+        MatCardModule,
+        WorkspaceModule,
+        MatMenuModule,
+        FormsModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatTooltipModule,
+        MatTabsModule
+    ],
     declarations: [
         NavbarComponent,
         ExportComponent,

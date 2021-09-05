@@ -28,7 +28,7 @@ export class TFLogSumExp extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.logSumExp(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

@@ -9,7 +9,7 @@ export class TFNegative extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.negative(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

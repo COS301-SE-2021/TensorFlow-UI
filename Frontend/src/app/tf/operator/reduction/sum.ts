@@ -28,7 +28,7 @@ export class TFSum extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.sum(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

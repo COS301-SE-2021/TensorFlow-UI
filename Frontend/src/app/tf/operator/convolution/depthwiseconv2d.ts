@@ -30,7 +30,7 @@ export class TFDepthWiseConv2d extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.depthwiseConv2d(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

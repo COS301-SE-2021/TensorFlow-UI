@@ -36,7 +36,7 @@ export class TFAvgPool3D extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.avgPool3d(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

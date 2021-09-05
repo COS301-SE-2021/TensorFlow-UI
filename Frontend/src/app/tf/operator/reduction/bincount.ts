@@ -21,7 +21,7 @@ export class TFBincount extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.bincount(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

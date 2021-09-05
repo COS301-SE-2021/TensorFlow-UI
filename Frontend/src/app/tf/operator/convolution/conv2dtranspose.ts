@@ -22,7 +22,7 @@ export class TFConv2dTranspose extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.conv2dTranspose(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

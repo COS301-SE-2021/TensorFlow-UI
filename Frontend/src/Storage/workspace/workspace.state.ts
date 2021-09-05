@@ -18,7 +18,7 @@ import {
   RemoveLineConnectionTwo,
   UpdateLineConnection
 } from "./workspace.actions";
-import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
+import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
 import {TFNode, TFOperator} from "../../app/tf";
 
@@ -79,12 +79,23 @@ export class WorkspaceState{
   }*/
 
   @Action(AddLineConnectorToStorage)
-  public addLine(stateContext: StateContext<WorkspaceStateModel>, { line }: AddLineConnectorToStorage){
-    stateContext.setState(
-      patch({
-        links: append([line])
-      })
-    );
+  public addLine(stateContext: StateContext<WorkspaceStateModel>, {line} : AddLineConnectorToStorage){
+    patch({
+      links: this.appendIfUnique(stateContext,line)
+    })
+  }
+
+  public appendIfUnique(stateContext: StateContext<WorkspaceStateModel>, line : lineConnectors) :lineConnectors[]{
+    const storageLinks = stateContext.getState().links;
+    for(let i=0; i<storageLinks.length;++i){
+      if(line.id === storageLinks[i]?.id && line.target_id === storageLinks[i].target_id &&
+        line.target_slot === storageLinks[i].target_slot && line.origin_id == storageLinks[i].origin_id
+        && line.origin_slot == storageLinks[i].origin_slot){
+        return storageLinks;
+      }
+    }
+    storageLinks.push(line);
+    return storageLinks;
   }
 
   /*@Action(UpdateNodeInStorage)
@@ -106,15 +117,15 @@ export class WorkspaceState{
     )
   }*/
 
-  // @Action(RemoveLineFromStorage)
-  // public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
-  //   stateContext.setState(
-  //     patch({
-  //       lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
-  //     })
-  //   )
-  //   console.log(line)
-  // }
+  @Action(RemoveLineFromStorage)
+  public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
+    stateContext.setState(
+      patch({
+        links: removeItem<lineConnectors>(element => element?.origin_id === line.origin_id && element?.target_id === line.target_id
+        && element?.origin_slot === line.origin_slot && element?.target_slot === line.target_slot)
+      })
+    )
+  }
 
   @Action(ChangeBooleanValue)
   public changeValue(stateContext: StateContext<WorkspaceStateModel>, { element }: ChangeBooleanValue){

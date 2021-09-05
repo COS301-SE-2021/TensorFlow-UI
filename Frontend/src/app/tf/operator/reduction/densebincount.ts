@@ -22,7 +22,7 @@ export class TFDenseBincount extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.denseBincount(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

@@ -10,7 +10,7 @@ export class TFAddN extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.add_n(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

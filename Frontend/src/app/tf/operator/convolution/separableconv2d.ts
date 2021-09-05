@@ -32,7 +32,7 @@ export class TFSeparableConv2d extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.separableConv2d(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

@@ -9,7 +9,7 @@ export class TFMultiply extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.multiply(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

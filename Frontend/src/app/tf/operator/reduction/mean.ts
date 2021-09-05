@@ -29,7 +29,7 @@ export class TFMean extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.mean(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

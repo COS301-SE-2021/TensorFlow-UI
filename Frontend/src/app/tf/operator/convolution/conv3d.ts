@@ -25,7 +25,7 @@ export class TFConv3d extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.conv3d(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

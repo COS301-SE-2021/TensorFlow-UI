@@ -21,7 +21,7 @@ export class TFOuterProduct extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.outerProduct(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

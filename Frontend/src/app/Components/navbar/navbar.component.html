@@ -1,30 +1,27 @@
 <div class="navigator">
-
     <mat-toolbar color="primary" class="toolbar">
-        <button mat-icon-button (click)="isExpanded = !isExpanded">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <h1 class="app-name">Tensorflow UI</h1>
-        <div class="WorkspaceToolbar">
-          <button id="settingsButton" (click)="showProjectDetails()">
-            <mat-icon>settings</mat-icon>
-          </button>
-          <button class="toolbarButton" id="createNode" mat-raised-button color="primary" [matMenuTriggerFor]="nodes">
-            Create Node
-          </button>
-          <button class="toolbarButton" id="undoButton" mat-raised-button color="primary">
-            Undo
-          </button>
-          <button class="toolbarButton" id="redoButton" mat-raised-button color="primary">
-            Redo
-          </button>
-          <button class="toolbarButton" id="generateCodeButton" mat-raised-button color="primary" (click)="downloadCode()">Generate Code</button>
-          <button class="toolbarButton" id="clearCanvas" mat-raised-button color="primary"
-                  (click)="clearCanvas()">
-            Clear/Reset Canvas
-          </button>
-
-        </div>
+      <button mat-icon-button (click)="isExpanded = !isExpanded">
+          <mat-icon>menu</mat-icon>
+      </button>
+        <div class="app-name">Tensorflow UI</div>
+        <span id="settingsButton" (click)="projectDetailsCommand.execute()">
+          <mat-icon>settings</mat-icon>
+        </span>
+        <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
+          Create Node
+        </span>
+        <span class="toolbarButton" id="undoButton">
+          Undo
+        </span>
+        <span class="toolbarButton" id="redoButton">
+          Redo
+        </span>
+        <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+        <span class="toolbarButton" id="clearCanvas"
+                (click)="clearCanvasCommand.execute()">
+          Clear/Reset Canvas
+        </span>
 
       <mat-menu #nodes="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
@@ -40,37 +37,99 @@
       </mat-menu>
 
     </mat-toolbar>
+
     <mat-sidenav-container class="container" autosize>
-        <mat-sidenav #sidenav class="sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
-                     (mouseleave)="mouseleave()">
+        <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
-                <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-                    <span class="full-width" *ngIf="isExpanded || isShowing">Navigation</span>
-                    <mat-icon mat-list-icon>home</mat-icon>
-                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
-                        expand_more
-                    </mat-icon>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right">
+                            <mat-icon class="homeIcon" [inline]="true" mat-list-icon>home</mat-icon>
+                        </button>
+                    </div>
                 </mat-list-item>
-              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <app-import></app-import>
-              </div>
-              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <app-export></app-export>
-              </div>
-                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                  <button class="navigationButton" mat-raised-button color="primary">
-                    Create New Project
-                  </button>
-                </div>
-                <!-- This is for the V2 section of the node creation. -->
-<!--                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
-<!--                    <app-node></app-node>-->
-<!--                 </div>-->
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export'); popList()">
+                            <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
+                            <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Account" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Account')">
+                            <mat-icon class="accountIcon" [inline]="true" mat-list-icon>perm_identity</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+                <mat-list-item>
+                    <div class="sidenav-icons-Div">
+                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right">
+                            <mat-icon class="documentIcon" [inline]="true" mat-list-icon>description</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content>
-            <app-workspace-boundary [TFNodes]="TFNodeList">
-            </app-workspace-boundary>
-        </mat-sidenav-content>
+
+<!--        -->
+<!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
+<!--            </app-workspace-boundary>-->
+<!--&lt;!&ndash;        &ndash;&gt;
+
+<mat-sidenav-content>-->
+<!--        <mat-drawer-container class="sidenav-Content-Container">-->
+<!--            <mat-drawer-content>-->
+<!--              <mat-tab-group #previewTabGroup>-->
+<!--                <mat-tab>-->
+<!--                  <app-workspace-boundary></app-workspace-boundary>-->
+<!--                </mat-tab>-->
+<!--                <mat-tab>-->
+<!--                  <h1>Community Project Preview</h1>-->
+<!--                  <div>-->
+<!--                    <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>-->
+<!--                  </div>-->
+<!--&lt;!&ndash;                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>&ndash;&gt;-->
+
+<!--                </mat-tab>-->
+<!--              </mat-tab-group>-->
+
+<!--            </mat-drawer-content>-->
+<!--        </mat-drawer-container>-->
+<!--    </mat-sidenav-content>-->
+
+      <mat-sidenav-content>
+        <mat-drawer-container class="sidenav-Content-Container">
+          <mat-drawer #drawer mode="side">
+            <div *ngIf="currentDrawer=='Import/Export'">
+              <app-export></app-export>
+              <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none"></button>
+              <app-import></app-import>
+            </div>
+          </mat-drawer>
+          <mat-drawer-content>
+            <mat-tab-group #previewTabGroup>
+              <mat-tab>
+                <canvas id='Canvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
+              </mat-tab>
+              <mat-tab>
+                <h1>Community Project Preview</h1>
+                <div>
+                  <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
+                </div>
+                <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
+              </mat-tab>
+            </mat-tab-group>
+
+          </mat-drawer-content>
+        </mat-drawer-container>
+      </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

@@ -21,15 +21,8 @@ export class ImportComponent implements OnInit {
 
   showhide(){
     this.API.GetList();
+    this.projectL = [""];
     this.projectL = projectList;
-    var el = document.getElementById('hidden1');
-    if (el != null){
-      if ( el.style.display == 'none'){
-        el.style.display = 'block';
-      } else {
-        el.style.display = 'none';
-      }
-    }
   }
 
   ImportFromPC() {
@@ -69,21 +62,14 @@ export class ImportComponent implements OnInit {
   }
 
   ImportFromLib() {
-      let workspace = document.getElementById("workspace-boundary");
       let importFromCommunity = document.getElementById("importFromCommunity");
-
-      this.store.dispatch(new ChangeBooleanValue(false));
-
-      if(workspace && importFromCommunity){
-        if(workspace.style.display=="none"){
-          workspace.style.display = "block";
-          importFromCommunity.style.display = "none";
+      if(importFromCommunity){
+        if(importFromCommunity.style.display=="none"){
+          importFromCommunity.style.display = "block"
         }
         else{
-          workspace.style.display = "none";
-          importFromCommunity.style.display = "block";
+          importFromCommunity.style.display = "none";
         }
       }
-    // workspace.style.display = "none";
   }
 }

@@ -20,7 +20,7 @@ export class TFTranspose extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.transpose(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

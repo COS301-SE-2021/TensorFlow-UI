@@ -28,7 +28,7 @@ export class TFMin extends TFOperator {
 
 	code(){
 		return `${this.name} = tf.min(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;

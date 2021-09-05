@@ -9,7 +9,7 @@ export class TFReciprocal extends TFOperator {
 
 	code() {
 		return `${this.name} = tf.math.reciprocal(
-			${this.inputs?.forEach(function (key) {
+			${this.TFChildInputs?.forEach(function (key) {
 			key?.name + "," || `some value,`
 		})
 		})`;
