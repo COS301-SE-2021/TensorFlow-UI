@@ -18,6 +18,7 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
+import { AppRoutingModule } from './app-routing.module';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -42,7 +43,8 @@ const modules = [
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    ComponentsModule
+    ComponentsModule,
+    AppRoutingModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

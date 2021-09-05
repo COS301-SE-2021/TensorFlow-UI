@@ -1,7 +1,12 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
+        <button mat-icon-button (click)="isExpanded = !isExpanded">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="app-name">Tensorflow UI</h1>
+        <div class="WorkspaceToolbar">
           <div class="app-name">Tensorflow UI</div>
-          <span id="settingsButton" (click)="showProjectDetails()">
+          <span id="settingsButton" (click)="projectDetailsCommand.execute()">
             <mat-icon>settings</mat-icon>
           </span>
           <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
@@ -13,17 +18,18 @@
           <span class="toolbarButton" id="redoButton">
             Redo
           </span>
-          <span class="toolbarButton" id="generateCodeButton" (click)="downloadCode()">Generate Code</span>
+          <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
           <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
           <span class="toolbarButton" id="clearCanvas"
-                  (click)="clearCanvas()">
+                  (click)="clearCanvasCommand.execute()">
             Clear/Reset Canvas
           </span>
 
+        </div>
 
       <mat-menu #nodes="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
-        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Functional Node</button>
+        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Operator Node</button>
       </mat-menu>
 
       <mat-menu #tensorNodes="matMenu">
@@ -76,34 +82,6 @@
                 </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-<!--            <mat-nav-list>-->
-<!--                <mat-list-item class="sidenav-icons">-->
-<!--                    <div class="sidenav-icons-Div">-->
-<!--                        <mat-icon class="homeIcon" mat-list-icon>home</mat-icon>-->
-<!--                    </div>-->
-<!--                </mat-list-item>-->
-<!--                <mat-list-item>-->
-<!--                    <mat-icon id="someIcon" mat-list-icon>table</mat-icon>-->
-<!--                </mat-list-item>-->
-<!--                <mat-list-item>-->
-<!--                    <mat-icon>settings</mat-icon>-->
-<!--                </mat-list-item>-->
-<!--              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
-<!--                <app-import></app-import>-->
-<!--              </div>-->
-<!--              <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
-<!--                <app-export></app-export>-->
-<!--              </div>-->
-<!--                <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">-->
-<!--                  <button class="navigationButton" mat-raised-button color="primary">-->
-<!--                    Create New Project-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; This is for the V2 section of the node creation. &ndash;&gt;-->
-<!--&lt;!&ndash;                 <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <app-node></app-node>&ndash;&gt;-->
-<!--&lt;!&ndash;                 </div>&ndash;&gt;-->
-<!--            </mat-nav-list>-->
 
 <!--        <mat-sidenav-content>-->
 <!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
@@ -125,7 +103,7 @@
             <mat-drawer-content>
               <mat-tab-group #previewTabGroup>
                 <mat-tab>
-                  <app-workspace-boundary [TFNodes]="TFNodeList"></app-workspace-boundary>
+                  <app-workspace-boundary></app-workspace-boundary>
                 </mat-tab>
                 <mat-tab>
                   <h1>Community Project Preview</h1>
@@ -140,5 +118,4 @@
             </mat-drawer-content>
         </mat-drawer-container>
     </mat-sidenav-container>
-
 </div>

@@ -19,6 +19,11 @@ mat-toolbar{
 /*  right: -30px;*/
 /*}*/
 
+.toolbarButton{
+  border: 2px solid black;
+  margin: 8px 8px 8px 0;
+}
+
 .container {
   height: 93.2%;
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -106,11 +111,6 @@ mat-toolbar{
   width: 15%;
 }
 
-#runCodeButton{
-  float: right;
-  width: 15%;
-}
-
 #createNode{
   width: 13.5%;
   left: 8%;
@@ -162,7 +162,7 @@ mat-sidenav{
 
 .app-name{
   float:left;
-  left:10px;
+  left:20px;
 }
 
 .homeIcon{
@@ -209,7 +209,7 @@ mat-nav-list{
   left: -30%;
 }
 
-  /*.sidenav-icons-Div mat-icon{*/
+/*.sidenav-icons-Div mat-icon{*/
 /*  position: relative;*/
 /*  !*border: 2px solid white;*!*/
 /*  font-size: 2.3rem;*/

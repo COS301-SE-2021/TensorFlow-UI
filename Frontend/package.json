@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^12.0.5",
     "@angular/router": "^12.0.5",
     "@angular/service-worker": "^12.0.5",
-    "@fortawesome/angular-fontawesome": "^0.9.0",
     "@ngxs/devtools-plugin": "^3.7.2",
     "@ngxs/logger-plugin": "^3.7.2",
     "@ngxs/storage-plugin": "^3.7.2",
@@ -36,6 +35,7 @@
     "fs": "0.0.1-security",
     "interactjs": "^1.10.11",
     "leader-line-new": "^1.1.9",
+    "litegraph.js": "^0.7.10",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"

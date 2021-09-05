@@ -13,8 +13,6 @@ import * as LeaderLine from "leader-line-new";
 })
 export class WorkspaceBoundaryComponent implements OnInit {
 
-	@Input() TFNodes: TFNode[];
-
 	@Input() storageNode: NodeData[];
 	@Input() storageLines: NodeData[];
 	root: TFGraph = new TFGraph(new TFNode("rootNode", "root"));
@@ -23,11 +21,7 @@ export class WorkspaceBoundaryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		//this.data.nodes = [];
-		//this.data.lineConnectorsList = [];
 
-		// this.data.TFOperator = [];
-		// this.data.TFTensors = [];
 	}
 
 	reload() {
