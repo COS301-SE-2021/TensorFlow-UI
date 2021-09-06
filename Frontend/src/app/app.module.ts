@@ -18,6 +18,7 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
+import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -26,7 +27,8 @@ const modules = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TutorialModalComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
