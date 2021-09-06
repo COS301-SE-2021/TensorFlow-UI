@@ -14,7 +14,6 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import { OperatorComponent } from './operator/operator.component';
 import {MatSelectModule} from "@angular/material/select";
-import { RootnodeComponent } from './rootnode/rootnode.component';
 import {MatIconModule} from "@angular/material/icon";
 import { NodeDeleteDialogComponent } from './node-delete-dialog/node-delete-dialog.component';
 
@@ -26,7 +25,6 @@ import { NodeDeleteDialogComponent } from './node-delete-dialog/node-delete-dial
 		DialogComponent,
 		Node,
 		OperatorComponent,
-  		RootnodeComponent,
     NodeDeleteDialogComponent
 	],
 	imports: [
@@ -49,7 +47,7 @@ import { NodeDeleteDialogComponent } from './node-delete-dialog/node-delete-dial
 		DialogComponent,
 		Node,
 		OperatorComponent,
-		RootnodeComponent
+
 	],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

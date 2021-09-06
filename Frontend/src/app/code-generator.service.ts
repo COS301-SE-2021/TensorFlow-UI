@@ -19,6 +19,7 @@ export class CodeGeneratorService {
     head = topNode;
      */
 
+    console.log(head);
     var graph : TFGraph = new TFGraph(head);
     var code = "import tensorflow as tf\n";
     code += graph.generateCode(head.childOne);
@@ -30,20 +31,21 @@ export class CodeGeneratorService {
 
   runfile (head : TFNode, url : string) : string {
     var graph : TFGraph = new TFGraph(head);
+    console.log(head.inputs)
     var file : File = new File([graph.generateCode(head.childOne)], "output.py");
     var savedResponse : string = "";
-    var data = file;
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function() {
-      if(this.readyState === 4) {
-        console.log(this.responseText);
-        savedResponse = this.responseText;
-      }
-    });
-    xhr.open("POST", url);
-    xhr.setRequestHeader("Content-Type", "application/octet-stream");
-    xhr.send(data);
+    // var data = file;
+    // var xhr = new XMLHttpRequest();
+    // xhr.withCredentials = true;
+    // xhr.addEventListener("readystatechange", function() {
+    //   if(this.readyState === 4) {
+    //     console.log(this.responseText);
+    //     savedResponse = this.responseText;
+    //   }
+    // });
+    // xhr.open("POST", url);
+    // xhr.setRequestHeader("Content-Type", "application/octet-stream");
+    // xhr.send(data);
     return savedResponse;
   }
 

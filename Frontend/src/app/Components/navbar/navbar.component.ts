@@ -91,13 +91,29 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 	  let el = document.getElementsByClassName("mat-tab-header")[0] as HTMLElement;
-    if (el!=null){
-      el.style.display = "none";
-    }
-    let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
-    let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
+		if (el!=null){
+		  el.style.display = "none";
+		}
+		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
+		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesOnCanvas: LGraphNode[] = [];
+		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
+
+		//if else statement to load or create a root node onto the canvass
+		if(rootNode==undefined){
+			let tensorRoot = newNode("RootNode");
+			tensorRoot.name = "RootNode";
+
+			const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
+			this.createRootNodeHelper(tensorRoot, liteGraphNode);
+		}
+		else{
+			let tensorRoot = newNode("RootNode");
+			tensorRoot.name = "Root";
+			nodesOnCanvas.push(this.createLiteNode("RootNode",true,rootNode));
+		}
+
 		if(storedNodes.length>0){
 			//recreate all these nodes;
 			// console.log(storedNodes);
@@ -120,11 +136,21 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 				if(originNode && targetNode) {
 					originNode.connect(item.origin_slot, targetNode, item.target_slot);
-					console.log("Testing")
 				}
 			}
 		}
 
+	}
+
+	createRootNodeHelper(node: TFNode, liteGraphNode: LGraphNode){
+		node.selector = "RootNode";
+		node.id = liteGraphNode.id;
+		node.position = liteGraphNode.pos;
+		node.inputs = liteGraphNode.inputs;
+		node.outputs = liteGraphNode.outputs;
+
+		this.store.dispatch(new AddRootNode(node));
+		// this.TFNodeList.push(node);
 	}
 
 	/*clearCanvas() {
@@ -201,7 +227,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   	runCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
-    generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
+    	generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
   }
 
 	runAndGenerate() {
@@ -216,9 +242,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 
-		console.log(node);
-		console.log(lgraphNode);
-
+		// console.log(node);
+		// console.log(lgraphNode);
 
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
@@ -235,7 +260,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			node.onMouseDown = function () {
 				const that2 = that;
 				node.onMouseLeave = function () {
-					that2.updateNodePositionInLocalStorage();
+					if(component=="RootNode")
+						that2.updateNodePositionInLocalStorage(true);
+					else
+						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
 			node.onMouseEnter = function () {
@@ -252,7 +280,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 			node.onMouseDown = function () {
 				const that2 = that;
 				node.onMouseLeave = function () {
-					that2.updateNodePositionInLocalStorage();
+					if(component=="RootNode")
+						that2.updateNodePositionInLocalStorage(true);
+					else
+						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
 			node.onMouseEnter = function () {
@@ -304,21 +335,32 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		this.addNewNode(node,liteGraphNode);
 	}
 
-	updateNodePositionInLocalStorage() {
-		const selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
-		console.log(this.graph);
+	updateNodePositionInLocalStorage(isRootNode: boolean) {
+		let selectedNodes;
+		if(isRootNode)
+			selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
+		else
+			selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
 		for (let key in selectedNodes) {
 			const node = selectedNodes[key];
 			const nodeID = node.id;
-			const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
-			const storedNode = storedNodesArray.find(element => element.id == nodeID);
-			storedNode.position = node.pos;
-			this.store.dispatch(storedNode);
+			if(isRootNode){
+				const storedRootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
+				storedRootNode.position = node.pos;
+				this.store.dispatch(storedRootNode);
+			}
+			else
+			{
+				const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
+				const storedNode = storedNodesArray.find(element => element.id == nodeID);
+				storedNode.position = node.pos;
+				this.store.dispatch(storedNode);
+			}
 		}
 	}
 
 	updateNodeLinks() {
-
+		this.lines = this.graph.list_of_graphcanvas[1].graph.links;
 		let linesLength=0;
 
 		for(let key in this.lines){

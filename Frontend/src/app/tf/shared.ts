@@ -12,6 +12,7 @@ import {
 	TFSubtract
 } from "./operator";
 import {TFNode} from "./node";
+import {TFRootNode} from "./rootNode/rootNode";
 
 //need to update name and naming convention
 export function newNode(component: string) {
@@ -32,6 +33,7 @@ export function newNode(component: string) {
 		case "Sigmoid": return new TFSigmoid();
 		case "Subtract": return new TFSubtract();
 		case "Multiply": return new TFMultiply();
+		case "RootNode": return new TFRootNode();
 	//	need to add all the extra classes.
 	}
 	return new TFNode();

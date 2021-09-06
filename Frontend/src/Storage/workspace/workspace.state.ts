@@ -39,7 +39,7 @@ export interface WorkspaceStateModel{
       links: [],
       TFNode: [],
       showWorkspace: true,
-      rootNode: undefined, //temporary, change later
+      rootNode: undefined,
       projectName: "",
       projectDescription: ""
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
