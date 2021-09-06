@@ -103,14 +103,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		//if else statement to load or create a root node onto the canvass
 		if(rootNode==undefined){
-			let tensorRoot = newNode("RootNode");
+			let tensorRoot = new NodeStore["RootNode"]();
 			tensorRoot.name = "RootNode";
 
 			const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
 			this.createRootNodeHelper(tensorRoot, liteGraphNode);
 		}
 		else{
-			let tensorRoot = newNode("RootNode");
+			let tensorRoot = new NodeStore["RootNode"]();
 			tensorRoot.name = "Root";
 			nodesOnCanvas.push(this.createLiteNode("RootNode",true,rootNode));
 		}
