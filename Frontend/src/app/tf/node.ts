@@ -7,7 +7,7 @@ export class TFNode {
 	public inputs: litegraph.INodeInputSlot[];
 	public outputs: litegraph.INodeOutputSlot[];
 	public widgets: litegraph.widgetTypes[];
-	public selector: string | undefined = undefined;
+	public selector: string;
 	public TFChildInputs: TFNode[] | undefined = undefined;
 	public id:number;
 	public position: Vector2 = [0,0];

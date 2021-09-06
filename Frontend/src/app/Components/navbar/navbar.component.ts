@@ -25,7 +25,7 @@ import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {newNode, operatorMath, TFNode} from "../../tf";
+import {NodeStore, operatorMath, TFNode} from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
@@ -59,6 +59,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	liteNodes: litegraph.LGraph[];
 	graph: litegraph.LGraph;
 
+	listOfNodes: string[] = Object.keys(NodeStore);
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	_operatorMath: string[] = operatorMath;
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
@@ -290,8 +291,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				that.updateNodeLinks();
 			}
 			// A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
-			let temp = newNode(<string>tempNode.selector)
-
+			let temp: TFNode = new NodeStore[tempNode.selector]();
 			temp.UIStructure(node);
 			// The stored node objects do not have UI components.
 			// storedNode.UIStructure(node);
@@ -307,7 +307,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 
-		tfnode = newNode(component);
+		tfnode = new NodeStore[component]();
 		tfnode.name = component + id;
 		const liteGraphNode = this.createLiteNode(component, false, tfnode);
 		const links = this.graph.list_of_graphcanvas[1].graph.links;

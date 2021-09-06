@@ -26,7 +26,7 @@
       </mat-menu>
 
       <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tftensor" (click)="createComponent(item)">{{item}}</button>
+        <button mat-menu-item *ngFor="let item of listOfNodes" (click)="createComponent(item)">{{item}}</button>
       </mat-menu>
 
       <mat-menu #functionalNodes="matMenu">
