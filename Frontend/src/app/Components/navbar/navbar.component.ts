@@ -15,7 +15,7 @@ import {
 	AddNodeToStorage,
 	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
-	RemoveNodeFromStorage, RemoveTFNode, WorkspaceStateModel
+	RemoveNodeFromStorage, RemoveTFNode, UpdateTFNode, WorkspaceStateModel
 } from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
@@ -49,6 +49,7 @@ export interface SettingsPageData {
 export class NavbarComponent implements OnInit, AfterViewInit {
 
 	public TFNodeList: TFNode[] = [];
+	public tensorNodeObjectList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
@@ -71,10 +72,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	public currentDrawer:string = "Import/Export";
 	public oldLineConnectors: lineConnectors[] =[];
 
-	@ViewChild('sidenav') sidenav: MatSidenav;
 	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
 	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
-	isExpanded = true;
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
               public dialog: MatDialog, private iterableDiffers: IterableDiffers) {
@@ -86,8 +85,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		this.liteNodes = [];
 		this.graph = new litegraph.LGraph();
-		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
-		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 	}
 
 	ngAfterViewInit() {
@@ -96,7 +93,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		  el.style.display = "none";
 		}
 		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
-		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
+		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
+
+		// let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesOnCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
@@ -150,7 +149,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		node.inputs = liteGraphNode.inputs;
 		node.outputs = liteGraphNode.outputs;
 
-		this.store.dispatch(new AddRootNode(node));
+		this.store.dispatch(new AddRootNode(node))
 		// this.TFNodeList.push(node);
 	}
 
@@ -228,12 +227,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   	runCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
-    	generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "localhost:5000");
-  }
+	  console.log(this.tensorNodeObjectList);
+    	generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.tensorNodeObjectList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
+  	}
 
 	runAndGenerate() {
 		const generator: CodeGeneratorService = new CodeGeneratorService();
-		generator.runfile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
+		generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode, this.store.selectSnapshot(WorkspaceState).TFNode,this.lines,"");
 	}
 
 	/*downloadCode() {
@@ -248,6 +248,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
+		this.tensorNodeObjectList.push(node);
 	}
 
 	//add type TFnode object
@@ -310,7 +311,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		tfnode = new NodeStore[component]();
 		tfnode.name = component + id;
 		const liteGraphNode = this.createLiteNode(component, false, tfnode);
-		const links = this.graph.list_of_graphcanvas[1].graph.links;
+		const links = this.graph.list_of_graphcanvas[0].graph.links;
 		this.createComponentSwitchDefaults(tfnode, liteGraphNode, component);
 
 		// console.log(liteGraphNode);
@@ -332,35 +333,33 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		node.position = liteGraphNode.pos;
 		node.inputs = liteGraphNode.inputs;
 		node.outputs = liteGraphNode.outputs;
+
 		this.addNewNode(node,liteGraphNode);
 	}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
-		let selectedNodes;
-		if(isRootNode)
-			selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
-		else
-			selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+		const selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+
 		for (let key in selectedNodes) {
 			const node = selectedNodes[key];
 			const nodeID = node.id;
 			if(isRootNode){
 				const storedRootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				storedRootNode.position = node.pos;
-				this.store.dispatch(storedRootNode);
+				this.store.dispatch(new UpdateTFNode(storedRootNode));
 			}
 			else
 			{
 				const storedNodesArray = this.store.selectSnapshot(WorkspaceState).TFNode;
 				const storedNode = storedNodesArray.find(element => element.id == nodeID);
 				storedNode.position = node.pos;
-				this.store.dispatch(storedNode);
+				this.store.dispatch(new UpdateTFNode(storedNode));
 			}
 		}
 	}
 
 	updateNodeLinks() {
-		this.lines = this.graph.list_of_graphcanvas[1].graph.links;
+		this.lines = this.graph.list_of_graphcanvas[0].graph.links;
 		let linesLength=0;
 
 		for(let key in this.lines){
@@ -388,11 +387,17 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 					//If line was not found in the litegraph lines array, then remove it from the oldLineConnectors array
 					if(!lineNotFound){
 						this.oldLineConnectors.splice(i,1);
-						console.log("Item removed");
 						this.store.dispatch(new RemoveLineFromStorage(line))
 						break;
 					}
 				}
+			}
+		}
+		else if(linesLength==0 && this.store.selectSnapshot(WorkspaceState).links.length>0){ //To remove all lines in storage if there are no lines on the canvas
+			for(let i=0; i<this.oldLineConnectors.length; ++i){
+
+				const line = this.oldLineConnectors[i];
+				this.store.dispatch(new RemoveLineFromStorage(line));
 			}
 		}
 

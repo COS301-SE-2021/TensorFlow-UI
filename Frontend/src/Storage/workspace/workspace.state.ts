@@ -158,7 +158,7 @@ export class WorkspaceState{
   public updateTFNode(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
     stateContext.setState(
       patch({
-        TFNode: updateItem<TFNode>(element => element?.name === node.name, node)
+        TFNode: updateItem<TFNode>(element => element?.id === node.id, node)
       })
     )
   }
