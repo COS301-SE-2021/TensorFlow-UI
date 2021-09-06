@@ -408,10 +408,19 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				type: line.type
 			};
 
-			//Only add line Connectors which have not yet been added to the links array
+			//Only add line Connectors which have not yet been added to the links array - required
 			if(this.objectIsNotInOldConnectorsArray(lineObj)){
 				this.oldLineConnectors.push(lineObj);
 				this.store.dispatch(new AddLineConnectorToStorage(lineObj))
+				const nodes = this.store.selectSnapshot(WorkspaceState).TFNode;
+
+				//In case output of line was not linked correctly
+				const nodeInputID = lineObj.target_id;
+				let nodeInput = nodes.find(element => element.id == nodeInputID);
+
+				if(nodeInput!=undefined) {
+					nodeInput.inputs[lineObj.target_slot].id = lineObj.id;
+				}
 			}
 		}
 	}
