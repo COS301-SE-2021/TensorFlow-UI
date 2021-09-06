@@ -30,5 +30,5 @@ export const NodeStore: any = {
 	"Ones": TFOnes,
 	"Variable": TFVariable,
 	"Zeros": TFZeros,
-	"RootNode": TFRootNode()
+	"RootNode": TFRootNode
 }
