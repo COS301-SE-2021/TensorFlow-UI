@@ -23,6 +23,18 @@ export class TutorialServiceService {
       "In this case, we'll have an array of numbers representing subscribers gained, and a second array indicating the marketing budget which created the corresponding gain.");
     this.tutorialModal.open(this.modalService);
 
+    // arrays made for temporary use and reference:
+    var featuresTrain : Number[] = new Array();
+    var labelsTrain : Number[] = new Array();
+    var featuresTest : Number[] = new Array();
+    var labelsTest : Number[] = new Array();
+
+    featuresTrain.push(60,100,50,90);
+    labelsTrain.push(160, 240, 140, 220);
+
+    featuresTest.push(80,30,20,10);
+    labelsTest.push(200, 100, 80, 60);
+
     // TODO: creation of data nodes which represent said arrays
 
     this.tutorialModal.setText("We'll specifically need to create a training and a testing set - the two will exist as two separate arrays.");
