@@ -16,7 +16,7 @@ import {
   RemoveLineConnectionOne,
   RemoveLineConnection,
   RemoveLineConnectionTwo,
-  UpdateLineConnection
+  UpdateLineConnection, RemoveAllTFNode
 } from "./workspace.actions";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -61,7 +61,7 @@ export class WorkspaceState{
     return state.links;
   }
   @Selector()
-  static getTFNodes(state: WorkspaceStateModel){
+  static getTFNodes(state: WorkspaceStateModel): TFNode[]{
     return state.TFNode;
   }
   @Selector()
@@ -150,6 +150,15 @@ export class WorkspaceState{
     stateContext.setState(
       patch({
         TFNode: removeItem<TFNode>(element => element === node)
+      })
+    )
+  }
+
+  @Action(RemoveAllTFNode)
+  public removeAllTFNode(stateContext: StateContext<WorkspaceStateModel>, { }: RemoveAllTFNode){
+    stateContext.setState(
+    patch({
+      TFNode: removeItem<TFNode>(element => element?.name !== "")
       })
     )
   }

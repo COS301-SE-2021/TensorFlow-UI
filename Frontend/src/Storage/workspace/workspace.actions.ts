@@ -49,6 +49,11 @@ export class RemoveTFNode{
   constructor(public node: TFNode){}
 }
 
+export class RemoveAllTFNode{
+  public static readonly type = '[Workspace] Remove All TFNode';
+  constructor(){}
+}
+
 export class UpdateTFNode{
   public static readonly type = '[Workspace] Update TFNode';
 

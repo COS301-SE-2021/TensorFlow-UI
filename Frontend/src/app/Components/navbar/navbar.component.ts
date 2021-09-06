@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import {DataService} from "../../data.service";
 import {MatSidenav} from "@angular/material/sidenav";
-import {StateContext, Store} from "@ngxs/store";
+import {Select, StateContext, Store} from "@ngxs/store";
 import {
 	AddLineConnectorToStorage,
 	AddNodeToStorage,
-	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne,
+	AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveAllTFNode, RemoveLineConnectionOne,
 	RemoveLineFromStorage,
 	RemoveNodeFromStorage, RemoveTFNode, WorkspaceStateModel
 } from "../../../Storage/workspace";
@@ -35,6 +35,7 @@ import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
+import {Observable} from "rxjs";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -48,7 +49,8 @@ export interface SettingsPageData {
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
 
-	public TFNodeList: TFNode[] = [];
+
+	// public TFNodeList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
@@ -60,6 +62,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	graph: litegraph.LGraph;
 
 	listOfNodes: string[] = Object.keys(NodeStore);
+
+	@Select(WorkspaceState.getTFNodes) TFNodeList$!: Observable<TFNode>;
+
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
 	_operatorMath: string[] = operatorMath;
 	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
@@ -81,7 +86,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
+		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
 
 		this.liteNodes = [];
@@ -247,7 +252,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		// console.log(lgraphNode);
 
 		this.store.dispatch(new AddTFNode(node));
-		this.TFNodeList.push(node);
+		// this.TFNodeList.push(node);
 	}
 
 	//add type TFnode object
