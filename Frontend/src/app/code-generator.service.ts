@@ -46,7 +46,7 @@ export class CodeGeneratorService {
             //Root will always only be allowed one input
             let rootChildID = link?.origin_id;
             let rootChild = tfNodes.find(element => element.id == rootChildID);
-            console.log(rootChild);
+
             if(rootChild) {
                 let file: File = new File([graph.generateCode(rootChild,links,tfNodes)], "output.py");
             }

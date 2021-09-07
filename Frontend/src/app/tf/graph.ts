@@ -31,7 +31,7 @@ export class TFGraph {
 					// stringCode += this.generateCode(current.childOne);
 				}
             }
-	        console.log("AFTER")
+
 	        stringCode += (<TFNode>current).code() + "\n";
 	        console.log(stringCode);
 	    }
