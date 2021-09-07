@@ -4,10 +4,12 @@
 
 import {LGraphNode} from "litegraph.js";
 import {TFOperator} from "../../operator";
+import {TFNode} from "../../node";
 
 export class TFSequential extends TFOperator {
 	constructor(
-		public name: string | undefined = undefined) {
+		public name: string | undefined = undefined,
+    public layers: TFNode | undefined = undefined) {
 		super(name);
 	}
 
@@ -16,6 +18,12 @@ export class TFSequential extends TFOperator {
 		// ${this.childOne?.name || "some value"},
 		// ${this.childTwo?.name || "some value"
 		// })`;
+
+    return `
+    ${this.name} = tf.keras.Sequential(${this.layers?.name})\n
+    ${this.name}.summary()\n
+    ${this.name}.compile()\n
+    ${this.name}.fit()`
 	}
 
 	UIStructure(node: LGraphNode) {

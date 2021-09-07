@@ -2,10 +2,12 @@
 
 import {LGraphNode} from "litegraph.js";
 import {TFOperator} from "../../operator";
+import {TFNode} from "../../node";
 
 export class TFModel extends TFOperator {
 	constructor(
-		public name: string | undefined = undefined) {
+		public name: string | undefined = undefined,
+    public layers: TFNode | undefined = undefined) {
 		super(name);
 	}
 

@@ -59,7 +59,7 @@ export class TutorialServiceService {
     var kerasLayer = new TFKerasLayerDense("basicLayer", 1, 1);
 
     // TODO: create model node
-    var tfModel : TFModel= new TFModel("basicModel");
+    var tfModel : TFModel= new TFModel("basicModel", kerasLayer);
 
     this.tutorialModal.setText("We now have to compile the model, with loss (i.e. accuracy) and optimizer" +
       " (i.e. improvement) functions." +
