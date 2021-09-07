@@ -45,25 +45,25 @@ describe('NavbarComponent', () => {
    })
   })
 
-  describe('clearCanvas', ()=>{
-    it('should set the TFNode list to empty when clicked', () => {
-      component.clearCanvas();
-      // expect(component.TFNodeList).toHaveSize(0);
-    })
-  })
+  // describe('clearCanvas', ()=>{
+  //   it('should set the TFNode list to empty when clicked', () => {
+  //     component.clearCanvas();
+  //     // expect(component.TFNodeList).toHaveSize(0);
+  //   })
+  // })
 
-  describe('addNewNode', ()=>{
-    it('should Add a new node to the store object and TFNodeList', ()=> {
-      let tfNode: TFNode;
-      tfNode = new TFConstant();
-
-      // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-      component.addNewNode(tfNode);
-
-      expect(component.TFNodeList.length).toBeGreaterThan(0);
-
-    })
-  })
+  // describe('addNewNode', ()=>{
+  //   it('should Add a new node to the store object and TFNodeList', ()=> {
+  //     let tfNode: TFNode;
+  //     tfNode = new TFConstant();
+  //
+  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
+  //     component.addNewNode(tfNode);
+  //
+  //     expect(component.TFNodeList.length).toBeGreaterThan(0);
+  //
+  //   })
+  // })
 
   describe('createComponent', ()=>{
     it('should Add a new node to the store object and TFNodeList', ()=> {

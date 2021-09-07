@@ -1,0 +1,5 @@
+export * from "./rand"
+export * from "./multinomial"
+export * from "./randomgamma"
+export * from "./randomnormal"
+export * from "./randomuniform"

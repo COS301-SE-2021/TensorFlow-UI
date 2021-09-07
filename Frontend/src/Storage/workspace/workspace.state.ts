@@ -18,16 +18,16 @@ import {
   RemoveLineConnectionTwo,
   UpdateLineConnection
 } from "./workspace.actions";
-import {append, patch, removeItem, updateItem} from "@ngxs/store/operators";
+import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
 import {TFNode, TFOperator} from "../../app/tf";
 
 export interface WorkspaceStateModel{
   //nodes: NodeData[];
-  lines: lineConnectors[];
+  links: lineConnectors[];
   TFNode: TFNode[];
   showWorkspace: boolean;
-  rootNode: TFNode;
+  rootNode: TFNode|undefined;
   projectName: string;
   projectDescription: string;
 }
@@ -36,10 +36,10 @@ export interface WorkspaceStateModel{
   name: 'workspace',
   defaults:{
       //nodes:[],
-      lines: [],
+      links: [],
       TFNode: [],
       showWorkspace: true,
-      rootNode: new TFNode(), //temporary, change later
+      rootNode: undefined,
       projectName: "",
       projectDescription: ""
       // lines:[{start: "TestNode01", end: "TestNode02", line: null}],
@@ -58,7 +58,7 @@ export class WorkspaceState{
   }*/
   @Selector()
   static getLines(state: WorkspaceStateModel){
-    return state.lines;
+    return state.links;
   }
   @Selector()
   static getTFNodes(state: WorkspaceStateModel){
@@ -79,12 +79,23 @@ export class WorkspaceState{
   }*/
 
   @Action(AddLineConnectorToStorage)
-  public addLine(stateContext: StateContext<WorkspaceStateModel>, { line }: AddLineConnectorToStorage){
-    stateContext.setState(
-      patch({
-        lines: append([line])
-      })
-    );
+  public addLine(stateContext: StateContext<WorkspaceStateModel>, {line} : AddLineConnectorToStorage){
+    patch({
+      links: this.appendIfUnique(stateContext,line)
+    })
+  }
+
+  public appendIfUnique(stateContext: StateContext<WorkspaceStateModel>, line : lineConnectors) :lineConnectors[]{
+    const storageLinks = stateContext.getState().links;
+    for(let i=0; i<storageLinks.length;++i){
+      if(line.id === storageLinks[i]?.id && line.target_id === storageLinks[i].target_id &&
+        line.target_slot === storageLinks[i].target_slot && line.origin_id == storageLinks[i].origin_id
+        && line.origin_slot == storageLinks[i].origin_slot){
+        return storageLinks;
+      }
+    }
+    storageLinks.push(line);
+    return storageLinks;
   }
 
   /*@Action(UpdateNodeInStorage)
@@ -110,10 +121,10 @@ export class WorkspaceState{
   public removeLine(stateContext: StateContext<WorkspaceStateModel>, { line }: RemoveLineFromStorage){
     stateContext.setState(
       patch({
-        lines: removeItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end)
+        links: removeItem<lineConnectors>(element => element?.origin_id === line.origin_id && element?.target_id === line.target_id
+        && element?.origin_slot === line.origin_slot && element?.target_slot === line.target_slot)
       })
     )
-    console.log(line)
   }
 
   @Action(ChangeBooleanValue)
@@ -147,7 +158,7 @@ export class WorkspaceState{
   public updateTFNode(stateContext: StateContext<WorkspaceStateModel>, { node }: UpdateTFNode){
     stateContext.setState(
       patch({
-        TFNode: updateItem<TFNode>(element => element?.name === node.name, node)
+        TFNode: updateItem<TFNode>(element => element?.id === node.id, node)
       })
     )
   }
@@ -181,39 +192,39 @@ export class WorkspaceState{
 
 
 
-  @Action(RemoveLineConnection)
-  public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {
-    stateContext.setState(
-        patch({
-          lines: removeItem<lineConnectors>(element => element?.start === node.toString())
-        })
-    )
-  }
+  // @Action(RemoveLineConnection)
+  // public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {
+  //   stateContext.setState(
+  //       patch({
+  //         lines: removeItem<lineConnectors>(element => element?.start === node.toString())
+  //       })
+  //   )
+  // }
 
-  @Action(RemoveLineConnectionOne)
-  public removeLineConnectionOne(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionOne) {
-    stateContext.setState(
-        patch({
-          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childTwo?.name?.toString())
-        })
-    )
-  }
+  // @Action(RemoveLineConnectionOne)
+  // public removeLineConnectionOne(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionOne) {
+  //   stateContext.setState(
+  //       patch({
+  //         lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childTwo?.name?.toString())
+  //       })
+  //   )
+  // }
 
-  @Action(RemoveLineConnectionTwo)
-  public removeLineConnectionTwo(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionTwo) {
-    stateContext.setState(
-        patch({
-          lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childOne?.name?.toString())
-        })
-    )
-  }
+  // @Action(RemoveLineConnectionTwo)
+  // public removeLineConnectionTwo(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnectionTwo) {
+  //   stateContext.setState(
+  //       patch({
+  //         lines: removeItem<lineConnectors>(element => element?.start === node.name?.toString() && element?.end !== node?.childOne?.name?.toString())
+  //       })
+  //   )
+  // }
 
-  @Action(UpdateLineConnection)
-  public updateLineConnection(stateContext: StateContext<WorkspaceStateModel>, {line}: UpdateLineConnection) {
-    stateContext.setState(
-        patch({
-          lines: updateItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end , patch(line))
-        })
-    )
-  }
+  // @Action(UpdateLineConnection)
+  // public updateLineConnection(stateContext: StateContext<WorkspaceStateModel>, {line}: UpdateLineConnection) {
+  //   stateContext.setState(
+  //       patch({
+  //         lines: updateItem<lineConnectors>(element => element?.start === line.start && element?.end === line.end , patch(line))
+  //       })
+  //   )
+  // }
 }

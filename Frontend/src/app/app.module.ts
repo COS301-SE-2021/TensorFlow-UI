@@ -19,6 +19,8 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
 import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
+import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { ImportPageComponent } from './ImportPage/importPage.component';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -29,6 +31,7 @@ const modules = [
   declarations: [
     AppComponent,
     TutorialModalComponent
+    ImportPageComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -44,7 +47,8 @@ const modules = [
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    ComponentsModule
+    ComponentsModule,
+    AppRoutingModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

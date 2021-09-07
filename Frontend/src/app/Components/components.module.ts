@@ -22,9 +22,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {RouterModule} from "@angular/router";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { RunningDialogComponent } from './running-dialog/running-dialog/running-dialog.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
     imports: [
@@ -45,8 +45,8 @@ import { RunningDialogComponent } from './running-dialog/running-dialog/running-
         MatInputModule,
         MatDialogModule,
         MatSnackBarModule,
-        RouterModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatTabsModule
     ],
     declarations: [
         NavbarComponent,

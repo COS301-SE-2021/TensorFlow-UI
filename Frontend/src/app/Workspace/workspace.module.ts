@@ -6,7 +6,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
-import {WorkspaceBoundaryComponent } from './workspace-boundary/workspace-boundary.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
@@ -21,33 +20,33 @@ import {NodeElementComponent} from "./node-element/node-element.component";
 //import { ImportComponent } from './import/import.component';
 import { ImportComponent } from './import/import.component';
 import { ProjectListComponent } from './project-list/project-list.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    DiagramModule,
-    MatIconModule,
-    nodeModule,
-    MatDialogModule
-  ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        DiagramModule,
+        MatIconModule,
+        nodeModule,
+        MatDialogModule,
+        RouterModule
+    ],
     declarations: [
-        WorkspaceBoundaryComponent,
         NodeElementComponent,
         ImportComponent,
         ProjectListComponent,
         NodeElementDeleteNodeDialogComponent
     ],
     exports: [
-        WorkspaceBoundaryComponent,
         NodeElementComponent,
         ImportComponent,
         ProjectListComponent,
