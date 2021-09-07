@@ -49,7 +49,6 @@ export interface SettingsPageData {
 export class NavbarComponent implements OnInit, AfterViewInit {
 
 	public TFNodeList: TFNode[] = [];
-	public tensorNodeObjectList: TFNode[] = [];
 	public linesList: lineConnectors[] = [];
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
@@ -80,9 +79,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
+		this.TFNodeList = [];
 		this.linesList = this.store.selectSnapshot(WorkspaceState).lines;
-
 		this.liteNodes = [];
 		this.graph = new litegraph.LGraph();
 	}
@@ -116,7 +114,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		if(storedNodes.length>0){
 			//recreate all these nodes;
-			// console.log(storedNodes);
 			for(let i=0; i<storedNodes.length;++i){
 			 	nodesOnCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
 			}
@@ -227,8 +224,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   	runCode() {
 	  const generator : CodeGeneratorService = new CodeGeneratorService();
-	  console.log(this.tensorNodeObjectList);
-    	generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.tensorNodeObjectList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
+	  console.log(this.TFNodeList);
+    	generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.TFNodeList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
   	}
 
 	runAndGenerate() {
@@ -248,7 +245,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
-		this.tensorNodeObjectList.push(node);
 	}
 
 	//add type TFnode object
@@ -292,12 +288,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				that.updateNodeLinks();
 			}
 			// A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
-			let temp: TFNode = new NodeStore[tempNode.selector]();
-			temp.UIStructure(node);
-			// The stored node objects do not have UI components.
-			// storedNode.UIStructure(node);
 
 			this.graph.add(node);
+			let temp: TFNode = new NodeStore[tempNode.selector]();
+			temp.UIStructure(node);
+
+			if(tempNode.selector !== "RootNode") {
+				this.loadComponentSwitchDefaults(temp, node, tempNode.selector);
+			}
+
 			this.graph.start();
 		}
 		return node;
@@ -335,6 +334,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 		node.outputs = liteGraphNode.outputs;
 
 		this.addNewNode(node,liteGraphNode);
+	}
+
+	loadComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
+		node.selector = component;
+		node.id = liteGraphNode.id;
+		node.position = liteGraphNode.pos;
+		node.inputs = liteGraphNode.inputs;
+		node.outputs = liteGraphNode.outputs;
+
+		this.TFNodeList.push(node);
 	}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
@@ -422,9 +431,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 				//In case output of line was not linked correctly
 				const nodeInputID = lineObj.target_id;
 				let nodeInput = nodes.find(element => element.id == nodeInputID);
+				// console.log(nodeInput);
 
 				if(nodeInput!=undefined) {
 					nodeInput.inputs[lineObj.target_slot].id = lineObj.id;
+				}
+
+				//In case output of line to the root was not linked correctly
+				const rootInput = this.store.selectSnapshot(WorkspaceState).rootNode;
+				// console.log(rootInput);
+
+				if(rootInput!=undefined) {
+					rootInput.inputs[lineObj.target_slot].link = lineObj.id;
 				}
 			}
 		}
