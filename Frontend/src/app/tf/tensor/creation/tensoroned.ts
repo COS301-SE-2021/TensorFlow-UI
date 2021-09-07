@@ -2,7 +2,7 @@ import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
 
 export class TFTensorOneD extends TFTensor {
-	constructor(public data: number | undefined = undefined,
+	constructor(public data: number | number[] | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}

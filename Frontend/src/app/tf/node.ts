@@ -16,7 +16,7 @@ export class TFNode {
 
 	constructor(public name: string | undefined = undefined,
 				public type: string | undefined = undefined,
-        public data: number | undefined = undefined) {}
+        public data: number | number[] | undefined = undefined) {}
 	code() {}
 	UIStructure(node: LGraphNode){}
 }

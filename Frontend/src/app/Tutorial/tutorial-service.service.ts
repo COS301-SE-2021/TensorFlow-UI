@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {TutorialModalComponent} from "./tutorial-modal/tutorial-modal.component";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TFModel} from "../tf/model/creation/model";
+import {TFTensor, TFTensorOneD} from "../tf";
+import {TFKerasLayerDense} from "../tf/layer/layer_dense";
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +19,20 @@ export class TutorialServiceService {
 
   runTutorial() {
     this.tutorialModal.setText("Welcome to TensorFlow UI! We hope you enjoy using our program.\n\n" +
-      "This tutorial is designed to walk you through the creation and training of a basic prediction model, predicting the effect different marketing budgets will spend on ");
+      "This tutorial is designed to walk you through the creation and training of a basic prediction model, predicting" +
+      " the effect different marketing budgets will spend on ");
     this.tutorialModal.open(this.modalService);
 
     this.tutorialModal.setText("First, we have to create our data points! " +
-      "In this case, we'll have an array of numbers representing subscribers gained, and a second array indicating the marketing budget which created the corresponding gain.");
+      "In this case, we'll have an array of numbers representing subscribers gained, and a second array indicating the" +
+      " marketing budget which created the corresponding gain.");
     this.tutorialModal.open(this.modalService);
 
     // arrays made for temporary use and reference:
-    var featuresTrain : Number[] = new Array();
-    var labelsTrain : Number[] = new Array();
-    var featuresTest : Number[] = new Array();
-    var labelsTest : Number[] = new Array();
+    var featuresTrain : number[] = new Array();
+    var labelsTrain : number[] = new Array();
+    var featuresTest : number[] = new Array();
+    var labelsTest : number[] = new Array();
 
     featuresTrain.push(60,100,50,90);
     labelsTrain.push(160, 240, 140, 220);
@@ -36,8 +41,13 @@ export class TutorialServiceService {
     labelsTest.push(200, 100, 80, 60);
 
     // TODO: creation of data nodes which represent said arrays
+    var tfTrainFeatures : TFTensor = new TFTensorOneD(featuresTrain);
+    var tfTrainLabels : TFTensor = new TFTensorOneD(labelsTrain);
+    var tfTestFeatures : TFTensor = new TFTensorOneD(featuresTest);
+    var tfTestLabels : TFTensor = new TFTensorOneD(labelsTest);
 
-    this.tutorialModal.setText("We'll specifically need to create a training and a testing set - the two will exist as two separate arrays.");
+    this.tutorialModal.setText("We'll specifically need to create a training and a testing set - the two will exist as" +
+      " two separate arrays.");
     this.tutorialModal.open(this.modalService);
 
     this.tutorialModal.setText("Now for the real machine learning work!\n" +
@@ -45,12 +55,18 @@ export class TutorialServiceService {
       "a Dense network, with only one layer and only one neuron. More complex problems will require more layers and neurons.");
     this.tutorialModal.open(this.modalService);
 
-    // TODO: create model node
+    //TODO: create layer node
+    var kerasLayer = new TFKerasLayerDense("basicLayer", 1, 1);
 
-    this.tutorialModal.setText("We now have to compile the model, with loss (i.e. accuracy) and optimizer (i.e. improvement) functions.");
+    // TODO: create model node
+    var tfModel : TFModel= new TFModel("basicModel");
+
+    this.tutorialModal.setText("We now have to compile the model, with loss (i.e. accuracy) and optimizer" +
+      " (i.e. improvement) functions." +
+      "These can be set in the node itself.");
     this.tutorialModal.open(this.modalService);
 
-    this.tutorialModal.setText("Time to train the model!");
+    this.tutorialModal.setText("Time to train the model! This step is done automatically when you run the code.");
     this.tutorialModal.open(this.modalService);
 
     this.tutorialModal.setText("And now for some predictions - the useful part of the model we've built.")
