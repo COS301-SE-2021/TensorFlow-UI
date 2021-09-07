@@ -3,11 +3,16 @@ import { TFGraph, TFNode} from "./tf";
 import * as FileSaver from "file-saver";
 import {lineConnectors} from "./node-data";
 import {root} from "rxjs/internal-compatibility";
+import {Store} from "@ngxs/store";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeGeneratorService {
+
+    constructor(private store:Store) {
+    }
+
   // NEW DATA STRUCTURE .PY FILE IMPLEMENTATION BELOW HERE
     generateFile(head : TFNode) : string {
 
@@ -46,6 +51,7 @@ export class CodeGeneratorService {
             //Root will always only be allowed one input
             let rootChildID = link?.origin_id;
             let rootChild = tfNodes.find(element => element.id == rootChildID);
+            console.log(this.store);
 
             if(rootChild) {
                 let file: File = new File([graph.generateCode(rootChild,links,tfNodes)], "output.py");

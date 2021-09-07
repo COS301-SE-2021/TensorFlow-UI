@@ -32,10 +32,10 @@ export class TFGraph {
 				}
             }
 
-	        stringCode += (<TFNode>current).code() + "\n";
-	        console.log(stringCode);
-	    }
+	        stringCode += (<TFNode>current).code(links,tfNodes) + "\n";
 
+	    }
+		console.log(stringCode);
 	    return stringCode;
 	}
 

@@ -1,5 +1,6 @@
 import * as litegraph from "litegraph.js";
 import {LGraphNode, Vector2} from "litegraph.js";
+import {lineConnectors} from "../node-data";
 
 export class TFNode {
 	public childOne: TFNode | undefined = undefined;
@@ -17,7 +18,7 @@ export class TFNode {
 	constructor(public name: string | undefined = undefined,
 				public type: string | undefined = undefined,
         public data: number | undefined = undefined) {}
-	code() {}
+	code(links: lineConnectors[],nodes: TFNode[]) {}
 
 	UIStructure(node: LGraphNode){}
 
@@ -31,6 +32,9 @@ export class TFNode {
 		}
 	}
 
+	changeWidgetValue(value,type){
+		this.pushToArray(this.widgets, {type: type, value: value});
+	}
 }
 
 export interface widgetStructure{

@@ -44,18 +44,17 @@ export class TFConstant extends TFTensor {
 	UIStructure(node: LGraphNode) {
 		const that = this;
 		node.addWidget("text","constant",0,function (value){
-			that.pushToArray(that.widgets, {type: "constant", value: value});
+			that.changeWidgetValue(value,"constant");
 		});
 		node.addWidget("combo","dtype(optional)","float",function (value){
-			that.pushToArray(that.widgets, {type: "dtype", value: value});
+			that.changeWidgetValue(value,"dtype");
 		},{values: ["float32","int32","bool","complex64","string"]});
 		node.addWidget("text","shape(optional)","shape",function (value){
-			that.pushToArray(that.widgets, {type: "shape", value: value});
-
+			that.changeWidgetValue(value,"shape")
 		});
 		node.addWidget("text","name(optional)","name",function (value){
-			that.pushToArray(that.widgets, {type: "name", value: value});
-		});
+			that.changeWidgetValue(value,"name")});
+
 		node.addOutput("Value","tf.Tensor");
 	}
 

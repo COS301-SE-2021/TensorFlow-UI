@@ -349,7 +349,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	popList() {
 		let el = document.getElementById("popCommunityList") as HTMLElement;
-		if (el) {
+		if(el){
 			el.click();
 		}
 	}
