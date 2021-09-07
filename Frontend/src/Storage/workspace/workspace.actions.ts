@@ -36,6 +36,13 @@ export class AddLineConnectorToStorage {
 	}
 }
 
+export class RemoveAllLineFromStorage {
+	public static readonly type = '[Workspace] Remove All Lines';
+
+	constructor() {
+	}
+}
+
 export class ChangeBooleanValue {
 	public static readonly type = '[Workspace] Change Boolean';
 

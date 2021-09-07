@@ -19,6 +19,7 @@ import {
 	AddProjectName,
 	AddRootNode,
 	AddTFNode,
+	RemoveAllLineFromStorage,
 	RemoveLineConnectionOne,
 	RemoveLineFromStorage,
 	RemoveNodeFromStorage,
@@ -392,10 +393,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	async linesChanged(changes: KeyValueChanges<string, any>) {
 
-		const storageLinks = this.store.selectSnapshot(WorkspaceState).links;
-		for (let key of storageLinks) {
-			await this.store.dispatch(new RemoveLineFromStorage(key));
-		}
+		this.store.dispatch(new RemoveAllLineFromStorage());
 
 		for (let key in this.lines) {
 			const link = this.lines[key];

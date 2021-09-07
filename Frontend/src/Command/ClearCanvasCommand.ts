@@ -1,6 +1,6 @@
 import {Command} from "./Command";
 import {NavbarDialogsComponent} from "../app/Components/navbar-dialogs/navbar-dialogs.component";
-import {ClearCanvas, WorkspaceState} from "../Storage/workspace";
+import {ClearCanvas, RemoveAllLineFromStorage, WorkspaceState} from "../Storage/workspace";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {Store} from "@ngxs/store";
 import {NodeStore} from "../app/tf";
@@ -37,6 +37,7 @@ export class ClearCanvasCommand extends Command {
 			// this.nav.TFNodeList = [];
 
 			this.store.dispatch(new ClearCanvas());
+			this.store.dispatch(new RemoveAllLineFromStorage());
 			this.nav.graph.clear();
 			this.nav.TFNodeList = [];
 

@@ -16,7 +16,9 @@ import {
 	RemoveLineConnectionOne,
 	RemoveLineConnection,
 	RemoveLineConnectionTwo,
-	UpdateLineConnection, ClearCanvas
+	UpdateLineConnection,
+	ClearCanvas,
+	RemoveAllLineFromStorage
 } from "./workspace.actions";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -129,12 +131,20 @@ export class WorkspaceState {
 		)
 	}
 
-	@Action(ClearCanvas)
-	public removeAllTFNode(stateContext: StateContext<WorkspaceStateModel>, {}: ClearCanvas) {
+	@Action(RemoveAllLineFromStorage)
+	public removeAllLineFromStorage(stateContext: StateContext<WorkspaceStateModel>, {}: RemoveAllLineFromStorage) {
 		stateContext.setState(
 			patch({
-				TFNode: removeItem<TFNode>(element => element?.name !== ""),
 				links: removeItem<lineConnectors>(element => element?.id !== -1)
+			})
+		)
+	}
+
+	@Action(ClearCanvas)
+	public clearCanvas(stateContext: StateContext<WorkspaceStateModel>, {}: ClearCanvas) {
+		stateContext.setState(
+			patch({
+				TFNode: removeItem<TFNode>(element => element?.name !== "")
 			})
 		)
 	}
