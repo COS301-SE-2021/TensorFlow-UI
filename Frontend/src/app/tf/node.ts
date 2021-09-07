@@ -30,6 +30,7 @@ export class TFNode {
 			array[index] = widget;
 		}
 	}
+
 }
 
 export interface widgetStructure{

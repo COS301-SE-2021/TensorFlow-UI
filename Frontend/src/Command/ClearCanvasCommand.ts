@@ -33,9 +33,9 @@ export class ClearCanvasCommand extends Command{
         // let root = this.store.selectSnapshot(WorkspaceState).rootNode
         // root.childOne = undefined;
         // this.store.dispatch(new AddRootNode(root))
-
-        this.nav.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
-        this.nav.TFNodeList = [];
+        //
+        // this.nav.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
+        // this.nav.TFNodeList = [];
       }
     })
   }
