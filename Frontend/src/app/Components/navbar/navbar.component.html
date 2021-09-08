@@ -20,18 +20,47 @@
           Clear/Reset Canvas
         </span>
 
-      <mat-menu #nodes="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
-        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Operator Node</button>
-      </mat-menu>
+        <mat-menu #nodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Node</button>
+            <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Node</button>
+        </mat-menu>
+        <mat-menu #operatorNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Math</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
+            <button mat-menu-item [matMenuTriggerFor]="reductionNodes">Reduction</button>
+        </mat-menu>
 
-      <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of listOfNodes" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        <mat-menu #modelNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+        </mat-menu>
 
-      <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        <mat-menu #matricesNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mathNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorMath" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #reductionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #creationNodes>
+            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+<!--      <mat-menu #functionalNodes="matMenu">-->
+<!--        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>-->
+<!--      </mat-menu>-->
+
+<!--        <mat-menu #operatorNodes="matMenu">-->
+<!--            <button mat-menu-item *ngFor="let item of operatorNodes" (click)="createComponent(item)">{{item}}</button>-->
+<!--        </mat-menu>-->
 
     </mat-toolbar>
 

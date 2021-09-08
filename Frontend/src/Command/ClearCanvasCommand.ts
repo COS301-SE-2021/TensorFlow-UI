@@ -45,6 +45,7 @@ export class ClearCanvasCommand extends Command {
 			let tensorRoot = new NodeStore["RootNode"]();
 			tensorRoot.name = "Root";
 			this.nav.liteNodes.push(this.nav.createLiteNode("RootNode", true, rootNode));
+			//TODO - fix this
 		})
 	}
 

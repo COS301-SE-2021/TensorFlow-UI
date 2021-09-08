@@ -33,7 +33,7 @@ import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {NodeStore, operatorMath, TFNode} from "../../tf";
+import {NodeStore, operatorMath, tensorFlowTypesArray, TFNode} from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
@@ -45,6 +45,7 @@ import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
 import { Observable } from 'rxjs';
+import {TFRootNode} from "../../tf/rootNode/rootNode";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -74,7 +75,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	liteNodes: litegraph.LGraphNode[];
 
 	listOfNodes: string[] = Object.keys(NodeStore);
-
 	@Select(WorkspaceState.getTFNodes) TFNodeList$!: Observable<TFNode>;
 
 	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
@@ -85,19 +85,20 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	projectName: string;
 	projectDetails: string;
 
-	public currentDrawer:string = "Import/Export";
-	public oldLineConnectors: lineConnectors[] =[];
+	public tensorFlowTypesArray = tensorFlowTypesArray;
+	public operatorsArray = tensorFlowTypesArray.operatorsArray;
+	public modelsArray = tensorFlowTypesArray.modelArray;
 
-	@ViewChild('sidenav') sidenav: MatSidenav;
-	@ViewChild('functionalNodeInputReference') functionalNodeSearchInput: ElementRef;
-	@ViewChild('tensorNodeInputReference') tensorNodeSearchInput: ElementRef;
-	isExpanded = true;
+	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
 				public dialog: MatDialog, private differs: KeyValueDiffers) {
 	}
 
 	ngOnInit(): void {
+
+		console.log(tensorFlowTypesArray)
+		console.log(this.tensorFlowTypesArray.operatorsArray);
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.liteNodes = [];
 		this.linesList = this.store.selectSnapshot(WorkspaceState).links;
@@ -121,14 +122,14 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 		//if else statement to load or create a root node onto the canvass
 		if(rootNode==undefined){
-			let tensorRoot = new NodeStore["RootNode"]();
+			let tensorRoot = new TFRootNode();
 			tensorRoot.name = "RootNode";
 
 			const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
 			this.createRootNodeHelper(tensorRoot, liteGraphNode);
 		}
 		else{
-			let tensorRoot = new NodeStore["RootNode"]();
+			let tensorRoot = new TFRootNode();
 			tensorRoot.name = "Root";
 			nodesOnCanvas.push(this.createLiteNode("RootNode",true,rootNode));
 		}
@@ -318,7 +319,14 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			}
 
 			// A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
-			let temp: TFNode = new NodeStore[tempNode.selector]();
+
+			let temp: TFNode;
+			if(tempNode.selector=="RootNode"){
+				temp = new TFRootNode();
+			}
+			else{
+				temp= new NodeStore[tempNode.selector]();
+			}
 			temp.UIStructure(node);
 			temp.name = tempNode.name;
 			temp.id = tempNode.id;
@@ -344,6 +352,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 
+		console.log(component);
 		tfnode = new NodeStore[component]();
 		tfnode.name = component + id;
 		const liteGraphNode = this.createLiteNode(component, false, tfnode);
