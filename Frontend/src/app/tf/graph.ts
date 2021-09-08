@@ -1,6 +1,5 @@
 import {TFNode} from "./node";
 import {lineConnectors} from "../node-data";
-import {TFConstant} from "./tensor";
 
 export class TFGraph {
 	constructor(public root: TFNode | undefined = undefined) {}

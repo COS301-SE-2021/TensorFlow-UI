@@ -1,4 +1,4 @@
-import { TFTensor } from "./tensor";
+import { TFTensor } from "../tensor";
 import {LGraphNode} from "litegraph.js";
 
 export class TFLinespace extends TFTensor {

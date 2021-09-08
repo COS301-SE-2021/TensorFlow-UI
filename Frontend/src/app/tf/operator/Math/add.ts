@@ -29,9 +29,7 @@ export class TFAdd extends TFOperator{
 			}
 		}
 
-		return `${this.name} = tf.math.add(
-			${param1} , ${param2}
-		})`;
+		return `${this.name} = tf.math.add(${param1},${param2})`;
 	}
 
 	UIStructure(node: LGraphNode) {

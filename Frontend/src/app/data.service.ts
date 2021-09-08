@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {lineConnectors, NodeData} from "./node-data";
-import {TFNode, TFOperator, TFTensor} from "./tf";
-
+import {TFNode, TFOperator} from "./tf";
+import { TFTensor} from "./tf/tensor/tensor";
 
 @Injectable({
 	providedIn: 'root'

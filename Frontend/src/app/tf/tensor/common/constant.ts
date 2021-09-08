@@ -1,6 +1,6 @@
-import {TFTensor} from "./tensor";
+import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
-import {widgetStructure} from "../node";
+import {widgetStructure} from "../../node";
 
 export class TFConstant extends TFTensor {
 	constructor(public data: number | undefined = undefined,

@@ -29,9 +29,7 @@ export class TFDivide extends TFOperator {
 			}
 		}
 
-		return `${this.name} = tf.math.divide(
-			${param1} , ${param2}
-		})`;
+		return `${this.name} = tf.math.divide(${param1},${param2})`;
 	}
 
 	UIStructure(node: LGraphNode) {
