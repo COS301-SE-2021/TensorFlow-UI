@@ -88,6 +88,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public tensorFlowTypesArray = tensorFlowTypesArray;
 	public operatorsArray = tensorFlowTypesArray.operatorsArray;
 	public modelsArray = tensorFlowTypesArray.modelArray;
+	public tensorsArray = tensorFlowTypesArray.tensorsArray;
 
 	public currentDrawer:string = "Import/Export";
 
