@@ -10,16 +10,16 @@ export * from './sigmoid'
 export * from './subtract'
 
 export const operatorMath = [
-	"add",
-	"add_n",
-	"divide",
-	"mod",
-	"multiply",
-	"negative",
-	"reciprocal",
-	"scalar_mul",
-	"sigmoid",
-	"subtract"
+	"Add",
+	"Add_n",
+	"Divide",
+	"Mod",
+	"Multiply",
+	"Negative",
+	"Reciprocal",
+	"Scalar_mul",
+	"Sigmoid",
+	"Subtract"
 ];
 
 
