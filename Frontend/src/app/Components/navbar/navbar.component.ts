@@ -98,8 +98,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	ngOnInit(): void {
 
-		console.log(tensorFlowTypesArray)
-		console.log(this.tensorFlowTypesArray.operatorsArray);
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.liteNodes = [];
 		this.linesList = this.store.selectSnapshot(WorkspaceState).links;
