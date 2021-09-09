@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { ImportComponent} from "./Workspace/import/import.component";
+import {ImportPageComponent} from "./ImportPage/importPage.component";
 
 const routes: Routes = [
-  {path: 'Import', component: ImportComponent}
+  {path: 'Import', component: ImportPageComponent}
 ];
 
 @NgModule({
@@ -12,3 +12,4 @@ const routes: Routes = [
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }
+export const routingComponents = [ImportPageComponent];

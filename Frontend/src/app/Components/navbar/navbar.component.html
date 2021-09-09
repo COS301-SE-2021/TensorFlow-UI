@@ -1,8 +1,5 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
-      <button mat-icon-button (click)="isExpanded = !isExpanded">
-          <mat-icon>menu</mat-icon>
-      </button>
         <div class="app-name">Tensorflow UI</div>
         <span id="settingsButton" (click)="projectDetailsCommand.execute()">
           <mat-icon>settings</mat-icon>
@@ -23,18 +20,75 @@
           Clear/Reset Canvas
         </span>
 
-      <mat-menu #nodes="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
-        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Operator Node</button>
-      </mat-menu>
+        <mat-menu #nodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Node</button>
+            <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Node</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Node</button>
 
-      <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tftensor" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        </mat-menu>
+        <mat-menu #operatorNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Math</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
+            <button mat-menu-item [matMenuTriggerFor]="reductionNodes">Reduction</button>
+        </mat-menu>
 
-      <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        <mat-menu #modelNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+        </mat-menu>
+
+        <mat-menu #tensorNodesMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="tensorCommonNodes">Common</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorCreationNodes">Creation</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorMatrixNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorRandomNodes">Random</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorSliceJoinNodes">Splice Join</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorTransformationNodes">Transformation</button>
+        </mat-menu>
+
+        <mat-menu #matricesNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mathNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorMath" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #reductionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #creationNodes>
+            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCommonNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Common" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCreationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorMatrixNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Matrices" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorRandomNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Random" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorSliceJoinNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.SpliceJoin" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorTransformationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
 
     </mat-toolbar>
 
@@ -78,32 +132,6 @@
                 </mat-list-item>
             </mat-nav-list>
         </mat-sidenav>
-
-<!--        -->
-<!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
-<!--            </app-workspace-boundary>-->
-<!--&lt;!&ndash;        &ndash;&gt;
-
-<mat-sidenav-content>-->
-<!--        <mat-drawer-container class="sidenav-Content-Container">-->
-<!--            <mat-drawer-content>-->
-<!--              <mat-tab-group #previewTabGroup>-->
-<!--                <mat-tab>-->
-<!--                  <app-workspace-boundary></app-workspace-boundary>-->
-<!--                </mat-tab>-->
-<!--                <mat-tab>-->
-<!--                  <h1>Community Project Preview</h1>-->
-<!--                  <div>-->
-<!--                    <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>-->
-<!--                  </div>-->
-<!--&lt;!&ndash;                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>&ndash;&gt;-->
-
-<!--                </mat-tab>-->
-<!--              </mat-tab-group>-->
-
-<!--            </mat-drawer-content>-->
-<!--        </mat-drawer-container>-->
-<!--    </mat-sidenav-content>-->
 
       <mat-sidenav-content>
         <mat-drawer-container class="sidenav-Content-Container">

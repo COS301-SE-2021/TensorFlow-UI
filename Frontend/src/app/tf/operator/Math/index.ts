@@ -8,3 +8,18 @@ export * from './reciprocal'
 export * from './scalar_mul'
 export * from './sigmoid'
 export * from './subtract'
+
+export const operatorMath = [
+	"Add",
+	"Add_n",
+	"Divide",
+	"Mod",
+	"Multiply",
+	"Negative",
+	"Reciprocal",
+	"Scalar_mul",
+	"Sigmoid",
+	"Subtract"
+];
+
+

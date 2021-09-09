@@ -11,7 +11,6 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DiagramModule} from "@syncfusion/ej2-angular-diagrams";
-import {nodeModule} from "../Node/node.module";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {NgxsModule} from "@ngxs/store";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
@@ -36,7 +35,6 @@ import {RouterModule} from "@angular/router";
         ReactiveFormsModule,
         DiagramModule,
         MatIconModule,
-        nodeModule,
         MatDialogModule,
         RouterModule
     ],
