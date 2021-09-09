@@ -1,7 +1,6 @@
 import {Store} from "@ngxs/store";
 import projectList from "./Workspace/import/import.component";
 import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
-import {TFVariable} from "./tf";
 import {PAT} from "./config.js"
 import { TFVariable } from "./tf/tensor/common";
 
