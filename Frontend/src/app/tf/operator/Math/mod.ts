@@ -7,11 +7,27 @@ export class TFMod extends TFOperator {
 		super(name);
 	}
 
-	code() {
-		return `${this.name} = tf.math.mod(
-			${!(this.TFChildInputs) || this.TFChildInputs[0]?.name || "some value"},
-			${!(this.TFChildInputs) || this.TFChildInputs[1]?.name || "some value"
-		})`;
+	code(storageLinks,storageNodes) {
+		let param1: string = "1";
+		let param2: string = "1";
+
+		for(let i=0; i<this.inputs.length; ++i){
+			let input = this.inputs[i];
+			if(input.link!=null){
+
+				const link = storageLinks.find(element => element.id ==input.link);
+				const inputNode = storageNodes.find(element => element.id == link.origin_id);
+
+				if(i==0) {
+					param1 = inputNode.name;
+				}
+				else {
+					param2 = inputNode.name;
+				}
+			}
+		}
+
+		return `${this.name} = tf.math.mod(${param1},${param2})`;
 	}
 
 	UIStructure(node: LGraphNode) {
