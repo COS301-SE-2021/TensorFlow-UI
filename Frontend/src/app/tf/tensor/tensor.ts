@@ -10,5 +10,5 @@ export abstract class TFTensor extends TFNode {
     super(name, "Tensor", data);
   }
 
-  abstract code();
+  // abstract code();
 }

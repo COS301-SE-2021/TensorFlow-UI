@@ -21,7 +21,6 @@ export class TFGraph {
 					let nodeChildID = link?.origin_id;
 					let nodeChild = tfNodes.find(element => element.id == nodeChildID);
 					if(nodeChild) {
-						console.log("TEST");
 						console.log(nodeChild);
 						stringCode += this.generateCode(nodeChild, links, tfNodes);
 					}

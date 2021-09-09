@@ -22,10 +22,12 @@ export class TFAdd extends TFOperator{
 				const link = storageLinks.find(element => element.id ==input.link);
 				const inputNode = storageNodes.find(element => element.id == link.origin_id);
 
-				if(i==0)
+				if(i==0) {
 					param1 = inputNode.name;
-				else
+				}
+				else {
 					param2 = inputNode.name;
+				}
 			}
 		}
 
@@ -36,6 +38,5 @@ export class TFAdd extends TFOperator{
 		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addOutput("A+B", "tf.Tensor");
-
 	}
 }

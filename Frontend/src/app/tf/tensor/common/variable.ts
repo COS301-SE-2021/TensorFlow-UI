@@ -7,33 +7,43 @@ export class TFVariable extends TFTensor {
 		super(data, name);
 	}
 
-	code() {
+	code(storageLinks,storageNodes) {
 		let result: string = "";
 
-		let nodeValue: number = 0;
-		let constantArg = this.widgets.find(element => element.type == "initialValue");
-		if(constantArg==undefined){
-			nodeValue = 0;
-		}
-		else{
-			nodeValue = +constantArg.value;
-		}
-		result+=nodeValue;
+		// console.log(this.inputs);
+		// if(this.inputs.length>0){
+		// 	let input = this.inputs[0];
+		//
+		// 	if(input.link!=null){
+		//
+		// 	}
+		// }
 
-		let trainable = this.widgets.find(element => element.type == "trainable");
-		if(trainable!=undefined) {
-			result+=","+trainable.value;
-		}
+		// let nodeValue: number = 0;
+		// let constantArg = this.widgets.find(element => element.type == "constant");
+		// if(constantArg==undefined){
+		// 	nodeValue = 0;
+		// }
+		// else{
+		// 	nodeValue = +constantArg.value;
+		// }
+		// result+=nodeValue;
+		//
+		// let dType = this.widgets.find(element => element.type == "dtype");
+		// if(dType!=undefined) {
+		// 	result+=","+dType.value;
+		// }
+		//
+		// let shape = this.widgets.find(element => element.type == "shape");
+		// if(shape!=undefined) {
+		// 	result+=","+shape.value;
+		// }
+		//
+		// let constName = this.widgets.find(element => element.type == "name");
+		// if(constName!=undefined) {
+		// 	result+=","+constName.value;
+		// }
 
-		let constName = this.widgets.find(element => element.type == "name");
-		if(constName!=undefined) {
-			result+=","+constName.value;
-		}
-
-		let dType = this.widgets.find(element => element.type == "dtype");
-		if(dType!=undefined) {
-			result+=","+dType.value;
-		}
 
 		return `${this.name} = tf.variable(${
 			result
@@ -53,7 +63,7 @@ export class TFVariable extends TFTensor {
 		});
 		node.addWidget("combo","dtype(optional)","float",function (value){
 			that.pushToArray(that.widgets, {type: "dtype", value: value});
-		},{values: ["float32","int32","bool","complex64","string"]});
+		},{values: ["float","float32","int32","bool","complex64","string"]});
 		node.addInput("const","tf.Tensor");
 		node.addOutput("Variable","tf.Tensor");
 
