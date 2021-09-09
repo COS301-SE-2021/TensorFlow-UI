@@ -57,99 +57,59 @@ export class ExportComponent implements OnInit {
 
   }
 
-  exportToLib(): boolean {
+  gitLogin(){
     const provider = new GithubAuthProvider();
     const auth = getAuth();
 
-    // signInWithRedirect(auth, provider);
-    // getRedirectResult(auth)
-    //   .then((result) => {
-    //     console.log(result);
-    //     if (result!=null){
-    //       const credential = GithubAuthProvider.credentialFromResult(result);
-    //       if (credential) {
-    //         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-    //         const token = credential.accessToken;
-    //         // ...
-    //       }
-    //
-    //       // The signed-in user info.
-    //       const user = result.user;
-    //     }
-    //
-    //
-    //   }).catch((error) => {
-    //   // Handle Errors here.
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   const email = error.email;
-    //   // The AuthCredential type that was used.
-    //   const credential = GithubAuthProvider.credentialFromError(error);
-    //   // ...
-    // });
-
-
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        console.log(result);
-        // const credential = GithubAuthProvider.credentialFromResult(result);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const credential = GithubAuthProvider.credentialFromResult(result);
         if (credential!=null){
           const token = credential.accessToken;
-          //console.log(token);
+          const user = result.user;
+          this.exportToLib(user, token);
         }
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
-        // ...
       }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
       const email = error.email;
-      // The AuthCredential type that was used.
-      // const credential = GithubAuthProvider.credentialFromError(error);
       const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(error);
-      // ...
+      console.warn(error);
     });
+  }
 
-
-    // const storageProject = this.store.selectSnapshot(WorkspaceState).project;
-    // this.API.GetList();
-    // var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
-    // if (exportAs == null || exportAs == ""){
-    //   alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
-    //   return false;
-    // } else {
-    //   var exists = false;
-    //
-    //   var keep = exportAs + ".json";
-    //   for (let i = 0; i < projectList.length; i++) {
-    //     if (keep == projectList[i]){
-    //       exists = true;
-    //     }
-    //   }
-    //   if (exists){
-    //     alert('Export failed:\nA file with the same name already exists in the library.');
-    //     return false;
-    //   } else {
-    //     var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
-    //     var file = this.createDoc(description);
-    //     var reader = new FileReader();
-    //     var base64dta ;
-    //     reader.readAsDataURL(file);
-    //     let that = this;
-    //     reader.onloadend = function (){
-    //       base64dta = reader.result;
-    //       base64dta = base64dta.substr(29);
-    //       that.API.commit(exportAs, base64dta, description);
-    //     }
-    //   }
-    // }
+  exportToLib(user, token): boolean {
+    this.API.GetList();
+    var exportAs = this.store.selectSnapshot(WorkspaceState).projectName;
+    if (exportAs == null || exportAs == ""){
+      alert("Please name your Project and try again.\n Name project by clicking on the gear shaped button.");
+      return false;
+    } else {
+      var exists = false;
+      var keep = exportAs + ".json";
+      for (let i = 0; i < projectList.length; i++) {
+        if (keep == projectList[i]){
+          exists = true;
+        }
+      }
+      if (exists){
+        alert('Export failed:\nA file with the same name already exists in the library.');
+        return false;
+      } else {
+        var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
+        var file = this.createDoc(description);
+        var reader = new FileReader();
+        var base64dta;
+        reader.readAsDataURL(file);
+        let that = this;
+        reader.onloadend = function (){
+          base64dta = reader.result;
+          base64dta = base64dta.substr(29);
+          that.API.commit(user, token, exportAs, base64dta, description);
+        }
+      }
+    }
     return true;
   }
 
