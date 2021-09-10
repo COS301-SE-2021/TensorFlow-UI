@@ -11,13 +11,13 @@ export class TFConstant extends TFTensor {
 	code() {
 		let result: string = "";
 
-		let nodeValue: number = 0;
+		let nodeValue: String = "0";
 		let constantArg = this.widgets.find(element => element.type == "constant");
 		if(constantArg==undefined){
-			nodeValue = 0;
+			nodeValue = "0";
 		}
 		else{
-			nodeValue = +constantArg.value;
+			nodeValue = constantArg.value;
 		}
 		result+=nodeValue;
 

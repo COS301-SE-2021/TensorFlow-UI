@@ -188,37 +188,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		this.rootNode = node;
 	}
 
-	/*clearCanvas() {
-	  this.command = new ClearCanvasCommand();
-	  this.command.execute();
-
-		const clearDialog = this.dialog.open(NavbarDialogsComponent);
-
-		clearDialog.afterClosed().subscribe(result => {
-			const clearCanvasBoolean = clearDialog.disableClose;
-
-			if (clearCanvasBoolean) {
-				const templine: lineConnectors[] = this.store.selectSnapshot(WorkspaceState).lines
-				let lineObject: LeaderLine;
-				for (let i = 0; i < templine.length; i++) {
-					lineObject = templine[i]["line"];
-					this.store.dispatch(new RemoveLineFromStorage(templine[i]));
-					lineObject?.remove()
-				}
-				this.linesList = [];
-
-				let root = this.store.selectSnapshot(WorkspaceState).rootNode
-				root.childOne = undefined;
-				this.store.dispatch(new AddRootNode(root))
-
-				this.TFNodeList.forEach(element => this.store.dispatch(new RemoveTFNode(element)))
-				this.TFNodeList = [];
-			}
-		})
-
-
-	}*/
-
 	/*showProjectDetails() {
 		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
 			{
@@ -351,11 +320,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
 
-		console.log(component);
 		tfnode = new NodeStore[component]();
 		tfnode.name = component + id;
 		const liteGraphNode = this.createLiteNode(component, false, tfnode);
-		const links = this.graph.list_of_graphcanvas[1].graph.links;
 		this.createComponentSwitchDefaults(tfnode, liteGraphNode, component);
 
 		// console.log(liteGraphNode);
@@ -381,11 +348,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
+
 		let selectedNodes;
 		if(isRootNode)
 			selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
 		else
-			selectedNodes = this.graph.list_of_graphcanvas[0].selected_nodes;
+			selectedNodes = this.graph.list_of_graphcanvas[1].selected_nodes;
+
 		for (let key in selectedNodes) {
 			const node = selectedNodes[key];
 			const nodeID = node.id;

@@ -27,7 +27,7 @@ export class TFAddN extends TFOperator {
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("tensors(Array)","Array"); //ToDo: Ensure this array can receive a sample array, must be same shape and dtype
+		node.addInput("text","Array"); //ToDo: Ensure this array can receive a sample array, must be same shape and dtype
 		node.addOutput("Tensor list","tf.Tensor");
 	}
 }

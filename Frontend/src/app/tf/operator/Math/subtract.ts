@@ -35,6 +35,7 @@ export class TFSubtract extends TFOperator {
 		if(param1DType !== param2DType){
 			//TODO - THROW ERROR
 			let errorMessage = "The second tensor input(B), which is to be subtracted, must have the same dtype as the first tensor input(A)";
+			let link = "https://www.tensorflow.org/api_docs/python/tf/math/subtract";
 			console.log(errorMessage);
 		}
 
