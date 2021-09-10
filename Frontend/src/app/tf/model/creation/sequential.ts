@@ -9,7 +9,8 @@ import {TFNode} from "../../node";
 export class TFSequential extends TFOperator {
 	constructor(
 		public name: string | undefined = undefined,
-    public layers: TFNode | undefined = undefined) {
+    public layers: TFNode | undefined = undefined,
+    public lossFunction: string = "mse") {
 		super(name);
 	}
 
