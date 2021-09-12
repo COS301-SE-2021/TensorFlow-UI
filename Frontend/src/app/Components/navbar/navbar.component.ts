@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public rootNode: TFNode = new TFNode();
 	public linesList: lineConnectors[] = [];
 	public commandHistory = new CommandHistory();
-	public clearCanvasCommand = new ClearCanvasCommand(this.store,this,this.commandHistory);
+	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 	public runCodeCommand = new RunCodeCommand(this.store,this);
