@@ -39,9 +39,7 @@ export class TFConstant extends TFTensor {
 		}
 		this.returnValue += nodeValue;
 
-		return `${this.name} = tf.constant(${
-			result
-		})`;
+		return `${this.name} = tf.constant(${result})`;
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
@@ -71,6 +69,7 @@ export class TFConstant extends TFTensor {
 		});
 
 		node.addOutput("Value","tf.Tensor");
+		node.size = [240,node.size[1]]
 	}
 
 }

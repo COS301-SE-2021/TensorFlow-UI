@@ -63,7 +63,7 @@ export class TFEye extends TFTensor {
 		node.addWidget("text","numColumns(optional)",widgetsData[1],function (value){
 			value = value.trim();
 			if(that.checkIfNumber(value))
-				that.changeWidgetValue(value, widgetTypes[0], navbar);
+				that.changeWidgetValue(value, widgetTypes[1], navbar);
 			else{
 				console.log("Error - 'numColumns' can only be a number");
 				const link = "https://www.tensorflow.org/api_docs/python/tf/eye?hl=zh-cn";
@@ -80,6 +80,7 @@ export class TFEye extends TFTensor {
 		},{values: ["float","float32","int32","bool","complex64","string"]});
 
 		node.addOutput("tf.Tensor2D","tf.Tensor");
+		node.size = [240,node.size[1]]
 	}
 
 	isBatchShapeCorrect(batchString: string): boolean{
