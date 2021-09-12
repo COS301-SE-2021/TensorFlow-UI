@@ -12,5 +12,8 @@ export class TFClone extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
-	UIStructure(node: LGraphNode){}
+	UIStructure(node: LGraphNode){
+		node.addInput("X","tf.Tensor");
+		node.addOutput("Clone","tf.Tensor");
+	}
 }

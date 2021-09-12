@@ -37,6 +37,7 @@ export class TFConstant extends TFTensor {
 		if(constName!=undefined) {
 			result+=","+constName.value;
 		}
+		this.returnValue += nodeValue;
 
 		return `${this.name} = tf.constant(${
 			result
@@ -45,7 +46,6 @@ export class TFConstant extends TFTensor {
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
-
 
 		let widgetsData= ["0","float","shape","name"];
 		let widgetTypes=["Value","dtype","shape","name"];
@@ -58,7 +58,7 @@ export class TFConstant extends TFTensor {
 
 		node.addWidget("text","Value",widgetsData[0],function (value){
 			that.changeWidgetValue(value,widgetTypes[0],navbar);
-			that.checkTensorType(value);
+			that.checkTensorInputType(value);
 		});
 		node.addWidget("combo","dtype(optional)",widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);

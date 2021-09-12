@@ -69,7 +69,7 @@ export const NodeStore: any = {
 	"Variable": TFVariable,
 	"Zeros": TFZeros,
 	"Buffer": TFBuffer,
-	"Clone": TFClone,
+	// "Clone": TFClone,
 	"Complex": TFComplex,
 	"Diag": TFDiag,
 	"Eye": TFEye,

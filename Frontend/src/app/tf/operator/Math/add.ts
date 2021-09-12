@@ -30,7 +30,7 @@ export class TFAdd extends TFOperator{
 				}
 			}
 		}
-
+		this.returnValue = param1+","+param2;
 		return `${this.name} = tf.math.add(${param1},${param2})`;
 	}
 

@@ -12,7 +12,7 @@ export abstract class TFTensor extends TFNode {
 
     // abstract code();
 
-    checkTensorType(value: string){
+    checkTensorInputType(value: string){
       let numberToCheck: string = value;
       let reg = new RegExp('^([a-zA-Z0-9])*$') //alphanumeric check
       if(!reg.test(value)){
@@ -33,5 +33,9 @@ export abstract class TFTensor extends TFNode {
         //inputArrayCheck.push(value);
         console.log(value);
       }
+    }
+
+    checkIfNumber(input: string): boolean{
+        return !isNaN(Number(input));
     }
 }

@@ -12,6 +12,7 @@ export class TFNode {
 	public TFChildInputs: TFNode[] | undefined = undefined;
 	public id:number;
 	public position: Vector2 = [0,0];
+	public returnValue: string = "";
 
 	//Add Data about the
 
