@@ -14,15 +14,23 @@ export abstract class TFTensor extends TFNode {
 
     checkTensorType(value: string){
       let numberToCheck: string = value;
-
+      let reg = new RegExp('^([a-zA-Z0-9])*$') //alphanumeric check
+      if(!reg.test(value)){
+        //invalid input
+        alert("Invalid Input")
+      }
       if(!isNaN(Number(numberToCheck))) {
         //String is a number and no further checks
       }
       else {
         //String is not a number, ensure that it has the correct format.
-        let inputArrayCheck: string[] = [];
-
-        inputArrayCheck.push(value);
+        let inputArrayCheck: string[] = value.split(',');
+        inputArrayCheck.forEach(function(element){
+          if(!reg.test(element)){
+            alert("Invalid Input, please input as a comma separated list")
+          }
+        });
+        //inputArrayCheck.push(value);
         console.log(value);
       }
     }
