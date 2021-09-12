@@ -8,7 +8,7 @@ export class CommandHistory{
     this.commands = new Array<Command>(100)
   }
 
-  public append(c: Command){
+  public push(c: Command){
     this.commands.push(c);
   }
 
