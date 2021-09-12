@@ -7,14 +7,14 @@
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
-        <span class="toolbarButton" id="undoButton">
+        <span class="toolbarButton" id="undoButton" (click)="undo()">
           Undo
         </span>
         <span class="toolbarButton" id="redoButton">
           Redo
         </span>
         <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
-        <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="runCodeCommand.execute()">Run Code</span>
         <span class="toolbarButton" id="clearCanvas"
                 (click)="clearCanvasCommand.execute()">
           Clear/Reset Canvas
