@@ -21,6 +21,8 @@ import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
 import {TFRootNode} from "../../tf/rootNode/rootNode";
+import {RunCodeCommand} from "../../../Command/RunCodeCommand";
+import {CommandHistory} from "../../../Command/CommandHistory";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -40,9 +42,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public TFNodeList: TFNode[] = [];
 	public rootNode: TFNode = new TFNode();
 	public linesList: lineConnectors[] = [];
-	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
+	public commandHistory = new CommandHistory();
+	public clearCanvasCommand = new ClearCanvasCommand(this.store,this,this.commandHistory);
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
+	public runCodeCommand = new RunCodeCommand(this.store,this);
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
@@ -390,4 +394,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	}
 
+  undo() {
+    let c = this.commandHistory.pop();
+    c?.undo();
+  }
 }
