@@ -1,6 +1,7 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
 import {widgetStructure} from "../../node";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFConstant extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -12,7 +13,8 @@ export class TFConstant extends TFTensor {
 		let result: string = "";
 
 		let nodeValue: String = "0";
-		let constantArg = this.widgets.find(element => element.type == "constant");
+
+		let constantArg = this.widgets.find(element => element.type == "Value");
 		if(constantArg==undefined){
 			nodeValue = "0";
 		}
@@ -41,19 +43,32 @@ export class TFConstant extends TFTensor {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
-		node.addWidget("text","constant",0,function (value){
-			that.changeWidgetValue(value,"constant");
+
+
+		let widgetsData= ["0","float","shape","name"];
+		let widgetTypes=["Value","dtype","shape","name"];
+
+		for(let i=0; i<4;++i){
+			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
+			if(widget!=null)
+				widgetsData[i] = widget.value;
+		}
+
+		node.addWidget("text","Value",widgetsData[0],function (value){
+			that.changeWidgetValue(value,widgetTypes[0],navbar);
+			that.checkTensorType(value);
 		});
-		node.addWidget("combo","dtype(optional)","float",function (value){
-			that.changeWidgetValue(value,"dtype");
+		node.addWidget("combo","dtype(optional)",widgetsData[1],function (value){
+			that.changeWidgetValue(value,widgetTypes[1],navbar);
 		},{values: ["float","float32","int32","bool","complex64","string"]});
-		node.addWidget("text","shape(optional)","shape",function (value){
-			that.changeWidgetValue(value,"shape")
+		node.addWidget("text","shape(optional)",widgetsData[2],function (value){
+			that.changeWidgetValue(value,widgetTypes[2],navbar)
 		});
-		node.addWidget("text","name(optional)","name",function (value){
-			that.changeWidgetValue(value,"name")});
+		node.addWidget("text","name(optional)",widgetsData[3],function (value){
+			that.changeWidgetValue(value,widgetTypes[3],navbar)
+		});
 
 		node.addOutput("Value","tf.Tensor");
 	}

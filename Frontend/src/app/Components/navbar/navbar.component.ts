@@ -1,34 +1,10 @@
-import {
-	AfterViewInit,
-	Component,
-	DoCheck,
-	ElementRef,
-	Inject,
-	OnChanges,
-	OnInit,
-	SimpleChanges,
-	ViewChild
-} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, Inject, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
 import {DataService} from "../../data.service";
-import {MatSidenav} from "@angular/material/sidenav";
 import {Select, StateContext, Store} from "@ngxs/store";
-import {
-	AddLineConnectorToStorage,
-	AddNodeToStorage,
-	AddProjectDescription,
-	AddProjectName,
-	AddRootNode,
-	AddTFNode,
-	RemoveLineConnectionOne,
-	RemoveLineFromStorage,
-	RemoveNodeFromStorage,
-	RemoveTFNode,
-	WorkspaceStateModel
-} from "../../../Storage/workspace";
+import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddProjectName, AddRootNode, AddTFNode, RemoveLineConnectionOne, RemoveLineFromStorage, RemoveNodeFromStorage, RemoveTFNode, UpdateTFNode, WorkspaceStateModel} from "../../../Storage/workspace";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
 import {DOCUMENT} from "@angular/common";
-import * as LeaderLine from "leader-line-new";
 import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
@@ -44,7 +20,6 @@ import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
-import { Observable } from 'rxjs';
 import {TFRootNode} from "../../tf/rootNode/rootNode";
 
 export interface SettingsPageData {
@@ -75,17 +50,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	liteNodes: litegraph.LGraphNode[];
 
 	listOfNodes: string[] = Object.keys(NodeStore);
-	@Select(WorkspaceState.getTFNodes) TFNodeList$!: Observable<TFNode>;
-
-	tftensor: string[] = ["Constant", "Variable", "Fill", "Linspace", "Zeros", "Ones"];
-	_operatorMath: string[] = operatorMath;
-	tfoperator: string[] = ["Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
-	// TFList: string[] = ["Constant", "Variable", "Fill", "Linespace", "Zeros", "Ones", "Add", "Add_n", "Divide", "Mod", "Negative", "Reciprocal", "Scalar Multiplication", "Sigmoid", "Subtract", "Multiply"];
 
 	projectName: string;
 	projectDetails: string;
 
-	public tensorFlowTypesArray = tensorFlowTypesArray;
 	public operatorsArray = tensorFlowTypesArray.operatorsArray;
 	public modelsArray = tensorFlowTypesArray.modelArray;
 	public tensorsArray = tensorFlowTypesArray.tensorsArray;
@@ -116,7 +84,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
 		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
-		const nodesOnCanvas: LGraphNode[] = [];
+		const nodesLoadedOntoCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 
 		//if else statement to load or create a root node onto the canvass
@@ -130,28 +98,25 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		else{
 			let tensorRoot = new TFRootNode();
 			tensorRoot.name = "Root";
-			nodesOnCanvas.push(this.createLiteNode("RootNode",true,rootNode));
+			nodesLoadedOntoCanvas.push(this.createLiteNode("RootNode",true,rootNode));
 		}
 
 		if(storedNodes.length>0){
 			//recreate all these nodes;
-			// console.log(storedNodes);
+
 			for(let i=0; i<storedNodes.length;++i){
-				nodesOnCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
+				nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
 			}
 
 			// recreate all line connectors from memory
 			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
 
-			// console.log(storedLinks);
-			// console.log(nodesOnCanvas);
-
 			for(let item of storedLinks){
 				const targetNodeID = item.target_id;
 				const originNodeID = item.origin_id;
 
-				const targetNode = nodesOnCanvas.find(element => element.id === targetNodeID);
-				const originNode = nodesOnCanvas.find(element => element.id === originNodeID);
+				const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
+				const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
 
 				if(originNode && targetNode) {
 					originNode.connect(item.origin_slot, targetNode, item.target_slot);
@@ -252,7 +217,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		this.TFNodeList.push(node);
 	}
 
-	//add type TFnode object
 	createLiteNode(component: string, loadFromMemory: boolean, tempNode: TFNode): LGraphNode {
 		const node = new litegraph.LGraphNode();
 
@@ -269,7 +233,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
-			tempNode.UIStructure(node);
+			tempNode.UIStructure(node,this);
 			this.graph.add(node);
 			this.graph.start();
 		} else {
@@ -295,13 +259,15 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			else{
 				temp= new NodeStore[tempNode.selector]();
 			}
-			temp.UIStructure(node);
+			temp.widgets = tempNode.widgets;
+			temp.UIStructure(node,this);
 			temp.name = tempNode.name;
 			temp.id = tempNode.id;
 			temp.selector = tempNode.selector;
 			temp.inputs = tempNode.inputs;
 			temp.outputs = tempNode.outputs;
 			temp.position = tempNode.position;
+
 			if(tempNode.selector!=="RootNode"){
 				this.TFNodeList.push(temp);
 			}
@@ -373,8 +339,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 	}
 
-	async updateNodeData(changes: KeyValueChanges<string, any>){
-
+	//Updates a specific node's widget in the store once a widget is changed/update
+	updateNodeWidgetsDataInStore(node: TFNode){
+		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
+		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
+		nodeToUpdate.widgets = node.widgets;
+		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
 	}
 
 	async linesChanged(changes: KeyValueChanges<string, any>){

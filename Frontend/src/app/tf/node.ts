@@ -1,10 +1,10 @@
 import * as litegraph from "litegraph.js";
 import {LGraphNode, Vector2} from "litegraph.js";
 import {lineConnectors} from "../node-data";
+import {Store} from "@ngxs/store";
+import {NavbarComponent} from "../Components/navbar/navbar.component";
 
 export class TFNode {
-	public childOne: TFNode | undefined = undefined;
-	public childTwo: TFNode | undefined = undefined;
 	public inputs: litegraph.INodeInputSlot[] = [];
 	public outputs: litegraph.INodeOutputSlot[] = [];
 	public widgets: widgetStructure[] = [];
@@ -20,7 +20,12 @@ export class TFNode {
         public data: number | undefined = undefined) {}
 	code(links: lineConnectors[],nodes: TFNode[]) {}
 
-	UIStructure(node: LGraphNode){}
+	UIStructure(node: LGraphNode, navbar?:NavbarComponent){}
+
+	changeWidgetValue(value,type,navbar?:NavbarComponent){
+		this.pushToArray(this.widgets, {type: type, value: value});
+		navbar?.updateNodeWidgetsDataInStore(this);
+	}
 
 	pushToArray(array: widgetStructure[], widget: widgetStructure) {
 		const index = array.findIndex((element) => element.type === widget.type);
@@ -32,9 +37,6 @@ export class TFNode {
 		}
 	}
 
-	changeWidgetValue(value,type){
-		this.pushToArray(this.widgets, {type: type, value: value});
-	}
 }
 
 export interface widgetStructure{

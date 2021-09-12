@@ -33,7 +33,7 @@ export class TFDot extends TFOperator {
 	UIStructure(node: LGraphNode) {
 		node.addInput("t1", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("t2", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("A.B", "tf.Tensor");
+		node.addOutput("t1.t2", "tf.Tensor");
 	}
 
 }

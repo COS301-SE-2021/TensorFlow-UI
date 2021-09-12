@@ -20,7 +20,7 @@ export class TFVariable extends TFTensor {
 		// }
 
 		// let nodeValue: number = 0;
-		// let constantArg = this.widgets.find(element => element.type == "constant");
+		// let constantArg = this.widgets.find(element => element.type == "Value");
 		// if(constantArg==undefined){
 		// 	nodeValue = 0;
 		// }
@@ -52,8 +52,8 @@ export class TFVariable extends TFTensor {
 
 	UIStructure(node: LGraphNode) {
 		const that = this;
-		node.addWidget("text","initialValue",0,function (value){
-			that.pushToArray(that.widgets, {type: "initialValue", value: value});
+		node.addWidget("text","Value",0,function (value){
+			that.pushToArray(that.widgets, {type: "Value", value: value});
 		});
 		node.addWidget("toggle","trainable(optional)",false,function (value){
 			that.pushToArray(that.widgets, {type: "trainable", value: value});
