@@ -46,6 +46,7 @@ export class ClearCanvasCommand extends Command {
 				this.nav.createRootNodeHelper(tensorRoot, liteGraphNode);
 			}
 		})
+    return true;
 	}
 
 	undo() {

@@ -38,6 +38,7 @@ export class ProjectDetailsCommand extends Command{
         this.projectDetailsUpdatedSnackbar(dataOK);
       }
     })
+    return false;
   }
 
   projectDetailsUpdatedSnackbar(dataOk: boolean) {
