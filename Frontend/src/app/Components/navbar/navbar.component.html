@@ -92,7 +92,7 @@
 
     </mat-toolbar>
 
-    <mat-sidenav-container class="container" autosize>
+    <mat-sidenav-container class="workspaceContainer">
         <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
                 <mat-list-item>
@@ -135,22 +135,32 @@
 
       <mat-sidenav-content>
         <mat-drawer-container class="sidenav-Content-Container">
-          <mat-drawer #drawer mode="side">
+          <mat-drawer #drawer mode="side" id="sidenav-Content-Drawer">
             <div *ngIf="currentDrawer=='Import/Export'">
               <app-export></app-export>
-              <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none"></button>
+              <button id="previewTabs" (click)="changeTabIndex(2, previewTabGroup)" style="display: none"></button>
               <app-import></app-import>
+                <button id="importPageCanvasTab" (click)="changeTabIndex(1, previewTabGroup)" style="display: none"></button>
             </div>
           </mat-drawer>
-          <mat-drawer-content>
+          <mat-drawer-content id="sidenav-Canvas-Drawer">
+
             <mat-tab-group #previewTabGroup>
               <mat-tab>
                 <canvas id='Canvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
+                <mat-tab>
+                    <canvas id='ImportCanvas' width='{{screenWidth}}' height='{{screenHeight}}'>
+                    </canvas>
+                    <div id="importPageDiv">
+                        <app-import-page-content></app-import-page-content>
+                    </div>
+                </mat-tab>
               <mat-tab>
                 <h1>Community Project Preview</h1>
                 <div>
-                  <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
+                    <button mat-raised-button color="primary" >Import</button>
+                    <button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                 </div>
                 <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>

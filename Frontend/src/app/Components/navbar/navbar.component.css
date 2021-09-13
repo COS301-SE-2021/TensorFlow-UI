@@ -22,9 +22,13 @@ mat-toolbar{
 .toolbarButton{
 }
 
-.container {
-  height: 93.2%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.workspaceContainer {
+  height: 92%;
+
+}
+
+#sidenav-Content-Drawer{
+  background-color: #797979;
 }
 /*.sidenav-content {*/
 /*  display: flex;*/
@@ -276,25 +280,9 @@ mat-tab-group /deep/ .mat-tab-body-content{
 #previewCanvas, #Canvas{
 }
 
-.litegraph .dialog.settings {
-  left: 10px;
-  top: 10px;
-  height: calc( 100% - 20px );
-  margin: auto;
-}
-.litegraph .dialog {
-  min-height: 0;
-}
-
-.litegraph .dialog {
+#importPageDiv{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -150px;
-  margin-left: -200px;
-  background-color: #2A2A2A;
-  min-width: 400px;
-  min-height: 200px;
-  box-shadow: 0 0 4px #111;
-  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  top:0;
 }

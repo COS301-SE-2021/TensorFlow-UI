@@ -20,9 +20,10 @@ import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
 import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
-import {TFRootNode} from "../../tf/rootNode/rootNode";
+import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
+import {MatTabGroup} from "@angular/material/tabs";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -87,6 +88,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
 		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
+		let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesLoadedOntoCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
@@ -398,4 +400,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
     let c = this.commandHistory.pop();
     c?.undo();
   }
+	//For changing the canvas - when called it will show the desired tab on click and hide it when the button is clicked again
+	changeTabIndex(index: number, tab: MatTabGroup){
+		if(tab.selectedIndex!==index){
+			tab.selectedIndex = index
+		}
+		else
+			tab.selectedIndex = 0;
+	}
 }
