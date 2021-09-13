@@ -17,6 +17,7 @@ export class TFLeakyReLU extends TFTensor {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("LeakyReLU","tf.layers.Layer");
 	}
 }
 

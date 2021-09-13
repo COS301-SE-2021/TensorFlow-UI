@@ -9,14 +9,12 @@ export class TFCropping2D extends TFLayers {
 
 	code(storageLinks,storageNodes) {
 		return `${this.name} = tf.layers.cropping2D(
-			${this.widgets.find(element => element.type == "constant")?.value || "0"},
+			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
 	})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		const that = this;
-		node.addWidget("text", "constant", 0, function (value) {
-			that.changeWidgetValue(value, "constant");
-		});
+		node.addInput("args(Object)", "Object"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("tf.layers.Layer","tf.layers.Layer");
 	}
 }

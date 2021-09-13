@@ -17,6 +17,8 @@ export class TFThresholdedReLU extends TFTensor {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("ThresholdedReLU","tf.layers.Layer");
+
 	}
 }
 
