@@ -14,16 +14,20 @@ import {TFRootNode} from "../app/tf/rootNode/rootNode";
 
 export class ClearCanvasCommand extends Command {
 	private nav: NavbarComponent
-
+  private backup;
 	constructor(store: Store, private navbar: NavbarComponent) {
 		super(store);
 		this.nav = navbar;
 	}
 
 	execute() {
+    this.backup = this.store.snapshot();
+    console.log(this.backup);
+    console.log("backup printed")
+
 		const clearDialog = this.nav.dialog.open(NavbarDialogsComponent);
 
-		clearDialog.afterClosed().subscribe(result => {
+		clearDialog.afterClosed().subscribe(() => {
 			const clearCanvasBoolean = clearDialog.disableClose;
 
 			//Only clear canvas if reset button is clicked on dialog
@@ -50,5 +54,7 @@ export class ClearCanvasCommand extends Command {
 	}
 
 	undo() {
+	  console.log("clear canvas undo")
+	  return this.backup
 	}
 }
