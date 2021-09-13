@@ -1,4 +1,4 @@
-<button id="popCommunityList" (click)="showhide()" style="display: none">Import</button>
+<button mat-raised-button (click)="showOrHideImportTabOnButtonClick()" style="background-color: #ff8C00" routerLink="{{routerLink}}" routerLinkActive="{{pageActiveStatus}}">Import</button>
 <div class="Group">
   <h4>Import From PC:</h4>
   <input type="file" id="myfile"/><br/>
@@ -8,3 +8,7 @@
   <h4>Community Library:</h4>
   <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>
 </div>
+
+
+
+<router-outlet></router-outlet>

@@ -18,8 +18,10 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
-// import {AppRoutingModule, routingComponents} from './app-routing.module';
-// import { ImportPageComponent } from './ImportPage/importPage.component';
+import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
+import {importPageModule} from "./ImportPage/importPage.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -29,7 +31,6 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
-    // ImportPageComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -46,7 +47,9 @@ const modules = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     ComponentsModule,
-    // AppRoutingModule
+    AppRoutingModule,
+    importPageModule,
+    NgbModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

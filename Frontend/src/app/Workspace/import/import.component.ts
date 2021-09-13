@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {ChangeBooleanValue, WorkspaceState} from "../../../Storage/workspace";
 import {GitAPI} from "../../git-api";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
+import {LGraph} from "litegraph.js";
 
-let projectList: string[] = [""];
+let projectList: string[] = [];
 export default projectList;
 
 @Component({
@@ -14,12 +16,39 @@ export default projectList;
 export class ImportComponent implements OnInit {
   public projectL: string[] = [""];
   public API: GitAPI= new GitAPI(this.store);
+  public pageActiveStatus: string = "active";
+  public routerLink: string = "Import";
+
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+
+  }
+
+  showOrHideImportTabOnButtonClick(){
+
+    //Hide canvas when import is clicked.
+    let importCanvas = document.getElementById("importPageCanvasTab") as HTMLElement;
+
+    if(importCanvas){
+      importCanvas.click();
+    }
+
+    if(this.routerLink=="Import"){
+      this.routerLink="";
+    }
+    else{
+      this.routerLink="Import";
+    }
+
+  }
+
+  changeCanv(){
+
   }
 
   showhide(){
+
     this.API.GetList();
     this.projectL = [""];
     this.projectL = projectList;
