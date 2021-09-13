@@ -1,8 +1,8 @@
 import {Store} from "@ngxs/store";
-import {mail, PAT, user} from "./config";
 import projectList from "./Workspace/import/import.component";
 import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
-import {TFVariable} from "./tf";
+import {PAT} from "./config.js"
+import { TFVariable } from "./tf/tensor/common";
 
 
 export class GitAPI {
@@ -10,16 +10,15 @@ export class GitAPI {
   constructor(private store: Store ) {
   }
 
-  public commit(Name, Data, description){
+  public commit(user, token, Name, Data, description){
     var myHeaders = new Headers();
     myHeaders.append("Authorization", PAT);
     myHeaders.append("Content-Type", "application/json");
-
     var raw = JSON.stringify({
       "message": description,
       "committer": {
-        "name": user,
-        "email": mail
+        "name": user.displayName,
+        "email": user.email
       },
       "content": Data
     });

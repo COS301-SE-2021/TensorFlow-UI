@@ -48,7 +48,7 @@ const modules = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     ComponentsModule,
-    AppRoutingModule
+    // AppRoutingModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

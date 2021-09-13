@@ -1,22 +1,57 @@
 import * as litegraph from "litegraph.js";
 import {LGraphNode, Vector2} from "litegraph.js";
+import {lineConnectors} from "../node-data";
+import {Store} from "@ngxs/store";
+import {NavbarComponent} from "../Components/navbar/navbar.component";
 
 export class TFNode {
-	public childOne: TFNode | undefined = undefined;
-	public childTwo: TFNode | undefined = undefined;
-	public inputs: litegraph.INodeInputSlot[];
-	public outputs: litegraph.INodeOutputSlot[];
-	public widgets: litegraph.widgetTypes[];
+	public inputs: litegraph.INodeInputSlot[] = [];
+	public outputs: litegraph.INodeOutputSlot[] = [];
+	public widgets: widgetStructure[] = [];
 	public selector: string;
 	public TFChildInputs: TFNode[] | undefined = undefined;
 	public id:number;
 	public position: Vector2 = [0,0];
+	public returnValue: string = "";
 
 	//Add Data about the
 
 	constructor(public name: string | undefined = undefined,
 				public type: string | undefined = undefined,
         public data: number | number[] | undefined = undefined) {}
-	code() {}
-	UIStructure(node: LGraphNode){}
+	code(links: lineConnectors[],nodes: TFNode[]) {}
+
+	UIStructure(node: LGraphNode, navbar?:NavbarComponent){}
+
+	changeWidgetValue(value,type,navbar?:NavbarComponent){
+		this.pushToArray(this.widgets, {type: type, value: value});
+		navbar?.updateNodeWidgetsDataInStore(this);
+	}
+
+	pushToArray(array: widgetStructure[], widget: widgetStructure) {
+		const index = array.findIndex((element) => element.type === widget.type);
+
+		if(index === -1) {
+			array.push(widget);
+		}else{
+			array[index] = widget;
+		}
+	}
+
+	GetNode(storageLinks: lineConnectors[], storageNodes: TFNode[], input: number | null): string {
+
+		if (input == undefined) {
+			return "";
+		}
+		const link = storageLinks.find(element => element.id == input);
+		const inputNode = storageNodes.find(element => element.id == link?.origin_id);
+
+		return inputNode?.name || "0";
+	}
+
+}
+
+export interface widgetStructure{
+	type: string;
+	value: string;
 }

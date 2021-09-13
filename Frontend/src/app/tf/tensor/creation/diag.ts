@@ -7,10 +7,32 @@ export class TFDiag extends TFTensor {
 		super(data, name);
 	}
 
-	code() {
-		return `${this.name} = tf.diag(${
-			this.data || "some value"
-		})`;
+
+	// code(storageLinks, storageNodes) {
+	// 	return `${this.name} = tf.diag(
+	// ${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+	// }
+	//
+	// UIStructure(node: LGraphNode){
+	// 	node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+	// 	node.addOutput(" tf.Tensor", "tf.Tensor");
+	code(storageLinks,storageNodes) {
+		let param: string = "0";
+
+		let input = this.inputs[0];
+		if(input.link!=null){
+
+			const link = storageLinks.find(element => element.id ==input.link);
+			const inputNode = storageNodes.find(element => element.id == link.origin_id);
+
+			param = inputNode.name;
+		}
+
+		return `${this.name} = tf.diag(${param})`;
 	}
-	UIStructure(node: LGraphNode){}
+
+	UIStructure(node: LGraphNode){
+		node.addInput("X","tf.Tensor");
+		node.addOutput("tf.Tensor","tf.Tensor");
+	}
 }

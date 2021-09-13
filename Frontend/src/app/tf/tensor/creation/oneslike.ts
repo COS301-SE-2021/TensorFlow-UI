@@ -7,10 +7,14 @@ export class TFOnesLike extends TFTensor {
 		super(data, name);
 	}
 
-	code() {
-		return `${this.name} = tf.oneslike(${
-			this.data || "some value"
-		})`;
+	code(storageLinks,storageNodes) {
+		return `${this.name} = tf.oneslike(
+			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
-	UIStructure(node: LGraphNode){}
+
+
+	UIStructure(node: LGraphNode){
+		node.addInput("X","tf.Tensor");
+		node.addOutput("tf.Tensor","tf.Tensor");
+	}
 }

@@ -6,7 +6,8 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MatMenuModule} from "@angular/material/menu";
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {TFConstant, TFFill, TFNode} from "../../tf";
+import {TFNode} from "../../tf";
+import {TFConstant} from "../../tf/tensor/common";
 
 
 describe('NavbarComponent', () => {

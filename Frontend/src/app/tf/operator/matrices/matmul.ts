@@ -1,15 +1,3 @@
-// tf.matMul (a, b, transposeA?, transposeB?)
-// const a = tf.tensor2d([1, 2], [1, 2]);
-// const b = tf.tensor2d([1, 2, 3, 4], [2, 2]);
-//
-// a.matMul(b).print();  // or tf.matMul(a, b)
-//
-// Parameters:
-// 	a (tf.Tensor|TypedArray|Array) First matrix in dot product operation.
-// b (tf.Tensor|TypedArray|Array) Second matrix in dot product operation.
-// transposeA (boolean) If true, a is transposed before multiplication. Optional
-// transposeB (boolean) If true, b is transposed before multiplication. Optional
-// Returns: tf.Tensor
 
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
@@ -21,20 +9,21 @@ export class TFMatMul extends TFOperator {
 		super(name);
 	}
 
-	code(){
+	code(storageLinks, storageNodes){
 		return `${this.name} = tf.matMul(
-			${this.TFChildInputs?.forEach(function (key) {
-			key?.name + "," || `some value,`
-		})
+			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
+			${this.GetNode(storageLinks, storageNodes, this.inputs[1].link)},
+			${this.widgets.find(element => element.type == "transposeA")?.value || ""}
+			${this.widgets.find(element => element.type == "transposeB")?.value || ""}
 		})`;
 	}
 
 	UIStructure(node: LGraphNode) {
+		const that = this;
 		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addWidget("toggle","transposeA",false,"onDeselected",{values: [true,false]})
-		node.addWidget("toggle","transposeB",false,"onDeselected",{values: [true,false]})
+		node.addWidget("toggle","transposeA","",function (value){ that.changeWidgetValue(value,"transposeA")},{values: [true,false]});
+		node.addWidget("toggle","transposeB","",function (value){ that.changeWidgetValue(value,"transposeB")},{values: [true,false]});
 		node.addOutput("A+B", "tf.Tensor");
 	}
-
 }

@@ -9,3 +9,17 @@ export * from "./reshape"
 export * from "./setdiff1dasync"
 export * from "./squeeze"
 export * from "./spacetobatchnd"
+
+export const tensorTransformationsArray = [
+    "BatchToSpaceND",
+    "BroadcastTo",
+    "Cast",
+    "DepthToSpace",
+    "ExpandDims",
+    "MirrorPad",
+    "Pad",
+    "Reshape",
+    "Setdiff1dAsync",
+    "SpaceToBatchND",
+    "Squeeze",
+]

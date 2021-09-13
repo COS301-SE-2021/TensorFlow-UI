@@ -7,31 +7,88 @@
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
-        <span class="toolbarButton" id="undoButton">
+        <span class="toolbarButton" id="undoButton" (click)="undo()">
           Undo
         </span>
         <span class="toolbarButton" id="redoButton">
           Redo
         </span>
         <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
-        <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="runCodeCommand.execute()">Run Code</span>
         <span class="toolbarButton" id="clearCanvas"
                 (click)="clearCanvasCommand.execute()">
           Clear/Reset Canvas
         </span>
 
-      <mat-menu #nodes="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
-        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Operator Node</button>
-      </mat-menu>
+        <mat-menu #nodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Nodes</button>
 
-      <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of listOfNodes" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        </mat-menu>
+        <mat-menu #operatorNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Math</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
+            <button mat-menu-item [matMenuTriggerFor]="reductionNodes">Reduction</button>
+        </mat-menu>
 
-      <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        <mat-menu #modelNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+        </mat-menu>
+
+        <mat-menu #tensorNodesMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="tensorCommonNodes">Common</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorCreationNodes">Creation</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorMatrixNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorRandomNodes">Random</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorSliceJoinNodes">Splice Join</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorTransformationNodes">Transformation</button>
+        </mat-menu>
+
+        <mat-menu #matricesNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mathNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorMath" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #reductionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #creationNodes>
+            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCommonNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Common" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCreationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorMatrixNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Matrices" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorRandomNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Random" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorSliceJoinNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.SpliceJoin" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorTransformationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
 
     </mat-toolbar>
 

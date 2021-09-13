@@ -8,10 +8,19 @@ export class TFBatchToSpaceND extends TFTensor {
 		super(data, name);
 	}
 
-	code() {
-		return `${this.name} = tf.batchToSpaceND(${
-			this.data || "some value"
-		})`;
+	code(storageLinks,storageNodes) {
+		return `${this.name} = ${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)}.tf.batchToSpaceND(
+			${this.widgets.find(element => element.type == "blockShape")?.value || ""}
+			${this.widgets.find(element => element.type == "crops")?.value || ""})`;
 	}
-	UIStructure(node: LGraphNode){}
+
+	UIStructure(node: LGraphNode) {
+		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addWidget("text","blockShape","[0,2,4]", (value) => {
+			this.changeWidgetValue(value,"blockShape");});
+		node.addWidget("text","crops","[[0,0], [0,0]]", (value) => {
+			this.changeWidgetValue(value,"crops");});
+		node.addOutput("Value","tf.Tensor");
+	}
+
 }
