@@ -1,7 +1,7 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
         <div class="app-name">Tensorflow UI</div>
-        <span id="settingsButton" (click)="projectDetailsCommand.execute()">
+        <span id="settingsButton" (click)="executeCommand(projectDetailsCommand)">
           <mat-icon>settings</mat-icon>
         </span>
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
@@ -10,13 +10,13 @@
         <span class="toolbarButton" id="undoButton" (click)="undo()">
           Undo
         </span>
-        <span class="toolbarButton" id="redoButton">
+        <span class="toolbarButton" id="redoButton" (click)="redo()">
           Redo
         </span>
-        <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
-        <span class="toolbarButton" id="runCodeButton" (click)="runCodeCommand.execute()">Run Code</span>
+        <span class="toolbarButton" id="generateCodeButton" (click)="executeCommand(generateCodeCommand)">Generate Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="executeCommand(runCodeCommand)">Run Code</span>
         <span class="toolbarButton" id="clearCanvas"
-                (click)="clearCanvasCommand.execute()">
+                (click)="executeCommand(clearCanvasCommand)">
           Clear/Reset Canvas
         </span>
 
