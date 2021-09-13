@@ -7,6 +7,16 @@ export class TFComplex extends TFTensor {
 		super(data, name);
 	}
 
+	// code(storageLinks, storageNodes) {
+	// 	return `${this.name} = tf.complex(
+	// 		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
+	// 		${this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+	// }
+	//
+	// UIStructure(node: LGraphNode) {
+	// 	node.addInput("real", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+	// 	node.addInput("imag", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+	// 	node.addOutput(" tf.Tensor", "tf.Tensor");
 	code(storageLinks,storageNodes) {
 
 		let param1: string = "0";

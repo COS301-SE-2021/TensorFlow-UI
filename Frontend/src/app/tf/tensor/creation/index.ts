@@ -11,6 +11,7 @@ export * from "./onehot";
 export * from "./oneslike";
 export * from "./range";
 export * from "./real";
+export * from "./zeroslike";
 export * from "./truncatednormal";
 
 export const tensorCreationArray = [
@@ -27,5 +28,5 @@ export const tensorCreationArray = [
     "TensorThreeD",
     "TensorTwoD",
     "TruncatedNormal",
-    // "ZerosLike",
+    "ZerosLike",
 ]

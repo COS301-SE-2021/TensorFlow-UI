@@ -9,6 +9,23 @@ export class TFRange extends TFTensor {
 	}
 
 	code() {
+	// 	return `${this.name} = tf.range(
+	// 		${this.widgets.find(element => element.type == "start")?.value || "0"},
+	// 		${this.widgets.find(element => element.type == "stop")?.value || "0"},
+	// 		${this.widgets.find(element => element.type == "step")?.value || "shape=inferred"}
+	// 		${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+	// })`;}
+
+
+	// UIStructure(node: LGraphNode) {
+	// 	node.addWidget("number","start",0,(value) => {
+	// 		this.changeWidgetValue(value,"start");});
+	// 	node.addWidget("number","stop",0,(value) => {
+	// 		this.changeWidgetValue(value,"stop");});
+	// 	node.addWidget("number","step",1,(value) => {
+	// 		this.changeWidgetValue(value,"step");});
+	// 	node.addOutput("linspace sequence","tf.Tensor");
+	// }
 		let result: string = "";
 
 		let start = this.widgets.find(element => element.type == "start");

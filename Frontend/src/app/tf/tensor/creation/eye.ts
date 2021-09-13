@@ -9,6 +9,29 @@ export class TFEye extends TFTensor {
 	}
 
 	code() {
+	// 	return `${this.name} = tf.eye(
+	// 		${this.widgets.find(element => element.type == "numRows")?.value || "0"},
+	// 		${this.widgets.find(element => element.type == "numColumns")?.value || "0"},
+	// 		${this.widgets.find(element => element.type == "batchShape")?.value || "shape=inferred"}
+	// 		${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+	// })`;
+	// }
+	//
+	// UIStructure(node: LGraphNode) {
+	// 	node.addWidget("text", "numRows", 0, (value) => {
+	// 		this.changeWidgetValue(value, "numRows");
+	// 	});
+	// 	node.addWidget("text", "numColumns?", 0, (value) => {
+	// 		this.changeWidgetValue(value, "numColumns");
+	// 	});
+	// 	node.addWidget("text", "batchShape?", "[0,2,4]", (value) => {
+	// 		this.changeWidgetValue(value, "batchShape");
+	// 	});
+	// 	node.addWidget("combo", "dtype(optional)", "float", (value) => {
+	// 		this.changeWidgetValue(value, "dtype");
+	// 	}, {values: ["float32", "int32", "bool", "complex64", "string"]});
+	// 	node.addOutput("tf.Tensor2D", "tf.Tensor2D");
+	// }
 		let result: string = "";
 
 		let numOfRows = this.widgets.find(element => element.type == "numRows");

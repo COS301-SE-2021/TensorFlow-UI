@@ -7,6 +7,15 @@ export class TFDiag extends TFTensor {
 		super(data, name);
 	}
 
+
+	// code(storageLinks, storageNodes) {
+	// 	return `${this.name} = tf.diag(
+	// ${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+	// }
+	//
+	// UIStructure(node: LGraphNode){
+	// 	node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+	// 	node.addOutput(" tf.Tensor", "tf.Tensor");
 	code(storageLinks,storageNodes) {
 		let param: string = "0";
 
