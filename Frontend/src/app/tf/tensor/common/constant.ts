@@ -10,6 +10,12 @@ export class TFConstant extends TFTensor {
 	}
 
 	code() {
+		// return `${this.name} = tf.constant(
+		// 	${this.widgets.find(element => element.type == "value")?.value || "0"},
+		// 	${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"},
+		// 	${this.widgets.find(element => element.type == "shape")?.value || "shape=None"},
+		// 	${this.widgets.find(element => element.type == "name")?.value || "name='Const'"}
+		// })`;
 		let result: string = "";
 
 		let nodeValue: String = "0";
@@ -44,6 +50,17 @@ export class TFConstant extends TFTensor {
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
+		// node.addWidget("text","value",0, (value) => {
+		// 	this.changeWidgetValue(value,"value");
+		// });
+		// node.addWidget("combo","dtype(optional)","float",(value) => {
+		// 	this.changeWidgetValue(value,"dtype");
+		// },{values: ["float32","int32","bool","complex64","string"]});
+		// node.addWidget("text","shape(optional)","shape",(value) => {
+		// 	this.changeWidgetValue(value,"shape")
+		// });
+		// node.addWidget("text","name(optional)","name",(value) => {
+		// 	this.changeWidgetValue(value,"name")});
 
 		let widgetsData= ["0","float","shape","name"];
 		let widgetTypes=["Value","dtype","shape","name"];

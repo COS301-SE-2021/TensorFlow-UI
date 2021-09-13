@@ -7,48 +7,50 @@ export class TFVariable extends TFTensor {
 		super(data, name);
 	}
 
-	code(storageLinks,storageNodes) {
-		let result: string = "";
+	// code() {
+	// 	let result: string = "";
+	//
+	// 	let nodeValue: number = 0;
+	// 	let constantArg = this.widgets.find(element => element.type == "initialValue");
+	// 	if(constantArg==undefined){
+	// 		nodeValue = 0;
+	// 	}
+	// 	else{
+	// 		nodeValue = +constantArg.value;
+	// 	}
+	// 	result+=nodeValue;
+	//
+	// 	let trainable = this.widgets.find(element => element.type == "trainable");
+	// 	if(trainable!=undefined) {
+	// 		result+=","+trainable.value;
+	// 	}
+	//
+	// 	let constName = this.widgets.find(element => element.type == "name");
+	// 	if(constName!=undefined) {
+	// 		result+=","+constName.value;
+	// 	}
+	//
+	// 	let dType = this.widgets.find(element => element.type == "dtype");
+	// 	if(dType!=undefined) {
+	// 		result+=","+dType.value;
+	// 	}
+	//
+	// 	return `${this.name} = tf.variable(${
+	// 		result
+	// 	})`;
+	// }
 
-		// console.log(this.inputs);
-		// if(this.inputs.length>0){
-		// 	let input = this.inputs[0];
-		//
-		// 	if(input.link!=null){
-		//
-		// 	}
-		// }
+	code() {
+		return `${this.name} = tf.variable(
+			${this.widgets.find(element => element.type == "initialValue")?.value || "0"},
+			${this.widgets.find(element => element.type == "trainable")?.value || "false" },
+			${this.widgets.find(element => element.type == "name")?.value || "name='Const'"},
+			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}  
+			
 
-		// let nodeValue: number = 0;
-		// let constantArg = this.widgets.find(element => element.type == "Value");
-		// if(constantArg==undefined){
-		// 	nodeValue = 0;
-		// }
-		// else{
-		// 	nodeValue = +constantArg.value;
-		// }
-		// result+=nodeValue;
-		//
-		// let dType = this.widgets.find(element => element.type == "dtype");
-		// if(dType!=undefined) {
-		// 	result+=","+dType.value;
-		// }
-		//
-		// let shape = this.widgets.find(element => element.type == "shape");
-		// if(shape!=undefined) {
-		// 	result+=","+shape.value;
-		// }
-		//
-		// let constName = this.widgets.find(element => element.type == "name");
-		// if(constName!=undefined) {
-		// 	result+=","+constName.value;
-		// }
-
-
-		return `${this.name} = tf.variable(${
-			result
 		})`;
 	}
+
 
 	UIStructure(node: LGraphNode) {
 		const that = this;
