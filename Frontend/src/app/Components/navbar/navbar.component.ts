@@ -396,10 +396,21 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	}
 
+	executeCommand(com: Command){
+	  if(com.execute()){
+	    this.commandHistory.push(com);
+    }
+  }
+
   undo() {
     let c = this.commandHistory.pop();
     c?.undo();
   }
+
+  redo(){
+
+  }
+
 	//For changing the canvas - when called it will show the desired tab on click and hide it when the button is clicked again
 	changeTabIndex(index: number, tab: MatTabGroup){
 		if(tab.selectedIndex!==index){
