@@ -8,12 +8,12 @@ export class TFReciprocal extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.reciprocal(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.reciprocal("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("reciprocal", "tf.Tensor");
+		node.addInput("x", "tf.Tensor");
+		node.addOutput("1/x", "tf.Tensor");
 	}
 }

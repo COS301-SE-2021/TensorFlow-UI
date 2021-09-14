@@ -41,12 +41,17 @@ export class TFNode {
 	GetNode(storageLinks: lineConnectors[], storageNodes: TFNode[], input: number | null): string {
 
 		if (input == undefined) {
+			alert("Input node required");
 			return "";
 		}
 		const link = storageLinks.find(element => element.id == input);
 		const inputNode = storageNodes.find(element => element.id == link?.origin_id);
 
 		return inputNode?.name || "0";
+	}
+
+	checkIfNumber(input: string): boolean{
+		return !isNaN(Number(input));
 	}
 
 }

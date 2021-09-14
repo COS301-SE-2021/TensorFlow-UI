@@ -425,8 +425,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		c?.undo();
 	}
 
-
-  redo(){
+  	redo(){
 
   }
 

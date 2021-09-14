@@ -2,6 +2,7 @@ import {modelArray} from "./model";
 import {operatorsArray} from "./operator";
 import {tensorsArray} from "./tensor";
 import {layersArray} from "./layers";
+import {constraints} from "./constraints";
 
 export * from "./node";
 export * from "./tensor"

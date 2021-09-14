@@ -8,12 +8,12 @@ export class TFSinh extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.sinh(
+		return `${this.name} = tf.math.sinh(
 		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("sinh", "tf.Tensor");
+		node.addOutput("sinh(x)", "tf.Tensor");
 	}
 }

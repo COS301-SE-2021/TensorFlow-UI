@@ -8,12 +8,12 @@ export class TFSelu extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.selu(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.nn.selu("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("selu", "tf.Tensor");
+		node.addOutput("x<0 ? scale*alpha*(exp(x) - 1) : x", "tf.Tensor");
 	}
 }

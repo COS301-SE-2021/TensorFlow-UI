@@ -8,12 +8,12 @@ export class TFSigmoid extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.sigmoid(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.sigmoid("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("sigmoid", "tf.Tensor");
+		node.addOutput("1 / (1+exp(-x))", "tf.Tensor");
 	}
 }

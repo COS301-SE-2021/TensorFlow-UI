@@ -88,3 +88,9 @@ mat-card-subtitle{
     height: 100%;
     border: 1px solid white;
 }
+
+#importDataFromExternal{
+    position: absolute;
+    right: 5%;
+    bottom: 20%;
+}

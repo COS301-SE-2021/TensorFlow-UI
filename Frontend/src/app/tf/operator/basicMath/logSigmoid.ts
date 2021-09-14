@@ -8,12 +8,12 @@ export class TFLogSigmoid extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.logSigmoid(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.log_sigmoid("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("logSigmoid", "tf.Tensor");
+		node.addOutput("logSigmoid(x)", "tf.Tensor");
 	}
 }

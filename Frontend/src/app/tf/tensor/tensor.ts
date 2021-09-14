@@ -35,7 +35,4 @@ export abstract class TFTensor extends TFNode {
       }
     }
 
-    checkIfNumber(input: string): boolean{
-        return !isNaN(Number(input));
-    }
 }
