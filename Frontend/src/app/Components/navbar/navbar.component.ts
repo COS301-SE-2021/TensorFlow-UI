@@ -51,8 +51,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
+	public selectedNode=null;
 	graph: litegraph.LGraph;
 	liteNodes: litegraph.LGraphNode[];
+
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 
@@ -239,6 +241,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
+
 			tempNode.UIStructure(node,this);
 			this.graph.add(node);
 			this.graph.start();
@@ -254,6 +257,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 					else
 						that2.updateNodePositionInLocalStorage(false);
 				}
+			}
+			node.onSelected = function (){
+				that.firstClickOnNode(node);
+			}
+			node.onDeselected =function (){
+				that.nodeDoubleClicked(node,false,true);
 			}
 
 			// A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
@@ -278,6 +287,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			}
 			else{
 				this.rootNode = temp;
+			}
+
+			node.onSelected = function (){
+				that.firstClickOnNode(node);
+			}
+			node.onDeselected =function (){
+				that.nodeDoubleClicked(node,false,true);
 			}
 
 			this.graph.add(node);
@@ -401,10 +417,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
     }
   }
 
-  undo() {
-    let c = this.commandHistory.pop();
-    c?.undo();
-  }
+	undo() {
+		let c = this.commandHistory.pop();
+		c?.undo();
+	}
+
 
   redo(){
 
@@ -417,5 +434,34 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		else
 			tab.selectedIndex = 0;
+	}
+
+	firstClickOnNode(node){
+
+		const that = this;
+		let doubleClick:boolean=true;
+		node.onMouseDown = function (){
+			let firstClick = true;
+			that.nodeDoubleClicked(node,doubleClick);
+		}
+		setTimeout(function (){
+			doubleClick=false;
+		},600)
+
+	}
+
+	nodeDoubleClicked(node, doubleClick: boolean,closeNode?:boolean){
+		// console.log(doubleClick);
+
+		if(doubleClick){
+			console.log(node);
+			if(this.selectedNode==null)
+				this.selectedNode = node;
+			else
+				this.selectedNode = null;
+		}
+		if(closeNode){
+			this.selectedNode = null;
+		}
 	}
 }
