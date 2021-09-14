@@ -273,7 +273,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			temp.inputs = tempNode.inputs;
 			temp.outputs = tempNode.outputs;
 			temp.position = tempNode.position;
-
 			if(tempNode.selector!=="RootNode"){
 				this.TFNodeList.push(temp);
 			}
