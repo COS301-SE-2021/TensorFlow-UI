@@ -8,12 +8,12 @@ export class TFElu extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.elu(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.nn.elu("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("elu", "tf.Tensor");
+		node.addOutput(" x>0? e^x-1:0.", "tf.Tensor");
 	}
 }

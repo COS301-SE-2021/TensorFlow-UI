@@ -8,12 +8,12 @@ export class TFAbs extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.abs(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.abs("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("abs", "tf.Tensor");
+		node.addOutput("abs(x)", "tf.Tensor");
 	}
 }

@@ -8,12 +8,12 @@ export class TFIsFinite extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.isFinite(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.is_finite("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("isFinite", "tf.Tensor");
+		node.addOutput("bool[]", "tf.Tensor");
 	}
 }

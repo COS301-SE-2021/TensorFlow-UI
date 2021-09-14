@@ -8,12 +8,12 @@ export class TFExp extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.exp(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.exp("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("exp", "tf.Tensor");
+		node.addOutput("e ^ x", "tf.Tensor");
 	}
 }

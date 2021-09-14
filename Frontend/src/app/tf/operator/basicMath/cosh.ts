@@ -8,12 +8,12 @@ export class TFCosh extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.cosh(
-		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.math.cosh("+
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("cosh", "tf.Tensor");
+		node.addOutput("cosh(x)", "tf.Tensor");
 	}
 }

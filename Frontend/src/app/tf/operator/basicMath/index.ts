@@ -10,7 +10,6 @@ export * from './ceil'
 export * from './clipByValue'
 export * from './cos'
 export * from './cosh'
-export * from './dilation2d'
 export * from './elu'
 export * from './erf'
 export * from './exp'
@@ -55,7 +54,6 @@ export const basicMath = [
 	"clipByValue",
 	"cos",
 	"cosh",
-	"dilation2d",
 	"elu",
 	"erf",
 	"exp",
