@@ -24,9 +24,10 @@ export abstract class TFTensor extends TFNode {
         if(value.charAt(0) == '['){
           value = value.substring(1,value.length);
         }
-        if(value.charAt(value.length) == ']'){
+        if(value.charAt(value.length-1) == ']'){
           value = value.substring(0,value.length-1);
         }
+        console.log(value)
         let inputArrayCheck: string[] = value.split(',');
         inputArrayCheck.forEach(function(element){
           if(!reg.test(element)){
