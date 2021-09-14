@@ -1,0 +1,25 @@
+<mat-card *ngIf="nodeInput" class="nodeMenu">
+    <mat-card-header id="nodeMenuHeader">
+        <h2 id="nodeTitle">{{nodeInput.title}}</h2>
+        <button mat-raised-button matTooltip="Close Menu" (click)="closeNodeView()">X</button>
+    </mat-card-header>
+
+
+    <div class="widgetProperty" *ngFor="let item of nodeInput.widgets">
+<!--        <div id="propertiesTitle">-->
+<!--            <h1>Properties</h1>-->
+<!--        </div>-->
+<!--        <div id="widget" *ngFor="let widget of nodeInput.widgets">-->
+<!--            {{widget.name}}-->
+<!--            <div id="widgetValue">-->
+<!--                {{widget.value}}-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <mat-card class="widgetCard">
+            <mat-card-title id="widgetName">{{item.name}}</mat-card-title>
+            <mat-card-subtitle>{{item.value}}</mat-card-subtitle>
+        </mat-card>
+    </div>
+    <button id="deleteNodeButton" mat-raised-button>Delete Node</button>
+</mat-card>
