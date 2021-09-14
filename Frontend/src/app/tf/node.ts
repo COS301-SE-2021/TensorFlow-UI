@@ -3,6 +3,7 @@ import {LGraphNode, Vector2} from "litegraph.js";
 import {lineConnectors} from "../node-data";
 import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../Components/navbar/navbar.component";
+import {userVariableNames} from "./userVariableNames";
 
 export class TFNode {
 	public inputs: litegraph.INodeInputSlot[] = [];
@@ -52,6 +53,18 @@ export class TFNode {
 
 	checkIfNumber(input: string): boolean{
 		return !isNaN(Number(input));
+	}
+
+	setNodeCustomName(){
+		let name = this.widgets.find(element => element.type == "name")?.value;
+		if(name){
+			if(userVariableNames.find(element =>element === name))
+				alert("Name already exists in code, a custom unique name will instead be given to the operation");
+			else {
+				userVariableNames.push(name);
+				this.name = name;
+			}
+		}
 	}
 
 }

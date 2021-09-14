@@ -2,6 +2,7 @@ import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
 import {widgetStructure} from "../../node";
 import {NavbarComponent} from "../../../Components/navbar/navbar.component";
+import {userVariableNames} from "../../userVariableNames";
 
 export class TFConstant extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -10,57 +11,22 @@ export class TFConstant extends TFTensor {
 	}
 
 	code() {
-		// return `${this.name} = tf.constant(
-		// 	${this.widgets.find(element => element.type == "value")?.value || "0"},
-		// 	${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"},
-		// 	${this.widgets.find(element => element.type == "shape")?.value || "shape=None"},
-		// 	${this.widgets.find(element => element.type == "name")?.value || "name='Const'"}
-		// })`;
-		let result: string = "";
 
-		let nodeValue: String = "0";
+		let result="";
+		result+=this.widgets.find(element => element.type == "Value")?.value || "0";
+		let dType = this.widgets.find(element => element.type == "dtype")?.value;
+		if(dType)
+			result+=","+dType
+		let shape= this.widgets.find(element => element.type == "shape")?.value;
+		if(shape)
+			result+=","+shape;
+		this.setNodeCustomName();
 
-		let constantArg = this.widgets.find(element => element.type == "Value");
-		if(constantArg==undefined){
-			nodeValue = "0";
-		}
-		else{
-			nodeValue = constantArg.value;
-		}
-		result+=nodeValue;
-
-		let dType = this.widgets.find(element => element.type == "dtype");
-		if(dType!=undefined) {
-			result+=","+dType.value;
-		}
-
-		let shape = this.widgets.find(element => element.type == "shape");
-		if(shape!=undefined) {
-			result+=","+shape.value;
-		}
-
-		let constName = this.widgets.find(element => element.type == "name");
-		if(constName!=undefined) {
-			result+=","+constName.value;
-		}
-		this.returnValue += nodeValue;
-
-		return `${this.name} = tf.constant(${result})`;
+		return `${this.name+ "= tf.constant("+result})`;
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
-		// node.addWidget("text","value",0, (value) => {
-		// 	this.changeWidgetValue(value,"value");
-		// });
-		// node.addWidget("combo","dtype(optional)","float",(value) => {
-		// 	this.changeWidgetValue(value,"dtype");
-		// },{values: ["float32","int32","bool","complex64","string"]});
-		// node.addWidget("text","shape(optional)","shape",(value) => {
-		// 	this.changeWidgetValue(value,"shape")
-		// });
-		// node.addWidget("text","name(optional)","name",(value) => {
-		// 	this.changeWidgetValue(value,"name")});
 
 		let widgetsData= ["0","float","shape","name"];
 		let widgetTypes=["Value","dtype","shape","name"];
@@ -84,7 +50,6 @@ export class TFConstant extends TFTensor {
 		node.addWidget("text","name(optional)",widgetsData[3],function (value){
 			that.changeWidgetValue(value,widgetTypes[3],navbar)
 		});
-
 		node.addOutput("Value","tf.Tensor");
 		node.size = [240,node.size[1]]
 	}

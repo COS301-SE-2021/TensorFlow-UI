@@ -290,8 +290,8 @@ export const NodeStore: any = {
 	"logicalOr": TFLogicalOr,
 	"logicalXor": TFLogicalXor,
 	"notEqual": TFNotEqual,
-	"where": TFWhere,
-	"whereAsync": TFWhereAsync,
+	// "where": TFWhere,
+	// "whereAsync": TFWhereAsync,
 //	linear Algebra
 	"bandPart": TFBandPart,
 	"gramSchmidt": TFGramSchmidt,
