@@ -133,8 +133,8 @@ import {
 	TFStackedRNNCells,
 	TFBidirectional, TFTimeDistributed
 } from "./layers";
-import {TFMaxNorm, TFMinMaxNorm, TFNonNeg, TFUnitNorm} from "./contraints";
-// import {constraints} from "./contraints";
+import {TFMaxNorm, TFMinMaxNorm, TFNonNeg, TFUnitNorm} from "./constraints";
+// import {constraints} from "./constraints";
 // import {TFNode} from "./node";
 //
 

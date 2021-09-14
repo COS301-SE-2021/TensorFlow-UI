@@ -24,8 +24,7 @@ import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
-import {layersArray} from "../../tf/layers";
-import {constraints} from "../../tf/contraints";
+
 
 export interface SettingsPageData {
 	projectName: string,
