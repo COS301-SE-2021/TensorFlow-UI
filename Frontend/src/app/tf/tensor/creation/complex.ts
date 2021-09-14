@@ -8,9 +8,9 @@ export class TFComplex extends TFTensor {
 	}
 
 	// code(storageLinks, storageNodes) {
-	// 	return `${this.name} = tf.complex(
-	// 		${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
-	// 		${this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+	// 	return `${this.name + "= tf.complex(" +
+	// 		this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
+	// 		this.GetNode(storageLinks, storageNodes, this.inputs[1].link))`;
 	// }
 	//
 	// UIStructure(node: LGraphNode) {

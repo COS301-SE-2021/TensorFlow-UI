@@ -8,12 +8,12 @@ export class TFTruncatedNormal extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.truncatedNormal(
-			${this.widgets.find(element => element.type == "shape")?.value || "[2,2]"},
-			${this.widgets.find(element => element.type == "mean")?.value || ""}
-			${this.widgets.find(element => element.type == "stdDev")?.value || ""}
-			${this.widgets.find(element => element.type == "dtype")?.value || ""}
-			${this.widgets.find(element => element.type == "seed")?.value || ""}
+		return `${this.name + "= tf.truncatedNormal(" +
+			this.widgets.find(element => element.type == "shape")?.value || "[2,2]" + "," +
+			this.widgets.find(element => element.type == "mean")?.value || "" + "," +
+			this.widgets.find(element => element.type == "stdDev")?.value || "" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || "" + "," +
+			this.widgets.find(element => element.type == "seed")?.value || ""
 	})`;}
 
 	UIStructure(node: LGraphNode) {

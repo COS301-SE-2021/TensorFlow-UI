@@ -8,7 +8,7 @@ export class TFClone extends TFTensor {
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = ${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)}.tf.clone()`;
+		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link)} + ".tf.clone()"`;
 	}
 
 	UIStructure(node: LGraphNode){

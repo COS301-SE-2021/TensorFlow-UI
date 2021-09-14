@@ -9,11 +9,11 @@ export class TFEye extends TFTensor {
 	}
 
 	code() {
-	// 	return `${this.name} = tf.eye(
-	// 		${this.widgets.find(element => element.type == "numRows")?.value || "0"},
-	// 		${this.widgets.find(element => element.type == "numColumns")?.value || "0"},
-	// 		${this.widgets.find(element => element.type == "batchShape")?.value || "shape=inferred"}
-	// 		${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+	// 	return `${this.name + "= tf.eye(" +
+	// 		this.widgets.find(element => element.type == "numRows")?.value || "0" + "," +
+	// 		this.widgets.find(element => element.type == "numColumns")?.value || "0" + "," +
+	// 		this.widgets.find(element => element.type == "batchShape")?.value || "shape=inferred" + "," +
+	// 		this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"
 	// })`;
 	// }
 	//

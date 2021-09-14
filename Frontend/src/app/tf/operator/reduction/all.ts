@@ -7,35 +7,22 @@ export class TFAll extends TFOperator {
 		super(name);
 	}
 
-	code(){
-		return `${this.name} = tf.all(
-			${this.TFChildInputs?.forEach(function (key) {
-			key?.name + "," || `some value,`
-		})
-		})`;
+	code(storageLinks, storageNodes) {
+		return `${this.name + "= tf.all(" +
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
+			this.widgets.find(element => element.type == "axis")?.value || "N/A" + "," +
+			this.widgets.find(element => element.type == "keepDims")?.value || "N/A"
+	})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-
+		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addWidget("combo", "axis", "float", (value) => {
+			this.changeWidgetValue(value, "axis");
+		});
+		node.addWidget("toggle", "keepDims?", true, (value) => {
+			this.changeWidgetValue(value, "keepDims")
+		}, {values: [true, false]});
+		node.addOutput("tf.Tensor", "tf.Tensor");
 	}
 }
-// tf.all (x, axis?, keepDims?) functionsource
-// Computes the logical and of elements across dimensions of a tf.Tensor.
-//
-// 	Reduces the input along the dimensions given in axes. Unless keepDims is true, the rank of the tf.Tensor is reduced by 1 for each entry in axes. If keepDims is true, the reduced dimensions are retained with length 1. If axes has no entries, all dimensions are reduced, and an tf.Tensor with a single element is returned.
-//
-// 	const x = tf.tensor1d([1, 1, 1], 'bool');
-//
-// x.all().print();  // or tf.all(x)
-// EditRun
-// const x = tf.tensor2d([1, 1, 0, 0], [2, 2], 'bool');
-//
-// const axis = 1;
-// x.all(axis).print();  // or tf.all(x, axis)
-// EditRun
-// Parameters:
-// 	x (tf.Tensor|TypedArray|Array) The input tensor. Must be of dtype bool.
-// axis (number|number[]) The dimension(s) to reduce. By default it reduces all dimensions. Optional
-// keepDims (boolean) If true, retains reduced dimensions with size 1. Optional
-// Returns: tf.Tensor
-

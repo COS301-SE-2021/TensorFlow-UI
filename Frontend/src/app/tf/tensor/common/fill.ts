@@ -8,11 +8,10 @@ export class TFFill extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.fill(
-			${this.widgets.find(element => element.type == "value")?.value || "0"},
-			${this.widgets.find(element => element.type == "shape")?.value || "shape=inferred"}
-			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
-	})`;}
+		return `${this.name + "= tf.fill(" + 
+			this.widgets.find(element => element.type == "value")?.value || "0" +
+			this.widgets.find(element => element.type == "shape")?.value || "shape=inferred" +
+			this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"})`;}
 
 	UIStructure(node: LGraphNode) {
 		node.addWidget("text","value",0, (value) => {

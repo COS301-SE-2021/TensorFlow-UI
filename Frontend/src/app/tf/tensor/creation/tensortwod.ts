@@ -8,10 +8,10 @@ export class TFTensorTwoD extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.tensor2d(
-			${this.widgets.find(element => element.type == "tensor2d")?.value || "0"},
-			${this.widgets.find(element => element.type == "shape")?.value || "shape=inferred"}
-			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+		return `${this.name + "= tf.tensor2d(" +
+			this.widgets.find(element => element.type == "tensor2d")?.value || "0" + "," +
+			this.widgets.find(element => element.type == "shape")?.value || "shape=inferred" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"
 		})`;
 	}
 

@@ -8,9 +8,9 @@ export class TFTensorOneD extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.tensor1d(
-			${this.widgets.find(element => element.type == "tensor1d")?.value || "0"},
-			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+		return `${this.name + "= tf.tensor1d(" +
+			this.widgets.find(element => element.type == "tensor1d")?.value || "0" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"
 		})`;
 	}
 

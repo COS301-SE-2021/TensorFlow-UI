@@ -8,8 +8,8 @@ export class TFImag extends TFTensor {
 	}
 
 	code(storageLinks, storageNodes) {
-		return `${this.name} = tf.imag(
-	${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.imag(" +
+		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 	UIStructure(node: LGraphNode){

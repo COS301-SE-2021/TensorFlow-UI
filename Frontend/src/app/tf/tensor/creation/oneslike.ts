@@ -8,8 +8,8 @@ export class TFOnesLike extends TFTensor {
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.oneslike(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.oneslike(" +
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 

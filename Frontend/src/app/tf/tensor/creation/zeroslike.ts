@@ -8,8 +8,8 @@ export class TFZerosLike extends TFTensor {
     }
 
 	code(storageLinks,storageNodes) {
-		return `${this.name} = tf.zerosLike(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
+		return `${this.name + "= tf.zerosLike(" +
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
     UIStructure(node: LGraphNode){

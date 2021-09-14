@@ -8,10 +8,10 @@ export class TFBuffer extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.buffer(
-			${this.widgets.find(element => element.type == "value")?.value || "0"},
-			${this.widgets.find(element => element.type == "shape")?.value || "shape=inferred"}
-			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+		return `${this.name + "= tf.buffer(" +
+			this.widgets.find(element => element.type == "value")?.value || "0" + "," +
+			this.widgets.find(element => element.type == "shape")?.value || "shape=inferred" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"
 	})`;}
 
 	UIStructure(node: LGraphNode) {
