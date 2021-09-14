@@ -19,6 +19,68 @@ import {
 	TFReal, TFReshape, TFReverse, TFSetdiff1dAsync, TFSlice, TFSpaceToBatchND, TFSplit, TFSqueeze, TFStack,
 	TFTensorOneD, TFTensorThreeD, TFTensorTwoD, TFTile, TFTruncatedNormal, TFUnstack
 } from "./tensor";
+import {
+	TFAbs,
+	TFAcos,
+	TFAcosh,
+	TFAsin,
+	TFAsinh,
+	TFAtan,
+	TFAtan2,
+	TFAtanh,
+	TFCeil,
+	TFClipByValue,
+	TFCos,
+	TFCosh,
+	TFDilation2d,
+	TFElu,
+	TFErf,
+	TFExp,
+	TFExpm1,
+	TFFloor,
+	TFIsFinite,
+	TFIsInf,
+	TFIsNaN,
+	TFLeakyRelu,
+	TFLog,
+	TFLog1p,
+	TFLogSigmoid,
+	TFNeg,
+	TFPrelu,
+	TFRelu,
+	TFRelu6,
+	TFRound,
+	TFRsqrt,
+	TFSelu,
+	TFSign,
+	TFSin,
+	TFSinh, TFSoftplus, TFSqrt, TFSquare, TFStep, TFTan, TFTanh
+} from "./operator/basicMath";
+import {
+	TFBatchNorm,
+	TFLocalResponseNormalization,
+	TFLogSoftmax,
+	TFMoments,
+	TFSoftmax,
+	TFSparseToDense
+} from "./operator/normilization";
+import {TFMovingAverage} from "./operator/movingAverage";
+import {
+	TFEqual,
+	TFGreater,
+	TFGreaterEqual,
+	TFLess,
+	TFLessEqual,
+	TFLogicalAnd,
+	TFLogicalNot,
+	TFLogicalOr, TFLogicalXor, TFNotEqual, TFWhere, TFWhereAsync
+} from "./operator/logical";
+import {TFBandPart, TFGramSchmidt, TFqr} from "./operator/linearAlgebra";
+import {TFDropout} from "./operator/dropout";
+import {TFConfusionMatrix, TFInTopAsync, TFTopk, TFUnique} from "./operator/evaluation";
+// import {constraints} from "./contraints";
+// import {TFNode} from "./node";
+//
 
 export const NodeStore: any = {
 	"Add": TFAdd,
@@ -108,5 +170,83 @@ export const NodeStore: any = {
 	"Setdiff1dAsync": TFSetdiff1dAsync,
 	"SpaceToBatchND": TFSpaceToBatchND,
 	"Squeeze": TFSqueeze,
+//	basicMath
+	"abs": TFAbs,
+	"acos": TFAcos,
+	"acosh": TFAcosh,
+	"asin": TFAsin,
+	"asinh": TFAsinh,
+	"atan": TFAtan,
+	"atan2": TFAtan2,
+	"atanh": TFAtanh,
+	"ceil": TFCeil,
+	"clipByValue": TFClipByValue,
+	"cos": TFCos,
+	"cosh": TFCosh,
+	"dilation2d": TFDilation2d,
+	"elu": TFElu,
+	"erf": TFErf,
+	"exp": TFExp,
+	"expm1": TFExpm1,
+	"floor": TFFloor,
+	"isFinite": TFIsFinite,
+	"isInf": TFIsInf,
+	"isNaN": TFIsNaN,
+	"leakyRelu": TFLeakyRelu,
+	"log": TFLog,
+	"log1p": TFLog1p,
+	"logSigmoid": TFLogSigmoid,
+	"neg": TFNeg,
+	"prelu": TFPrelu,
+	"reciprocal": TFReciprocal,
+	"relu": TFRelu,
+	"relu6": TFRelu6,
+	"round": TFRound,
+	"rsqrt": TFRsqrt,
+	"selu": TFSelu,
+	"sigmoid": TFSigmoid,
+	"sign": TFSign,
+	"sin": TFSin,
+	"sinh": TFSinh,
+	"softplus": TFSoftplus,
+	"sqrt": TFSqrt,
+	"square": TFSquare,
+	"step": TFStep,
+	"tan": TFTan,
+	"tanh": TFTanh,
+//	Normilization
+	"batchNorm": TFBatchNorm,
+	"localResponseNormalization": TFLocalResponseNormalization,
+	"logSoftmax": TFLogSoftmax,
+	"moments": TFMoments,
+	"softmax": TFSoftmax,
+	"sparseToDense": TFSparseToDense,
+//	MovingAverage
+	"movingAverage": TFMovingAverage,
+	//	MovingAverage
+	"dropout": TFDropout,
+//	logical
+	"equal": TFEqual,
+	"greater": TFGreater,
+	"greaterEqual": TFGreaterEqual,
+	"less": TFLess,
+	"lessEqual": TFLessEqual,
+	"logicalAnd": TFLogicalAnd,
+	"logicalNot": TFLogicalNot,
+	"logicalOr": TFLogicalOr,
+	"logicalXor": TFLogicalXor,
+	"notEqual": TFNotEqual,
+	"where": TFWhere,
+	"whereAsync": TFWhereAsync,
+//	linear Algebra
+	"bandPart": TFBandPart,
+	"gramSchmidt": TFGramSchmidt,
+	"qr": TFqr,
+//	evaluation
+	"confusionMatrix": TFConfusionMatrix,
+	"inTopKAsync": TFInTopAsync,
+	"topk": TFTopk,
+	"unique": TFUnique
+
 }
 

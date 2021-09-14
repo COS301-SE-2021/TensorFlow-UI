@@ -11,3 +11,17 @@ export * from './notEqual'
 export * from './where'
 export * from './whereAsync'
 
+export const logical = [
+	"equal",
+	"greater",
+	"greaterEqual",
+	"less",
+	"lessEqual",
+	"logicalAnd",
+	"logicalNot",
+	"logicalOr",
+	"logicalXor",
+	"notEqual",
+	"where",
+	"whereAsync"
+]
