@@ -1,23 +1,10 @@
-// tf.layers.averagePooling1d
-// tf.layers.averagePooling2d
-// tf.layers.averagePooling3d
-// tf.layers.globalAveragePooling1d
-// tf.layers.globalAveragePooling2d
-// tf.layers.globalMaxPooling1d
-// tf.layers.globalMaxPooling2d
-// tf.layers.maxPooling1d
-// tf.layers.maxPooling2d
-// tf.layers.maxPooling3d
-
-
-
-
-
-
-
-
-
-
-
-
-
+export * from './averagePooling1d'
+export * from './averagePooling2d'
+export * from './averagePooling3d'
+export * from './globalAveragePooling1d'
+export * from './globalAveragePooling2d'
+export * from './globalMaxPooling1d'
+export * from './globalMaxPooling2d'
+export * from './maxPooling1d'
+export * from './maxPooling2d'
+export * from './maxPooling3d'

@@ -14,9 +14,9 @@ export class TFSpatialDropout1d extends TFLayers {
 	}
 
 	UIStructure(node: LGraphNode) {
-		const that = this;
-		node.addWidget("text", "constant", 0, function (value) {
-			that.changeWidgetValue(value, "constant");
+		node.addWidget("text", "value", 0, (value) => {
+			this.changeWidgetValue(value, "value");
 		});
+		node.addOutput("tf.layers.Layer","tf.layers.Layer");
 	}
 }
