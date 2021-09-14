@@ -25,6 +25,7 @@
             <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Nodes</button>
             <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Nodes</button>
             <button mat-menu-item [matMenuTriggerFor]="layersNodes">Layers Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="constraints">Constraints</button>
 
         </mat-menu>
         <mat-menu #operatorNodes="matMenu">
@@ -198,6 +199,10 @@
 
         <mat-menu #wrapper>
             <button mat-menu-item *ngFor="let item of layersArray.wrapper" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #constraints>
+            <button mat-menu-item *ngFor="let item of constraintsArray" (click)="createComponent(item)">{{item}}</button>
         </mat-menu>
 
     </mat-toolbar>

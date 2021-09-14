@@ -14,5 +14,6 @@ export const tensorFlowTypesArray = {
     "operatorsArray": operatorsArray,
     "modelArray": modelArray,
     "tensorsArray": tensorsArray,
-    "layersArray": layersArray
+    "layersArray": layersArray,
+    "constraints": constraints
 };

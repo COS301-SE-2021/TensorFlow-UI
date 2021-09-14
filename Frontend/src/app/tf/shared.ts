@@ -133,6 +133,7 @@ import {
 	TFStackedRNNCells,
 	TFBidirectional, TFTimeDistributed
 } from "./layers";
+import {TFMaxNorm, TFMinMaxNorm, TFNonNeg, TFUnitNorm} from "./contraints";
 // import {constraints} from "./contraints";
 // import {TFNode} from "./node";
 //
@@ -384,6 +385,11 @@ export const NodeStore: any = {
 	"stackedRNNCells": TFStackedRNNCells,
 //	wrapper
 	"bidirectional": TFBidirectional,
-	"timeDistributed": TFTimeDistributed
+	"timeDistributed": TFTimeDistributed,
+//	constraints
+	"maxNorm": TFMaxNorm,
+	"minMaxNorm": TFMinMaxNorm,
+	"nonNeg": TFNonNeg,
+	"unitNorm": TFUnitNorm
 }
 
