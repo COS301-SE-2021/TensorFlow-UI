@@ -8,13 +8,18 @@ export class TFGreater extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".greater(" + 
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+		let result = this.genericOperatorCode(storageLinks,storageNodes,"greater");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.greater("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("greater", "tf.Tensor");
+		node.addInput("a", "tf.Tensor")
+		node.addInput("b", "tf.Tensor");
+		node.addOutput("a > b", "tf.Tensor");
 	}
 }

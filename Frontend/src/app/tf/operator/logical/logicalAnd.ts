@@ -8,13 +8,18 @@ export class TFLogicalAnd extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".logicalAnd(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+		let result = this.genericLogicGateOperatorsCode(storageLinks,storageNodes,"logical_and");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.logical_and("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("logicalAnd", "tf.Tensor");
+		node.addInput("a", "tf.Tensor");
+		node.addInput("b", "tf.Tensor");
+		node.addOutput("a AND b", "tf.Tensor");
 	}
 }

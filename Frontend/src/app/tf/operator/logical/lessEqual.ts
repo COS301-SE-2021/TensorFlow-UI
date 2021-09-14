@@ -8,13 +8,18 @@ export class TFLessEqual extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".lessEqual(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+		let result = this.genericOperatorCode(storageLinks,storageNodes,"less_equal");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.less_equal("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("lessEqual", "tf.Tensor");
+		node.addInput("a", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("b", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("a <= b", "tf.Tensor");
 	}
 }

@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {TFNode} from "../../node";
 
 export class TFEqual extends TFOperator{
 	constructor(
@@ -8,13 +9,19 @@ export class TFEqual extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".equal(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+
+		let result = this.genericOperatorCode(storageLinks,storageNodes,"equal");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.equal("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("equal", "tf.Tensor");
+		node.addInput("a", "tf.Tensor");
+		node.addInput("b", "tf.Tensor");
+		node.addOutput("a == b", "tf.Tensor");
 	}
 }
