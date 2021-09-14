@@ -9,14 +9,15 @@ export * from './computeOutputShape'
 export * from './getConfig'
 export * from './dispose'
 
-
-// touch apply.ts
-// touch countParams.ts
-// touch build.ts
-// touch getWeights.ts
-// touch setWeights.ts
-// touch addWeight.ts
-// touch addLoss.ts
-// touch computeOutputShape.ts
-// touch getConfig.ts
-// touch dispose.ts
+export const layerClasses = [
+	"apply",
+	"countParams",
+	"build",
+	"getWeights",
+	"setWeights",
+	"addWeight",
+	"addLoss",
+	"computeOutputShape",
+	"getConfig",
+	"dispose"
+]

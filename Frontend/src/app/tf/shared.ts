@@ -78,6 +78,61 @@ import {
 import {TFBandPart, TFGramSchmidt, TFqr} from "./operator/linearAlgebra";
 import {TFDropout} from "./operator/dropout";
 import {TFConfusionMatrix, TFInTopAsync, TFTopk, TFUnique} from "./operator/evaluation";
+import {
+	TFActivation,
+	TFAddLoss,
+	TFAddWeights,
+	TFAlphaDropout,
+	TFApply,
+	TFAverage,
+	TFAveragePooling1d,
+	TFAveragePooling2d,
+	TFAveragePooling3d,
+	TFBatchNormalization,
+	TFBuild,
+	TFComputeOutputShape,
+	TFConcatenate,
+	TFCountParams,
+	TFCropping2D,
+	TFDense,
+	TFDepthwiseConv2d,
+	TFDispose,
+	TFEmbedding,
+	TFFlatten,
+	TFGaussianDropout,
+	TFGaussianNoise,
+	TFGetConfig,
+	TFGetWeights,
+	TFGlobalAveragePooling1d,
+	TFInputLayer,
+	TFLayerNormalization,
+	TFLeakyReLU,
+	TFMasking,
+	TFMinimum,
+	TFPermute,
+	TFRepeatVector,
+	TFSetWeights,
+	TFSpatialDropout1d,
+	TFGlobalAveragePooling2d,
+	TFThresholdedReLU,
+	TFUpSampling2d,
+	TFZeroPadding2d,
+	TFGlobalMaxPooling1d,
+	TFMaxPooling1d,
+	TFMaxPooling2d,
+	TFMaxPooling3d,
+	TFConvLstm2d,
+	TFConvLstm2dCell,
+	TFGru,
+	TFGruCell,
+	TFLstm,
+	TFLstmCell,
+	TFRnn,
+	TFSimpleRNN,
+	TFSimpleRNNCell,
+	TFStackedRNNCells,
+	TFBidirectional, TFTimeDistributed
+} from "./layers";
 // import {constraints} from "./contraints";
 // import {TFNode} from "./node";
 //
@@ -246,7 +301,89 @@ export const NodeStore: any = {
 	"confusionMatrix": TFConfusionMatrix,
 	"inTopKAsync": TFInTopAsync,
 	"topk": TFTopk,
-	"unique": TFUnique
-
+	"unique": TFUnique,
+//	advancedActivation
+	// "elu": TFElu, //same name
+	"leakyReLU": TFLeakyReLU,
+	// "prelu": TFPrelu, //same name
+	"reLU": TFRelu,
+	// "softmax": TFSoftmax, //same name
+	"thresholdedReLU": TFThresholdedReLU,
+//	basic layer
+	"activation": TFActivation,
+	"dense": TFDense,
+	// "dropout": TFDropout, duplicate
+	"embedding": TFEmbedding,
+	"flatten": TFFlatten,
+	"permute": TFPermute,
+	"repeatVector": TFRepeatVector,
+	"reshape": TFReshape,
+	"spatialDropout1d": TFSpatialDropout1d,
+//	classes
+	"apply": TFApply,
+	"countParams": TFCountParams,
+	"build": TFBuild,
+	"getWeights": TFGetWeights,
+	"setWeights": TFSetWeights,
+	"addWeight": TFAddWeights,
+	"addLoss": TFAddLoss,
+	"computeOutputShape": TFComputeOutputShape,
+	"getConfig": TFGetConfig,
+	"dispose": TFDispose,
+//  convolutional
+	// 	"conv1d": TFConv1d, duplicates
+	// 	"conv2d": TFConv2d, duplicates
+	// 	"conv2dTranspose": TFConv2dTranspose,
+	// 	"conv3d": TFConv3d,
+	"cropping2D": TFCropping2D,
+	"depthwiseConv2d": TFDepthwiseConv2d,
+	// "separableConv2d": TFSeparableConv2d,
+	"upSampling2d": TFUpSampling2d,
+//	inputLayer
+	"inputLayer": TFInputLayer,
+//	mask
+	"mask": TFMasking,
+//	merging
+	// 	"add": TFAdd,
+	"average": TFAverage,
+	"concatenate": TFConcatenate,
+	// "dot": TFDot, //duplicate
+	// "maximum": TFMax, //duplicate
+	"minimum": TFMinimum,
+	// "multiply": TFMultiply //duplicate
+//	noise
+	"alphaDropout": TFAlphaDropout,
+	"gaussianDropout": TFGaussianDropout,
+	"gaussianNoise": TFGaussianNoise,
+//	Normalization
+	"batchNormalization": TFBatchNormalization,
+	"layerNormalization": TFLayerNormalization,
+//	padding
+	"zeroPadding2d": TFZeroPadding2d,
+//	pooling
+	"averagePooling1d": TFAveragePooling1d,
+	"averagePooling2d": TFAveragePooling2d,
+	"averagePooling3d": TFAveragePooling3d,
+	"globalAveragePooling1d": TFGlobalAveragePooling1d,
+	"globalAveragePooling2d": TFGlobalAveragePooling2d,
+	"globalMaxPooling1d": TFGlobalMaxPooling1d,
+	"globalMaxPooling2d": TFGlobalAveragePooling2d,
+	"maxPooling1d": TFMaxPooling1d,
+	"maxPooling2d": TFMaxPooling2d,
+	"maxPooling3d": TFMaxPooling3d,
+//	recurrent
+	"convLstm2d": TFConvLstm2d,
+	"convLstm2dCell": TFConvLstm2dCell,
+	"gru": TFGru,
+	"gruCell": TFGruCell,
+	"lstm": TFLstm,
+	"lstmCell": TFLstmCell,
+	"rnn": TFRnn,
+	"simpleRNN": TFSimpleRNN,
+	"simpleRNNCell": TFSimpleRNNCell,
+	"stackedRNNCells": TFStackedRNNCells,
+//	wrapper
+	"bidirectional": TFBidirectional,
+	"timeDistributed": TFTimeDistributed
 }
 

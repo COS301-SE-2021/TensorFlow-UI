@@ -5,3 +5,14 @@ export * from './dot'
 export * from './maximum'
 export * from './minimum'
 export * from './multiply'
+
+
+export const merge = [
+	// "add",
+	"average",
+	"concatenate",
+	// "dot",
+	// "maximum",
+	"minimum",
+	// "multiply"
+]

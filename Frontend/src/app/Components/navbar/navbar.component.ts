@@ -24,6 +24,7 @@ import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
+import {layersArray} from "../../tf/layers";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -64,6 +65,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public operatorsArray = tensorFlowTypesArray.operatorsArray;
 	public modelsArray = tensorFlowTypesArray.modelArray;
 	public tensorsArray = tensorFlowTypesArray.tensorsArray;
+	public layersArray = tensorFlowTypesArray.layersArray;
 
 	public currentDrawer:string = "Import/Export";
 

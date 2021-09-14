@@ -1,7 +1,7 @@
 import {TFLayers} from "../layers";
 import {LGraphNode} from "litegraph.js";
 
-export class TFTFGlobalAveragePooling2d extends TFLayers {
+export class TFGlobalAveragePooling2d extends TFLayers {
 	constructor(public data: number | undefined = undefined,
 				public name: string = " ") {
 		super(name);

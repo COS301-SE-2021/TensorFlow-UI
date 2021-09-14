@@ -24,6 +24,7 @@
             <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Nodes</button>
             <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Nodes</button>
             <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="layersNodes">Layers Nodes</button>
 
         </mat-menu>
         <mat-menu #operatorNodes="matMenu">
@@ -43,6 +44,22 @@
 
         <mat-menu #modelNodes="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+        </mat-menu>
+
+        <mat-menu #layersNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="advancedActivation">Advanced Activation</button>
+            <button mat-menu-item [matMenuTriggerFor]="layerClasses">Classes</button>
+            <button mat-menu-item [matMenuTriggerFor]="basic">Basic</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutional">Convolutional</button>
+            <button mat-menu-item [matMenuTriggerFor]="layerInput">Input</button>
+            <button mat-menu-item [matMenuTriggerFor]="mask">Masking</button>
+            <button mat-menu-item [matMenuTriggerFor]="merge">Merge</button>
+            <button mat-menu-item [matMenuTriggerFor]="noise">Noise</button>
+            <button mat-menu-item [matMenuTriggerFor]="normalization">Normalization</button>
+            <button mat-menu-item [matMenuTriggerFor]="padding">Padding</button>
+            <button mat-menu-item [matMenuTriggerFor]="pooling">Pooling</button>
+            <button mat-menu-item [matMenuTriggerFor]="recurrent">Recurrent</button>
+            <button mat-menu-item [matMenuTriggerFor]="wrapper">Wrapper</button>
         </mat-menu>
 
         <mat-menu #tensorNodesMenu="matMenu">
@@ -129,6 +146,58 @@
 
         <mat-menu #tensorTransformationNodes>
             <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #advancedActivation>
+            <button mat-menu-item *ngFor="let item of layersArray.advancedActivation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #layerClasses>
+            <button mat-menu-item *ngFor="let item of layersArray.layerClasses" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #basic>
+            <button mat-menu-item *ngFor="let item of layersArray.basic" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutional>
+            <button mat-menu-item *ngFor="let item of layersArray.convolutional" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #layerInput>
+            <button mat-menu-item *ngFor="let item of layersArray.layerInput" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mask>
+            <button mat-menu-item *ngFor="let item of layersArray.mask" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #merge>
+            <button mat-menu-item *ngFor="let item of layersArray.merge" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #noise>
+            <button mat-menu-item *ngFor="let item of layersArray.noise" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #normalization>
+            <button mat-menu-item *ngFor="let item of layersArray.normalization" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #padding>
+            <button mat-menu-item *ngFor="let item of layersArray.padding" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #pooling>
+            <button mat-menu-item *ngFor="let item of layersArray.pooling" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #recurrent>
+            <button mat-menu-item *ngFor="let item of layersArray.recurrent" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #wrapper>
+            <button mat-menu-item *ngFor="let item of layersArray.wrapper" (click)="createComponent(item)">{{item}}</button>
         </mat-menu>
 
     </mat-toolbar>

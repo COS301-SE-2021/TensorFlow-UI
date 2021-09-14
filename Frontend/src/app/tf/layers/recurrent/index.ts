@@ -9,6 +9,15 @@ export * from './simpleRNN'
 export * from './simpleRNNCell'
 export * from './stackedRNNCells'
 
-
-
-
+export const recurrent = [
+	"convLstm2d",
+	"convLstm2dCell",
+	"gru",
+	"gruCell",
+	"lstm",
+	"lstmCell",
+	"rnn",
+	"simpleRNN",
+	"simpleRNNCell",
+	"stackedRNNCells"
+]
