@@ -21,6 +21,8 @@ import {ComponentsModule} from "./Components/components.module";
 import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { ImportPageComponent } from './ImportPage/importPage.component';
+import { TutorialModalMaterialComponent } from './Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component';
+import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-upload-box.component';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -31,7 +33,9 @@ const modules = [
   declarations: [
     AppComponent,
     TutorialModalComponent
-    ImportPageComponent
+    ImportPageComponent,
+    TutorialModalMaterialComponent,
+    JsonUploadBoxComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', {
