@@ -270,6 +270,7 @@ mat-tab{
 }
 
 mat-tab-group /deep/ .mat-tab-body-wrapper {
+  background-color: #5c5c5c;
   height: 100%;
 }
 
