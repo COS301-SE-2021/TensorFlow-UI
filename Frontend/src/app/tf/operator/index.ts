@@ -10,6 +10,8 @@ import {logical} from "./logical";
 import {movingAverage} from "./movingAverage";
 import {normilization} from "./normilization";
 import {operatorImages} from "./images";
+import {operatorRNN} from "./rnn";
+import {operatorScan} from "./scan";
 
 export * from './operator'
 export * from './Math'
@@ -27,5 +29,6 @@ export const operatorsArray = {
     "logical": logical,
     "movingAverage": movingAverage,
     "normilization": normilization,
-    "operatorImages": operatorImages
+    "operatorImages": operatorImages,
+    "operatorRNN": operatorRNN,
 };
