@@ -25,6 +25,8 @@ import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
 import {TFRootNode} from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
+import {TutorialServiceService} from "../../Tutorial/tutorial-service.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -213,6 +215,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		const generator: CodeGeneratorService = new CodeGeneratorService();
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
 	}*/
+
+  runTutorial() {
+    const modalService : NgbModal = new NgbModal()
+    const tutorialService : TutorialServiceService = new TutorialServiceService();
+  }
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 
