@@ -31,4 +31,5 @@ export const operatorsArray = {
     "normilization": normilization,
     "operatorImages": operatorImages,
     "operatorRNN": operatorRNN,
+    "operatorScan": operatorScan
 };
