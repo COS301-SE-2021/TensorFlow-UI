@@ -26,7 +26,7 @@ export abstract class TFOperator extends TFNode {
 				dTypeArray.push(this.getDType(inputNode.widgets));
 			}
 			else {
-				alert("Both input nodes (a and b) are required for the equal operation, for the equal operator");
+				alert("Both input nodes (a and b) are required for the "+operatorType+" operator");
 				return "";
 			}
 		}

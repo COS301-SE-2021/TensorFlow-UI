@@ -67,6 +67,9 @@ export class TFNode {
 		}
 	}
 
+	checkMatrixArray(value: string){
+
+	}
 }
 
 export interface widgetStructure{
