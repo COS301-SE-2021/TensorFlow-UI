@@ -26,5 +26,12 @@ export class CommandHistory{
     return c;
   }
 
+  public restore(){
+    if(this.index < this.commands.length-1){
+      this.index++;
+      console.log("redo index: "+this.index)
+      return this.commands[this.index];
+    }
+    return undefined;
   }
 }
