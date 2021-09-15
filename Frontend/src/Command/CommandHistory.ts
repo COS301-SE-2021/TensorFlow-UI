@@ -16,7 +16,15 @@ export class CommandHistory{
     //console.log("index="+this.index)
   }
 
-  public pop(){
-    return this.commands.pop();
+  public get(){
+    if(this.index < 0) return undefined;
+    let c = this.commands[this.index];
+    console.log("undo index: "+this.index)
+    if(this.index > -1){
+      this.index--;
+    }
+    return c;
+  }
+
   }
 }
