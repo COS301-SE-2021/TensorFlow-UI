@@ -2,14 +2,18 @@ import {Command} from "./Command";
 
 export class CommandHistory{
   private commands: Array<Command>;
-  private index = 0;
+  private index = -1;
 
   constructor(){
-    this.commands = new Array<Command>(100)
+    this.commands = []
   }
 
   public push(c: Command){
-    this.commands.push(c);
+    this.index++;
+    this.commands[this.index] = c;
+    this.commands.splice(this.index,this.commands.length-this.index-1)
+    console.log("length="+this.commands.length)
+    //console.log("index="+this.index)
   }
 
   public pop(){
