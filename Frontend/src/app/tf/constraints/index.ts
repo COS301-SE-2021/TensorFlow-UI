@@ -7,6 +7,7 @@ export * from './maxNorm'
 export * from './minMaxNorm'
 export * from './nonNeg'
 export * from './unitNorm'
+export * from './classes'
 
 // export const constraints: any = {
 // 	"maxNorm": TFMaxNorm,
