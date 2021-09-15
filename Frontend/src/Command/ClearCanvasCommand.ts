@@ -22,8 +22,8 @@ export class ClearCanvasCommand extends Command {
 
 	execute() {
     this.backup = this.store.snapshot();
-    console.log(this.backup);
-    console.log("backup printed")
+    //console.log(this.backup);
+    //console.log("backup printed")
 
 		const clearDialog = this.nav.dialog.open(NavbarDialogsComponent);
 
