@@ -13,11 +13,9 @@ export class NodeMenuComponent implements OnInit, AfterContentInit {
 
 
   ngOnInit(): void {
-    console.log(this.nodeInput);
   }
 
   ngAfterContentInit(){
-    console.log(this.nodeInput);
   }
 
   openNodeView(navbar){

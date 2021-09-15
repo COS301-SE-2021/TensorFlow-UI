@@ -19,8 +19,6 @@ export class ImportPageContentComponent implements OnInit {
 
 
     this.gitAPI.GetList();
-    console.log(this.gitAPI);
-    console.log(projectList);
   }
 
 
