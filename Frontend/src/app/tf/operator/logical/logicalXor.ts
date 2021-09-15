@@ -8,13 +8,19 @@ export class TFLogicalXor extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".logicalXor(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+
+		let result = this.genericLogicGateOperatorsCode(storageLinks,storageNodes,"logical_xor");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.logical_xor("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("logicalXor", "tf.Tensor");
+		node.addInput("a", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("b", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("a XOR b", "tf.Tensor");
 	}
 }

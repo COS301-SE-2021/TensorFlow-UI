@@ -8,13 +8,18 @@ export class TFNotEqual extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".notEqual(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+		let result = this.genericOperatorCode(storageLinks,storageNodes,"not_equal");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.not_equal("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("notEqual", "tf.Tensor");
+		node.addInput("a", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("b", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("a != b", "tf.Tensor");
 	}
 }

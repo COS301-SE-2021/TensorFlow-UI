@@ -14,7 +14,7 @@ export class TFAtan2 extends TFOperator{
 		let dTypeArray: string[] = [];
 
 		for(let input of this.inputs){
-			const link = storageLinks.find(element => element.id == input);
+			const link = storageLinks.find(element => element.id == input.link);
 			const inputNode = storageNodes.find(element => element.id == link?.origin_id);
 			parameters.push(inputNode);
 

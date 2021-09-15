@@ -8,13 +8,18 @@ export class TFGreaterEqual extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "=" + this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + ".greaterEqual(" +
-		this.GetNode(storageLinks, storageNodes, this.inputs[1].link)})`;
+		let result = this.genericOperatorCode(storageLinks,storageNodes,"greater_equal");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.greater_equal("+
+			result+
+		")"}`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("greaterEqual", "tf.Tensor");
+		node.addInput("a", "tf.Tensor");
+		node.addInput("b", "tf.Tensor");
+		node.addOutput("a >= b", "tf.Tensor");
 	}
 }

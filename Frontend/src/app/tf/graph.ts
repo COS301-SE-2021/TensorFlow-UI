@@ -1,17 +1,16 @@
 import {TFNode} from "./node";
 import {lineConnectors} from "../node-data";
+import {userVariableNames} from "./userVariableNames";
 
 export class TFGraph {
 	constructor(public root: TFNode | undefined = undefined) {}
 
     generateCode(current : TFNode, links: lineConnectors[], tfNodes: TFNode[]){
 	    let stringCode = "";
+
 	    if(current) {
 
-	        console.log(current);
 	        for(let input of current.inputs){
-
-	            console.log(input);
 
                 let nodeInputLinkID = input.link;
 
@@ -21,7 +20,6 @@ export class TFGraph {
 					let nodeChildID = link?.origin_id;
 					let nodeChild = tfNodes.find(element => element.id == nodeChildID);
 					if(nodeChild) {
-						console.log(nodeChild);
 						stringCode += this.generateCode(nodeChild, links, tfNodes);
 					}
 				}
@@ -33,7 +31,6 @@ export class TFGraph {
 	        stringCode += (<TFNode>current).code(links,tfNodes) + "\n";
 
 	    }
-		console.log(stringCode);
 	    return stringCode;
 	}
 
