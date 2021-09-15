@@ -1,5 +1,5 @@
 import {TFOperator} from "../operator";
-import {TFNode} from "../../node";
+import {LGraphNode} from "litegraph.js";
 
 export class TFSigmoid extends TFOperator {
 	constructor(
@@ -7,7 +7,27 @@ export class TFSigmoid extends TFOperator {
 		super(name);
 	}
 
-	code() {
-		return `${this.name} = tf.math.sigmoid(${this.childOne?.name || "some value"})`;
+	code(storageLinks,storageNodes) {
+		let input = this.inputs[0];
+		let param1: String = "";
+
+		if(input.link==null){
+			let errorMessage = "The Sigmoid Node is binary and requires an input inorder to obtain a result";
+			let docsLink = "https://www.tensorflow.org/api_docs/python/tf/math/sigmoid";
+			console.log(errorMessage);
+		}
+		else{
+			const link = storageLinks.find(element => element.id ==input.link);
+			const inputNode = storageNodes.find(element => element.id == link.origin_id);
+
+			param1 = inputNode.name;
+		}
+
+		return `${this.name} = tf.math.sigmoid(${param1})`;
+	}
+
+	UIStructure(node: LGraphNode) {
+		node.addInput("X","tf.Tensor");
+		node.addOutput("1/1+exp(-x)", "tf.Tensor");
 	}
 }

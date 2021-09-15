@@ -8,6 +8,7 @@ export class AddNodeCommand extends Command{
   }
 
   execute() {
+    return true;
   }
 
   undo() {

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProjectListComponent } from './project-list.component';
 import {NgxsModule} from "@ngxs/store";
 import {WorkspaceState} from "../../../Storage/workspace";
-import {TFConstant, TFNode} from "../../tf";
+import {TFNode} from "../../tf";
 
 describe('ProjectListComponent', () => {
   let component: ProjectListComponent;

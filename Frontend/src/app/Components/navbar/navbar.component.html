@@ -1,44 +1,213 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
-      <button mat-icon-button (click)="isExpanded = !isExpanded">
-          <mat-icon>menu</mat-icon>
-      </button>
         <div class="app-name">Tensorflow UI</div>
-        <span id="settingsButton" (click)="projectDetailsCommand.execute()">
+        <span id="settingsButton" (click)="executeCommand(projectDetailsCommand)">
           <mat-icon>settings</mat-icon>
         </span>
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
-        <span class="toolbarButton" id="undoButton">
+        <span class="toolbarButton" id="undoButton" (click)="undo()">
           Undo
         </span>
-        <span class="toolbarButton" id="redoButton">
+        <span class="toolbarButton" id="redoButton" (click)="redo()">
           Redo
         </span>
-        <span class="toolbarButton" id="generateCodeButton" (click)="generateCodeCommand.execute()">Generate Code</span>
-        <span class="toolbarButton" id="runCodeButton" (click)="runCode()">Run Code</span>
+        <span class="toolbarButton" id="generateCodeButton" (click)="executeCommand(generateCodeCommand)">Generate Code</span>
+        <span class="toolbarButton" id="runCodeButton" (click)="executeCommand(runCodeCommand)">Run Code</span>
         <span class="toolbarButton" id="clearCanvas"
-                (click)="clearCanvasCommand.execute()">
+                (click)="executeCommand(clearCanvasCommand)">
           Clear/Reset Canvas
         </span>
 
-      <mat-menu #nodes="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="tensorNodes">Tensor Node</button>
-        <button mat-menu-item [matMenuTriggerFor]="functionalNodes">Operator Node</button>
-      </mat-menu>
+        <mat-menu #nodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="layersNodes">Layers Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="constraints">Constraints</button>
 
-      <mat-menu #tensorNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tftensor" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        </mat-menu>
+        <mat-menu #operatorNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Math</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
+            <button mat-menu-item [matMenuTriggerFor]="reductionNodes">Reduction</button>
+            <button mat-menu-item [matMenuTriggerFor]="basicMath">Basic Math</button>
+            <button mat-menu-item [matMenuTriggerFor]="dropout">Dropout</button>
+            <button mat-menu-item [matMenuTriggerFor]="evaluation">Evaluation</button>
+            <button mat-menu-item [matMenuTriggerFor]="linearAlgebra">linear Algebra</button>
+            <button mat-menu-item [matMenuTriggerFor]="logical">Logical</button>
+            <button mat-menu-item [matMenuTriggerFor]="movingAverage">moving Average</button>
+            <button mat-menu-item [matMenuTriggerFor]="normilization">Normilization</button>
 
-      <mat-menu #functionalNodes="matMenu">
-        <button mat-menu-item *ngFor="let item of tfoperator" (click)="createComponent(item)">{{item}}</button>
-      </mat-menu>
+        </mat-menu>
+
+        <mat-menu #modelNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+        </mat-menu>
+
+        <mat-menu #layersNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="advancedActivation">Advanced Activation</button>
+            <button mat-menu-item [matMenuTriggerFor]="layerClasses">Classes</button>
+            <button mat-menu-item [matMenuTriggerFor]="basic">Basic</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutional">Convolutional</button>
+            <button mat-menu-item [matMenuTriggerFor]="layerInput">Input</button>
+            <button mat-menu-item [matMenuTriggerFor]="mask">Masking</button>
+            <button mat-menu-item [matMenuTriggerFor]="merge">Merge</button>
+            <button mat-menu-item [matMenuTriggerFor]="noise">Noise</button>
+            <button mat-menu-item [matMenuTriggerFor]="normalization">Normalization</button>
+            <button mat-menu-item [matMenuTriggerFor]="padding">Padding</button>
+            <button mat-menu-item [matMenuTriggerFor]="pooling">Pooling</button>
+            <button mat-menu-item [matMenuTriggerFor]="recurrent">Recurrent</button>
+            <button mat-menu-item [matMenuTriggerFor]="wrapper">Wrapper</button>
+        </mat-menu>
+
+        <mat-menu #tensorNodesMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="tensorCommonNodes">Common</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorCreationNodes">Creation</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorMatrixNodes">Matrices</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorRandomNodes">Random</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorSliceJoinNodes">Splice Join</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorTransformationNodes">Transformation</button>
+        </mat-menu>
+
+        <mat-menu #matricesNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mathNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorMath" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #reductionNodes>
+            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #basicMath>
+            <button mat-menu-item *ngFor="let item of operatorsArray.basicMath" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+
+        <mat-menu #dropout>
+            <button mat-menu-item *ngFor="let item of operatorsArray.dropout" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+
+        <mat-menu #evaluation>
+            <button mat-menu-item *ngFor="let item of operatorsArray.evaluation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+
+        <mat-menu #linearAlgebra>
+            <button mat-menu-item *ngFor="let item of operatorsArray.linearAlgebra" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+
+        <mat-menu #logical>
+            <button mat-menu-item *ngFor="let item of operatorsArray.logical" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+
+        <mat-menu #movingAverage>
+            <button mat-menu-item *ngFor="let item of operatorsArray.movingAverage" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #normilization>
+            <button mat-menu-item *ngFor="let item of operatorsArray.normilization" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #creationNodes>
+            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCommonNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Common" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorCreationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorMatrixNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Matrices" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorRandomNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Random" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorSliceJoinNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.SpliceJoin" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #tensorTransformationNodes>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #advancedActivation>
+            <button mat-menu-item *ngFor="let item of layersArray.advancedActivation" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #layerClasses>
+            <button mat-menu-item *ngFor="let item of layersArray.layerClasses" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #basic>
+            <button mat-menu-item *ngFor="let item of layersArray.basic" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #convolutional>
+            <button mat-menu-item *ngFor="let item of layersArray.convolutional" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #layerInput>
+            <button mat-menu-item *ngFor="let item of layersArray.layerInput" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #mask>
+            <button mat-menu-item *ngFor="let item of layersArray.mask" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #merge>
+            <button mat-menu-item *ngFor="let item of layersArray.merge" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #noise>
+            <button mat-menu-item *ngFor="let item of layersArray.noise" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #normalization>
+            <button mat-menu-item *ngFor="let item of layersArray.normalization" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #padding>
+            <button mat-menu-item *ngFor="let item of layersArray.padding" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #pooling>
+            <button mat-menu-item *ngFor="let item of layersArray.pooling" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #recurrent>
+            <button mat-menu-item *ngFor="let item of layersArray.recurrent" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #wrapper>
+            <button mat-menu-item *ngFor="let item of layersArray.wrapper" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
+
+        <mat-menu #constraints>
+            <button mat-menu-item *ngFor="let item of constraintsArray" (click)="createComponent(item)">{{item}}</button>
+        </mat-menu>
 
     </mat-toolbar>
 
-    <mat-sidenav-container class="container" autosize>
+    <mat-sidenav-container class="workspaceContainer">
         <mat-sidenav class="sidenav" mode="side" opened="true">
             <mat-nav-list>
                 <mat-list-item>
@@ -79,50 +248,34 @@
             </mat-nav-list>
         </mat-sidenav>
 
-<!--        -->
-<!--            <app-workspace-boundary [TFNodes]="TFNodeList">-->
-<!--            </app-workspace-boundary>-->
-<!--&lt;!&ndash;        &ndash;&gt;
-
-<mat-sidenav-content>-->
-<!--        <mat-drawer-container class="sidenav-Content-Container">-->
-<!--            <mat-drawer-content>-->
-<!--              <mat-tab-group #previewTabGroup>-->
-<!--                <mat-tab>-->
-<!--                  <app-workspace-boundary></app-workspace-boundary>-->
-<!--                </mat-tab>-->
-<!--                <mat-tab>-->
-<!--                  <h1>Community Project Preview</h1>-->
-<!--                  <div>-->
-<!--                    <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>-->
-<!--                  </div>-->
-<!--&lt;!&ndash;                  <app-workspace-boundary id="previewWorkspace"></app-workspace-boundary>&ndash;&gt;-->
-
-<!--                </mat-tab>-->
-<!--              </mat-tab-group>-->
-
-<!--            </mat-drawer-content>-->
-<!--        </mat-drawer-container>-->
-<!--    </mat-sidenav-content>-->
-
       <mat-sidenav-content>
         <mat-drawer-container class="sidenav-Content-Container">
-          <mat-drawer #drawer mode="side">
+          <mat-drawer #drawer mode="side" id="sidenav-Content-Drawer">
             <div *ngIf="currentDrawer=='Import/Export'">
               <app-export></app-export>
-              <button id="previewTabs" (click)="previewTabGroup.selectedIndex=1" style="display: none"></button>
+              <button id="previewTabs" (click)="changeTabIndex(2, previewTabGroup)" style="display: none"></button>
               <app-import></app-import>
+                <button id="importPageCanvasTab" (click)="changeTabIndex(1, previewTabGroup)" style="display: none"></button>
             </div>
           </mat-drawer>
-          <mat-drawer-content>
+          <mat-drawer-content id="sidenav-Canvas-Drawer">
+
             <mat-tab-group #previewTabGroup>
               <mat-tab>
                 <canvas id='Canvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
+                <mat-tab>
+                    <canvas id='ImportCanvas' width='{{screenWidth}}' height='{{screenHeight}}'>
+                    </canvas>
+                    <div id="importPageDiv">
+                        <app-import-page-content></app-import-page-content>
+                    </div>
+                </mat-tab>
               <mat-tab>
                 <h1>Community Project Preview</h1>
                 <div>
-                  <button mat-raised-button color="primary" >Import</button><button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
+                    <button mat-raised-button color="primary" >Import</button>
+                    <button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
                 </div>
                 <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
@@ -133,3 +286,5 @@
       </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
+
+<app-node-menu [nodeInput]="selectedNode"></app-node-menu>

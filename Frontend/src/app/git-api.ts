@@ -1,8 +1,8 @@
 import {Store} from "@ngxs/store";
-import {mail, PAT, user} from "./config";
 import projectList from "./Workspace/import/import.component";
 import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
-import {TFVariable} from "./tf";
+import {PAT} from "./config.js"
+import { TFVariable } from "./tf/tensor/common";
 
 
 export class GitAPI {

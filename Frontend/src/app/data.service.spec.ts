@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { DataService } from './data.service';
-import {TFAdd, TFGraph, TFOperator, TFSubtract, TFTensor} from "./tf";
+import {TFAdd, TFGraph, TFOperator, TFSubtract} from "./tf";
 
 describe('DataService', () => {
   let service: DataService;

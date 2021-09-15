@@ -1,0 +1,39 @@
+.mat-tab-label {
+    margin-left: 22%;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+#searchSection{
+    top: 5%;
+    width: 78%;
+    left: 11%;
+}
+
+.githubProjectDiv{
+    top: 10%;
+}
+
+.projectsList{
+    position: relative;
+    top:10%;
+}
+
+.projectListItem{
+    margin-bottom: 4.5%;
+}
+
+.projectListItem mat-card{
+    border: 2px solid #ff8C00;
+    width: 80%;
+    left: 10%;
+}
+
+.projectsListCard button{
+    position: absolute;
+    float: right;
+    right: 2%;
+    top: 30%;
+    background-color: #ff8C00;
+}

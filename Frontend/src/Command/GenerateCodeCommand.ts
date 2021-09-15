@@ -10,8 +10,9 @@ export class GenerateCodeCommand extends Command{
   }
 
   execute(){
-    const generator: CodeGeneratorService = new CodeGeneratorService();
+    const generator: CodeGeneratorService = new CodeGeneratorService(this.store);
     generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
+    return false;
   }
 
   undo() {
