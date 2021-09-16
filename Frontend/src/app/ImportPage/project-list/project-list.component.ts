@@ -19,7 +19,7 @@ export class ProjectListComponent implements OnInit {
   //Import project data and based on the result, either display or hide the workspace and show/hide the import page
   projectImport(ID){
 
-    let previewTabs = document.getElementById("previewTabs") as HTMLElement;
+    let previewTabs = document.getElementById("previewTab") as HTMLElement;
     if(previewTabs){
       previewTabs.click();
     }
