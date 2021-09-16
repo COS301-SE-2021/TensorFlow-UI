@@ -33,6 +33,7 @@
     "d3-lasso": "0.0.5",
     "document-register-element": "^1.7.2",
     "file-saver": "^2.0.5",
+    "firebase": "^9.0.0",
     "fs": "0.0.1-security",
     "interactjs": "^1.10.11",
     "leader-line-new": "^1.1.9",
@@ -44,27 +45,28 @@
     "rxfire": "^6.0.0"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "^0.1200.0",
     "@angular-devkit/build-angular": "^12.0.5",
     "@angular/cli": "^12.0.5",
     "@angular/compiler-cli": "^12.0.5",
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@ngxs/storage-plugin": "^3.7.2",
     "@types/d3": "^7.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.20.19",
     "firebase": "^9.0.1",
+    "firebase-tools": "^9.0.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.7.0",
+    "jsonc-parser": "^3.0.0",
     "karma": "^6.3.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "typescript": "~4.2.3",
-    "@angular-devkit/architect": "^0.1200.0",
-    "firebase-tools": "^9.0.0",
-    "fuzzy": "^0.1.3",
-    "inquirer": "^6.2.2",
-    "inquirer-autocomplete-prompt": "^1.0.1",
     "open": "^7.0.3",
-    "jsonc-parser": "^3.0.0"
+    "typescript": "~4.2.3"
   }
 }
