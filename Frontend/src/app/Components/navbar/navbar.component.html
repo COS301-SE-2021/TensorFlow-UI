@@ -73,15 +73,15 @@
         </mat-menu>
 
         <mat-menu #scan>
-            <button mat-menu-item *ngFor="let item of operatorsArray.operatorScan" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorScan" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #matricesNodes>
-            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.matricesArray" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #mathNodes>
-            <button mat-menu-item *ngFor="let item of operatorsArray.operatorArithmetic" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorArithmetic" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #convolutionNodes>
@@ -89,124 +89,124 @@
         </mat-menu>
 
         <mat-menu #reductionNodes>
-            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.reductionArray" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #basicMath>
-            <button mat-menu-item *ngFor="let item of operatorsArray.basicMath" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.basicMath" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
 
         <mat-menu #dropout>
-            <button mat-menu-item *ngFor="let item of operatorsArray.dropout" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.dropout" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
 
         <mat-menu #evaluation>
-            <button mat-menu-item *ngFor="let item of operatorsArray.evaluation" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.evaluation" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
 
         <mat-menu #linearAlgebra>
-            <button mat-menu-item *ngFor="let item of operatorsArray.linearAlgebra" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.linearAlgebra" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
 
         <mat-menu #logical>
-            <button mat-menu-item *ngFor="let item of operatorsArray.logical" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.logical" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
 
         <mat-menu #movingAverage>
-            <button mat-menu-item *ngFor="let item of operatorsArray.movingAverage" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.movingAverage" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #normilization>
-            <button mat-menu-item *ngFor="let item of operatorsArray.normilization" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.normilization" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #creationNodes>
-            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of modelsArray.creationArray" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorCommonNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Common" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Common" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorCreationNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorMatrixNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Matrices" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Matrices" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorRandomNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Random" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Random" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorSliceJoinNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.SpliceJoin" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.SpliceJoin" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorTransformationNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Transformation" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #advancedActivation>
-            <button mat-menu-item *ngFor="let item of layersArray.advancedActivation" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.advancedActivation" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #layerClasses>
-            <button mat-menu-item *ngFor="let item of layersArray.layerClasses" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.layerClasses" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #basic>
-            <button mat-menu-item *ngFor="let item of layersArray.basic" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.basic" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #convolutional>
-            <button mat-menu-item *ngFor="let item of layersArray.convolutional" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.convolutional" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #layerInput>
-            <button mat-menu-item *ngFor="let item of layersArray.layerInput" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.layerInput" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #mask>
-            <button mat-menu-item *ngFor="let item of layersArray.mask" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.mask" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #merge>
-            <button mat-menu-item *ngFor="let item of layersArray.merge" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.merge" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #noise>
-            <button mat-menu-item *ngFor="let item of layersArray.noise" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.noise" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #normalization>
-            <button mat-menu-item *ngFor="let item of layersArray.normalization" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.normalization" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #padding>
-            <button mat-menu-item *ngFor="let item of layersArray.padding" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.padding" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #pooling>
-            <button mat-menu-item *ngFor="let item of layersArray.pooling" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.pooling" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #recurrent>
-            <button mat-menu-item *ngFor="let item of layersArray.recurrent" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.recurrent" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #wrapper>
-            <button mat-menu-item *ngFor="let item of layersArray.wrapper" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of layersArray.wrapper" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #constraints>
-            <button mat-menu-item *ngFor="let item of constraintsArray" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of constraintsArray" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
     </mat-toolbar>
