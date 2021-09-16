@@ -11,7 +11,7 @@
         <mat-card id="searchSection">
             <button id="previewTab" (click)="previewTabGroup.selectedIndex = 1" style="display: none"></button>
             <mat-card-title>Github</mat-card-title>
-            <input id="search" type="text" placeholder="Search" (change)="filter()">
+            <input id="search" type="text" placeholder="Search" (input)="filter()">
             <button mat-raised-button color="primary" style="width: 110px" (click)="clearSearch()">Clear</button>
         </mat-card>
         <div id="filter">
