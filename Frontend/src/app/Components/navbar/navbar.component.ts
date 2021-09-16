@@ -25,6 +25,7 @@ import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
 import {userVariableNames} from "../../tf/userVariableNames";
+import {AddNodeCommand} from "../../../Command/AddNodeCommand";
 
 
 export interface SettingsPageData {
@@ -50,6 +51,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 	public runCodeCommand = new RunCodeCommand(this.store,this);
+	public addNodeCommand = new AddNodeCommand(this.store,this);
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
@@ -420,6 +422,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		targetNode.inputs[link.target_slot].link=link.id;
 
 	}
+
+  executeAddNodeCommand(c: string){
+    this.addNodeCommand.setComponent(c);
+    this.addNodeCommand.execute();
+    this.commandHistory.push(this.addNodeCommand);
+  }
 
 	executeCommand(com: Command){
 	  if(com.execute()){
