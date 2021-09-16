@@ -43,7 +43,7 @@ export class TFConstant extends TFTensor {
 		});
 		node.addWidget("combo","dtype(optional)",widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
-		},{values: ["float","float32","float64","int32","bool","complex64","string"]});
+		},{values: ["float","float32","float64","bool","int16","int32","int64","complex64","complex128","string"]});
 		node.addWidget("text","shape(optional)",widgetsData[2],function (value){
 			that.changeWidgetValue(value,widgetTypes[2],navbar)
 		});

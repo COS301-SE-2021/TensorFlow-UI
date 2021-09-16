@@ -9,8 +9,6 @@ export class TFAddN extends TFOperator {
 	}
 
 	code(storageLinks,storageNodes) {
-		// Adds a list of tf.Tensors element-wise, each with the same shape and dtype.
-		// A list of tensors with the same shape and dtype.
 
 		let param: string = "0";
 
@@ -21,13 +19,21 @@ export class TFAddN extends TFOperator {
 			const inputNode = storageNodes.find(element => element.id == link.origin_id);
 
 			param = inputNode.name;
+			if(!param) {
+				alert("Input node(x) required for the addN operation")
+				return;
+			}
+		}
+		else {
+			alert("Input node(x) required for the addN operation")
+			return;
 		}
 
 		return `${this.name} = tf.math.add_n(${param})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("text","Array");
-		node.addOutput("Tensor list","tf.Tensor");
+		node.addInput("x","tf.Tensor");
+		node.addOutput("tf.Tensor","tf.Tensor");
 	}
 }

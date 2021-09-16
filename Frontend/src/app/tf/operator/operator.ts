@@ -152,7 +152,7 @@ export abstract class TFOperator extends TFNode {
 			inputNode2DType = "float";
 		}
 
-		if(inputNode1DType!==inputNode2DType){
+		if(inputNode1DType!==inputNode2DType &&operatorType!=="Pow"){
 			alert("The second input node(y) must have the same dtype as the first input(x)");
 			return "";
 		}

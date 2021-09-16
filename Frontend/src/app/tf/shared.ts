@@ -4,139 +4,29 @@ import {TFModel, TFSequential} from "./model/creation";
 import {TFAvgPool3D, TFConv1d, TFConv2d, TFConv2dTranspose, TFConv3d, TFConv3dtranspose, TFDepthWiseConv2d, TFDilation, TFMaxPool3d, TFMaxPoolWithArdMax, TFPool, TFSeparableConv2d} from "./operator/convolution";
 import {TFDot, TFMatMul, TFNorm, TFOuterProduct, TFTranspose} from "./operator/matrices";
 import {Any, TFAll, TFArgMax, TFArgMin, TFBincount, TFDenseBincount, TFLogSumExp, TFMax, TFMean, TFMin, TFProd, TFSum} from "./operator/reduction";
-import {
-	TFBatchToSpaceND,
-	TFBooleanMaskAsync, TFBroadcastTo,
-	TFBuffer, TFCast,
-	TFClone,
-	TFComplex, TFConcat, TFDepthToSpace,
-	TFDiag, TFEinsum, TFExpandDims,
-	TFEye, TFGather,
-	TFImag, TFMirrorPad, TFMultinomial,
-	TFOneHot,
-	TFOnesLike, TFPad, TFRand, TFRandomGamma, TFRandomNormal, TFRandomUniform,
-	TFRange,
-	TFReal, TFReshape, TFReverse, TFSetdiff1dAsync, TFSlice, TFSpaceToBatchND, TFSplit, TFSqueeze, TFStack,
-	TFTensorOneD, TFTensorThreeD, TFTensorTwoD, TFTile, TFTruncatedNormal, TFUnstack
-} from "./tensor";
-import {
-	TFAbs,
-	TFAcos,
-	TFAcosh,
-	TFAsin,
-	TFAsinh,
-	TFAtan,
-	TFAtan2,
-	TFAtanh,
-	TFCeil,
-	TFClipByValue,
-	TFCos,
-	TFCosh,
-	TFElu,
-	TFErf,
-	TFExp,
-	TFExpm1,
-	TFFloor,
-	TFIsFinite,
-	TFIsInf,
-	TFIsNaN,
-	TFLeakyRelu,
-	TFLog,
-	TFLog1p,
-	TFLogSigmoid,
-	TFNeg,
-	TFPrelu, TFReciprocal,
-	TFRelu,
-	TFRelu6,
-	TFRound,
-	TFRsqrt,
-	TFSelu, TFSigmoid,
-	TFSign,
-	TFSin,
-	TFSinh, TFSoftplus, TFSqrt, TFSquare, TFStep, TFTan, TFTanh
-} from "./operator/basicMath";
-import {TFBatchNorm, TFLocalResponseNormalization, TFLogSoftmax, TFMoments, TFSoftmax, TFSparseToDense
-} from "./operator/normilization";
+import {TFBatchToSpaceND, TFBooleanMaskAsync, TFBroadcastTo, TFBuffer, TFCast, TFComplex, TFConcat, TFDepthToSpace, TFDiag, TFEinsum, TFExpandDims, TFEye, TFGather, TFMirrorPad, TFMultinomial, TFOneHot, TFOnesLike, TFPad, TFRand, TFRandomGamma, TFRandomNormal, TFRandomUniform, TFRange, TFReal, TFReshape, TFReverse, TFSetdiff1dAsync, TFSlice, TFSpaceToBatchND, TFSplit, TFSqueeze, TFStack, TFTensorOneD, TFTensorThreeD, TFTensorTwoD, TFTile, TFTruncatedNormal, TFUnstack} from "./tensor";
+import {TFAbs, TFAcos, TFAcosh, TFAsin, TFAsinh, TFAtan, TFAtan2, TFAtanh, TFCeil, TFClipByValue, TFCos, TFCosh, TFElu, TFErf, TFExp, TFExpm1, TFFloor, TFIsFinite, TFIsInf, TFIsNaN, TFLeakyRelu, TFLog, TFLog1p, TFLogSigmoid, TFNeg, TFPrelu, TFReciprocal, TFRelu, TFRelu6, TFRound, TFRsqrt, TFSelu, TFSigmoid, TFSign, TFSin, TFSinh, TFSoftplus, TFSqrt, TFSquare, TFStep, TFTan, TFTanh} from "./operator/basicMath";
+import {TFBatchNorm, TFLocalResponseNormalization, TFLogSoftmax, TFMoments, TFSoftmax, TFSparseToDense} from "./operator/normilization";
 import {TFMovingAverage} from "./operator/movingAverage";
-import {
-	TFEqual,
-	TFGreater,
-	TFGreaterEqual,
-	TFLess,
-	TFLessEqual,
-	TFLogicalAnd,
-	TFLogicalNot,
-	TFLogicalOr, TFLogicalXor, TFNotEqual, TFWhere, TFWhereAsync
-} from "./operator/logical";
+import {TFEqual, TFGreater, TFGreaterEqual, TFLess, TFLessEqual, TFLogicalAnd, TFLogicalNot, TFLogicalOr, TFLogicalXor, TFNotEqual, TFWhere, TFWhereAsync} from "./operator/logical";
 import {TFBandPart, TFGramSchmidt, TFqr} from "./operator/linearAlgebra";
 import {TFDropout} from "./operator/dropout";
 import {TFConfusionMatrix, TFInTopAsync, TFTopk, TFUnique} from "./operator/evaluation";
-import {
-	TFActivation,
-	TFAddLoss,
-	TFAddWeights,
-	TFAlphaDropout,
-	TFApply,
-	TFAverage,
-	TFAveragePooling1d,
-	TFAveragePooling2d,
-	TFAveragePooling3d,
-	TFBatchNormalization,
-	TFBuild,
-	TFComputeOutputShape,
-	TFConcatenate,
-	TFCountParams,
-	TFCropping2D,
-	TFDense,
-	TFDepthwiseConv2d,
-	TFDispose,
-	TFEmbedding,
-	TFFlatten,
-	TFGaussianDropout,
-	TFGaussianNoise,
-	TFGetConfig,
-	TFGetWeights,
-	TFGlobalAveragePooling1d,
-	TFInputLayer,
-	TFLayerNormalization,
-	TFLeakyReLU,
-	TFMasking,
-	TFPermute,
-	TFRepeatVector,
-	TFSetWeights,
-	TFSpatialDropout1d,
-	TFGlobalAveragePooling2d,
-	TFThresholdedReLU,
-	TFUpSampling2d,
-	TFZeroPadding2d,
-	TFGlobalMaxPooling1d,
-	TFMaxPooling1d,
-	TFMaxPooling2d,
-	TFMaxPooling3d,
-	TFConvLstm2d,
-	TFConvLstm2dCell,
-	TFGru,
-	TFGruCell,
-	TFLstm,
-	TFLstmCell,
-	TFRnn,
-	TFSimpleRNN,
-	TFSimpleRNNCell,
-	TFStackedRNNCells,
-	TFBidirectional, TFTimeDistributed
-} from "./layers";
+import {TFActivation, TFAddLoss, TFAddWeights, TFAlphaDropout, TFApply, TFAverage, TFAveragePooling1d, TFAveragePooling2d, TFAveragePooling3d, TFBatchNormalization, TFBuild, TFComputeOutputShape, TFConcatenate, TFCountParams, TFCropping2D, TFDense, TFDepthwiseConv2d, TFDispose, TFEmbedding, TFFlatten, TFGaussianDropout, TFGaussianNoise, TFGetConfig, TFGetWeights, TFGlobalAveragePooling1d, TFInputLayer, TFLayerNormalization, TFLeakyReLU, TFMasking, TFPermute, TFRepeatVector, TFSetWeights, TFSpatialDropout1d, TFGlobalAveragePooling2d, TFThresholdedReLU, TFUpSampling2d, TFZeroPadding2d, TFGlobalMaxPooling1d, TFMaxPooling1d, TFMaxPooling2d, TFMaxPooling3d, TFConvLstm2d, TFConvLstm2dCell, TFGru, TFGruCell, TFLstm, TFLstmCell, TFRnn, TFSimpleRNN, TFSimpleRNNCell, TFStackedRNNCells, TFBidirectional, TFTimeDistributed} from "./layers";
 import {TFMaxNorm, TFMinMaxNorm, TFNonNeg, TFUnitNorm} from "./constraints";
 import {TFDivideNoNan} from "./operator/arithmetic/divNoNan";
 import {TFFloorDiv} from "./operator/arithmetic/floorDiv";
 import {TFMaximum} from "./operator/arithmetic/maximum";
 import {TFMinimum} from "./operator/arithmetic/minimum";
+import {TFPow} from "./operator/arithmetic/pow";
+import {TFCumSum} from "./operator/scan";
 // import {constraints} from "./constraints";
 // import {TFNode} from "./node";
 //
 
 export const NodeStore: any = {
 	"Add": TFAdd,
-	"AddN": TFAddN,
+	"Add_n": TFAddN,
 	"Divide": TFDivide,
 	"Divide NoNan": TFDivideNoNan,
 	"FloorDiv": TFFloorDiv,
@@ -145,6 +35,7 @@ export const NodeStore: any = {
 	"Mod": TFMod,
 	"Multiply": TFMultiply,
 	"Subtract": TFSubtract,
+	"Pow":TFPow,
 	"Model": TFModel,
 	"Sequential": TFSequential,
 	"AvgPool3D" : TFAvgPool3D,
@@ -385,6 +276,7 @@ export const NodeStore: any = {
 	"maxNorm": TFMaxNorm,
 	"minMaxNorm": TFMinMaxNorm,
 	"nonNeg": TFNonNeg,
-	"unitNorm": TFUnitNorm
+	"unitNorm": TFUnitNorm,
+	"CumSum":TFCumSum
 }
 

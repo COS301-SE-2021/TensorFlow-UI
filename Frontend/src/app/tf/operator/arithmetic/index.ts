@@ -15,7 +15,8 @@ export const operatorArithmetic = [
 	"Minimum",
 	"Mod",
 	"Multiply",
-	"Subtract"
+	"Subtract",
+	"Pow"
 ];
 
 
