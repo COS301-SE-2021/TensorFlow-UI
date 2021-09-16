@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFArgMin extends TFOperator {
 	constructor(
@@ -8,17 +9,17 @@ export class TFArgMin extends TFOperator {
 	}
 
 	code(storageLinks, storageNodes) {
-		return `${this.name + "= tf.argMin(" +
-			this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
-			this.widgets.find(element => element.type == "axis")?.value || ""
-	})`;
+
+		let res = this.genericReductionArgsCode(storageLinks,storageNodes,"ArgMin");
+		if(res=="")
+			return;
+
+		return `${this.name + "= tf.math.argmin("+
+		res
+		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
-		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addWidget("combo", "axis", "float", (value) => {
-			this.changeWidgetValue(value, "axis");
-		});
-		node.addOutput("tf.Tensor", "tf.Tensor");
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
+		this.genericReductionArgsUIStructure(node,navbar);
 	}
 }
