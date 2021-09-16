@@ -1,5 +1,5 @@
 import {Store} from "@ngxs/store";
-import projectList from "./Workspace/import/import.component";
+import projectList from "./ImportPage/importPageContent/import-page-content.component";
 import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
 import {PAT} from "./config.js"
 import { TFVariable } from "./tf/tensor/common";
