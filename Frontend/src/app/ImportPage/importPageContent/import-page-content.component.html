@@ -1,33 +1,37 @@
-<mat-tab-group style="width: 100%; background-color: #797979;">
-    <mat-tab label="Import From Github">
-    </mat-tab>
-    <mat-tab label="Import From Local ">
+<mat-tab-group #previewTabGroup>
+    <mat-tab label="Project List">
+        <mat-card id="localSection">Local</mat-card>
+        <mat-list role="list" class="projectsList">
+            <mat-list-item class="projectListItem" role="listitem">
+                <mat-card class="projectsListCard">
+                    <mat-card-title>Local Project</mat-card-title>
+                    <mat-card-subtitle>Import project from this computer</mat-card-subtitle>
+                    <input type="file" id="myfile"/>
+                    <button (click)="ImportFromPC()" mat-raised-button >View Project</button>
+                </mat-card>
+            </mat-list-item>
+        </mat-list>
+        <mat-card id="searchSection">Github</mat-card>
+<!--        <app-project-list *ngFor="let item of projectL" [element]="item"></app-project-list>-->
+        <mat-list role="list" class="projectsList">
+          <mat-list-item class="projectListItem" role="listitem">
+            <mat-card class="projectsListCard">
+              <mat-card-title>Project Item</mat-card-title>
+              <mat-card-subtitle>Description</mat-card-subtitle>
+              <mat-card-footer>Submitted By: </mat-card-footer>
+              <button mat-raised-button> View Project </button>
+            </mat-card>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+    <mat-tab label="Preview">
+      <h1>Community Project Preview</h1>
+      <div>
+        <button mat-raised-button color="primary" >Import</button>
+        <button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Back</button>
+      </div>
+      <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
     </mat-tab>
 </mat-tab-group>
 
-<mat-card id="searchSection">Searching</mat-card>
 
-<mat-list role="list" class="projectsList">
-    <mat-list-item class="projectListItem" role="listitem">
-        <mat-card class="projectsListCard">
-            <mat-card-title>Project Item</mat-card-title>
-            <mat-card-subtitle>Description</mat-card-subtitle>
-            <mat-card-footer>Submitted By: </mat-card-footer>
-            <button mat-raised-button> View Project </button>
-        </mat-card>
-    </mat-list-item>
-    <mat-list-item class="projectListItem" role="listitem">
-        <mat-card>
-            <mat-card-title>Project Item</mat-card-title>
-            <mat-card-subtitle>Description</mat-card-subtitle>
-            <mat-card-footer>Submitted By: </mat-card-footer>
-        </mat-card>
-    </mat-list-item>
-    <mat-list-item class="projectListItem" role="listitem">
-        <mat-card>
-            <mat-card-title>Project Item</mat-card-title>
-            <mat-card-subtitle>Description</mat-card-subtitle>
-            <mat-card-footer>Submitted By: </mat-card-footer>
-        </mat-card>
-    </mat-list-item>
-</mat-list>
