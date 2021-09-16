@@ -6,7 +6,7 @@ import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
 import {DOCUMENT} from "@angular/common";
 import {CodeGeneratorService} from "../../code-generator.service";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {NodeStore, operatorMath, tensorFlowTypesArray, TFNode} from "../../tf";
@@ -26,7 +26,6 @@ import {TFRootNode} from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {TutorialServiceService} from "../../Tutorial/tutorial-service.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -217,7 +216,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}*/
 
   runTutorial() {
-    const modalService : NgbModal = new NgbModal()
     const tutorialService : TutorialServiceService = new TutorialServiceService();
   }
 

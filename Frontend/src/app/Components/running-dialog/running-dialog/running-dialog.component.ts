@@ -17,7 +17,7 @@ export class RunningDialogComponent implements OnInit {
   ngOnInit(): void {
     // insert logic for displaying output
     const codegen : CodeGeneratorService = new CodeGeneratorService(this.store);
-    let output : string = codegen.runfile(this.store.selectSnapshot(WorkspaceState).rootNode,"localhost:5000");
+    let output : string = "Uncomment me! running-dialog-component" // codegen.runfile(this.store.selectSnapshot(WorkspaceState).rootNode,"localhost:5000");
     let outputField = document.getElementById("codeOutputText");
     if (outputField != null)
       outputField.innerText = output;

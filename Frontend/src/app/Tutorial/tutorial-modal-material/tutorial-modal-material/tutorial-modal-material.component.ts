@@ -9,9 +9,12 @@ import {RunningDialogComponent} from "../../../Components/running-dialog/running
   templateUrl: './tutorial-modal-material.component.html',
   styleUrls: ['./tutorial-modal-material.component.css']
 })
+
+
 export class TutorialModalMaterialComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<RunningDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<any>,
+              @Inject(MAT_DIALOG_DATA) public data: tutorialData) {}
 
   ngOnInit(): void {
   }
@@ -26,4 +29,8 @@ export class TutorialModalMaterialComponent implements OnInit {
     this.dialogRef.close();
     this.dialogRef.disableClose = false;
   }
+}
+
+export interface tutorialData {
+  tutorialText : string;
 }
