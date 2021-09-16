@@ -1,11 +1,17 @@
 .mat-tab-label {
-    margin-left: 22%;
+    margin-left: 10%;
     background-color: transparent;
     font-weight: 700;
     font-size: 18px;
 }
 
 #searchSection{
+    top: 5%;
+    width: 78%;
+    left: 11%;
+}
+
+#localSection{
     top: 5%;
     width: 78%;
     left: 11%;
