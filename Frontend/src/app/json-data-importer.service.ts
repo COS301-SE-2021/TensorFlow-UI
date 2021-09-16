@@ -7,8 +7,14 @@ export class JsonDataImporterService {
 
   features;
   labels;
+  json : string;
 
-  constructor(jsonData : string) { }
+  constructor() {
+  }
+
+  setJSON(json : string) {
+    this.json = json;
+  }
 
   parse(json) {
     const jsonData = JSON.parse(json);

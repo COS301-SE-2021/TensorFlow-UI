@@ -21,7 +21,8 @@ export class JsonUploadBoxComponent implements OnInit {
   upload() {
     this.input.onchange = () => {
       const selected = this.input.files[0];
-      this.jsonService = new JsonDataImporterService(selected.toString());
+      this.jsonService = new JsonDataImporterService();
+      this.jsonService.setJSON(selected.toString());
       this.uploaded = true;
     }
   }

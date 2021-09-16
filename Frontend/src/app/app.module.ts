@@ -32,7 +32,7 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
-    TutorialModalComponent
+    TutorialModalComponent,
     ImportPageComponent,
     TutorialModalMaterialComponent,
     JsonUploadBoxComponent

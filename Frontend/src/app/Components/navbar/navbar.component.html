@@ -19,7 +19,7 @@
                 (click)="clearCanvasCommand.execute()">
           Clear/Reset Canvas
         </span>
-      <span class="toolbarButton" id="tutorialButton" (click)="$event">Run Tutorial</span>
+      <span class="toolbarButton" id="tutorialButton" (click)="runTutorial()">Run Tutorial</span>
 
         <mat-menu #nodes="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Nodes</button>
