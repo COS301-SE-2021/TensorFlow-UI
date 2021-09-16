@@ -24,7 +24,7 @@ export class GitAPI {
     });
 
     fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/" + Name +".json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
-      .then(response => {response.text(); if(!response.ok){alert("Export Failed. \nError logged on console.");} else {alert("Export Successful.");}})
+      .then(response => {response.text(); if(!response.ok){alert("Export Failed. \nError logged on console.");} else {alert("Export Successful.");this.updateIndex(user, Name, description)}})
       // .then(result => {alert("Export Successful.")})
       .catch(error => console.log('error', error));
   }
@@ -89,5 +89,50 @@ export class GitAPI {
       console.log(e);
       alert("File provided was not constructed by Tensorflow UI");
     }
+  }
+
+  public updateIndex(user, Name, description){
+      fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
+          .then(response => response.text())
+          .then(result => {
+              let obj = JSON.parse(result);
+              obj.push({"ProjectName":Name,"user":user.displayName,"description":description});
+              obj.sort(function(a,b){return a.ProjectName.localeCompare(b.ProjectName)});
+              let jsonDta = JSON.stringify(obj);
+              var file = new Blob([jsonDta], {type: 'application/json'});
+              var reader = new FileReader();
+              var base64dta;
+              reader.readAsDataURL(file);
+              let that = this;
+              reader.onloadend = function (){
+                  base64dta = reader.result;
+                  base64dta = base64dta.substr(29);
+                  that.commitUpdatedIndex(user,base64dta);
+              }
+          })
+          .catch(error => console.log('error', error));
+  }
+  public commitUpdatedIndex(user, data){
+      fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/index.json?ref=main",{method: 'GET', redirect: 'follow'})
+          .then(response => response.text())
+          .then(result => {
+              let res = JSON.parse(result);
+              var myHeaders = new Headers();
+              myHeaders.append("Authorization", PAT);
+              myHeaders.append("Content-Type", "application/json");
+              var raw = JSON.stringify({
+                  "message": "Index Update",
+                  "committer": {
+                      "name": "W-Kruger",
+                      "email": "u18014934@tuks.co.za"
+                  },
+                  "content": data,
+                  "sha": res.sha
+              });
+              fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/index.json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
+                  .then(response => {response.text();})
+                  .catch(error => console.log('error', error));
+          })
+          .catch(error => console.log('error', error));
   }
 }
