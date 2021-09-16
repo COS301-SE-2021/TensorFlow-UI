@@ -5,35 +5,17 @@
     font-size: 18px;
 }
 
-#searchSection{
-    top: 5%;
-    width: 78%;
-    left: 11%;
+#searchSection, #localSection{
+    margin: 4px 4px 4px 4px;
+    width: 80%;
+    left: 10%;
 }
 
-#localSection{
-    top: 5%;
-    width: 78%;
-    left: 11%;
-}
-
-.githubProjectDiv{
-    top: 10%;
-}
-
-.projectsList{
-    position: relative;
-    top:10%;
-}
-
-.projectListItem{
-    margin-bottom: 4.5%;
-}
-
-.projectListItem mat-card{
+.projectsListCard{
     border: 2px solid #ff8C00;
     width: 80%;
     left: 10%;
+    margin: 4px 4px 4px 4px;
 }
 
 .projectsListCard button{
@@ -41,5 +23,18 @@
     float: right;
     right: 2%;
     top: 30%;
+    width: 110px;
     background-color: #ff8C00;
+}
+
+input{
+    font-weight: 700;
+    font-size: 18px;
+    width:90%;
+    height: 32px;
+}
+
+#search{
+    border: 0;
+    border-bottom: 1px solid black;
 }
