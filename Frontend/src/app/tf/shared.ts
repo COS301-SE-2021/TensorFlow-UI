@@ -1,5 +1,5 @@
 import {TFConstant, TFFill, TFLinespace, TFOnes, TFVariable, TFZeros} from "./tensor/common";
-import {TFAdd, TFAddN, TFDivide, TFMod, TFMultiply, TFNegative, TFReciprocal, TFScalarMul, TFSigmoid, TFSubtract} from "./operator";
+import {TFAdd, TFAddN, TFDivide, TFMod, TFMultiply,TFSubtract} from "./operator";
 import {TFModel, TFSequential} from "./model/creation";
 import {TFAvgPool3D, TFConv1d, TFConv2d, TFConv2dTranspose, TFConv3d, TFConv3dtranspose, TFDepthWiseConv2d, TFDilation, TFMaxPool3d, TFMaxPoolWithArdMax, TFPool, TFSeparableConv2d} from "./operator/convolution";
 import {TFDot, TFMatMul, TFNorm, TFOuterProduct, TFTranspose} from "./operator/matrices";
@@ -45,23 +45,17 @@ import {
 	TFLog1p,
 	TFLogSigmoid,
 	TFNeg,
-	TFPrelu,
+	TFPrelu, TFReciprocal,
 	TFRelu,
 	TFRelu6,
 	TFRound,
 	TFRsqrt,
-	TFSelu,
+	TFSelu, TFSigmoid,
 	TFSign,
 	TFSin,
 	TFSinh, TFSoftplus, TFSqrt, TFSquare, TFStep, TFTan, TFTanh
 } from "./operator/basicMath";
-import {
-	TFBatchNorm,
-	TFLocalResponseNormalization,
-	TFLogSoftmax,
-	TFMoments,
-	TFSoftmax,
-	TFSparseToDense
+import {TFBatchNorm, TFLocalResponseNormalization, TFLogSoftmax, TFMoments, TFSoftmax, TFSparseToDense
 } from "./operator/normilization";
 import {TFMovingAverage} from "./operator/movingAverage";
 import {
@@ -107,7 +101,6 @@ import {
 	TFLayerNormalization,
 	TFLeakyReLU,
 	TFMasking,
-	TFMinimum,
 	TFPermute,
 	TFRepeatVector,
 	TFSetWeights,
@@ -133,6 +126,10 @@ import {
 	TFBidirectional, TFTimeDistributed
 } from "./layers";
 import {TFMaxNorm, TFMinMaxNorm, TFNonNeg, TFUnitNorm} from "./constraints";
+import {TFDivideNoNan} from "./operator/arithmetic/divNoNan";
+import {TFFloorDiv} from "./operator/arithmetic/floorDiv";
+import {TFMaximum} from "./operator/arithmetic/maximum";
+import {TFMinimum} from "./operator/arithmetic/minimum";
 // import {constraints} from "./constraints";
 // import {TFNode} from "./node";
 //
@@ -141,12 +138,12 @@ export const NodeStore: any = {
 	"Add": TFAdd,
 	"AddN": TFAddN,
 	"Divide": TFDivide,
+	"Divide NoNan": TFDivideNoNan,
+	"FloorDiv": TFFloorDiv,
+	"Maximum":TFMaximum,
+	"Minimum":TFMinimum,
 	"Mod": TFMod,
 	"Multiply": TFMultiply,
-	"Negative": TFNegative,
-	"Reciprocal": TFReciprocal,
-	"ScalarMul": TFScalarMul,
-	"Sigmoid": TFSigmoid,
 	"Subtract": TFSubtract,
 	"Model": TFModel,
 	"Sequential": TFSequential,
@@ -348,7 +345,7 @@ export const NodeStore: any = {
 	"concatenate": TFConcatenate,
 	// "dot": TFDot, //duplicate
 	// "maximum": TFMax, //duplicate
-	"minimum": TFMinimum,
+	// "minimum": TFMinimum,
 	// "multiply": TFMultiply //duplicate
 //	noise
 	"alphaDropout": TFAlphaDropout,

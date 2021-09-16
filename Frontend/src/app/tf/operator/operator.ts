@@ -104,7 +104,7 @@ export abstract class TFOperator extends TFNode {
 		res = inputNode.name;
 		let dType = this.getDType(inputNode.widgets);
 		if(dType!=="bool"){
-			alert("Input node(x) must to be of dtype bool for the "+ operatorType +" operation");
+			alert("Input node(x) must be of dtype bool for the "+ operatorType +" operation");
 			return "";
 		}
 
@@ -120,6 +120,43 @@ export abstract class TFOperator extends TFNode {
 			else
 				res +=","+temp2;
 		}
+		return res;
+	}
+
+	genericArithmeticCode(storageLinks, storageNodes,operatorType:string): string{
+
+		let res="";
+		const link1 = storageLinks.find(element => element.id == this.inputs[0].link);
+		if(!link1){
+			alert("Input node(a) required for the "+ operatorType +" operation");
+			return "";
+		}
+		const link2 = storageLinks.find(element => element.id == this.inputs[1].link);
+		if(!link2){
+			alert("Input node(b) required for the "+ operatorType +" operation");
+			return "";
+		}
+
+		const inputNode1 = storageNodes.find(element => element.id == link1?.origin_id);
+		const inputNode2 = storageNodes.find(element => element.id == link2?.origin_id);
+
+		res = inputNode1.name;
+		res += ","+inputNode2.name;
+
+		let inputNode1DType = inputNode1.widgets.find(element => element.type =="dtype")?.value;
+		if(inputNode1DType==undefined){
+			inputNode1DType = "float";
+		}
+		let inputNode2DType = inputNode2.widgets.find(element => element.type =="dtype")?.value;
+		if(inputNode2DType==undefined){
+			inputNode2DType = "float";
+		}
+
+		if(inputNode1DType!==inputNode2DType){
+			alert("The second input node(y) must have the same dtype as the first input(x)");
+			return "";
+		}
+
 		return res;
 	}
 

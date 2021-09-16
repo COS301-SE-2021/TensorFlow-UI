@@ -9,7 +9,7 @@ import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {NodeStore, operatorMath, tensorFlowTypesArray, TFNode} from "../../tf";
+import {NodeStore, tensorFlowTypesArray, TFNode} from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
@@ -55,7 +55,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public selectedNode=null;
 	graph: litegraph.LGraph;
 	liteNodes: litegraph.LGraphNode[];
-
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 

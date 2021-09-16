@@ -29,12 +29,12 @@
 
         </mat-menu>
         <mat-menu #operatorNodes="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Arithmetic</button>
             <button mat-menu-item [matMenuTriggerFor]="basicMath">Basic Math</button>
             <button mat-menu-item [matMenuTriggerFor]="dropout">Dropout</button>
             <button mat-menu-item [matMenuTriggerFor]="evaluation">Evaluation</button>
             <button mat-menu-item [matMenuTriggerFor]="linearAlgebra">Linear Algebra</button>
             <button mat-menu-item [matMenuTriggerFor]="logical">Logical</button>
-            <button mat-menu-item [matMenuTriggerFor]="mathNodes">Math</button>
             <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
             <button mat-menu-item [matMenuTriggerFor]="movingAverage">Moving Average</button>
             <button mat-menu-item [matMenuTriggerFor]="normilization">Normalization</button>
@@ -76,7 +76,7 @@
         </mat-menu>
 
         <mat-menu #mathNodes>
-            <button mat-menu-item *ngFor="let item of operatorsArray.operatorMath" (click)="createComponent(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorArithmetic" (click)="createComponent(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #convolutionNodes>
