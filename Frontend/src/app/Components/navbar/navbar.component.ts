@@ -24,6 +24,7 @@ import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
+import {userVariableNames} from "../../tf/userVariableNames";
 
 
 export interface SettingsPageData {
@@ -229,7 +230,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 		if (!loadFromMemory) {
 			node.title = component;
-			node.pos = [200, 200]; //ToDo: change this to be dynamic
+			node.pos = [200, 200];
 			const that = this;
 			node.onMouseDown = function () {
 				const that2 = that;
@@ -281,6 +282,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			temp.inputs = tempNode.inputs;
 			temp.outputs = tempNode.outputs;
 			temp.position = tempNode.position;
+			if (temp.name != null) {
+				userVariableNames.push(temp.name);
+			}
 			if(tempNode.selector!=="RootNode"){
 				this.TFNodeList.push(temp);
 			}
@@ -364,6 +368,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
 		nodeToUpdate.widgets = node.widgets;
+		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
+	}
+
+	updateNodeNameInStore(node: TFNode){
+		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
+		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
+		nodeToUpdate.name = node.name;
 		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
 	}
 

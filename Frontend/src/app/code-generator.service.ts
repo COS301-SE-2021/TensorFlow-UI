@@ -52,10 +52,12 @@ export class CodeGeneratorService {
             //Root will always only be allowed one input
             let rootChildID = link?.origin_id;
             let rootChild = tfNodes.find(element => element.id == rootChildID);
-            while(userVariableNames.length>0){
-                userVariableNames.pop();
-            }
+            // while(userVariableNames.length>0){
+            //     userVariableNames.pop();
+            // }
+
             if(rootChild) {
+                tfNodes.forEach(function (value){value.visitCount = 0});
                 let generatedCode = graph.generateCode(rootChild,links,tfNodes);
                 console.log(generatedCode)
                 let file: File = new File([generatedCode], "output.py");
