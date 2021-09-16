@@ -10,6 +10,7 @@ import {CodeGeneratorService} from "../code-generator.service";
 import {lineConnectors} from "../node-data";
 import {TutorialModalMaterialComponent} from "./tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {NavbarComponent} from "../Components/navbar/navbar.component";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 export class TutorialServiceService {
   private tutorialDialogMat: TutorialModalMaterialComponent;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, navbar : NavbarComponent, store : Store) {}
 
   openDialog(text : string) {
     const dialogRef = this.dialog.open(TutorialModalMaterialComponent, {

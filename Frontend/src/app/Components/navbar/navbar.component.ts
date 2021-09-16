@@ -216,7 +216,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}*/
 
   runTutorial() {
-    const tutorialService : TutorialServiceService = new TutorialServiceService();
+    const tutorialService : TutorialServiceService = new TutorialServiceService(this.dialog, this, this.store);
+    tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "localhost:5000");
   }
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
@@ -405,4 +406,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
     let c = this.commandHistory.pop();
     c?.undo();
   }
+
+
 }
