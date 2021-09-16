@@ -10,9 +10,28 @@ export class TFTranspose extends TFOperator {
 	}
 
 	code(storageLinks, storageNodes){
+
+		let res = "";
+		res = this.GetNode(storageLinks,storageNodes,this.inputs[0].link);
+		if(res==="") {
+			return;
+		}
+
+		if(this.widgets.length>0){
+			let temp = this.widgets.find(element => element.type == "perm?")?.value;
+			if(temp==undefined)
+				temp="[1]";
+			res +=","+temp;
+
+			let temp2= this.widgets.find(element => element.type == "conjugate?")?.value;
+			if(temp2==undefined)
+				res+=",false";
+			else
+				res +=","+temp2;
+		}
+
 		return `${this.name + "tf.transpose("+
-			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)+","+
-			this.GetNode(storageLinks, storageNodes, this.inputs[1].link)+")"
+			res
 		})`;
 	}
 
@@ -21,7 +40,7 @@ export class TFTranspose extends TFOperator {
 		node.addInput("x", "tf.Tensor");
 
 		let widgetsData=["[1]",false];
-		let widgetTypes= ["perm?","conjugate"];
+		let widgetTypes= ["perm?","conjugate?"];
 
 		for(let i=0; i<2;++i){
 			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
@@ -30,40 +49,14 @@ export class TFTranspose extends TFOperator {
 			}
 		}
 
-		node.addWidget("text",widgetTypes[0],widgetsData[0], function (value) {
-			if(that.checkIfPermIsVectorArray(value))
+		node.addWidget("text","perm?",widgetsData[0], function (value) {
+			if(that.checkIfWidgetTypeIsAVectorArray(value,"perm?"))
 				that.changeWidgetValue(value, widgetTypes[0],navbar);
 		});
-		node.addWidget("toggle",widgetTypes[1],widgetsData[1],function (value){
+		node.addWidget("toggle","conjugate?",widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
 		});
 		node.addOutput("tf.Tensor", "tf.Tensor");
-	}
-
-	checkIfPermIsVectorArray(value:string):boolean{
-		value.trim();
-
-		if(value.length>1){
-			if(value.charAt(0)!=='[' || value.charAt(value.length-1)!==']'){
-				alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-				return false;
-			}
-			else{
-				value = value.substring(1,value.length-1);
-				let newVal = value.split(',');
-				for(let elem of newVal){
-					if(isNaN(Number(elem))){
-						alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-						return false;
-					}
-				}
-			}
-		}
-		else{
-			alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-			return false;
-		}
-		return true;
 	}
 
 }

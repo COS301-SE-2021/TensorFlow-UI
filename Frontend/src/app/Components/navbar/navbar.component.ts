@@ -221,9 +221,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 
-		// console.log(node);
-		// console.log(lgraphNode);
-
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
 	}
@@ -428,7 +425,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	redo(){
     let c = this.commandHistory.restore();
     c?.execute();
-  }
+  	}
 
 	//For changing the canvas - when called it will show the desired tab on click and hide it when the button is clicked again
 	changeTabIndex(index: number, tab: MatTabGroup){
@@ -449,7 +446,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		setTimeout(function (){
 			doubleClick=false;
-		},600)
+		},300)
 
 	}
 
