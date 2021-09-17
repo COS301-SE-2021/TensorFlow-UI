@@ -19,8 +19,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
 import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
-import {AppRoutingModule, routingComponents} from './app-routing.module';
-import { ImportPageComponent } from './ImportPage/importPage.component';
+// import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { TutorialModalMaterialComponent } from './Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component';
 import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-upload-box.component';
 
@@ -33,7 +32,6 @@ const modules = [
   declarations: [
     AppComponent,
     TutorialModalComponent,
-    ImportPageComponent,
     TutorialModalMaterialComponent,
     JsonUploadBoxComponent
   ],

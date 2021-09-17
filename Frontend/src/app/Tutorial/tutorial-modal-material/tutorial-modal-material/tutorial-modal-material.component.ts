@@ -14,15 +14,13 @@ import {RunningDialogComponent} from "../../../Components/running-dialog/running
 export class TutorialModalMaterialComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<any>,
-              @Inject(MAT_DIALOG_DATA) public data: tutorialData) {}
+              @Inject(MAT_DIALOG_DATA) public tutorialData: string) {}
 
   ngOnInit(): void {
   }
 
-  tutorialText : string;
-
   setText(text : string) {
-    this.tutorialText = text;
+    this.tutorialData = text;
   }
 
   close(){

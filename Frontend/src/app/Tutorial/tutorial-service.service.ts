@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {TFModel} from "../tf/model/creation/model";
 import {TFTensor} from "../tf/tensor/tensor";
 import {TFNode, TFTensorOneD} from "../tf";
@@ -9,21 +9,26 @@ import {TFDense} from "../tf/layers/basic/dense";
 import {CodeGeneratorService} from "../code-generator.service";
 import {lineConnectors} from "../node-data";
 import {TutorialModalMaterialComponent} from "./tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef, MatDialogModule, MatDialogConfig} from "@angular/material/dialog";
 import {NavbarComponent} from "../Components/navbar/navbar.component";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TutorialServiceService {
   private tutorialDialogMat: TutorialModalMaterialComponent;
 
-  constructor(public dialog: MatDialog, navbar : NavbarComponent, store : Store) {}
+  constructor(
+    navbar : NavbarComponent,
+    store : Store,
+    private dialog: MatDialog) {}
 
   openDialog(text : string) {
-    const dialogRef = this.dialog.open(TutorialModalMaterialComponent, {
-      data: {tutorialText : text}
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {tutorialData : text};
+    console.log(dialogConfig.data);
+    const dialogRef = this.dialog.open(TutorialModalMaterialComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

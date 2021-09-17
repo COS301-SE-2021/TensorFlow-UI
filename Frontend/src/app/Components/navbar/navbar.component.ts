@@ -26,6 +26,7 @@ import {TFRootNode} from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {TutorialServiceService} from "../../Tutorial/tutorial-service.service";
+import {TutorialModalMaterialComponent} from "../../Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -216,7 +217,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}*/
 
   runTutorial() {
-    const tutorialService : TutorialServiceService = new TutorialServiceService(this.dialog, this, this.store);
+    const tutorialService : TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
     tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "localhost:5000");
   }
 
