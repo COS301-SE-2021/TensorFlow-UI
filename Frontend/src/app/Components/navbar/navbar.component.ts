@@ -72,7 +72,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	public currentDrawer:string = "Import/Export";
 
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, public store: Store, public snackBar: MatSnackBar,
 				public dialog: MatDialog, private differs: KeyValueDiffers) {
 	}
 
@@ -152,7 +152,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	ngOnChanges(changes: SimpleChanges):void{
-
 	}
 
 	createRootNodeHelper(node: TFNode, liteGraphNode: LGraphNode){
@@ -472,7 +471,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		// console.log(doubleClick);
 
 		if(doubleClick){
-			console.log(node);
+			//console.log((typeof node) == (typeof LGraphNode) ? "yes" : "No");
 			if(this.selectedNode==null)
 				this.selectedNode = node;
 			else
