@@ -36,6 +36,7 @@ export class NodeMenuComponent implements OnInit, AfterContentInit {
     //console.log(this.navbar.TFNodeList)
     nodes.forEach(function(element){
       if(element.id == that.nodeInput.id) {
+        console.log(element);
         that.store.dispatch(new RemoveTFNode(element))
         tempNode = element;
       }
