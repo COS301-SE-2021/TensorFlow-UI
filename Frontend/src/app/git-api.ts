@@ -6,8 +6,9 @@ import { TFVariable } from "./tf/tensor/common";
 
 
 export class GitAPI {
-
+    public event1;
   constructor(private store: Store ) {
+      this.event1 = new Event("populateList");
   }
 
   public commit(user, token, Name, Data, description){
@@ -59,6 +60,9 @@ export class GitAPI {
         projectList.push(l[i]);
       }
     }
+      if (this.event1 != null){
+          document.dispatchEvent(this.event1);
+      }
   }
 
   public dataToStore(dta){

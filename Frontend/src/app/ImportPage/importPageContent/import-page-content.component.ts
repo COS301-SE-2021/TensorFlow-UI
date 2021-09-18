@@ -19,13 +19,10 @@ export class ImportPageContentComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+      let that = this;
+      document.addEventListener("populateList", function(){that.projectL = projectList;});
     this.gitAPI = new GitAPI(this.store);
-
-
     this.gitAPI.GetList();
-    this.projectL = projectList;
-    console.log(this.gitAPI);
-    console.log(projectList);
   }
 
 

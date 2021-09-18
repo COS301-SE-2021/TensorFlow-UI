@@ -26,6 +26,7 @@ import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
 import {userVariableNames} from "../../tf/userVariableNames";
 import {AddNodeCommand} from "../../../Command/AddNodeCommand";
+import {GitAPI} from "../../git-api";
 
 
 export interface SettingsPageData {
@@ -42,7 +43,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	public linesDiffer: KeyValueDiffer<string, any>;
 	public nodeDiffers: KeyValueDiffer<string, any>;
-
+    public gitAPI: GitAPI;
 	public TFNodeList: TFNode[] = [];
 	public rootNode: TFNode = new TFNode();
 	public linesList: lineConnectors[] = [];
@@ -77,6 +78,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	ngOnInit(): void {
+        this.gitAPI = new GitAPI(this.store);
 
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.liteNodes = [];
@@ -94,7 +96,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			el.style.display = "none";
 		}
 		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
-		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
 		let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.graph);
 		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodesLoadedOntoCanvas: LGraphNode[] = [];
@@ -321,13 +322,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		// console.log(links);
 	}
 
-	popList() {
-		let el = document.getElementById("popCommunityList") as HTMLElement;
-		if(el){
-			el.click();
-		}
-	}
-
 	//Sets all values which are the same across every switch statement
 	createComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
 		node.selector = component;
@@ -481,4 +475,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			this.selectedNode = null;
 		}
 	}
+
+    poplist() {
+	    this.gitAPI.GetList();
+    }
 }

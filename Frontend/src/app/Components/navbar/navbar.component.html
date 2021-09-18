@@ -223,7 +223,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export'); popList()">
+                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export');  mainTabs.selectedIndex = 0">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
@@ -257,10 +257,7 @@
           <mat-drawer #drawer mode="side" id="sidenav-Content-Drawer">
             <div *ngIf="currentDrawer=='Import/Export'">
               <app-export></app-export>
-<!--              <button id="previewTabs" (click)="changeTabIndex(2, mainTabs)" style="display: none"></button>-->
-                <button mat-raised-button (click)="mainTabs.selectedIndex ? mainTabs.selectedIndex = 0 : mainTabs.selectedIndex = 1" style="background-color: #ff8C00; width:97%; margin: 2px 2px 2px 2px;">Import</button>
-
-<!--                <button id="importPageCanvasTab" (click)="changeTabIndex(1, mainTabs)" style="display: none"></button>-->
+                <button mat-raised-button (click)="mainTabs.selectedIndex ? mainTabs.selectedIndex = 0 : mainTabs.selectedIndex = 1; poplist();" style="background-color: #ff8C00; width:97%; margin: 2px 2px 2px 2px;">Import</button>
             </div>
           </mat-drawer>
           <mat-drawer-content id="sidenav-Canvas-Drawer">
@@ -271,7 +268,7 @@
               </mat-tab>
                 <mat-tab>
                     <div id="importPageDiv">
-                        <app-import-page-content></app-import-page-content>
+                        <app-import-page-content ></app-import-page-content>
                     </div>
                 </mat-tab>
             </mat-tab-group>
