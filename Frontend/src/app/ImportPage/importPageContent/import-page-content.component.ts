@@ -30,7 +30,44 @@ export class ImportPageContentComponent implements OnInit {
 
 
     ImportFromPC() {
-
+        let previewTabs = document.getElementById("previewTab") as HTMLElement;
+        if(previewTabs){
+            previewTabs.click();
+        }
+        var x = document.getElementById("myfile") as HTMLInputElement;
+        var txt = "";
+        if (x != null){
+            if ('files' in x) {
+                // @ts-ignore
+                if (x.files.length == 0) {
+                    alert("Select one or more files.");
+                } else {
+                    // @ts-ignore
+                    var file = x.files[0];
+                    if (file.type !="application/json"){
+                        alert("Please upload a file of type application/json");
+                    } else {
+                        if ('name' in file) {
+                            txt += "name: " + file.name + "\n";
+                        }
+                        if ('size' in file) {
+                            txt += "size: " + file.size + " bytes";
+                        }
+                        var fr = new FileReader();
+                        let that = this;
+                        fr.onload = function () {
+                            let response = fr.result;
+                            //that.API.dataToStore(response);
+                            //do a command for this .... same for project list items
+                        }
+                        //clear file select input
+                        // @ts-ignore
+                        //x.files[0] = "";
+                        fr.readAsText(file);
+                    }
+                }
+            }
+        }
     }
 
     filter() {

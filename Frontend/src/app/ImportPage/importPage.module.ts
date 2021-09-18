@@ -5,17 +5,21 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import {ProjectListComponent} from "./project-list/project-list.component";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
     declarations: [
         ImportPageComponent,
-        ImportPageContentComponent
+        ImportPageContentComponent,
+        ProjectListComponent
     ],
     imports: [
         MatTabsModule,
         MatCardModule,
         MatListModule,
-        MatButtonModule
+        MatButtonModule,
+        CommonModule
     ],
     exports: [
         ImportPageComponent,
