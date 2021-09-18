@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import projectList from "../import/import.component";
+import projectList from "../../ImportPage/importPageContent/import-page-content.component";
 import {WorkspaceState} from "../../../Storage/workspace";
 import {Store} from "@ngxs/store";
 import {GitAPI} from "../../git-api";

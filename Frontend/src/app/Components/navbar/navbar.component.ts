@@ -18,7 +18,6 @@ import {Command} from "../../../Command/Command";
 import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
-import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
 import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
