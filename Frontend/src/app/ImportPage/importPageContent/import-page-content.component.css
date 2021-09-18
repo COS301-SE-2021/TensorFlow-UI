@@ -11,10 +11,17 @@
     left: 10%;
 }
 
-.projectsListCard{
+.projectsListCard {
     border: 2px solid #ff8C00;
     width: 80%;
     left: 10%;
+    margin: 4px 4px 4px 4px;
+}
+
+#previewProjectDetails{
+    border: 2px solid #ff8C00;
+    width: 95%;
+    height: 60px;
     margin: 4px 4px 4px 4px;
 }
 
@@ -23,7 +30,14 @@
     float: right;
     right: 2%;
     top: 30%;
-    width: 110px;
+    width: 120px;
+    background-color: #ff8C00;
+}
+
+.previewButton{
+    margin: 5px 20px;
+    float: right;
+    width: 120px;
     background-color: #ff8C00;
 }
 

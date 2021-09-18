@@ -104,4 +104,8 @@ export class ImportPageContentComponent implements OnInit {
             }
         }
     }
+
+    projectImport() {
+
+    }
 }
