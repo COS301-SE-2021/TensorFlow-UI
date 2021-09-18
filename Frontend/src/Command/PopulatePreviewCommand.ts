@@ -34,7 +34,14 @@ export class PopulatePreviewCommand extends Command{
           console.log(storedNodes[i].selector);
         nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
       }
-
+      let title = document.getElementById("previewProjectDescription") as HTMLElement;
+      if (title){
+          title.innerHTML= this.project.title;
+      }
+      let description = document.getElementById("previewProjectDescription") as HTMLElement;
+      if (description){
+          description.innerHTML= this.project.description;
+      }
       // recreate all line connectors from memory
       // const storedLinks = this.project.links;
       //

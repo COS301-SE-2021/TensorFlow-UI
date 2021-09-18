@@ -42,7 +42,7 @@ export class ExportComponent implements OnInit {
     } else {
       //const procDescription = this.store.selectSnapshot(WorkspaceState).projectDescription;
       var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
-      var file = this.createDoc(description);
+      var file = this.createDoc(description, exportAs);
       this.download(file, exportAs+'.json');
     }
     return true;
@@ -98,7 +98,7 @@ export class ExportComponent implements OnInit {
         return false;
       } else {
         var description = this.store.selectSnapshot(WorkspaceState).projectDescription;
-        var file = this.createDoc(description);
+        var file = this.createDoc(description, exportAs);
         var reader = new FileReader();
         var base64dta;
         reader.readAsDataURL(file);
@@ -113,11 +113,12 @@ export class ExportComponent implements OnInit {
     return true;
   }
 
-  createDoc(description){
+  createDoc(description, projectName){
     //Export Functionality: Export retrieves data from storage here.
     const storageNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
-    const storageLines = this.store.selectSnapshot(WorkspaceState).lines;
+    const storageLines = this.store.selectSnapshot(WorkspaceState).links;
     let doc = {};
+    doc['title'] = projectName;
     doc['description'] = description;
     doc['TFNode'] = storageNodes;
     doc['lines'] = storageLines;
