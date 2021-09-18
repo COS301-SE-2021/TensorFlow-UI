@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {GitAPI} from "../../git-api";
 
@@ -11,7 +11,9 @@ export default projectList;
   styleUrls: ['./import-page-content.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class ImportPageContentComponent implements OnInit {
+    @Input() navbar;
     public projectL: string[] = [""];
   public gitAPI: GitAPI;
   public screenWidth = screen.width;
