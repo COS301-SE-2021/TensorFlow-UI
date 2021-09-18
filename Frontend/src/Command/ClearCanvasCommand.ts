@@ -1,11 +1,11 @@
 import {Command} from "./Command";
 import {NavbarDialogsComponent} from "../app/Components/navbar-dialogs/navbar-dialogs.component";
 import {
-	ClearCanvas,
-	RemoveAllLineFromStorage,
-	RemoveLineFromStorage,
-	RemoveTFNode,
-	WorkspaceState
+  ClearCanvas,
+  RemoveAllLineFromStorage,
+  RemoveLineFromStorage,
+  RemoveTFNode, ResetStore,
+  WorkspaceState
 } from "../Storage/workspace";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {Store} from "@ngxs/store";
@@ -19,10 +19,7 @@ export class ClearCanvasCommand extends Command {
 	}
 
 	execute() {
-    const obj = {
-      ...this.store.snapshot()
-    }
-    this.backup = obj;
+    this.backup = this.store.snapshot()
     console.log(this.backup);
     //console.log("backup printed")
 
@@ -43,6 +40,7 @@ export class ClearCanvasCommand extends Command {
 				this.navbar.graph.clear();
 				this.navbar.TFNodeList = [];
 
+        this.navbar.lines = this.navbar.graph.list_of_graphcanvas[0].graph.links;
 				const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				let tensorRoot = new TFRootNode();
 				tensorRoot.name = "RootNode";
@@ -61,7 +59,8 @@ export class ClearCanvasCommand extends Command {
     const s = this.store.snapshot()
 
     console.log(this.backup)
-    this.store.reset(this.backup);
+    this.store.reset(this.backup)
+    this.store.dispatch(new ResetStore(this.backup))
     console.log("resetting")
     console.log(this.backup)
     console.log(this.store.snapshot())

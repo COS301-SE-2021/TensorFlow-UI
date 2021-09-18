@@ -4,17 +4,17 @@ import * as litegraph from "litegraph.js";
 import {WorkspaceState} from "../Storage/workspace";
 import {LGraphNode} from "litegraph.js";
 import {TFRootNode} from "../app/tf/rootNode/rootNode";
+import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 
-export class PopulatePreviewCommand extends Command{
-  graph: litegraph.LGraph;
+export class ReloadFromStoreCommand extends Command{
 
-  constructor(store: Store, private id: number) {
+  constructor(store: Store, private navbar: NavbarComponent) {
     super(store);
   }
 
-  execute() {
-    /*let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
-    let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.graph);
+  execute(){
+    let canvas = new litegraph.LGraphCanvas("#Canvas", this.navbar.graph);
+    let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.navbar.graph);
     const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const nodesLoadedOntoCanvas: LGraphNode[] = [];
     const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
@@ -24,20 +24,20 @@ export class PopulatePreviewCommand extends Command{
       let tensorRoot = new TFRootNode();
       tensorRoot.name = "RootNode";
 
-      const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
-      this.createRootNodeHelper(tensorRoot, liteGraphNode);
+      const liteGraphNode = this.navbar.createLiteNode("RootNode", false, tensorRoot);
+      this.navbar.createRootNodeHelper(tensorRoot, liteGraphNode);
     }
     else{
       let tensorRoot = new TFRootNode();
       tensorRoot.name = "Root";
-      nodesLoadedOntoCanvas.push(this.createLiteNode("RootNode",true,rootNode));
+      nodesLoadedOntoCanvas.push(this.navbar.createLiteNode("RootNode",true,rootNode));
     }
 
     if(storedNodes.length>0){
       //recreate all these nodes;
 
       for(let i=0; i<storedNodes.length;++i){
-        nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
+        nodesLoadedOntoCanvas.push(this.navbar.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
       }
 
       // recreate all line connectors from memory
@@ -54,7 +54,8 @@ export class PopulatePreviewCommand extends Command{
           originNode.connect(item.origin_slot, targetNode, item.target_slot);
         }
       }
-    }*/
+    }
+    return false;
   }
 
   undo() {

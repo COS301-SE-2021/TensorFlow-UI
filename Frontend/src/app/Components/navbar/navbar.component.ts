@@ -205,10 +205,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	// Code generation section
-	runCode() {
+	/*runCode() {
 		const generator : CodeGeneratorService = new CodeGeneratorService(this.store);
 		generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.TFNodeList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
-	}
+	}*/
 
 	runAndGenerate() {
 		// const generator: CodeGeneratorService = new CodeGeneratorService();
@@ -306,7 +306,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		return node;
 	}
 
-	createComponent(component: string) {
+	/*createComponent(component: string) {
 
 		let tfnode: TFNode;
 		let id: string = Math.random().toString(36).substr(2, 9);
@@ -319,7 +319,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		// console.log(liteGraphNode);
 		// console.log(this.graph);
 		// console.log(links);
-	}
+	}*/
 
 	//Sets all values which are the same across every switch statement
 	createComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
