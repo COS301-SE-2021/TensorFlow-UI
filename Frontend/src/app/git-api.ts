@@ -3,6 +3,9 @@ import projectList from "./ImportPage/importPageContent/import-page-content.comp
 import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
 import {PAT} from "./config.js"
 import { TFVariable } from "./tf/tensor/common";
+import {Event} from "@angular/router";
+import {PopulatePreviewCommand} from "../Command/PopulatePreviewCommand";
+
 
 
 export class GitAPI {
@@ -37,11 +40,17 @@ export class GitAPI {
       .catch(error => console.log('error', error));
   }
 
-  public importData(ID){
+  public importData(ID, nav){
     fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/" + ID, {method: 'GET', redirect: 'follow'})
       .then(response => response.text())
-      .then(result => this.dataToStore(result))
+      .then(result => {this.preview(result, nav)})
       .catch(error => console.log('error', error));
+  }
+
+  public preview(dta, nav){
+      var json = JSON.parse(dta);
+      let popPreview = new PopulatePreviewCommand(this.store, nav, json);
+      popPreview.execute();
   }
 
   public poplst(lst){

@@ -7,12 +7,14 @@ import {TFRootNode} from "../app/tf/rootNode/rootNode";
 
 export class PopulatePreviewCommand extends Command{
   graph: litegraph.LGraph;
-
-  constructor(store: Store, private id: number) {
+    public project;
+  constructor(store: Store, private nav, project) {
     super(store);
+    this.project = project;
   }
 
   execute() {
+      console.log(this.project);
     /*let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
     let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.graph);
     const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
