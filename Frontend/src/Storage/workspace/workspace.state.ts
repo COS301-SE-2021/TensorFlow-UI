@@ -172,7 +172,7 @@ export class WorkspaceState {
 	public removeTFNode(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveTFNode) {
 		stateContext.setState(
 			patch({
-				TFNode: removeItem<TFNode>(element => element === node)
+				TFNode: removeItem<TFNode>(element => element?.id === node.id)
 			})
 		)
 	}
