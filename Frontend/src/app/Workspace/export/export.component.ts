@@ -116,12 +116,12 @@ export class ExportComponent implements OnInit {
   createDoc(description, projectName){
     //Export Functionality: Export retrieves data from storage here.
     const storageNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
-    const storageLines = this.store.selectSnapshot(WorkspaceState).links;
+    const storageLinks = this.store.selectSnapshot(WorkspaceState).links;
     let doc = {};
     doc['title'] = projectName;
     doc['description'] = description;
     doc['TFNode'] = storageNodes;
-    doc['lines'] = storageLines;
+    doc['links'] = storageLinks;
     let jsonDta = JSON.stringify(doc);
     var file = new Blob([jsonDta], {type: 'application/json'});
     return file;

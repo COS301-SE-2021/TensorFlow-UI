@@ -31,7 +31,6 @@ export class PopulatePreviewCommand extends Command{
       this.createRootNodeHelper(tensorRoot, liteGraphNode);
 
       for(let i=0; i<storedNodes.length;++i){
-          console.log(storedNodes[i].selector);
         nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
       }
       let title = document.getElementById("previewProjectDescription") as HTMLElement;
@@ -43,23 +42,24 @@ export class PopulatePreviewCommand extends Command{
           description.innerHTML= this.project.description;
       }
       // recreate all line connectors from memory
-      // const storedLinks = this.project.links;
-      //
-      // for(let item of storedLinks){
-      //   const targetNodeID = item.target_id;
-      //   const originNodeID = item.origin_id;
-      //
-      //   const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
-      //   const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
-      //
-      //   if(originNode && targetNode) {
-      //     originNode.connect(item.origin_slot, targetNode, item.target_slot);
-      //   }
-      // }
+      const storedLinks = this.project.links;
+
+      for(let i=0; i<storedLinks.length;++i){
+        const targetNodeID = storedLinks[i].target_id;
+        const originNodeID = storedLinks[i].origin_id;
+
+        const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
+        const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
+
+        if(originNode && targetNode) {
+          originNode.connect(storedLinks[i].origin_slot, targetNode, storedLinks[i].target_slot);
+        }
+      }
   }
 
   undo() {
   }
+
     createRootNodeHelper(node: TFNode, liteGraphNode: LGraphNode){
         node.selector = "RootNode";
         node.id = liteGraphNode.id;
@@ -80,7 +80,6 @@ export class PopulatePreviewCommand extends Command{
         } else {
             node.title = component;
             node.pos = tempNode.position;
-            const that = this;
 
             // A temporary node is created to get the structure of the UI structure of the object that has been stored in the state.
 
@@ -89,7 +88,6 @@ export class PopulatePreviewCommand extends Command{
                 temp = new TFRootNode();
             }
             else{
-                console.log(tempNode.selector);
                 temp= new NodeStore[tempNode.selector]();
             }
             temp.widgets = tempNode.widgets;

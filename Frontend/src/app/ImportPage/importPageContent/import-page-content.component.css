@@ -25,18 +25,20 @@
     margin: 4px 4px 4px 4px;
 }
 
-.projectsListCard button{
+.projectsListCard button, #previewProjectDetails .previewButton1{
     position: absolute;
     float: right;
-    right: 2%;
+    right: 20px;
     top: 30%;
     width: 120px;
     background-color: #ff8C00;
 }
 
-.previewButton{
-    margin: 5px 20px;
+#previewProjectDetails .previewButton{
+    position: absolute;
     float: right;
+    right: 150px;
+    top: 30%;
     width: 120px;
     background-color: #ff8C00;
 }

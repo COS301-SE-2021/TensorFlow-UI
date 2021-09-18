@@ -20,10 +20,10 @@
 
       </mat-tab>
     <mat-tab label="Preview">
-        <mat-card class="projectsListCard1" id="previewProjectDetails">
+        <mat-card id="previewProjectDetails">
             <mat-card-title id="previewProjectTitle">No Project Selected</mat-card-title>
             <mat-card-subtitle id="previewProjectDescription"></mat-card-subtitle>
-            <button class="previewButton" mat-raised-button (click)="projectImport();"> Import Project </button><button class="previewButton" (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Back</button>
+            <button class="previewButton" mat-raised-button (click)="projectImport();"> Import Project </button><button class="previewButton1" (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Back</button>
         </mat-card>
       <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
     </mat-tab>
