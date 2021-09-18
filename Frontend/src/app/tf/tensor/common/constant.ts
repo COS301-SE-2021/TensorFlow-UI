@@ -20,7 +20,7 @@ export class TFConstant extends TFTensor {
 		let shape= this.widgets.find(element => element.type == "shape")?.value;
 		if(shape)
 			result+=","+shape;
-		this.setNodeCustomName();
+		// this.setNodeCustomName();
 
 		return `${this.name+ "= tf.constant("+result})`;
 	}
@@ -43,12 +43,12 @@ export class TFConstant extends TFTensor {
 		});
 		node.addWidget("combo","dtype(optional)",widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
-		},{values: ["float","float32","int32","bool","complex64","string"]});
+		},{values: ["float","float32","float64","bool","int16","int32","int64","complex64","complex128","string"]});
 		node.addWidget("text","shape(optional)",widgetsData[2],function (value){
 			that.changeWidgetValue(value,widgetTypes[2],navbar)
 		});
 		node.addWidget("text","name(optional)",widgetsData[3],function (value){
-			that.changeWidgetValue(value,widgetTypes[3],navbar)
+			that.changeWidgetValue(value,widgetTypes[3],navbar);
 		});
 		node.addOutput("Value","tf.Tensor");
 		node.size = [240,node.size[1]]

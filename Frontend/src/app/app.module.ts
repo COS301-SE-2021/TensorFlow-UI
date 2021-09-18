@@ -21,7 +21,6 @@ import {ComponentsModule} from "./Components/components.module";
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
 import {importPageModule} from "./ImportPage/importPage.module";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -48,8 +47,7 @@ const modules = [
     NgxsLoggerPluginModule.forRoot(),
     ComponentsModule,
     AppRoutingModule,
-    importPageModule,
-    NgbModule
+    importPageModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

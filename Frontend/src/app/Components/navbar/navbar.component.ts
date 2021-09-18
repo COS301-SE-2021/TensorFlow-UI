@@ -9,7 +9,7 @@ import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
-import {NodeStore, operatorMath, tensorFlowTypesArray, TFNode} from "../../tf";
+import {NodeStore, tensorFlowTypesArray, TFNode} from "../../tf";
 import {SettingsPageDialogComponent} from "../settings-page-dialog/settings-page-dialog.component";
 import {NavbarDialogsComponent} from "../navbar-dialogs/navbar-dialogs.component";
 import * as litegraph from "litegraph.js";
@@ -24,6 +24,8 @@ import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
 import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
+import {userVariableNames} from "../../tf/userVariableNames";
+import {AddNodeCommand} from "../../../Command/AddNodeCommand";
 
 
 export interface SettingsPageData {
@@ -49,13 +51,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public generateCodeCommand = new GenerateCodeCommand(this.store);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 	public runCodeCommand = new RunCodeCommand(this.store,this);
+	public addNodeCommand = new AddNodeCommand(this.store,this);
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
 	public selectedNode=null;
 	graph: litegraph.LGraph;
 	liteNodes: litegraph.LGraphNode[];
-
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 
@@ -70,7 +72,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	public currentDrawer:string = "Import/Export";
 
-	constructor(private data: DataService, @Inject(DOCUMENT) private document, private store: Store, public snackBar: MatSnackBar,
+	constructor(private data: DataService, @Inject(DOCUMENT) private document, public store: Store, public snackBar: MatSnackBar,
 				public dialog: MatDialog, private differs: KeyValueDiffers) {
 	}
 
@@ -150,7 +152,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	ngOnChanges(changes: SimpleChanges):void{
-
 	}
 
 	createRootNodeHelper(node: TFNode, liteGraphNode: LGraphNode){
@@ -221,9 +222,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 
-		// console.log(node);
-		// console.log(lgraphNode);
-
 		this.store.dispatch(new AddTFNode(node));
 		this.TFNodeList.push(node);
 	}
@@ -233,7 +231,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 		if (!loadFromMemory) {
 			node.title = component;
-			node.pos = [200, 200]; //ToDo: change this to be dynamic
+			node.pos = [200, 200];
 			const that = this;
 			node.onMouseDown = function () {
 				const that2 = that;
@@ -285,6 +283,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			temp.inputs = tempNode.inputs;
 			temp.outputs = tempNode.outputs;
 			temp.position = tempNode.position;
+			if (temp.name != null) {
+				userVariableNames.push(temp.name);
+			}
 			if(tempNode.selector!=="RootNode"){
 				this.TFNodeList.push(temp);
 			}
@@ -371,6 +372,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
 	}
 
+	updateNodeNameInStore(node: TFNode){
+		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
+		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
+		nodeToUpdate.name = node.name;
+		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
+	}
+
 	async linesChanged(changes: KeyValueChanges<string, any>){
 
 		const storageLinks = this.store.selectSnapshot(WorkspaceState).links;
@@ -414,6 +422,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	}
 
+  executeAddNodeCommand(c: string){
+    this.addNodeCommand.setComponent(c);
+    this.addNodeCommand.execute();
+    this.commandHistory.push(this.addNodeCommand);
+  }
+
 	executeCommand(com: Command){
 	  if(com.execute()){
 	    this.commandHistory.push(com);
@@ -421,13 +435,14 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
   }
 
 	undo() {
-		let c = this.commandHistory.pop();
+		let c = this.commandHistory.get();
 		c?.undo();
 	}
 
-  	redo(){
-
-  }
+	redo(){
+    let c = this.commandHistory.restore();
+    c?.execute();
+  	}
 
 	//For changing the canvas - when called it will show the desired tab on click and hide it when the button is clicked again
 	changeTabIndex(index: number, tab: MatTabGroup){
@@ -448,7 +463,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		setTimeout(function (){
 			doubleClick=false;
-		},600)
+		},300)
 
 	}
 
@@ -456,7 +471,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		// console.log(doubleClick);
 
 		if(doubleClick){
-			console.log(node);
+			//console.log((typeof node) == (typeof LGraphNode) ? "yes" : "No");
 			if(this.selectedNode==null)
 				this.selectedNode = node;
 			else

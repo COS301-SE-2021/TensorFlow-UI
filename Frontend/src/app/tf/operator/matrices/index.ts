@@ -6,8 +6,8 @@ export * from "./transpose"
 
 export const matricesArray = [
     "Dot",
-    "Matmul",
+    "MatMul",
     "Norm",
-    "Outerproduct",
+    "OuterProduct",
     "Transpose"
 ]

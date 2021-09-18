@@ -14,6 +14,7 @@ export class TFNode {
 	public id:number;
 	public position: Vector2 = [0,0];
 	public returnValue: string = "";
+	public visitCount:number=0;
 
 	//Add Data about the
 
@@ -25,6 +26,11 @@ export class TFNode {
 	UIStructure(node: LGraphNode, navbar?:NavbarComponent){}
 
 	changeWidgetValue(value,type,navbar?:NavbarComponent){
+		if(type==="name"){
+			if(!this.setNodeCustomName(value,navbar)){
+				return;
+			}
+		}
 		this.pushToArray(this.widgets, {type: type, value: value});
 		navbar?.updateNodeWidgetsDataInStore(this);
 	}
@@ -55,18 +61,26 @@ export class TFNode {
 		return !isNaN(Number(input));
 	}
 
-	setNodeCustomName(){
-		let name = this.widgets.find(element => element.type == "name")?.value;
-		if(name){
-			if(userVariableNames.find(element =>element === name))
-				alert("Name already exists in code, a custom unique name will instead be given to the operation");
-			else {
-				userVariableNames.push(name);
-				this.name = name;
-			}
+	setNodeCustomName(name:string,navbar?:NavbarComponent):boolean{
+		let nameWidget = this.widgets.find(element => element.type == "name");
+
+		if(userVariableNames.find(element =>element === name)){
+			alert("A node with the same name already exists in the canvas. Either a custom unique name will instead be given to the operation, or the last valid name given will be used");
+			return false;
 		}
+		else{
+			userVariableNames.push(name);
+			this.name = name;
+		}
+		navbar?.updateNodeNameInStore(this);
+		console.log(this);
+		console.log(userVariableNames);
+		return true;
 	}
 
+	checkMatrixArray(value: string){
+
+	}
 }
 
 export interface widgetStructure{

@@ -13,19 +13,20 @@ import {NodeStore} from "../app/tf";
 import {TFRootNode} from "../app/tf/rootNode/rootNode";
 
 export class ClearCanvasCommand extends Command {
-	private nav: NavbarComponent
   private backup;
 	constructor(store: Store, private navbar: NavbarComponent) {
 		super(store);
-		this.nav = navbar;
 	}
 
 	execute() {
-    this.backup = this.store.snapshot();
+    const obj = {
+      ...this.store.snapshot()
+    }
+    this.backup = obj;
     console.log(this.backup);
-    console.log("backup printed")
+    //console.log("backup printed")
 
-		const clearDialog = this.nav.dialog.open(NavbarDialogsComponent);
+		const clearDialog = this.navbar.dialog.open(NavbarDialogsComponent);
 
 		clearDialog.afterClosed().subscribe(() => {
 			const clearCanvasBoolean = clearDialog.disableClose;
@@ -39,22 +40,30 @@ export class ClearCanvasCommand extends Command {
 				for(let node of this.store.selectSnapshot(WorkspaceState).TFNode){
 					this.store.dispatch(new RemoveTFNode(node));
 				}
-				this.nav.graph.clear();
-				this.nav.TFNodeList = [];
+				this.navbar.graph.clear();
+				this.navbar.TFNodeList = [];
 
 				const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				let tensorRoot = new TFRootNode();
 				tensorRoot.name = "RootNode";
 
-				const liteGraphNode = this.nav.createLiteNode("RootNode", false, tensorRoot);
-				this.nav.createRootNodeHelper(tensorRoot, liteGraphNode);
+				const liteGraphNode = this.navbar.createLiteNode("RootNode", false, tensorRoot);
+				this.navbar.createRootNodeHelper(tensorRoot, liteGraphNode);
 			}
 		})
     return true;
 	}
 
 	undo() {
-	  console.log("clear canvas undo")
-	  return this.backup
+	  //console.log("clear canvas undo")
+
+    //console.log(this.backup);
+    const s = this.store.snapshot()
+
+    console.log(this.backup)
+    this.store.reset(this.backup);
+    console.log("resetting")
+    console.log(this.backup)
+    console.log(this.store.snapshot())
 	}
 }

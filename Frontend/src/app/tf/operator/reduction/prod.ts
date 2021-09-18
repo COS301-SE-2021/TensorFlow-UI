@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFProd extends TFOperator {
 	constructor(
@@ -8,21 +9,17 @@ export class TFProd extends TFOperator {
 	}
 
 	code(storageLinks, storageNodes) {
-		return `${this.name + "= tf.prod(" +
-			this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
-			this.widgets.find(element => element.type == "axis")?.value || "" + "," +
-			this.widgets.find(element => element.type == "keepDims")?.value || ""
+
+		let res = this.genericReductionCode(storageLinks,storageNodes,"Reduce Prod");
+		if(res=="")
+			return;
+
+		return `${this.name + "= tf.math.reduce_prod("+
+		res
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
-		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addWidget("combo", "axis", "float", (value) => {
-			this.changeWidgetValue(value, "axis");
-		});
-		node.addWidget("toggle", "keepDims?", true, (value) => {
-			this.changeWidgetValue(value, "keepDims")
-		}, {values: [true, false]});
-		node.addOutput("tf.Tensor", "tf.Tensor");
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
+		this.genericReductionUIStructure(node,navbar);
 	}
 }
