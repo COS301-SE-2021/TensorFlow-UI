@@ -40,6 +40,7 @@ export class ClearCanvasCommand extends Command {
 				this.navbar.graph.clear();
 				this.navbar.TFNodeList = [];
 
+        this.navbar.lines = this.navbar.graph.list_of_graphcanvas[0].graph.links;
 				const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				let tensorRoot = new TFRootNode();
 				tensorRoot.name = "RootNode";
