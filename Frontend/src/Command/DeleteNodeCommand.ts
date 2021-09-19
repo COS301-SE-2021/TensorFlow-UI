@@ -13,6 +13,24 @@ export class DeleteNodeCommand extends Command{
   }
 
   execute() {
+    this.backup = this.store.snapshot();
+
+    let nodes = this.navbar.TFNodeList;
+    let that = this;
+    let tempNode;
+
+    //console.log(this.navbar.TFNodeList)
+    nodes.forEach(function(element){
+      if(element.id == that.node.id) {
+        console.log(element);
+        that.store.dispatch(new RemoveTFNode(element))
+        tempNode = element;
+      }
+    });
+    this.navbar.graph.remove(this.node);
+    let i = this.navbar.TFNodeList.findIndex(element => tempNode.id == element.id)
+    this.navbar.TFNodeList.splice(i,1);
+    return true;
   }
   undo() {
   }
