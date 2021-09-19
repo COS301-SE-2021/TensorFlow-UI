@@ -1,15 +1,15 @@
-# Try Catch Degree
+# TensorFlow-UI
 
-1. [ Project ](#Project)
+1. [ Group ](#Group)
 2. [ Project Introduction. ](#ProjectIntroduction)
 3. [ Documentation. ](#Documentation)
 4. [ Technologies. ](#Technologies)
 5. [ Team. ](#Team)
 
 
-<a id="Project"></a>
-## Project:
-- TensorFlow UI
+<a id="Group"></a>
+## Group:
+- Try Catch Degree
 
 <a id="ProjectIntroduction"></a>
 ## Project Introduction
