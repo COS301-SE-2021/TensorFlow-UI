@@ -15,18 +15,28 @@ export abstract class TFTensor extends TFNode {
 
     checkTensorInputType(value: string){
       let numberToCheck: string = value;
-      let reg = new RegExp('^(.|\]|\[|[a-zA-Z0-9])*$') //alphanumeric check with [ ] .
-      let alphanumcheck = new RegExp('^([a-zA-Z0-9])*$')
+      let reg = new RegExp('^( \] | \\. | \\[ |[a-zA-Z0-9])*$') //alphanumeric check with [ ] .
+      let alphanumcheck = new RegExp('^([a-zA-Z0-9])+$')
 
       if(!isNaN(Number(numberToCheck)) || reg.test(value)) {
         //String is a number and no further checks
       }
       else {
         //String is not a number, ensure that it has the correct format.
+          try {
+              if(value.match('\\[')?.length != value.match("\]")?.length){
+                  alert("Wrong number of brackets, please check [ ] brackets.")
+                  return false;
+              }
+              if (value.match('\\[') != null) value = value.replace("[", "");
+              if (value.match("\]") != null) value = value.replace("]", "");
+          }catch(e){
+              console.log(e);
+          }
         let inputArrayCheck: string[] = value.split(',');
         inputArrayCheck.forEach(function(element) {
             if(!alphanumcheck.test(element)){
-              alert("value not inserted between commas, set to 0");
+              alert("value in the list not inserted properly, value set to 0");
               element = "0";
             }
             if (!reg.test(element)) {
