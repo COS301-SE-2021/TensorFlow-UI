@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public currentDrawer:string = "Import/Export";
 
 	constructor(private data: DataService, @Inject(DOCUMENT) private document, public store: Store, public snackBar: MatSnackBar,
-				public dialog: MatDialog, private differs: KeyValueDiffers) {
+                public dialog: MatDialog, public differs: KeyValueDiffers) {
 	}
 
 	ngOnInit(): void {
