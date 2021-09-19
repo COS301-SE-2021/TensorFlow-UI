@@ -1,9 +1,6 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
         <div class="app-name">Tensorflow UI</div>
-        <span id="settingsButton" (click)="executeCommand(projectDetailsCommand)">
-          <mat-icon>settings</mat-icon>
-        </span>
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
@@ -216,7 +213,7 @@
             <mat-nav-list>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right" (click)="mainTabs.selectedIndex = 0; drawer.close()">
                             <mat-icon class="homeIcon" [inline]="true" mat-list-icon>home</mat-icon>
                         </button>
                     </div>
@@ -230,7 +227,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="executeCommand(projectDetailsCommand)">
                             <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
                         </button>
                     </div>
