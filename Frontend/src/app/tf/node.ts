@@ -25,14 +25,60 @@ export class TFNode {
 
 	UIStructure(node: LGraphNode, navbar?:NavbarComponent){}
 
-	changeWidgetValue(value,type,navbar?:NavbarComponent){
-		if(type==="name"){
+	changeWidgetValue(value,type,navbar?:NavbarComponent,node?:LGraphNode){
+		if(type==="name" && node){
 			if(!this.setNodeCustomName(value,navbar)){
+				this.resetWidgetValueToLast(type,node,this.name);
 				return;
 			}
 		}
 		this.pushToArray(this.widgets, {type: type, value: value});
 		navbar?.updateNodeWidgetsDataInStore(this);
+	}
+
+	resetWidgetValueToLast(type,node,defaultValue){
+		let lGraphNodeWidget = node.widgets.find(element => element.name == type);
+		let tfNodeWidget = this.widgets.find(element => element.type == type);
+		if(tfNodeWidget)
+			lGraphNodeWidget.value = tfNodeWidget.value;
+		else
+			lGraphNodeWidget.value = defaultValue;
+	}
+
+	checkIfWidgetTypeIsAVectorArray(value:string, type:string):boolean{
+		value.trim();
+
+		if(value.length>1){
+			if(value.charAt(0)!=='[' || value.charAt(value.length-1)!==']'){
+				if(type==="perm?"|| type==="perm")
+					alert("The permutation of the dimensions of x, has to be a vector array of type number[]");
+				else if(type=="shape?" || type=="shape")
+					alert("The shape variable has to be a vector array of type number[]");
+				return false;
+			}
+			else{
+				value = value.substring(1,value.length-1);
+				console.log(value);
+				let newVal = value.split(',');
+				for(let elem of newVal){
+					if(isNaN(Number(elem)) || elem===""){
+						if(type==="perm?"|| type==="perm")
+							alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
+						else if(type=="shape?" || type=="shape")
+							alert("The shape variable has to be a vector array of type number[]");
+						return false;
+					}
+				}
+			}
+		}
+		else{
+			if(type==="perm?"|| type==="perm")
+				alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
+			else if(type=="shape?" || type=="shape")
+				alert("The shape variable has to be a vector array of type number[]");
+			return false;
+		}
+		return true;
 	}
 
 	pushToArray(array: widgetStructure[], widget: widgetStructure) {
@@ -45,10 +91,14 @@ export class TFNode {
 		}
 	}
 
-	GetNode(storageLinks: lineConnectors[], storageNodes: TFNode[], input: number | null): string {
+	GetNode(storageLinks: lineConnectors[], storageNodes: TFNode[], input: number | null, inputName?,nodeName?): string {
 
 		if (input == undefined) {
-			alert("Input node required");
+			if(!inputName)
+				alert("Input node required");
+			else{
+				alert("Input node '"+inputName+"' for the "+nodeName+" function required");
+			}
 			return "";
 		}
 		const link = storageLinks.find(element => element.id == input);
@@ -73,14 +123,9 @@ export class TFNode {
 			this.name = name;
 		}
 		navbar?.updateNodeNameInStore(this);
-		console.log(this);
-		console.log(userVariableNames);
 		return true;
 	}
 
-	checkMatrixArray(value: string){
-
-	}
 }
 
 export interface widgetStructure{
