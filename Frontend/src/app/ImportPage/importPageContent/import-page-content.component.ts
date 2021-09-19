@@ -115,10 +115,14 @@ export class ImportPageContentComponent implements OnInit {
     }
 
     projectImport() {
-      this.gitAPI.dataToStore();
-      let el = document.getElementById("importExportSidenav") as HTMLElement;
-      if(el){
+        this.gitAPI.dataToStore(this.navbar);
+        let el = document.getElementById("importExportSidenav") as HTMLElement;
+        if(el){
           el.click();
-      }
+        }
+        let el1 = document.getElementById("previewBackButton") as HTMLElement;
+        if(el1){
+            el1.click();
+        }
     }
 }
