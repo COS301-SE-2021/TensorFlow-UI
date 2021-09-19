@@ -26,6 +26,7 @@ import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
 import {userVariableNames} from "../../tf/userVariableNames";
 import {AddNodeCommand} from "../../../Command/AddNodeCommand";
+import {ReloadFromStoreCommand} from "../../../Command/ReloadFromStoreCommand";
 
 
 export interface SettingsPageData {
@@ -52,6 +53,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 	public runCodeCommand = new RunCodeCommand(this.store,this);
 	public addNodeCommand = new AddNodeCommand(this.store,this);
+	public reloadCommand = new ReloadFromStoreCommand(this.store,this);
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
@@ -93,10 +95,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		if (el!=null){
 			el.style.display = "none";
 		}
-		let canvas = new litegraph.LGraphCanvas("#Canvas", this.graph);
-		let previewCanvas = new litegraph.LGraphCanvas("#previewCanvas", this.graph);
-		let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.graph);
-		const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
+
 		const nodesLoadedOntoCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 
@@ -113,30 +112,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			tensorRoot.name = "Root";
 			nodesLoadedOntoCanvas.push(this.createLiteNode("RootNode",true,rootNode));
 		}
-
-		if(storedNodes.length>0){
-			//recreate all these nodes;
-
-			for(let i=0; i<storedNodes.length;++i){
-				nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
-			}
-
-			// recreate all line connectors from memory
-			const storedLinks = this.store.selectSnapshot(WorkspaceState).links;
-
-			for(let item of storedLinks){
-				const targetNodeID = item.target_id;
-				const originNodeID = item.origin_id;
-
-				const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
-				const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
-
-				if(originNode && targetNode) {
-					originNode.connect(item.origin_slot, targetNode, item.target_slot);
-				}
-			}
-		}
-
+    this.reloadCommand.execute();
 	}
 
 	ngDoCheck(): void{
