@@ -40,10 +40,11 @@ export class TFConstant extends TFTensor {
 		}
 
 		node.addWidget("text",widgetTypes[0],widgetsData[0],function (value){
-			// if(that.checkIfTensorInputIsCorrect(value))
-			// 	that.changeWidgetValue(value,widgetTypes[0],navbar);
-			// else
-			// 	that.resetWidgetValueToLast(widgetTypes[0],node,widgetsData[0]);
+			if(that.checkTensorInputType(value))
+				that.changeWidgetValue(value,widgetTypes[0],navbar);
+			else {
+				that.resetWidgetValueToLast(widgetTypes[0], node, widgetsData[0]);
+			}
 		});
 		node.addWidget("combo",widgetTypes[1],widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);

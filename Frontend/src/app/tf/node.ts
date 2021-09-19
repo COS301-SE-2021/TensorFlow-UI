@@ -126,6 +126,14 @@ export class TFNode {
 		return true;
 	}
 
+	createNodeNameWidget(node: LGraphNode,navbar?:NavbarComponent){
+		let widgetsData= [this.name];
+		let widgetTypes=["name"];
+
+		node.addWidget("text",widgetTypes[0],widgetsData[0],(value) => {
+			this.changeWidgetValue(value,widgetTypes[0],navbar,node);
+		});
+	}
 }
 
 export interface widgetStructure{

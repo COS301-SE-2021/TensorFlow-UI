@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFMod extends TFOperator {
 	constructor(
@@ -18,9 +19,10 @@ export class TFMod extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("a", "tf.Tensor");
 		node.addInput("b", "tf.Tensor");
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput(" floor(x/y) *y + mod(x,y) ", "tf.Tensor");
 	}
 }

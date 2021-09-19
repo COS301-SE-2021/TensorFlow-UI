@@ -34,6 +34,92 @@ export abstract class TFTensor extends TFNode {
       return true;
     }
 
+    checkIfTensorInputIsCorrect(value: string): boolean{
+        let reg = new RegExp('^(\]|\[|[a-zA-Z0-9])*$');
+        let alphaNumVariableREG = new RegExp('^([a-zA-Z][a-zA-Z0-9]*)*$');
+        let stringRegExp = new RegExp('^("[a-zA-Z][a-zA-Z0-9]*")*$');
+
+        //If value is a number, alphanumeric(variable) value or a string return true;
+        if(!isNaN(Number(value)) || alphaNumVariableREG.test(value) || stringRegExp.test(value)) {
+            return true;
+        }
+        else {
+            //Assume input is an array, ensure array has correct type
+            let inputString = value;
+            let stringArrayLongerThan1= false;
+            if(inputString.length>1){
+                stringArrayLongerThan1= true;
+                return this.checkIfArrayIsCorrectType(inputString, alphaNumVariableREG, stringRegExp);
+            }
+            else{
+                alert("Invalid Input, please input as a comma separated list");
+                return false;
+            }
+
+            // inputArray.forEach(function(element){
+            //     console.log(element);
+            //     if(!reg.test(element) || !isNaN(Number(value))){
+            //         alert("Invalid Input, please input as a comma separated list")
+            //     }
+            // });
+        }
+        return true;
+    }
+
+    checkIfArrayIsCorrectType(inputString,alphaNumVariableREG,stringRegExp): boolean{
+
+        // console.log(inputString);
+        if(inputString.charAt(0)==='[' && inputString.charAt(inputString.length-1)===']'){
+            inputString = inputString.substring(1,inputString.length-1);
+            let inputArray = inputString.split(',');
+
+            // let openingBracketCount = inputString.match(/[[]/g).length;
+            // console.log(inputString);
+            let countHelp=0;
+            while(inputString.length>0) {
+                // console.log(inputString);
+                let nextComma = inputString.indexOf(',');
+                if(nextComma>-1) {
+                    let element = inputString.substring(0, nextComma);
+                    // console.log(element);
+                    if (element.length > 1 && element.charAt(0) === '[' && element.charAt(element.length - 1) === ']') {
+                        this.checkIfArrayIsCorrectType(element, alphaNumVariableREG, stringRegExp);
+                    } else if (element.charAt(0) === '[' || element.charAt(0) === ']') {
+                        return false;
+                    } else if (
+                        !(!isNaN(Number(element)) || alphaNumVariableREG.test(element) || stringRegExp.test(element))
+                        || element == "") {
+                        alert("Invalid Input, please input as a comma separated list")
+                        return false;
+                    }
+                    inputString = inputString.substring(nextComma + 1);
+                    // console.log(inputString);
+
+                }
+                else{
+                    if(
+                        !(!isNaN(Number(inputString)) || alphaNumVariableREG.test(inputString) || stringRegExp.test(inputString))
+                        || inputString ==""){
+                        alert("Invalid Input, please input as a comma separated list")
+                        return false;
+                    }
+                    inputString = "";
+                }
+                ++countHelp;
+                if(countHelp>10){
+                    return false;
+                }
+            }
+
+            // console.log(inputArray);
+            // console.log(inputString);
+        }
+        else{
+            alert("Invalid Input, please input as a comma separated list")
+            return false;
+        }
+        return true;
+    }
 
     onesAndZerosUIStructure(node: LGraphNode,navbar?:NavbarComponent){
         const that = this;
