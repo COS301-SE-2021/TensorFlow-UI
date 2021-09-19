@@ -14,7 +14,7 @@ import {TFRootNode} from "../app/tf/rootNode/rootNode";
 import {ReloadFromStoreCommand} from "./ReloadFromStoreCommand";
 
 export class ClearCanvasCommand extends Command {
-  private backup;
+
 	constructor(store: Store, private navbar: NavbarComponent) {
 		super(store);
 	}
