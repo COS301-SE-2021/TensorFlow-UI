@@ -2,15 +2,14 @@ import {Command} from "./Command";
 import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
+import {AddTFNode} from "../Storage/workspace";
 
 export class AddNodeCommand extends Command{
-  private nav: NavbarComponent
   private component: string;
   private lastNodeCreated: TFNode;
 
-  constructor(store: Store, navbar: NavbarComponent) {
+  constructor(store: Store, private navbar: NavbarComponent) {
     super(store);
-    this.nav = navbar;
   }
 
   execute() {
@@ -19,8 +18,14 @@ export class AddNodeCommand extends Command{
 
     tfnode = new NodeStore[this.component]();
     tfnode.name = this.component + id;
-    const liteGraphNode = this.nav.createLiteNode(this.component, false, tfnode);
-    this.nav.createComponentSwitchDefaults(tfnode, liteGraphNode, this.component);
+    const liteGraphNode = this.navbar.createLiteNode(this.component, false, tfnode);
+    tfnode.selector = this.component;
+    tfnode.id = liteGraphNode.id;
+    tfnode.position = liteGraphNode.pos;
+    tfnode.inputs = liteGraphNode.inputs;
+    tfnode.outputs = liteGraphNode.outputs;
+    this.store.dispatch(new AddTFNode(tfnode));
+    this.navbar.TFNodeList.push(tfnode);
     this.lastNodeCreated = tfnode;
     return true;
   }
