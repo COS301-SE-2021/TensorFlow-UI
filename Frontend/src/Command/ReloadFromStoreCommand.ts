@@ -13,9 +13,12 @@ export class ReloadFromStoreCommand extends Command{
   }
 
   execute(){
+      this.navbar.lines = this.navbar.graph.list_of_graphcanvas[0].graph.links;
+      this.navbar.linesDiffer = this.navbar.differs.find(this.navbar.lines).create();
     let canvas = new litegraph.LGraphCanvas("#Canvas", this.navbar.graph);
     const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const nodesLoadedOntoCanvas: LGraphNode[] = [];
+    nodesLoadedOntoCanvas.push(this.navbar.LGroot);
 
     if(storedNodes.length>0){
       //recreate all these nodes;

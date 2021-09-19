@@ -224,7 +224,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export'); popList()">
+                        <button id="importExportSidenav" class="sidenav-buttons" matTooltip="Import/Export" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Import/Export');  mainTabs.selectedIndex = 0">
                             <mat-icon class="importExportIcon" [inline]="true" mat-list-icon>import_export</mat-icon>
                         </button>
                     </div>
@@ -258,34 +258,21 @@
           <mat-drawer #drawer mode="side" id="sidenav-Content-Drawer">
             <div *ngIf="currentDrawer=='Import/Export'">
               <app-export></app-export>
-              <button id="previewTabs" (click)="changeTabIndex(2, previewTabGroup)" style="display: none"></button>
-              <app-import></app-import>
-                <button id="importPageCanvasTab" (click)="changeTabIndex(1, previewTabGroup)" style="display: none"></button>
+                <button mat-raised-button (click)="mainTabs.selectedIndex ? mainTabs.selectedIndex = 0 : mainTabs.selectedIndex = 1; poplist();" style="background-color: #ff8C00; width:97%; margin: 2px 2px 2px 2px;">Import</button>
             </div>
           </mat-drawer>
           <mat-drawer-content id="sidenav-Canvas-Drawer">
 
-            <mat-tab-group #previewTabGroup>
+            <mat-tab-group #mainTabs>
               <mat-tab>
                 <canvas id='Canvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
               </mat-tab>
                 <mat-tab>
-                    <canvas id='ImportCanvas' width='{{screenWidth}}' height='{{screenHeight}}'>
-                    </canvas>
                     <div id="importPageDiv">
-                        <app-import-page-content></app-import-page-content>
+                        <app-import-page-content [navbar]="this"></app-import-page-content>
                     </div>
                 </mat-tab>
-              <mat-tab>
-                <h1>Community Project Preview</h1>
-                <div>
-                    <button mat-raised-button color="primary" >Import</button>
-                    <button (click)="previewTabGroup.selectedIndex=0" mat-raised-button color="primary" >Cancel</button>
-                </div>
-                <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
-              </mat-tab>
             </mat-tab-group>
-
           </mat-drawer-content>
         </mat-drawer-container>
       </mat-sidenav-content>

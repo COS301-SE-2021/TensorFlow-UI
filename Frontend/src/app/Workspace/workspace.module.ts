@@ -16,8 +16,6 @@ import {NgxsModule} from "@ngxs/store";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import { NodeElementDeleteNodeDialogComponent } from './node-element-delete-node-dialog/node-element-delete-node-dialog.component';
 //import { ImportComponent } from './import/import.component';
-import { ImportComponent } from './import/import.component';
-import { ProjectListComponent } from './project-list/project-list.component';
 import {RouterModule} from "@angular/router";
 import { NodeMenuComponent } from './node-menu/node-menu.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -41,14 +39,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         MatTooltipModule
     ],
     declarations: [
-        ImportComponent,
-        ProjectListComponent,
         NodeElementDeleteNodeDialogComponent,
         NodeMenuComponent
     ],
     exports: [
-        ImportComponent,
-        ProjectListComponent,
         NodeElementDeleteNodeDialogComponent,
         NodeMenuComponent
     ],
