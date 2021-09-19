@@ -1,5 +1,5 @@
 import {Store} from "@ngxs/store";
-import projectList from "./ImportPage/importPageContent/import-page-content.component";
+import projectList, {previewData} from "./ImportPage/importPageContent/import-page-content.component";
 import {
     AddLineConnectorToStorage,
     AddNodeToStorage,
@@ -64,7 +64,7 @@ export class GitAPI {
       .catch(error => console.log('error', error));
   }
 
-  public previewData : string;
+  public previewData : string = "";
 
   public preview(dta, nav){
       var json = JSON.parse(dta);
@@ -94,44 +94,49 @@ export class GitAPI {
   }
 
   public dataToStore(dta = this.previewData){
-    try{
-      var data = JSON.parse(dta);
-        const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
-        let val = nodesInStorage.length;
-      this.store.dispatch(new AddProjectDescription(data.description));
+      console.log(dta)
+      if (dta != null && previewData.length > 0) {
+          try {
+              var data = JSON.parse(dta);
+              const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
+              let val = nodesInStorage.length;
+              this.store.dispatch(new AddProjectDescription(data.description));
 
-      for (let i = 0; i < data.TFNode.length; i++) {
-        let tfnode = new NodeStore[data.TFNode[i].selector]();
-          tfnode.selector = data.TFNode[i].selector;
-          tfnode.id = data.TFNode[i].id + val;
-          tfnode.position = data.TFNode[i].position;
-          tfnode.inputs = data.TFNode[i].inputs;
-          tfnode.outputs = data.TFNode[i].outputs;
+              for (let i = 0; i < data.TFNode.length; i++) {
+                  let tfnode = new NodeStore[data.TFNode[i].selector]();
+                  tfnode.selector = data.TFNode[i].selector;
+                  tfnode.id = data.TFNode[i].id + val;
+                  tfnode.position = data.TFNode[i].position;
+                  tfnode.inputs = data.TFNode[i].inputs;
+                  tfnode.outputs = data.TFNode[i].outputs;
 
-        tfnode.name= data.TFNode[i].name;
-        if (data.TFNode[i].data != null){
-          tfnode.data = data.TFNode[i].data;
-        }
-        this.store.dispatch(new AddTFNode(tfnode));
-      }
-      for (let k = 0; k < data.links.length; k++) {
-          if ( data.links[k].target_id != 1){
-              const line: lineConnectors = {
-                  id: data.links[k].id + val,
-                  origin_id: data.links[k].origin_id + val,
-                  origin_slot: data.links[k].origin_slot,
-                  target_id: data.links[k].target_id + val,
-                  target_slot: data.links[k].target_slot,
-                  type: data.links[k].type
+                  tfnode.name = data.TFNode[i].name;
+                  if (data.TFNode[i].data != null) {
+                      tfnode.data = data.TFNode[i].data;
+                  }
+                  this.store.dispatch(new AddTFNode(tfnode));
               }
-              this.store.dispatch(new AddLineConnectorToStorage(line));
-          }
-      }
+              for (let k = 0; k < data.links.length; k++) {
+                  if (data.links[k].target_id != 1) {
+                      const line: lineConnectors = {
+                          id: data.links[k].id + val,
+                          origin_id: data.links[k].origin_id + val,
+                          origin_slot: data.links[k].origin_slot,
+                          target_id: data.links[k].target_id + val,
+                          target_slot: data.links[k].target_slot,
+                          type: data.links[k].type
+                      }
+                      this.store.dispatch(new AddLineConnectorToStorage(line));
+                  }
+              }
 
-    } catch (e){
-      console.log(e);
-      alert("File provided was not constructed by Tensorflow UI");
-    }
+          } catch (e) {
+              console.log(e);
+              alert("File provided was not constructed by Tensorflow UI");
+          }
+      } else {
+          alert("No file selected for import.")
+      }
   }
 
   public updateIndex(user, Name, description){
