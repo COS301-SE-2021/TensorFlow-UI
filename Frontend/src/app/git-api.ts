@@ -1,11 +1,19 @@
 import {Store} from "@ngxs/store";
 import projectList from "./ImportPage/importPageContent/import-page-content.component";
-import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddTFNode} from "../Storage/workspace";
+import {
+    AddLineConnectorToStorage,
+    AddNodeToStorage,
+    AddProjectDescription,
+    AddTFNode,
+    WorkspaceState
+} from "../Storage/workspace";
 import {PAT} from "./config.js"
 import { TFVariable } from "./tf/tensor/common";
 import {Event} from "@angular/router";
 import {PopulatePreviewCommand} from "../Command/PopulatePreviewCommand";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
+import {NodeStore, TFNode} from "./tf";
+import {lineConnectors} from "./node-data";
 
 
 
@@ -88,25 +96,36 @@ export class GitAPI {
   public dataToStore(dta = this.previewData){
     try{
       var data = JSON.parse(dta);
+        const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
+        let val = nodesInStorage.length;
       this.store.dispatch(new AddProjectDescription(data.description));
 
       for (let i = 0; i < data.TFNode.length; i++) {
-        let tfnode = new TFVariable();
+        let tfnode = new NodeStore[data.TFNode[i].selector]();
+          tfnode.selector = data.TFNode[i].selector;
+          tfnode.id = data.TFNode[i].id + val;
+          tfnode.position = data.TFNode[i].position;
+          tfnode.inputs = data.TFNode[i].inputs;
+          tfnode.outputs = data.TFNode[i].outputs;
+
         tfnode.name= data.TFNode[i].name;
-        tfnode.type=data.TFNode[i].type;
-        tfnode.selector = data.TFNode[i].selector;
         if (data.TFNode[i].data != null){
           tfnode.data = data.TFNode[i].data;
         }
-        // tfnode.x=data.nodes[i].x;
-        // tfnode.y =data.nodes[i].y;
         this.store.dispatch(new AddTFNode(tfnode));
       }
-      for (let k = 0; k < data.lines.length; k++) {
-        var start = data.lines[k].start;
-        var end = data.lines[k].end;
-        var line = data.lines[k].line;
-        // this.store.dispatch(new AddLineConnectorToStorage({end: end, line:line, start: start}));
+      for (let k = 0; k < data.links.length; k++) {
+          if ( data.links[k].target_id != 1){
+              const line: lineConnectors = {
+                  id: data.links[k].id + val,
+                  origin_id: data.links[k].origin_id + val,
+                  origin_slot: data.links[k].origin_slot,
+                  target_id: data.links[k].target_id + val,
+                  target_slot: data.links[k].target_slot,
+                  type: data.links[k].type
+              }
+              this.store.dispatch(new AddLineConnectorToStorage(line));
+          }
       }
 
     } catch (e){
