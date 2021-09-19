@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public linesList: lineConnectors[] = [];
 	public commandHistory = new CommandHistory();
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
-	public generateCodeCommand = new GenerateCodeCommand(this.store);
+	public generateCodeCommand = new GenerateCodeCommand(this.store,this);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
 	public runCodeCommand = new RunCodeCommand(this.store,this);
 	public addNodeCommand = new AddNodeCommand(this.store,this);
@@ -141,41 +141,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		this.rootNode = node;
 	}
 
-	/*showProjectDetails() {
-		const projectDetailsDialog = this.dialog.open(SettingsPageDialogComponent,
-			{
-				disableClose: true,
-				data: {projectName: this.projectName, projectDetails: this.projectDetails}
-			}
-		);
-
-		projectDetailsDialog.afterClosed().subscribe(result => {
-			const detailsAdded = projectDetailsDialog.disableClose;
-
-			if (detailsAdded) {
-				//Add to details to ngxs storage and display snackbar
-				const dialogData = projectDetailsDialog.componentInstance;
-				let dataOK: boolean = false;
-				if ((dialogData.projectName != undefined && dialogData.projectName != "" && dialogData.projectName.match(/^ *$/) == null) && dialogData.projectDescription != undefined) {
-					dataOK = true;
-					this.store.dispatch(new AddProjectName(dialogData.projectName));
-					this.store.dispatch(new AddProjectDescription(dialogData.projectDescription));
-				}
-				console.log("|" + dialogData.projectName + "|");
-				console.log(dialogData.projectDescription);
-				this.projectDetailsUpdatedSnackbar(dataOK);
-			}
-		})
-	}*/
-
-	/*projectDetailsUpdatedSnackbar(dataOk: boolean) {
-		let snackBarRef = this.snackBar.openFromComponent(ProjectDetailsUpdatedSnackbarComponent,
-			{
-				duration: 2000,
-				data: dataOk
-			})
-	}*/
-
 	setDrawerType(drawerType: string){
 		this.currentDrawer = drawerType;
 	}
@@ -252,13 +217,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 				temp= new NodeStore[tempNode.selector]();
 			}
 			temp.widgets = tempNode.widgets;
-			temp.UIStructure(node,this);
 			temp.name = tempNode.name;
 			temp.id = tempNode.id;
 			temp.selector = tempNode.selector;
 			temp.inputs = tempNode.inputs;
 			temp.outputs = tempNode.outputs;
 			temp.position = tempNode.position;
+			temp.UIStructure(node,this);
 			if (temp.name != null) {
 				userVariableNames.push(temp.name);
 			}

@@ -15,7 +15,7 @@ export class CodeGeneratorService {
     }
 
   // NEW DATA STRUCTURE .PY FILE IMPLEMENTATION BELOW HERE
-    generateFile(head : TFNode) : string {
+    generateFile(head : TFNode,tfNodes: TFNode[], links: lineConnectors[]) : string {
 
       // QUICK CODEGEN TESTING THINGS
       /*
@@ -27,13 +27,23 @@ export class CodeGeneratorService {
       head = topNode;
        */
 
-      console.log(head);
-      var graph : TFGraph = new TFGraph(head);
-      var code = "import tensorflow as tf\n";
+      let graph : TFGraph = new TFGraph(head);
+      let code = "import tensorflow as tf\n";
 
-      // code += graph.generateCode(head.childOne);
+      let rootInputLinkID = head.inputs[0].link;
+      let link = links.find(element => element.id == rootInputLinkID);
+
+        let rootChildID = link?.origin_id;
+        let rootChild = tfNodes.find(element => element.id == rootChildID);
+
+        if(rootChild) {
+            tfNodes.forEach(function (value){value.visitCount = 0});
+            let generatedCode = graph.generateCode(rootChild,links,tfNodes);
+            code += generatedCode;
+        }
+
       console.log(code);
-      var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
+      let blob = new Blob([code], {type: "text/plain;charset=utf-8"});
       FileSaver.saveAs(blob, "output.py");
       return code;
     }

@@ -2,8 +2,8 @@
     position: absolute;
     top: 10%;
     right: 2%;
-    width: 21%;
-    height: 88%;
+    width: 18.5rem;
+    height: 84.5%;
     border: 2px solid black;
     border-radius: 2.5%;
     z-index: 5;
@@ -33,10 +33,10 @@
 
 .widgetProperty{
     position: relative;
-    width: 112%;
+    width: 18.5rem;
     height: 11%;
     top:10%;
-    left: -6.5%;
+    left: -1.17rem;
     /*border: 1px solid black;*/
 }
 

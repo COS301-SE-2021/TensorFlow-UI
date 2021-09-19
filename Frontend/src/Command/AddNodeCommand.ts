@@ -15,7 +15,7 @@ export class AddNodeCommand extends Command{
 
   execute() {
     let tfnode: TFNode
-    let id: string = Math.random().toString(36).substr(2, 9);
+    let id: string = Math.random().toString(36).substr(2, 5);
 
     tfnode = new NodeStore[this.component]();
     tfnode.name = this.component + id;

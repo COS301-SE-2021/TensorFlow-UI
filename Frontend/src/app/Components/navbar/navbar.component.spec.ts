@@ -66,27 +66,27 @@ describe('NavbarComponent', () => {
   //   })
   // })
 
-  describe('createComponent', ()=>{
-    it('should Add a new node to the store object and TFNodeList', ()=> {
-      let tfNode: TFNode;
-      tfNode = new TFConstant();
-
-      // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-      component.createComponent("Fill");
-
-      expect(component.TFNodeList.length).toBeGreaterThan(0)
-
-    })
-    it('should create object of the type provided as argument', ()=> {
-      let tfNode: TFNode;
-      tfNode = new TFConstant();
-
-      // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-      component.createComponent("Constant");
-
-      if(component.TFNodeList) {
-        expect(component.TFNodeList[component.TFNodeList.length-1]).toBeInstanceOf(TFConstant);
-      }
-    })
-  })
+  // describe('createComponent', ()=>{
+  //   it('should Add a new node to the store object and TFNodeList', ()=> {
+  //     let tfNode: TFNode;
+  //     tfNode = new TFConstant();
+  //
+  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
+  //     component.createComponent("Fill");
+  //
+  //     expect(component.TFNodeList.length).toBeGreaterThan(0)
+  //
+  //   })
+  //   it('should create object of the type provided as argument', ()=> {
+  //     let tfNode: TFNode;
+  //     tfNode = new TFConstant();
+  //
+  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
+  //     component.createComponent("Constant");
+  //
+  //     if(component.TFNodeList) {
+  //       expect(component.TFNodeList[component.TFNodeList.length-1]).toBeInstanceOf(TFConstant);
+  //     }
+  //   })
+  // })
 });
