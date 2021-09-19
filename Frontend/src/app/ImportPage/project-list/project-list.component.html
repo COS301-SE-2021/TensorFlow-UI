@@ -1,6 +1,6 @@
-<mat-card class="projectsListCard1" id="{{element}}">
-    <mat-card-title>{{element}}</mat-card-title>
-    <mat-card-subtitle>Description</mat-card-subtitle>
-    <mat-card-footer>Submitted By: </mat-card-footer>
-    <button mat-raised-button (click)="projectImport(element);"> View Project </button>
+<mat-card class="projectsListCard1" id="{{pname}}">
+    <mat-card-title>{{pname}}</mat-card-title>
+    <mat-card-subtitle>{{descript}}</mat-card-subtitle>
+    <mat-card-footer>Submitted By: {{suser}}</mat-card-footer>
+    <button mat-raised-button (click)="projectImport(pname);"> View Project </button>
 </mat-card>

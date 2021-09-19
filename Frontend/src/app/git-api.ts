@@ -1,22 +1,8 @@
 import {Store} from "@ngxs/store";
-import projectList, {previewData} from "./ImportPage/importPageContent/import-page-content.component";
-import {
-    AddLineConnectorToStorage,
-    AddNodeToStorage,
-    AddProjectDescription,
-    AddTFNode,
-    WorkspaceState
-} from "../Storage/workspace";
+import projectList from "./ImportPage/importPageContent/import-page-content.component";
 import {PAT} from "./config.js"
-import { TFVariable } from "./tf/tensor/common";
 import {Event} from "@angular/router";
 import {PopulatePreviewCommand} from "../Command/PopulatePreviewCommand";
-import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
-import {NodeStore, TFNode} from "./tf";
-import {lineConnectors} from "./node-data";
-import {ReloadFromStoreCommand} from "../Command/ReloadFromStoreCommand";
-
-
 
 export class GitAPI {
     public event1;
@@ -74,24 +60,41 @@ export class GitAPI {
   }
 
   public poplst(lst){
+      fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
+          .then(response => response.text())
+          .then(result => {
+              let obj = JSON.parse(result);
+              var json = JSON.parse(lst);
+              var l = new Array(json.length-1)
+              for (let i = 0; i < json.length; i++) {
+                  let keep = {description:"Description", user: ""};
+                  for (let j = 0; j < obj.length; j++) {
+                      if(json[i].name.localeCompare(obj[j].ProjectName+".json") == 0){
+                          keep = obj[j];
+                          j=obj.length;
+                      }
+                  }
+                  let item = {};
+                  item['pname'] = json[i].name;
+                  item['description']=keep.description;
+                  item['by']=keep.user;
+                  l[i] = item;
+                  //l[i]= {pname:json[i].name, description:keep.description, by:keep.user};
+              }
 
-    var json = JSON.parse(lst);
-    var l = new Array(json.length-1)
-    for (let i = 0; i < json.length; i++) {
-      l[i]= json[i].name;
-    }
-
-    while (projectList.length > 0){
-      projectList.pop();
-    }
-    for (let i = 0; i < l.length; i++) {
-      if (l[i] !== "README.md"){
-        projectList.push(l[i]);
-      }
-    }
-      if (this.event1 != null){
-          document.dispatchEvent(this.event1);
-      }
+              while (projectList.length > 0){
+                  projectList.pop();
+              }
+              for (let i = 0; i < l.length; i++) {
+                  if (l[i] !== "README.md"){
+                      projectList.push(l[i]);
+                  }
+              }
+              if (this.event1 != null){
+                  document.dispatchEvent(this.event1);
+              }
+          })
+          .catch(error => console.log('error', error));
   }
 
   public updateIndex(user, Name, description){
