@@ -20,7 +20,7 @@ export class ReloadFromStoreCommand extends Command{
     const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 
     //if else statement to load or create a root node onto the canvass
-    if(rootNode==undefined){
+    /*if(rootNode==undefined){
       let tensorRoot = new TFRootNode();
       tensorRoot.name = "RootNode";
 
@@ -31,7 +31,7 @@ export class ReloadFromStoreCommand extends Command{
       let tensorRoot = new TFRootNode();
       tensorRoot.name = "Root";
       nodesLoadedOntoCanvas.push(this.navbar.createLiteNode("RootNode",true,rootNode));
-    }
+    }*/
 
     if(storedNodes.length>0){
       //recreate all these nodes;
