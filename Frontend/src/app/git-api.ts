@@ -14,6 +14,7 @@ import {PopulatePreviewCommand} from "../Command/PopulatePreviewCommand";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 import {NodeStore, TFNode} from "./tf";
 import {lineConnectors} from "./node-data";
+import {ReloadFromStoreCommand} from "../Command/ReloadFromStoreCommand";
 
 
 
@@ -93,13 +94,15 @@ export class GitAPI {
       }
   }
 
-  public dataToStore(dta = this.previewData){
+  public dataToStore(nav, dta = this.previewData){
       console.log(dta)
       if (dta != null && previewData.length > 0) {
           try {
               var data = JSON.parse(dta);
               const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
               let val = nodesInStorage.length;
+              const linksInStorage = this.store.selectSnapshot(WorkspaceState).links;
+              let linkval = linksInStorage.length;
               this.store.dispatch(new AddProjectDescription(data.description));
 
               for (let i = 0; i < data.TFNode.length; i++) {
@@ -109,17 +112,16 @@ export class GitAPI {
                   tfnode.position = data.TFNode[i].position;
                   tfnode.inputs = data.TFNode[i].inputs;
                   tfnode.outputs = data.TFNode[i].outputs;
-
-                  tfnode.name = data.TFNode[i].name;
-                  if (data.TFNode[i].data != null) {
-                      tfnode.data = data.TFNode[i].data;
+                  tfnode.name = data.TFNode[i].name + val;
+                  if (data.TFNode[i].widgets != null) {
+                      tfnode.widgets = data.TFNode[i].widgets;
                   }
                   this.store.dispatch(new AddTFNode(tfnode));
               }
               for (let k = 0; k < data.links.length; k++) {
                   if (data.links[k].target_id != 1) {
                       const line: lineConnectors = {
-                          id: data.links[k].id + val,
+                          id: data.links[k].id + linkval,
                           origin_id: data.links[k].origin_id + val,
                           origin_slot: data.links[k].origin_slot,
                           target_id: data.links[k].target_id + val,
@@ -129,7 +131,9 @@ export class GitAPI {
                       this.store.dispatch(new AddLineConnectorToStorage(line));
                   }
               }
-
+              console.log(this.store.selectSnapshot(WorkspaceState));
+              let reload = new ReloadFromStoreCommand(this.store, nav);
+              reload.execute();
           } catch (e) {
               console.log(e);
               alert("File provided was not constructed by Tensorflow UI");
