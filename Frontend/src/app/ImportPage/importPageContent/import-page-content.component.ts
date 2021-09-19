@@ -31,10 +31,6 @@ export class ImportPageContentComponent implements OnInit {
 
 
     ImportFromPC() {
-        let previewTabs = document.getElementById("previewTab") as HTMLElement;
-        if(previewTabs){
-            previewTabs.click();
-        }
         var x = document.getElementById("myfile") as HTMLInputElement;
         var txt = "";
         if (x != null){
@@ -72,6 +68,10 @@ export class ImportPageContentComponent implements OnInit {
                         // @ts-ignore
                         //x.files[0] = "";
                         fr.readAsText(file);
+                        let previewTabs = document.getElementById("previewTab") as HTMLElement;
+                        if(previewTabs){
+                            previewTabs.click();
+                        }
                     }
                 }
             }
@@ -116,5 +116,9 @@ export class ImportPageContentComponent implements OnInit {
 
     projectImport() {
       this.gitAPI.dataToStore();
+      let el = document.getElementById("importExportSidenav") as HTMLElement;
+      if(el){
+          el.click();
+      }
     }
 }
