@@ -32,6 +32,15 @@ export class DeleteNodeCommand extends Command{
     this.navbar.TFNodeList.splice(i,1);
     return true;
   }
+
   undo() {
+    this.store.reset(this.backup)
+    this.store.dispatch(new ResetStore(this.backup))
+    let c = new ReloadFromStoreCommand(this.store,this.navbar);
+    c.execute();
+  }
+
+  setNode(n: LGraphNode){
+    this.node = n;
   }
 }
