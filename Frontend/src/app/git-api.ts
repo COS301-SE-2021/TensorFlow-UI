@@ -95,15 +95,13 @@ export class GitAPI {
   }
 
   public dataToStore(nav, dta = this.previewData){
-      console.log(dta)
       if (dta != null && previewData.length > 0) {
           try {
               var data = JSON.parse(dta);
               const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
               let val = nodesInStorage.length;
               const linksInStorage = this.store.selectSnapshot(WorkspaceState).links;
-              let linkval = linksInStorage.length;
-              this.store.dispatch(new AddProjectDescription(data.description));
+              let linkval = linksInStorage.length-1;
 
               for (let i = 0; i < data.TFNode.length; i++) {
                   let tfnode = new NodeStore[data.TFNode[i].selector]();
@@ -131,9 +129,7 @@ export class GitAPI {
                       this.store.dispatch(new AddLineConnectorToStorage(line));
                   }
               }
-              console.log(this.store.selectSnapshot(WorkspaceState));
-              let reload = new ReloadFromStoreCommand(this.store, nav);
-              reload.execute();
+              window.location.reload();
           } catch (e) {
               console.log(e);
               alert("File provided was not constructed by Tensorflow UI");
