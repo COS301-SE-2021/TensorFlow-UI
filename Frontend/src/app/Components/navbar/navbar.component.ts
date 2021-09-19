@@ -27,6 +27,7 @@ import {MatTabGroup} from "@angular/material/tabs";
 import {userVariableNames} from "../../tf/userVariableNames";
 import {AddNodeCommand} from "../../../Command/AddNodeCommand";
 import {ReloadFromStoreCommand} from "../../../Command/ReloadFromStoreCommand";
+import {DeleteNodeCommand} from "../../../Command/DeleteNodeCommand";
 
 
 export interface SettingsPageData {
@@ -54,6 +55,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public runCodeCommand = new RunCodeCommand(this.store,this);
 	public addNodeCommand = new AddNodeCommand(this.store,this);
 	public reloadCommand = new ReloadFromStoreCommand(this.store,this);
+	public deleteNodeCommand = new DeleteNodeCommand(this.store,this)
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
@@ -161,12 +163,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
 	}*/
 
-	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
-
-		this.store.dispatch(new AddTFNode(node));
-		this.TFNodeList.push(node);
-	}
-
 	createLiteNode(component: string, loadFromMemory: boolean, tempNode: TFNode): LGraphNode {
 		const node = new litegraph.LGraphNode();
 
@@ -247,36 +243,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		return node;
 	}
 
-	/*createComponent(component: string) {
-
-		let tfnode: TFNode;
-		let id: string = Math.random().toString(36).substr(2, 9);
-
-		tfnode = new NodeStore[component]();
-		tfnode.name = component + id;
-		const liteGraphNode = this.createLiteNode(component, false, tfnode);
-		this.createComponentSwitchDefaults(tfnode, liteGraphNode, component);
-
-		// console.log(liteGraphNode);
-		// console.log(this.graph);
-		// console.log(links);
-	}*/
-
 	popList() {
 		let el = document.getElementById("popCommunityList") as HTMLElement;
 		if(el){
 			el.click();
 		}
-	}
-
-	//Sets all values which are the same across every switch statement
-	createComponentSwitchDefaults(node: TFNode, liteGraphNode: LGraphNode, component: string) {
-		node.selector = component;
-		node.id = liteGraphNode.id;
-		node.position = liteGraphNode.pos;
-		node.inputs = liteGraphNode.inputs;
-		node.outputs = liteGraphNode.outputs;
-		this.addNewNode(node,liteGraphNode);
 	}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
