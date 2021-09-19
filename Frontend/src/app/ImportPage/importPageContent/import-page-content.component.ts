@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {GitAPI} from "../../git-api";
 import {PopulatePreviewCommand} from "../../../Command/PopulatePreviewCommand";
+import {LoadFromImportCommand} from "../../../Command/LoadFromImportCommand";
 
 let projectList: string[] = [];
 export default projectList;
@@ -115,7 +116,8 @@ export class ImportPageContentComponent implements OnInit {
     }
 
     projectImport() {
-        this.gitAPI.dataToStore(this.navbar);
+       let load = new LoadFromImportCommand(this.store, this.navbar);
+       load.execute();
         let el = document.getElementById("importExportSidenav") as HTMLElement;
         if(el){
           el.click();

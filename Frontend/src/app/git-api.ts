@@ -94,51 +94,6 @@ export class GitAPI {
       }
   }
 
-  public dataToStore(nav, dta = this.previewData){
-      if (dta != null && previewData.length > 0) {
-          try {
-              var data = JSON.parse(dta);
-              const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
-              let val = nodesInStorage.length;
-              const linksInStorage = this.store.selectSnapshot(WorkspaceState).links;
-              let linkval = linksInStorage.length-1;
-
-              for (let i = 0; i < data.TFNode.length; i++) {
-                  let tfnode = new NodeStore[data.TFNode[i].selector]();
-                  tfnode.selector = data.TFNode[i].selector;
-                  tfnode.id = data.TFNode[i].id + val;
-                  tfnode.position = data.TFNode[i].position;
-                  tfnode.inputs = data.TFNode[i].inputs;
-                  tfnode.outputs = data.TFNode[i].outputs;
-                  tfnode.name = data.TFNode[i].name + val;
-                  if (data.TFNode[i].widgets != null) {
-                      tfnode.widgets = data.TFNode[i].widgets;
-                  }
-                  this.store.dispatch(new AddTFNode(tfnode));
-              }
-              for (let k = 0; k < data.links.length; k++) {
-                  if (data.links[k].target_id != 1) {
-                      const line: lineConnectors = {
-                          id: data.links[k].id + linkval,
-                          origin_id: data.links[k].origin_id + val,
-                          origin_slot: data.links[k].origin_slot,
-                          target_id: data.links[k].target_id + val,
-                          target_slot: data.links[k].target_slot,
-                          type: data.links[k].type
-                      }
-                      this.store.dispatch(new AddLineConnectorToStorage(line));
-                  }
-              }
-              window.location.reload();
-          } catch (e) {
-              console.log(e);
-              alert("File provided was not constructed by Tensorflow UI");
-          }
-      } else {
-          alert("No file selected for import.")
-      }
-  }
-
   public updateIndex(user, Name, description){
       fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
           .then(response => response.text())
