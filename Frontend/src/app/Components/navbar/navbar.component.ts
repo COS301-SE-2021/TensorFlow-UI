@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public selectedNode=null;
 	public LGroot: LGraphNode;
 	graph: litegraph.LGraph;
-	liteNodes: litegraph.LGraphNode[];
+	//liteNodes: litegraph.LGraphNode[];
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 
@@ -84,7 +84,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
         this.gitAPI = GitAPI.getInstance(this.store);
 
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
-		this.liteNodes = [];
+		//this.liteNodes = [];
 		this.linesList = this.store.selectSnapshot(WorkspaceState).links;
 		this.graph = new litegraph.LGraph();
 		let canvas = new litegraph.LGraphCanvas("#workspaceCanvas", this.graph);
