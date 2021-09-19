@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	ngOnInit(): void {
-        this.gitAPI = new GitAPI(this.store);
+        this.gitAPI = GitAPI.getInstance(this.store);
 
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.liteNodes = [];

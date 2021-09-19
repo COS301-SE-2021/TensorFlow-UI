@@ -16,7 +16,7 @@ export class ProjectListComponent implements OnInit {
   constructor(private store: Store) { }
   @Input() element: string;
   @Input() navbar;
-  public API: GitAPI= new GitAPI(this.store);
+  public API: GitAPI= GitAPI.getInstance(this.store);
 
   ngOnInit(): void {
   }

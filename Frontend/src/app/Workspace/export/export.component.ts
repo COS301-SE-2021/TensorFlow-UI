@@ -15,7 +15,7 @@ import { initializeApp } from 'firebase/app';
 })
 export class ExportComponent implements OnInit {
   constructor(public store: Store) { }
-  public API: GitAPI= new GitAPI(this.store);
+  public API: GitAPI= GitAPI.getInstance(this.store);
 
   ngOnInit(): void {
     const firebaseConfig = {

@@ -5,13 +5,22 @@ import {PAT} from "./config.js"
 import { TFVariable } from "./tf/tensor/common";
 import {Event} from "@angular/router";
 import {PopulatePreviewCommand} from "../Command/PopulatePreviewCommand";
+import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 
 
 
 export class GitAPI {
     public event1;
+    public static instance: GitAPI;
   constructor(private store: Store ) {
       this.event1 = new Event("populateList");
+  }
+
+  public static getInstance(store){
+      if (this.instance == null){
+          this.instance= new GitAPI(store);
+      }
+      return this.instance;
   }
 
   public commit(user, token, Name, Data, description){
@@ -47,6 +56,8 @@ export class GitAPI {
       .catch(error => console.log('error', error));
   }
 
+  public previewData : string;
+
   public preview(dta, nav){
       var json = JSON.parse(dta);
       let popPreview = new PopulatePreviewCommand(this.store, nav, json);
@@ -74,7 +85,7 @@ export class GitAPI {
       }
   }
 
-  public dataToStore(dta){
+  public dataToStore(dta = this.previewData){
     try{
       var data = JSON.parse(dta);
       this.store.dispatch(new AddProjectDescription(data.description));
