@@ -11,6 +11,7 @@ import {lineConnectors} from "../node-data";
 import {TutorialModalMaterialComponent} from "./tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component";
 import {MatDialog, MatDialogRef, MatDialogModule, MatDialogConfig} from "@angular/material/dialog";
 import {NavbarComponent} from "../Components/navbar/navbar.component";
+import {ReloadFromStoreCommand} from "../../Command/ReloadFromStoreCommand";
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,16 @@ export class TutorialServiceService {
   store : Store;
   url : string;
   addCommand : AddNodeCommand;
+  restoreCommand : ReloadFromStoreCommand;
+  navbar : NavbarComponent;
 
   constructor(
     navbar : NavbarComponent,
     store : Store,
     private dialog: MatDialog) {
     this.addCommand = new AddNodeCommand(this.store, navbar);
+    this.restoreCommand = new ReloadFromStoreCommand(this.store, navbar);
+    this.navbar = navbar;
   }
 
 
@@ -96,26 +101,20 @@ export class TutorialServiceService {
 
     featuresTrain.push(60,100,50,90);
     labelsTrain.push(160, 240, 140, 220);
-
     featuresTest.push(80,30,20,10);
     labelsTest.push(200, 100, 80, 60);
-
-    var tfTrainFeatures : TFTensor = new TFTensorOneD(featuresTrain);
-    var tfTrainLabels : TFTensor = new TFTensorOneD(labelsTrain);
-    var tfTestFeatures : TFTensor = new TFTensorOneD(featuresTest);
-    var tfTestLabels : TFTensor = new TFTensorOneD(labelsTest);
 
     this.addCommand.setComponent("TensorOneD");
     this.addCommand.execute();
     let tensorFTrain = this.addCommand.getNode();
     tensorFTrain.data = featuresTrain;
-    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "number[]");
     console.log("1. Tensor created: " + tensorFTrain);
 
     this.addCommand.setComponent("TensorOneD");
     this.addCommand.execute();
     let tensorFTest = this.addCommand.getNode();
     tensorFTest.data = featuresTest;
+    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "number[]");
     console.log("2. Tensor created: " + tensorFTest);
 
     this.addCommand.setComponent("TensorOneD");
@@ -129,6 +128,9 @@ export class TutorialServiceService {
     let tensorLTest = this.addCommand.getNode();
     tensorLTest.data = labelsTest;
     console.log("4. Tensor created: " + tensorLTest);
+
+    this.restoreCommand.execute();
+    console.log("Restored!")
   }
 
   step3() {
@@ -157,6 +159,9 @@ export class TutorialServiceService {
     this.addCommand.setComponent("Model");
     this.addCommand.execute();
     let model = this.addCommand.getNode();
+
+    this.restoreCommand.execute();
+    console.log("Restored!")
   }
 
   step5() {

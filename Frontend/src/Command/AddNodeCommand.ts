@@ -3,10 +3,12 @@ import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
 import {AddTFNode} from "../Storage/workspace";
+import {LGraphNode} from "litegraph.js";
 
 export class AddNodeCommand extends Command{
   private component: string;
   private lastNodeCreated: TFNode;
+  private lastLiteNodeCreated: LGraphNode;
 
   constructor(store: Store, private navbar: NavbarComponent) {
     super(store);
@@ -36,6 +38,10 @@ export class AddNodeCommand extends Command{
 
   getNode(){
     return this.lastNodeCreated;
+  }
+
+  getLiteGraphNode() {
+    return this.lastLiteNodeCreated;
   }
 
   undo() {
