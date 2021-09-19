@@ -242,7 +242,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		return node;
 	}
-}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
 
