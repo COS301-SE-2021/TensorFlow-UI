@@ -1,9 +1,11 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {GitAPI} from "../../git-api";
+import {PopulatePreviewCommand} from "../../../Command/PopulatePreviewCommand";
 
 let projectList: string[] = [];
 export default projectList;
+export let previewData:String[]= [];
 
 @Component({
   selector: 'app-import-page-content',
@@ -23,7 +25,7 @@ export class ImportPageContentComponent implements OnInit {
   ngOnInit(): void {
       let that = this;
       document.addEventListener("populateList", function(){that.projectL = projectList;});
-    this.gitAPI = new GitAPI(this.store);
+    this.gitAPI = GitAPI.getInstance(this.store);
     this.gitAPI.GetList();
   }
 
@@ -54,8 +56,15 @@ export class ImportPageContentComponent implements OnInit {
                         }
                         var fr = new FileReader();
                         let that = this;
-                        fr.onload = function () {
-                            let response = fr.result;
+                        fr.onloadend = function () {
+                            let str:string = "";
+                            let result = fr.result;
+                            if (result){
+                                str = result.toString();
+                                var json = JSON.parse(str);
+                                let popPreview = new PopulatePreviewCommand(that.store, that.navbar, json);
+                                popPreview.execute();
+                            }
                             //that.API.dataToStore(response);
                             //do a command for this .... same for project list items
                         }
@@ -106,6 +115,8 @@ export class ImportPageContentComponent implements OnInit {
     }
 
     projectImport() {
-
+        if (previewData[0] == this.gitAPI.previewData){
+            this.gitAPI.dataToStore();
+        }
     }
 }

@@ -6,54 +6,67 @@ import {LGraphNode} from "litegraph.js";
 import {TFRootNode} from "../app/tf/rootNode/rootNode";
 import {NodeStore, TFNode} from "../app/tf";
 import {userVariableNames} from "../app/tf/userVariableNames";
+import {previewData} from "../app/ImportPage/importPageContent/import-page-content.component";
+import {GitAPI} from "../app/git-api";
 
 export class PopulatePreviewCommand extends Command{
   graph: litegraph.LGraph;
     public project;
+    public gitAPI: GitAPI;
   constructor(store: Store, private nav, project) {
     super(store);
     this.project = project;
     this.graph = new litegraph.LGraph();
+    this.gitAPI = GitAPI.getInstance(store);
   }
 
   execute() {
-      console.log(this.project);
-      let canvas1 = document.getElementById("previewCanvas") as HTMLCanvasElement;
-      let canvas = new litegraph.LGraphCanvas(canvas1, this.graph);
-      const storedNodes = this.project.TFNode;
-      const nodesLoadedOntoCanvas: LGraphNode[] = [];
+      try{
+          let canvas1 = document.getElementById("previewCanvas") as HTMLCanvasElement;
+          let canvas = new litegraph.LGraphCanvas(canvas1, this.graph);
+          const storedNodes = this.project.TFNode;
+          const nodesLoadedOntoCanvas: LGraphNode[] = [];
 
-    //if else statement to load or create a root node onto the canvass
-      let tensorRoot = new TFRootNode();
-      tensorRoot.name = "RootNode";
+          //if else statement to load or create a root node onto the canvass
+          let tensorRoot = new TFRootNode();
+          tensorRoot.name = "RootNode";
 
-      const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
-      this.createRootNodeHelper(tensorRoot, liteGraphNode);
+          const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
+          this.createRootNodeHelper(tensorRoot, liteGraphNode);
 
-      for(let i=0; i<storedNodes.length;++i){
-        nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
-      }
-      let title = document.getElementById("previewProjectDescription") as HTMLElement;
-      if (title){
-          title.innerHTML= this.project.title;
-      }
-      let description = document.getElementById("previewProjectDescription") as HTMLElement;
-      if (description){
-          description.innerHTML= this.project.description;
-      }
-      // recreate all line connectors from memory
-      const storedLinks = this.project.links;
+          for(let i=0; i<storedNodes.length;++i){
+              nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
+          }
+          let title = document.getElementById("previewProjectTitle") as HTMLElement;
+          if (title){
+              title.innerHTML= this.project.title;
+          }
+          let description = document.getElementById("previewProjectDescription") as HTMLElement;
+          if (description){
+              description.innerHTML= this.project.description;
+          }
+          // recreate all line connectors from memory
+          const storedLinks = this.project.links;
 
-      for(let i=0; i<storedLinks.length;++i){
-        const targetNodeID = storedLinks[i].target_id;
-        const originNodeID = storedLinks[i].origin_id;
+          for(let i=0; i<storedLinks.length;++i){
+              const targetNodeID = storedLinks[i].target_id;
+              const originNodeID = storedLinks[i].origin_id;
 
-        const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
-        const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
+              const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
+              const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
 
-        if(originNode && targetNode) {
-          originNode.connect(storedLinks[i].origin_slot, targetNode, storedLinks[i].target_slot);
-        }
+              if(originNode && targetNode) {
+                  originNode.connect(storedLinks[i].origin_slot, targetNode, storedLinks[i].target_slot);
+              }
+          }
+          this.gitAPI.previewData = JSON.stringify(this.project);
+          while (previewData.length > 0){
+              previewData.pop();
+          }
+          previewData.push(this.project);
+      } catch (e){
+        console.log(e);
+        alert("File provided was not constructed by Tensorflow UI");
       }
   }
 
