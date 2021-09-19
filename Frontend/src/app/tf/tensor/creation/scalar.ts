@@ -8,9 +8,9 @@ export class TFScalar extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.scalar(
-			${this.widgets.find(element => element.type == "scalar")?.value || "0"},
-			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
+		return `${this.name + "= tf.scalar(" +
+			this.widgets.find(element => element.type == "scalar")?.value || "0" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"
 		})`;
 	}
 

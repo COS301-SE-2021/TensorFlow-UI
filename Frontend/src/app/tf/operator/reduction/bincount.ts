@@ -1,33 +1,46 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFBincount extends TFOperator {
-//tf.bincount (x, weights, size) functionsource
-// Outputs a vector with length size and the same dtype as weights.
-//
-// If weights are empty, then index i stores the number of times the value i is counted in x. If weights are non-empty, then index i stores the sum of the value in weights at each index where the corresponding value in x is i.
-//
-// Values in x outside of the range [0, size) are ignored.
-//
-// Parameters:
-// x (tf.Tensor1D|TypedArray|Array) The input int tensor, rank 1.
-// weights (tf.Tensor1D|TypedArray|Array) The weights tensor, must have the same shape as x, or a length-0 Tensor, in which case it acts as all weights equal to 1.
-// size (number) Non-negative integer.
-// Returns: tf.Tensor1D
 	constructor(
 		public name: string | undefined = undefined) {
 		super(name);
 	}
 
-	code(){
-		return `${this.name} = tf.bincount(
-			${this.TFChildInputs?.forEach(function (key) {
-			key?.name + "," || `some value,`
-		})
-		})`;
+	code(storageLinks, storageNodes) {
+		return `${this.name + "= tf.bincount(" +
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
+			this.GetNode(storageLinks, storageNodes, this.inputs[1].link) + "," +
+			this.widgets.find(element => element.type == "weights")?.value || "" + "," +
+			this.widgets.find(element => element.type == "size")?.value || ""
+	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent)  {
+		const that=this;
+		node.addInput("x", "tf.Tensor");
+		node.addInput("weight", "tf.Tensor");
 
+		let widgetsData=["0"];
+		let widgetTypes= ["axis?","keepDims?"];
+
+		for(let i=0; i<2;++i){
+			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
+			if(widget!=null) {
+				widgetsData[i] = widget.value;
+			}
+		}
+
+		node.addWidget("text",widgetTypes[0],widgetsData[0],function (value){
+
+			if (that.checkIfNumber(value))
+				that.changeWidgetValue(value, widgetTypes[0], navbar);
+			else {
+				alert("The size property has to be a non-negative integer");
+			}
+		});
+
+		node.addOutput("tf.Tensor1D", "tf.Tensor");
 	}
 }

@@ -15,6 +15,7 @@ export class RunCodeCommand extends Command{
   execute() {
     const generator : CodeGeneratorService = new CodeGeneratorService(this.store);
     generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.nav.TFNodeList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
+    return false;
   }
 
   undo() {

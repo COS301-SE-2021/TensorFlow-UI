@@ -1,5 +1,7 @@
 import {lineConnectors, NodeData} from "../../app/node-data";
 import {TFNode, TFOperator} from "../../app/tf";
+import {Store} from "@ngxs/store";
+import {State} from "@syncfusion/ej2-angular-diagrams";
 
 export class AddNodeToStorage {
 	public static readonly type = '[Workspace] Add Node';
@@ -126,3 +128,11 @@ export class RemoveLineConnectionTwo {
 	constructor(public node: TFNode) {
 	}
 }
+
+export class ResetStore {
+  public static readonly type = '[Workspace] Reset Store';
+
+  constructor(public state: any) {
+  }
+}
+

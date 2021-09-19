@@ -17,6 +17,8 @@ export class TFReLU extends TFTensor {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("ReLU","tf.layers.Layer");
+
 	}
 }
 

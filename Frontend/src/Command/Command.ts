@@ -1,8 +1,7 @@
 import {Store} from "@ngxs/store";
-import {CommandHistory} from "./CommandHistory";
 
 export abstract class Command {
-  protected history: CommandHistory
+  protected backup: any;
 
   protected constructor(protected store: Store) {
   }

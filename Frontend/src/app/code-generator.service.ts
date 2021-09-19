@@ -4,6 +4,7 @@ import * as FileSaver from "file-saver";
 import {lineConnectors} from "./node-data";
 import {root} from "rxjs/internal-compatibility";
 import {Store} from "@ngxs/store";
+import {userVariableNames} from "./tf/userVariableNames";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class CodeGeneratorService {
     }
 
   // NEW DATA STRUCTURE .PY FILE IMPLEMENTATION BELOW HERE
-    generateFile(head : TFNode) : string {
+    generateFile(head : TFNode,tfNodes: TFNode[], links: lineConnectors[]) : string {
 
       // QUICK CODEGEN TESTING THINGS
       /*
@@ -26,13 +27,23 @@ export class CodeGeneratorService {
       head = topNode;
        */
 
-      console.log(head);
-      var graph : TFGraph = new TFGraph(head);
-      var code = "import tensorflow as tf\n";
+      let graph : TFGraph = new TFGraph(head);
+      let code = "import tensorflow as tf\n";
 
-      // code += graph.generateCode(head.childOne);
+      let rootInputLinkID = head.inputs[0].link;
+      let link = links.find(element => element.id == rootInputLinkID);
+
+        let rootChildID = link?.origin_id;
+        let rootChild = tfNodes.find(element => element.id == rootChildID);
+
+        if(rootChild) {
+            tfNodes.forEach(function (value){value.visitCount = 0});
+            let generatedCode = graph.generateCode(rootChild,links,tfNodes);
+            code += generatedCode;
+        }
+
       console.log(code);
-      var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
+      let blob = new Blob([code], {type: "text/plain;charset=utf-8"});
       FileSaver.saveAs(blob, "output.py");
       return code;
     }
@@ -51,10 +62,15 @@ export class CodeGeneratorService {
             //Root will always only be allowed one input
             let rootChildID = link?.origin_id;
             let rootChild = tfNodes.find(element => element.id == rootChildID);
-            console.log(this.store);
+            // while(userVariableNames.length>0){
+            //     userVariableNames.pop();
+            // }
 
             if(rootChild) {
-                let file: File = new File([graph.generateCode(rootChild,links,tfNodes)], "output.py");
+                tfNodes.forEach(function (value){value.visitCount = 0});
+                let generatedCode = graph.generateCode(rootChild,links,tfNodes);
+                console.log(generatedCode)
+                let file: File = new File([generatedCode], "output.py");
             }
             var savedResponse : string = "";
             // var data = file;

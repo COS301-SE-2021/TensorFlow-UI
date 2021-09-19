@@ -2,6 +2,7 @@ import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
 import {widgetStructure} from "../../node";
 import {NavbarComponent} from "../../../Components/navbar/navbar.component";
+import {userVariableNames} from "../../userVariableNames";
 
 export class TFConstant extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -10,60 +11,27 @@ export class TFConstant extends TFTensor {
 	}
 
 	code() {
-		// return `${this.name} = tf.constant(
-		// 	${this.widgets.find(element => element.type == "value")?.value || "0"},
-		// 	${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"},
-		// 	${this.widgets.find(element => element.type == "shape")?.value || "shape=None"},
-		// 	${this.widgets.find(element => element.type == "name")?.value || "name='Const'"}
-		// })`;
-		let result: string = "";
 
-		let nodeValue: String = "0";
+		let result="";
+		result+=this.widgets.find(element => element.type == "value")?.value || "0";
 
-		let constantArg = this.widgets.find(element => element.type == "Value");
-		if(constantArg==undefined){
-			nodeValue = "0";
+		let dType = this.widgets.find(element => element.type == "dtype?")?.value;
+		let shape= this.widgets.find(element => element.type == "shape?")?.value;
+		if(dType){
+			result += ",'"+ dType+"'"+(shape? ","+shape : "");
 		}
-		else{
-			nodeValue = constantArg.value;
-		}
-		result+=nodeValue;
-
-		let dType = this.widgets.find(element => element.type == "dtype");
-		if(dType!=undefined) {
-			result+=","+dType.value;
+		else if(shape){
+			result += ","+ (dType? "'"+dType+"'" : "None")+","+shape;
 		}
 
-		let shape = this.widgets.find(element => element.type == "shape");
-		if(shape!=undefined) {
-			result+=","+shape.value;
-		}
-
-		let constName = this.widgets.find(element => element.type == "name");
-		if(constName!=undefined) {
-			result+=","+constName.value;
-		}
-		this.returnValue += nodeValue;
-
-		return `${this.name} = tf.constant(${result})`;
+		return `${this.name+ " = tf.constant("+result})`;
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
-		// node.addWidget("text","value",0, (value) => {
-		// 	this.changeWidgetValue(value,"value");
-		// });
-		// node.addWidget("combo","dtype(optional)","float",(value) => {
-		// 	this.changeWidgetValue(value,"dtype");
-		// },{values: ["float32","int32","bool","complex64","string"]});
-		// node.addWidget("text","shape(optional)","shape",(value) => {
-		// 	this.changeWidgetValue(value,"shape")
-		// });
-		// node.addWidget("text","name(optional)","name",(value) => {
-		// 	this.changeWidgetValue(value,"name")});
 
-		let widgetsData= ["0","float","shape","name"];
-		let widgetTypes=["Value","dtype","shape","name"];
+		let widgetsData= ["0","None","None",this.name];
+		let widgetTypes=["value","dtype?","shape?","name"];
 
 		for(let i=0; i<4;++i){
 			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
@@ -71,22 +39,26 @@ export class TFConstant extends TFTensor {
 				widgetsData[i] = widget.value;
 		}
 
-		node.addWidget("text","Value",widgetsData[0],function (value){
-			that.changeWidgetValue(value,widgetTypes[0],navbar);
-			that.checkTensorInputType(value);
+		node.addWidget("text",widgetTypes[0],widgetsData[0],function (value){
+			// if(that.checkIfTensorInputIsCorrect(value))
+			// 	that.changeWidgetValue(value,widgetTypes[0],navbar);
+			// else
+			// 	that.resetWidgetValueToLast(widgetTypes[0],node,widgetsData[0]);
 		});
-		node.addWidget("combo","dtype(optional)",widgetsData[1],function (value){
+		node.addWidget("combo",widgetTypes[1],widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
-		},{values: ["float","float32","int32","bool","complex64","string"]});
-		node.addWidget("text","shape(optional)",widgetsData[2],function (value){
-			that.changeWidgetValue(value,widgetTypes[2],navbar)
+		},{values: ["None","float","float32","float64","bool","int16","int32","int64","complex64","complex128","string"]});
+		node.addWidget("text",widgetTypes[2],widgetsData[2],function (value){
+			if(that.checkIfWidgetTypeIsAVectorArray(value,widgetTypes[2]))
+				that.changeWidgetValue(value,widgetTypes[2],navbar);
+			else
+				that.resetWidgetValueToLast(widgetTypes[2],node,widgetsData[2]);
 		});
-		node.addWidget("text","name(optional)",widgetsData[3],function (value){
-			that.changeWidgetValue(value,widgetTypes[3],navbar)
+		node.addWidget("text",widgetTypes[3],widgetsData[3],function (value){
+			that.changeWidgetValue(value,widgetTypes[3],navbar,node);
 		});
-
 		node.addOutput("Value","tf.Tensor");
-		node.size = [240,node.size[1]]
+		node.size = [220,node.size[1]]
 	}
 
 }

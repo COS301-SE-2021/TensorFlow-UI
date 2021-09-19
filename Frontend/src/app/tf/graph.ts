@@ -6,36 +6,38 @@ export class TFGraph {
 
     generateCode(current : TFNode, links: lineConnectors[], tfNodes: TFNode[]){
 	    let stringCode = "";
+
 	    if(current) {
+			++current.visitCount;
 
-	        console.log(current);
 	        for(let input of current.inputs){
-
-	            console.log(input);
-
                 let nodeInputLinkID = input.link;
-
                 if(nodeInputLinkID!=null){
-					let link = links.find(element => element.id == nodeInputLinkID);
 
-					let nodeChildID = link?.origin_id;
-					let nodeChild = tfNodes.find(element => element.id == nodeChildID);
-					if(nodeChild) {
-						console.log(nodeChild);
-						stringCode += this.generateCode(nodeChild, links, tfNodes);
+					if(current.visitCount<(current.inputs.length*3)) {
+						let link = links.find(element => element.id == nodeInputLinkID);
+						let nodeChildID = link?.origin_id;
+						let nodeChild = tfNodes.find(element => element.id == nodeChildID);
+						if (nodeChild) {
+							stringCode += this.generateCode(nodeChild, links, tfNodes);
+							if(stringCode.includes("undefined")){
+								return "undefined";
+							}
+						}
 					}
-				}
-                else{
-					// stringCode += this.generateCode(current.childOne);
+					else{
+						alert("An infinite loop has been detected at "+current.name+"!, as a result execution of the code has been halted.");
+						return "undefined";
+					}
 				}
             }
 
-	        stringCode += (<TFNode>current).code(links,tfNodes) + "\n";
-
+	        stringCode += (<TFNode>current).visitCount > 1 ? "" : (<TFNode>current).code(links,tfNodes) + "\n";
+			if(stringCode.includes("undefined")){
+				return "undefined";
+			}
 	    }
-		console.log(stringCode);
 	    return stringCode;
 	}
-
 
 }

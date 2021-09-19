@@ -8,11 +8,11 @@ export class TFOneHot extends TFTensor {
 	}
 
 	code(storageLinks, storageNodes) {
-		return `${this.name} = tf.oneHot(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
-			${this.widgets.find(element => element.type == "value")?.value || "0"},
-			${this.widgets.find(element => element.type == "shape")?.value || ""}
-			${this.widgets.find(element => element.type == "dtype")?.value || ""}
+		return `${this.name + "= tf.oneHot(" +
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link) + "," +
+			this.widgets.find(element => element.type == "value")?.value || "0" + "," +
+			this.widgets.find(element => element.type == "shape")?.value || "" + "," +
+			this.widgets.find(element => element.type == "dtype")?.value || ""
 	})`;
 	}
 

@@ -9,14 +9,14 @@ export class TFActivation extends TFLayers {
 
 	code(storageLinks,storageNodes) {
 		return `${this.name} = tf.layers.activation(
-			${this.widgets.find(element => element.type == "constant")?.value || "0"},
+			${this.widgets.find(element => element.type == "value")?.value || "0"},
 	})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		const that = this;
-		node.addWidget("text", "constant", 0, function (value) {
-			that.changeWidgetValue(value, "constant");
+		node.addWidget("text", "value", 0, (value) => {
+			this.changeWidgetValue(value, "value");
 		});
+		node.addOutput("tf.layers.Layer","tf.layers.Layer");
 	}
 }

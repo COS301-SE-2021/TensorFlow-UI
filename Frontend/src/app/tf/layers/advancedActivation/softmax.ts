@@ -17,6 +17,8 @@ export class TFSoftmax extends TFTensor {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("Softmax","tf.layers.Layer");
+
 	}
 }
 

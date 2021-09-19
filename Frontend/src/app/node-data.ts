@@ -1,5 +1,3 @@
-import * as LeaderLine from "leader-line-new";
-
 export interface lineConnectors {
 	id:number;
 	origin_id: number;

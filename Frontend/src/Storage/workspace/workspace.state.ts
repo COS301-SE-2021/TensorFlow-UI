@@ -1,24 +1,24 @@
 import {State, Action, StateContext, Selector} from '@ngxs/store'
 import {NodeData, lineConnectors} from "../../app/node-data";
 import {
-	AddLineConnectorToStorage,
-	AddNodeToStorage,
-	UpdateNodeInStorage,
-	RemoveNodeFromStorage,
-	RemoveLineFromStorage,
-	ChangeBooleanValue,
-	RemoveTFNode,
-	AddTFNode,
-	UpdateTFNode,
-	AddRootNode,
-	AddProjectName,
-	AddProjectDescription,
-	RemoveLineConnectionOne,
-	RemoveLineConnection,
-	RemoveLineConnectionTwo,
-	UpdateLineConnection,
-	ClearCanvas,
-	RemoveAllLineFromStorage
+  AddLineConnectorToStorage,
+  AddNodeToStorage,
+  UpdateNodeInStorage,
+  RemoveNodeFromStorage,
+  RemoveLineFromStorage,
+  ChangeBooleanValue,
+  RemoveTFNode,
+  AddTFNode,
+  UpdateTFNode,
+  AddRootNode,
+  AddProjectName,
+  AddProjectDescription,
+  RemoveLineConnectionOne,
+  RemoveLineConnection,
+  RemoveLineConnectionTwo,
+  UpdateLineConnection,
+  ClearCanvas,
+  RemoveAllLineFromStorage, ResetStore
 } from "./workspace.actions";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -172,7 +172,7 @@ export class WorkspaceState {
 	public removeTFNode(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveTFNode) {
 		stateContext.setState(
 			patch({
-				TFNode: removeItem<TFNode>(element => element === node)
+				TFNode: removeItem<TFNode>(element => element?.id === node.id)
 			})
 		)
 	}
@@ -212,6 +212,15 @@ export class WorkspaceState {
 			})
 		)
 	}
+
+  @Action(ResetStore)
+  public resetStore(stateContext: StateContext<WorkspaceStateModel>, {state}: ResetStore) {
+    stateContext.setState(
+      patch({
+        ...state
+      })
+    )
+  }
 
 
 	// @Action(RemoveLineConnection)

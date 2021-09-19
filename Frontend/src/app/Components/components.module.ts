@@ -24,6 +24,7 @@ import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { RunningDialogComponent } from './running-dialog/running-dialog/running-dialog.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import {importPageModule} from "../ImportPage/importPage.module";
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import {MatTabsModule} from "@angular/material/tabs";
         MatDialogModule,
         MatSnackBarModule,
         MatTooltipModule,
-        MatTabsModule
+        MatTabsModule,
+        importPageModule
     ],
     declarations: [
         NavbarComponent,

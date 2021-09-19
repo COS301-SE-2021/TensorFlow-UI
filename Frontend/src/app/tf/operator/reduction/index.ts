@@ -12,16 +12,16 @@ export * from "./prod"
 export * from "./sum"
 
 export const reductionArray = [
-    "All",
-    "Any",
-    "Argmax",
-    "Argmin",
+    "Reduce All",
+    "Reduce Any",
+    "ArgMax",
+    "ArgMin",
     "Bincount",
     "Densebincount",
-    "Logsumexp",
-    "Max",
-    "Mean",
-    "Min",
-    "Prod",
-    "Sum"
+    "Reduce LogSumExp",
+    "Reduce Max",
+    "Reduce Mean",
+    "Reduce Min",
+    "Reduce Prod",
+    "Reduce Sum"
 ];

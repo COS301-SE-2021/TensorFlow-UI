@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFZeros extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -8,14 +9,10 @@ export class TFZeros extends TFTensor {
 	}
 
 	code() {
-		return `${this.name} = tf.zeros(${
-			this.data || "some value"
-		})`;
+		return this.onesAndZerosCode("zeros");
 	}
 
-	UIStructure(node: LGraphNode) {
-		node.addWidget("text","shape","[0,2,4]","zerosShape");
-		node.addWidget("combo","dtype(optional)","float","zerosDType",{values: ["float32","int32","bool","complex64","string"]});
-		node.addOutput("Tensor zeros","tf.Tensor");
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
+		this.onesAndZerosUIStructure(node,navbar);
 	}
 }

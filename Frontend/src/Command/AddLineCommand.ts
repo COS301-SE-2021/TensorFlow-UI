@@ -8,6 +8,7 @@ export class AddLineCommand extends Command{
   }
 
   execute() {
+    return false;
   }
 
   undo() {

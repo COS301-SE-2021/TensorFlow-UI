@@ -18,6 +18,7 @@ export class TFPrelu extends TFTensor {
 		node.addWidget("text", "constant", 0, function (value) {
 			that.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("PReLU","tf.layers.Layer");
 	}
 }
 

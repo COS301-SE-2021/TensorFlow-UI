@@ -18,6 +18,7 @@ export class TFElu extends TFLayers {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});
+		node.addOutput("ELU","tf.layers.Layer");
 	}
 }
 

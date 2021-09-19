@@ -22,6 +22,9 @@ import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal
 // import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { TutorialModalMaterialComponent } from './Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component';
 import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-upload-box.component';
+import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
+import {importPageModule} from "./ImportPage/importPage.module";
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -50,7 +53,8 @@ const modules = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     ComponentsModule,
-    // AppRoutingModule
+    AppRoutingModule,
+    importPageModule
   ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},

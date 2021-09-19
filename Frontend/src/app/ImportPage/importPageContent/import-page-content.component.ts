@@ -18,9 +18,7 @@ export class ImportPageContentComponent implements OnInit {
     this.gitAPI = new GitAPI(this.store);
 
 
-    this.gitAPI.getProjectsFromRepoAndUpdateProjectListArray();
-    console.log(this.gitAPI);
-    console.log(projectList);
+    this.gitAPI.GetList();
   }
 
 

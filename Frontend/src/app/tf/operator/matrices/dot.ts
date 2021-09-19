@@ -9,15 +9,15 @@ export class TFDot extends TFOperator {
 	}
 
 	code(storageLinks, storageNodes){
-		return `${this.name} = tf.dot(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
-			${this.GetNode(storageLinks, storageNodes, this.inputs[1].link)},
+		return `${this.name + "tf.outerProduct("+
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)+","+
+			this.GetNode(storageLinks, storageNodes, this.inputs[1].link)+")"
 		})`;
 	}
 
 	UIStructure(node: LGraphNode) {
-		node.addInput("t1", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("t2", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("t1", "tf.Tensor");
+		node.addInput("t2", "tf.Tensor");
 		node.addOutput("t1.t2", "tf.Tensor");
 	}
 
