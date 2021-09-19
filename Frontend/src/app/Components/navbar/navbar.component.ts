@@ -59,6 +59,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public screenHeight = screen.height;
 	public lines;
 	public selectedNode=null;
+	public LGroot: LGraphNode;
 	graph: litegraph.LGraph;
 	liteNodes: litegraph.LGraphNode[];
 
@@ -108,13 +109,16 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 			const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
 			this.createRootNodeHelper(tensorRoot, liteGraphNode);
+			this.LGroot = liteGraphNode;
 		}
 		else{
-			let tensorRoot = new TFRootNode();
-			tensorRoot.name = "Root";
-			nodesLoadedOntoCanvas.push(this.createLiteNode("RootNode",true,rootNode));
+			//let tensorRoot = new TFRootNode();
+			//tensorRoot.name = "Root";
+            this.LGroot = this.createLiteNode("RootNode",true,rootNode)
+			nodesLoadedOntoCanvas.push(this.LGroot);
+
 		}
-    this.reloadCommand.execute();
+        this.reloadCommand.execute();
 	}
 
 	ngDoCheck(): void{

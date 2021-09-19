@@ -16,6 +16,7 @@ export class ReloadFromStoreCommand extends Command{
     let canvas = new litegraph.LGraphCanvas("#Canvas", this.navbar.graph);
     const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const nodesLoadedOntoCanvas: LGraphNode[] = [];
+    nodesLoadedOntoCanvas.push(this.navbar.LGroot);
 
     if(storedNodes.length>0){
       //recreate all these nodes;
