@@ -32,7 +32,8 @@ export class PopulatePreviewCommand extends Command{
           tensorRoot.name = "RootNode";
 
           const liteGraphNode = this.createLiteNode("RootNode", false, tensorRoot);
-          this.createRootNodeHelper(tensorRoot, liteGraphNode);
+          nodesLoadedOntoCanvas.push(liteGraphNode);
+          //this.createRootNodeHelper(tensorRoot, liteGraphNode);
 
           for(let i=0; i<storedNodes.length;++i){
               nodesLoadedOntoCanvas.push(this.createLiteNode(storedNodes[i].selector,true,storedNodes[i]));
@@ -75,7 +76,7 @@ export class PopulatePreviewCommand extends Command{
 
     createRootNodeHelper(node: TFNode, liteGraphNode: LGraphNode){
         node.selector = "RootNode";
-        node.id = liteGraphNode.id;
+        node.id = 1;
         node.position = liteGraphNode.pos;
         node.inputs = liteGraphNode.inputs;
         node.outputs = liteGraphNode.outputs;
