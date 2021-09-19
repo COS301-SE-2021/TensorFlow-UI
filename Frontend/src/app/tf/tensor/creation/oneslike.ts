@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFOnesLike extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -8,13 +9,16 @@ export class TFOnesLike extends TFTensor {
 	}
 
 	code(storageLinks,storageNodes) {
-		return `${this.name + "= tf.oneslike(" +
+		return `${this.name + "= tf.ones_like(" +
 			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
 
-	UIStructure(node: LGraphNode){
-		node.addInput("X","tf.Tensor");
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
+		node.addInput("x","tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 		node.addOutput("tf.Tensor","tf.Tensor");
 	}
 }

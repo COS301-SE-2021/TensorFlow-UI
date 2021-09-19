@@ -2,7 +2,7 @@ export * from "./tensoroned";
 export * from "./tensortwod";
 export * from "./tensorthreed";
 export * from "./buffer";
-export * from "./clone";
+export * from "./identity";
 export * from "./complex";
 export * from "./diag";
 export * from "./eye";
@@ -15,12 +15,13 @@ export * from "./zeroslike";
 export * from "./truncatednormal";
 
 export const tensorCreationArray = [
-    "Buffer",
-    "Clone",
+    // "Buffer",
+
     "Complex",
     "Diag",
     "Eye",
-    "OneHot",
+    "Identity",
+    // "OneHot",
     "OneLike",
     "Range",
     "Real",
