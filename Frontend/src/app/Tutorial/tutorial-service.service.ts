@@ -18,31 +18,28 @@ import {NavbarComponent} from "../Components/navbar/navbar.component";
 
 export class TutorialServiceService {
   private tutorialDialogMat: TutorialModalMaterialComponent;
-  readyForNext : boolean;
   currentStep : number;
   head : TFNode;
   lines : lineConnectors[];
   nodes : TFNode[];
   store : Store;
   url : string;
+  addCommand : AddNodeCommand;
 
   constructor(
     navbar : NavbarComponent,
     store : Store,
     private dialog: MatDialog) {
-    this.readyForNext = true;
+    this.addCommand = new AddNodeCommand(this.store, navbar);
   }
 
 
   openDialog(text : string) {
-    console.log("Dialog opened! Current step: " + this.currentStep)
-    this.readyForNext = false;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = text;
     const dialogRef = this.dialog.open(TutorialModalMaterialComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.readyForNext = true;
       this.currentStep = this.currentStep + 1;
       this.nextStep();
     });
@@ -103,14 +100,35 @@ export class TutorialServiceService {
     featuresTest.push(80,30,20,10);
     labelsTest.push(200, 100, 80, 60);
 
-    // TODO: creation of data nodes which represent said arrays
     var tfTrainFeatures : TFTensor = new TFTensorOneD(featuresTrain);
     var tfTrainLabels : TFTensor = new TFTensorOneD(labelsTrain);
     var tfTestFeatures : TFTensor = new TFTensorOneD(featuresTest);
     var tfTestLabels : TFTensor = new TFTensorOneD(labelsTest);
 
-    var addNode : AddNodeCommand = new AddNodeCommand(this.store);
-    addNode.execute();
+    this.addCommand.setComponent("TensorOneD");
+    this.addCommand.execute();
+    let tensorFTrain = this.addCommand.getNode();
+    tensorFTrain.data = featuresTrain;
+    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "number[]");
+    console.log("1. Tensor created: " + tensorFTrain);
+
+    this.addCommand.setComponent("TensorOneD");
+    this.addCommand.execute();
+    let tensorFTest = this.addCommand.getNode();
+    tensorFTest.data = featuresTest;
+    console.log("2. Tensor created: " + tensorFTest);
+
+    this.addCommand.setComponent("TensorOneD");
+    this.addCommand.execute();
+    let tensorLTrain = this.addCommand.getNode();
+    tensorLTrain.data = labelsTrain;
+    console.log("3. Tensor created: " + tensorLTrain);
+
+    this.addCommand.setComponent("TensorOneD");
+    this.addCommand.execute();
+    let tensorLTest = this.addCommand.getNode();
+    tensorLTest.data = labelsTest;
+    console.log("4. Tensor created: " + tensorLTest);
   }
 
   step3() {
@@ -129,14 +147,16 @@ export class TutorialServiceService {
     //TODO: create layer node using command
     var kerasLayer = new TFDense(1, "");
 
-    var addNode : AddNodeCommand = new AddNodeCommand(this.store);
-    addNode.execute();
+    this.addCommand.setComponent("dense");
+    this.addCommand.execute();
+    let denseLayer = this.addCommand.getNode();
 
     // TODO: create model node using command
     var tfModel : TFModel= new TFModel("basicModel", kerasLayer);
 
-    var addNode : AddNodeCommand = new AddNodeCommand(this.store);
-    addNode.execute();
+    this.addCommand.setComponent("Model");
+    this.addCommand.execute();
+    let model = this.addCommand.getNode();
   }
 
   step5() {
@@ -154,7 +174,7 @@ export class TutorialServiceService {
   step7() {
     this.openDialog("And now for some predictions - the useful part of the model we've built.");
     const codegen : CodeGeneratorService = new CodeGeneratorService(this.store);
-    codegen.generateFile(this.head);
+    codegen.generateFile(this.head, this.nodes, this.lines);
     codegen.runFile(this.head, this.nodes, this.lines, this.url);
 
 
