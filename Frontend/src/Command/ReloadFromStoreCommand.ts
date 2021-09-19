@@ -14,24 +14,8 @@ export class ReloadFromStoreCommand extends Command{
 
   execute(){
     let canvas = new litegraph.LGraphCanvas("#Canvas", this.navbar.graph);
-    let importPageCanvas = new litegraph.LGraphCanvas("#ImportCanvas", this.navbar.graph);
     const storedNodes = this.store.selectSnapshot(WorkspaceState).TFNode;
     const nodesLoadedOntoCanvas: LGraphNode[] = [];
-    const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
-
-    //if else statement to load or create a root node onto the canvass
-    /*if(rootNode==undefined){
-      let tensorRoot = new TFRootNode();
-      tensorRoot.name = "RootNode";
-
-      const liteGraphNode = this.navbar.createLiteNode("RootNode", false, tensorRoot);
-      this.navbar.createRootNodeHelper(tensorRoot, liteGraphNode);
-    }
-    else{
-      let tensorRoot = new TFRootNode();
-      tensorRoot.name = "Root";
-      nodesLoadedOntoCanvas.push(this.navbar.createLiteNode("RootNode",true,rootNode));
-    }*/
 
     if(storedNodes.length>0){
       //recreate all these nodes;
