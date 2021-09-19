@@ -63,35 +63,6 @@ export abstract class TFOperator extends TFNode {
 		return <string>parameters[0].name+","+parameters[1].name;
 	}
 
-	checkIfWidgetTypeIsAVectorArray(value:string, type:string):boolean{
-		value.trim();
-
-		if(value.length>1){
-			if(value.charAt(0)!=='[' || value.charAt(value.length-1)!==']'){
-				if(type==="perm?")
-					alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-				return false;
-			}
-			else{
-				value = value.substring(1,value.length-1);
-				let newVal = value.split(',');
-				for(let elem of newVal){
-					if(isNaN(Number(elem)) || elem===""){
-						if(type==="perm?")
-							alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-						return false;
-					}
-				}
-			}
-		}
-		else{
-			if(type==="perm?")
-				alert("The permutation of the dimensions of x, has to be a vector array of type number[]")
-			return false;
-		}
-		return true;
-	}
-
 	genericReductionCode(storageLinks, storageNodes,operatorType:string): string{
 
 		let res="";

@@ -1,10 +1,50 @@
-import {TFConstant, TFFill, TFLinespace, TFOnes, TFVariable, TFZeros} from "./tensor/common";
+import {TFConstant, TFFill, TFLinspace, TFOnes, TFVariable, TFZeros} from "./tensor/common";
 import {TFAdd, TFAddN, TFDivide, TFMod, TFMultiply,TFSubtract} from "./operator";
 import {TFModel, TFSequential} from "./model/creation";
 import {TFAvgPool3D, TFConv1d, TFConv2d, TFConv2dTranspose, TFConv3d, TFConv3dtranspose, TFDepthWiseConv2d, TFDilation, TFMaxPool3d, TFMaxPoolWithArdMax, TFPool, TFSeparableConv2d} from "./operator/convolution";
 import {TFDot, TFMatMul, TFNorm, TFOuterProduct, TFTranspose} from "./operator/matrices";
 import {Any, TFAll, TFArgMax, TFArgMin, TFBincount, TFDenseBincount, TFLogSumExp, TFMax, TFMean, TFMin, TFProd, TFSum} from "./operator/reduction";
-import {TFBatchToSpaceND, TFBooleanMaskAsync, TFBroadcastTo, TFBuffer, TFCast, TFComplex, TFConcat, TFDepthToSpace, TFDiag, TFEinsum, TFExpandDims, TFEye, TFGather, TFMirrorPad, TFMultinomial, TFOneHot, TFOnesLike, TFPad, TFRand, TFRandomGamma, TFRandomNormal, TFRandomUniform, TFRange, TFReal, TFReshape, TFReverse, TFSetdiff1dAsync, TFSlice, TFSpaceToBatchND, TFSplit, TFSqueeze, TFStack, TFTensorOneD, TFTensorThreeD, TFTensorTwoD, TFTile, TFTruncatedNormal, TFUnstack} from "./tensor";
+import {
+	TFBatchToSpaceND,
+	TFBooleanMaskAsync,
+	TFBroadcastTo,
+	TFBuffer,
+	TFCast,
+	TFComplex,
+	TFConcat,
+	TFDepthToSpace,
+	TFDiag,
+	TFEinsum,
+	TFExpandDims,
+	TFEye,
+	TFGather,
+	TFIdentity,
+	TFMirrorPad,
+	TFMultinomial,
+	TFOneHot,
+	TFOnesLike,
+	TFPad,
+	TFRand,
+	TFRandomGamma,
+	TFRandomNormal,
+	TFRandomUniform,
+	TFRange,
+	TFReal,
+	TFReshape,
+	TFReverse,
+	TFSetdiff1dAsync,
+	TFSlice,
+	TFSpaceToBatchND,
+	TFSplit,
+	TFSqueeze,
+	TFStack,
+	TFTensorOneD,
+	TFTensorThreeD,
+	TFTensorTwoD,
+	TFTile,
+	TFTruncatedNormal,
+	TFUnstack
+} from "./tensor";
 import {TFAbs, TFAcos, TFAcosh, TFAsin, TFAsinh, TFAtan, TFAtan2, TFAtanh, TFCeil, TFClipByValue, TFCos, TFCosh, TFElu, TFErf, TFExp, TFExpm1, TFFloor, TFIsFinite, TFIsInf, TFIsNaN, TFLeakyRelu, TFLog, TFLog1p, TFLogSigmoid, TFNeg, TFPrelu, TFReciprocal, TFRelu, TFRelu6, TFRound, TFRsqrt, TFSelu, TFSigmoid, TFSign, TFSin, TFSinh, TFSoftplus, TFSqrt, TFSquare, TFStep, TFTan, TFTanh} from "./operator/basicMath";
 import {TFBatchNorm, TFLocalResponseNormalization, TFLogSoftmax, TFMoments, TFSoftmax, TFSparseToDense} from "./operator/normilization";
 import {TFMovingAverage} from "./operator/movingAverage";
@@ -69,12 +109,12 @@ export const NodeStore: any = {
 	"Reduce Sum": TFSum,
 	"Constant": TFConstant,
 	"Fill": TFFill,
-	"Linespace": TFLinespace,
+	"Linspace": TFLinspace,
 	"Ones": TFOnes,
 	"Variable": TFVariable,
 	"Zeros": TFZeros,
 	"Buffer": TFBuffer,
-	// "Clone": TFClone,
+	"Identity": TFIdentity,
 	"Complex": TFComplex,
 	"Diag": TFDiag,
 	"Eye": TFEye,
