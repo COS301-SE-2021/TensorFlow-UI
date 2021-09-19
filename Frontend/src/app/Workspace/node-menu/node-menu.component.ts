@@ -12,11 +12,9 @@ import {nodeDebugInfo} from "@angular/compiler-cli/src/ngtsc/util/src/typescript
 })
 export class NodeMenuComponent implements OnInit, AfterContentInit {
 
-  @Input() store;
   @Input() navbar;
   @Input() nodeInput;
   constructor() { }
-
 
   ngOnInit(): void {
   }
@@ -29,21 +27,8 @@ export class NodeMenuComponent implements OnInit, AfterContentInit {
   }
 
   deleteNode(){
-    let nodes = this.navbar.TFNodeList;
-    let that = this;
-    let tempNode;
-
-    //console.log(this.navbar.TFNodeList)
-    nodes.forEach(function(element){
-      if(element.id == that.nodeInput.id) {
-        console.log(element);
-        that.store.dispatch(new RemoveTFNode(element))
-        tempNode = element;
-      }
-    });
-    this.navbar.graph.remove(this.nodeInput);
-    let i = this.navbar.TFNodeList.findIndex(element => tempNode.id == element.id)
-    this.navbar.TFNodeList.splice(i,1);
+    this.navbar.deleteNodeCommand.setNode(this.nodeInput);
+    this.navbar.executeCommand(this.navbar.deleteNodeCommand);
   }
 
   closeNodeView(){
