@@ -31,7 +31,6 @@ export class TutorialServiceService {
     store : Store,
     private dialog: MatDialog) {
     this.readyForNext = true;
-    this.currentStep = 1;
   }
 
 
@@ -44,7 +43,8 @@ export class TutorialServiceService {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.readyForNext = true;
-      this.currentStep ++;
+      this.currentStep = this.currentStep + 1;
+      this.nextStep();
     });
   }
 
@@ -111,8 +111,6 @@ export class TutorialServiceService {
 
     var addNode : AddNodeCommand = new AddNodeCommand(this.store);
     addNode.execute();
-
-    this.nextStep()
   }
 
   step3() {
@@ -120,8 +118,6 @@ export class TutorialServiceService {
       "We'll specifically need to create a training and a testing set - the two will exist as" +
       " two separate arrays."
     );
-
-    this.nextStep()
   }
 
   step4() {
@@ -141,8 +137,6 @@ export class TutorialServiceService {
 
     var addNode : AddNodeCommand = new AddNodeCommand(this.store);
     addNode.execute();
-
-    this.nextStep()
   }
 
   step5() {
@@ -151,13 +145,10 @@ export class TutorialServiceService {
       " (i.e. improvement) functions." +
       "These can be set in the node itself."
     );
-
-    this.nextStep()
   }
 
   step6() {
     this.openDialog("Model training is done automatically when you run the code.");
-    this.nextStep()
   }
 
   step7() {
@@ -175,6 +166,7 @@ export class TutorialServiceService {
     this.lines = lines;
     this.store = store;
     this.url = url;
+    this.currentStep = 1;
     this.nextStep();
   }
 }
