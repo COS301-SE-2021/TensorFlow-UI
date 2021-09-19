@@ -18,7 +18,6 @@ import {Command} from "../../../Command/Command";
 import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
 import {GenerateCodeCommand} from "../../../Command/GenerateCodeCommand";
 import {ProjectDetailsCommand} from "../../../Command/ProjectDetailsCommand";
-import projectList from "../../Workspace/import/import.component";
 import {KeyValueChanges, KeyValueDiffer, KeyValueDiffers} from "@angular/core";
 import { TFRootNode } from "../../tf/rootNode/rootNode";
 import {RunCodeCommand} from "../../../Command/RunCodeCommand";
@@ -26,9 +25,9 @@ import {CommandHistory} from "../../../Command/CommandHistory";
 import {MatTabGroup} from "@angular/material/tabs";
 import {userVariableNames} from "../../tf/userVariableNames";
 import {AddNodeCommand} from "../../../Command/AddNodeCommand";
+import {GitAPI} from "../../git-api";
 import {ReloadFromStoreCommand} from "../../../Command/ReloadFromStoreCommand";
 import {DeleteNodeCommand} from "../../../Command/DeleteNodeCommand";
-
 
 export interface SettingsPageData {
 	projectName: string,
@@ -44,7 +43,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	public linesDiffer: KeyValueDiffer<string, any>;
 	public nodeDiffers: KeyValueDiffer<string, any>;
-
+    public gitAPI: GitAPI;
 	public TFNodeList: TFNode[] = [];
 	public rootNode: TFNode = new TFNode();
 	public linesList: lineConnectors[] = [];
@@ -81,6 +80,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}
 
 	ngOnInit(): void {
+        this.gitAPI = GitAPI.getInstance(this.store);
 
 		// this.TFNodeList = this.store.selectSnapshot(WorkspaceState).TFNode;
 		this.liteNodes = [];
@@ -242,13 +242,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		}
 		return node;
 	}
-
-	popList() {
-		let el = document.getElementById("popCommunityList") as HTMLElement;
-		if(el){
-			el.click();
-		}
-	}
+}
 
 	updateNodePositionInLocalStorage(isRootNode: boolean) {
 
@@ -393,4 +387,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			this.selectedNode = null;
 		}
 	}
+
+    poplist() {
+	    this.gitAPI.GetList();
+    }
 }
