@@ -54,8 +54,8 @@ export class TFVariable extends TFTensor {
 
 	UIStructure(node: LGraphNode) {
 		const that = this;
-		node.addWidget("text","Value",0,function (value){
-			that.pushToArray(that.widgets, {type: "Value", value: value});
+		node.addWidget("text","value",0,function (value){
+			that.pushToArray(that.widgets, {type: "value", value: value});
 		});
 		node.addWidget("toggle","trainable(optional)",false,function (value){
 			that.pushToArray(that.widgets, {type: "trainable", value: value});

@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFAddN extends TFOperator {
 	constructor(
@@ -32,8 +33,9 @@ export class TFAddN extends TFOperator {
 		return `${this.name} = tf.math.add_n(${param})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x","tf.Tensor");
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("tf.Tensor","tf.Tensor");
 	}
 }

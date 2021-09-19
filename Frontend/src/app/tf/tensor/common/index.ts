@@ -8,7 +8,7 @@ export * from './zeros'
 export const commonTensorsArray = [
     "Constant",
     "Fill",
-    "Linespace",
+    "Linspace",
     "Ones",
     "Variable",
     "Zeros"

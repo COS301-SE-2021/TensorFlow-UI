@@ -3,6 +3,7 @@ import {LGraphNode} from "litegraph.js";
 import {WorkspaceState} from "../../../../Storage/workspace";
 import {Store, Select} from "@ngxs/store";
 import {OnInit} from "@angular/core";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFAdd extends TFOperator{
 	constructor(
@@ -13,17 +14,20 @@ export class TFAdd extends TFOperator{
 	code(storageLinks,storageNodes) {
 
 		let res = this.genericArithmeticCode(storageLinks,storageNodes,"Add");
-		if(res=="")
+		if(res=="") {
+			
 			return;
+		}
 
 		return `${this.name + "= tf.math.add("+
 			res
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("a", "tf.Tensor");
 		node.addInput("b", "tf.Tensor");
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("a+b", "tf.Tensor");
 	}
 }
