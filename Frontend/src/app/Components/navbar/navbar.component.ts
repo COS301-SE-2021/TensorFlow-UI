@@ -169,7 +169,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 
 	runTutorial() {
 		const tutorialService: TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
-		tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "localhost:5000");
+		tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "http://172.17.0.2:5000/");
 	}
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {

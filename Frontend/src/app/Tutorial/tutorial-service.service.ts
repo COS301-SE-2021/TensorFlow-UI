@@ -33,6 +33,7 @@ export class TutorialServiceService {
     navbar : NavbarComponent,
     store : Store,
     private dialog: MatDialog) {
+    this.store = store;
     this.addCommand = new AddNodeCommand(this.store, navbar);
     this.restoreCommand = new ReloadFromStoreCommand(this.store, navbar);
     this.navbar = navbar;
@@ -108,29 +109,34 @@ export class TutorialServiceService {
     this.addCommand.execute();
     let tensorFTrain = this.addCommand.getNode();
     tensorFTrain.data = featuresTrain;
-    console.log("1. Tensor created: " + tensorFTrain);
+    tensorFTrain.type = "int32";
+    tensorFTrain.position = [200, 200];
+    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "int32", this.navbar, this.addCommand.getLiteGraphNode());
+    console.log("1. Tensor created: " + tensorFTrain.data);
 
     this.addCommand.setComponent("TensorOneD");
     this.addCommand.execute();
     let tensorFTest = this.addCommand.getNode();
     tensorFTest.data = featuresTest;
-    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "number[]");
-    console.log("2. Tensor created: " + tensorFTest);
+    tensorFTrain.type = "int32";
+    tensorFTest.position = [200, 400];
+    console.log("2. Tensor created: " + tensorFTest.data);
 
     this.addCommand.setComponent("TensorOneD");
     this.addCommand.execute();
     let tensorLTrain = this.addCommand.getNode();
     tensorLTrain.data = labelsTrain;
-    console.log("3. Tensor created: " + tensorLTrain);
+    tensorFTrain.type = "int32";
+    tensorLTrain.position = [400, 200];
+    console.log("3. Tensor created: " + tensorLTrain.data);
 
     this.addCommand.setComponent("TensorOneD");
     this.addCommand.execute();
     let tensorLTest = this.addCommand.getNode();
     tensorLTest.data = labelsTest;
-    console.log("4. Tensor created: " + tensorLTest);
-
-    this.restoreCommand.execute();
-    console.log("Restored!")
+    tensorFTrain.type = "int32";
+    tensorLTrain.position = [400, 400]
+    console.log("4. Tensor created: " + tensorLTest.data);
   }
 
   step3() {
@@ -152,6 +158,7 @@ export class TutorialServiceService {
     this.addCommand.setComponent("dense");
     this.addCommand.execute();
     let denseLayer = this.addCommand.getNode();
+    denseLayer.position = [600, 550];
 
     // TODO: create model node using command
     var tfModel : TFModel= new TFModel("basicModel", kerasLayer);
@@ -159,9 +166,7 @@ export class TutorialServiceService {
     this.addCommand.setComponent("Model");
     this.addCommand.execute();
     let model = this.addCommand.getNode();
-
-    this.restoreCommand.execute();
-    console.log("Restored!")
+    model.position = [50, 500];
   }
 
   step5() {
@@ -181,8 +186,6 @@ export class TutorialServiceService {
     const codegen : CodeGeneratorService = new CodeGeneratorService(this.store);
     codegen.generateFile(this.head, this.nodes, this.lines);
     codegen.runFile(this.head, this.nodes, this.lines, this.url);
-
-
   }
 
   runTutorial(store : Store, head : TFNode, nodes : TFNode[], lines : lineConnectors[], url : string) {

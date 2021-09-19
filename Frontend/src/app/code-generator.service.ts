@@ -48,49 +48,59 @@ export class CodeGeneratorService {
       return code;
     }
 
-    runFile (head : TFNode, tfNodes: TFNode[], links: lineConnectors[], url : string) : string {
+  runFile(head: TFNode, tfNodes: TFNode[], links: lineConnectors[], url: string): string {
+    console.log("Runfile called!");
+    if (links != null && links.length > 0) { //TODO: Throw Error
+      var graph: TFGraph = new TFGraph(head);
 
-        if(links != null && links.length>0){ //TODO: Throw Error
-            var graph : TFGraph = new TFGraph(head);
+      //If headLink does not have an input throw an error (if - .link == null)
+      //Thus if rootInputLinkID == null throw error //TODO: Throw Error
 
-            //If headLink does not have an input throw an error (if - .link == null)
-            //Thus if rootInputLinkID == null throw error //TODO: Throw Error
+      let rootInputLinkID = head.inputs[0].link;
+      let link = links.find(element => element.id == rootInputLinkID);
 
-            let rootInputLinkID = head.inputs[0].link;
-            let link = links.find(element => element.id == rootInputLinkID);
+      //Root will always only be allowed one input
+      let rootChildID = link?.origin_id;
+      let rootChild = tfNodes.find(element => element.id == rootChildID);
+      // while(userVariableNames.length>0){
+      //     userVariableNames.pop();
+      // }
 
-            //Root will always only be allowed one input
-            let rootChildID = link?.origin_id;
-            let rootChild = tfNodes.find(element => element.id == rootChildID);
-            // while(userVariableNames.length>0){
-            //     userVariableNames.pop();
-            // }
+      var file: File | undefined = undefined;
+      if (rootChild) {
+        tfNodes.forEach(function (value) {
+          value.visitCount = 0
+        });
+        let generatedCode = graph.generateCode(rootChild, links, tfNodes);
+        console.log(generatedCode)
+        file = new File([generatedCode], "output.py");
+      }
+      var savedResponse: string = "";
 
-            if(rootChild) {
-                tfNodes.forEach(function (value){value.visitCount = 0});
-                let generatedCode = graph.generateCode(rootChild,links,tfNodes);
-                console.log(generatedCode)
-                let file: File = new File([generatedCode], "output.py");
-            }
-            var savedResponse : string = "";
-            // var data = file;
-            // var xhr = new XMLHttpRequest();
-            // xhr.withCredentials = true;
-            // xhr.addEventListener("readystatechange", function() {
-            //   if(this.readyState === 4) {
-            //     console.log(this.responseText);
-            //     savedResponse = this.responseText;
-            //   }
-            // });
-            // xhr.open("POST", url);
-            // xhr.setRequestHeader("Content-Type", "application/octet-stream");
-            // xhr.send(data);
-            return savedResponse;
+
+
+      var data = new FormData();
+      // data.append("file", file);
+
+      // data.append("file", file, "input");
+
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          console.log(this.responseText);
         }
-        else{
-            //CANNOT GENERATE CODE - no connections
-            return "";
-        }
+      });
+
+      xhr.open("POST", "localhost:5000/upload");
+
+      xhr.send(data);
+      return savedResponse;
+    } else {
+      //CANNOT GENERATE CODE - no connections
+      return "";
+    }
   }
 
     // createAndRun(head : TFNode, url : string) : string {
