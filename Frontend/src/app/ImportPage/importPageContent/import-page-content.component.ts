@@ -115,8 +115,6 @@ export class ImportPageContentComponent implements OnInit {
     }
 
     projectImport() {
-        if (previewData[0] == this.gitAPI.previewData){
-            this.gitAPI.dataToStore();
-        }
+      this.gitAPI.dataToStore();
     }
 }
