@@ -3,10 +3,12 @@ import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
 import {AddTFNode} from "../Storage/workspace";
+import {DeleteNodeCommand} from "./DeleteNodeCommand";
 
 export class AddNodeCommand extends Command{
   private component: string;
   private lastNodeCreated: TFNode;
+  private c = new DeleteNodeCommand(this.store,this.navbar);
 
   constructor(store: Store, private navbar: NavbarComponent) {
     super(store);
@@ -27,6 +29,7 @@ export class AddNodeCommand extends Command{
     this.store.dispatch(new AddTFNode(tfnode));
     this.navbar.TFNodeList.push(tfnode);
     this.lastNodeCreated = tfnode;
+    this.c.setNode(liteGraphNode);
     return true;
   }
 
@@ -39,5 +42,6 @@ export class AddNodeCommand extends Command{
   }
 
   undo() {
+    this.c.execute();
   }
 }
