@@ -16,6 +16,7 @@ export abstract class TFTensor extends TFNode {
     checkTensorInputType(value: string){
       let numberToCheck: string = value;
       let reg = new RegExp('^(.|\]|\[|[a-zA-Z0-9])*$') //alphanumeric check with [ ] .
+      let alphanumcheck = new RegExp('^([a-zA-Z0-9])*$')
 
       if(!isNaN(Number(numberToCheck)) || reg.test(value)) {
         //String is a number and no further checks
@@ -24,6 +25,10 @@ export abstract class TFTensor extends TFNode {
         //String is not a number, ensure that it has the correct format.
         let inputArrayCheck: string[] = value.split(',');
         inputArrayCheck.forEach(function(element) {
+            if(!alphanumcheck.test(element)){
+              alert("value not inserted between commas, set to 0");
+              element = "0";
+            }
             if (!reg.test(element)) {
                 alert("Invalid Input, please input as a comma separated list")
                 return false;
