@@ -34,9 +34,10 @@
 .widgetProperty{
     position: relative;
     width: 18.5rem;
-    height: 11%;
+    height: 5%;
     top:10%;
     left: -1.17rem;
+    margin-bottom: 15%;
     /*border: 1px solid black;*/
 }
 

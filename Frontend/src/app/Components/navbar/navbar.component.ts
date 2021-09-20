@@ -183,6 +183,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
+			node.onSelected = function (){
+				that.firstClickOnNode(node);
+			}
+			node.onDeselected =function (){
+				that.nodeDoubleClicked(node,false,true);
+			}
 
 			tempNode.UIStructure(node,this);
 			this.graph.add(node);
