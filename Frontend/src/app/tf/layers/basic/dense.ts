@@ -9,7 +9,7 @@ export class TFDense extends TFLayers {
 
 	code(storageLinks,storageNodes) {
 		return `${this.name} = tf.layers.dense(
-			${this.widgets.find(element => element.type == "constant")?.value || "0"},
+			${this.widgets.find(element => element.type == "constant")?.value || "0"}, activation="relu", name = ${this.name}
 	})`;
 	}
 

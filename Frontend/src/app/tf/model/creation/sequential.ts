@@ -14,18 +14,18 @@ export class TFSequential extends TFOperator {
 		super(name);
 	}
 
-	code() {
-		// return `${this.name} = tf.math.add(
-		// ${this.childOne?.name || "some value"},
-		// ${this.childTwo?.name || "some value"
-		// })`;
+    code() {
+        // return `${this.name} = tf.math.add(
+        // ${this.childOne?.name || "some value"},
+        // ${this.childTwo?.name || "some value"
+        // })`;
 
-    return `
-    ${this.name} = tf.keras.Sequential(${this.layers?.name})\n
-    ${this.name}.summary()\n
-    ${this.name}.compile()\n
-    ${this.name}.fit()`
-	}
+        return `
+        ${this.name} = tf.keras.Sequential(${this.layers?.name})\n
+        ${this.name}.summary()\n
+        ${this.name}.compile()\n
+        ${this.name}.fit()`
+    }
 
 	UIStructure(node: LGraphNode) {
 		// node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
