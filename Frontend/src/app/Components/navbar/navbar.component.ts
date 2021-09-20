@@ -173,6 +173,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		if (!loadFromMemory) {
 			node.title = component;
 			node.pos = [200, 200];
+
 			const that = this;
 			node.onMouseDown = function () {
 				const that2 = that;
@@ -190,7 +191,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 				that.nodeDoubleClicked(node,false,true);
 			}
 
-			tempNode.UIStructure(node,this);
+			// tempNode.UIStructure(node,this);
 			this.graph.add(node);
 			this.graph.start();
 		} else {
@@ -283,6 +284,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	updateNodeWidgetsDataInStore(node: TFNode){
 		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
+
 		nodeToUpdate.widgets = node.widgets;
 		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
 	}
