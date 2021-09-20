@@ -44,6 +44,14 @@ export class TutorialServiceService {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = text;
     const dialogRef = this.dialog.open(TutorialModalMaterialComponent, dialogConfig);
+      let div = document.getElementsByClassName("mat-dialog-container").item(0) as HTMLElement;
+      if(div != null) {
+          div.style.position = "absolute";
+          div.style.bottom = "5px";
+          div.style.left = "5px";
+          div.style.width = "auto";
+          div.style.height = "auto";
+      }
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.currentStep = this.currentStep + 1;
@@ -86,6 +94,12 @@ export class TutorialServiceService {
       "This tutorial is designed to walk you through the creation and training of a basic prediction model, predicting" +
       " the effect different marketing budgets will spend on the number of subscribers gained."
     );
+    setTimeout(function(){
+        let el = document.getElementById("createNode") as HTMLElement;
+        if(el != null){
+            //el.click();
+        }
+    },3000)
   }
 
   step2() {
@@ -113,7 +127,9 @@ export class TutorialServiceService {
       featuresTest.push(80,30,20,10);
       labelsTest.push(200, 100, 80, 60);
 
-      this.addCommand.setComponent("TensorOneD");
+
+
+      this.addCommand.setComponent("Constant");
       this.addCommand.execute();
       let tensorFTrain = this.addCommand.getNode();
       tensorFTrain.data = featuresTrain;
@@ -123,6 +139,12 @@ export class TutorialServiceService {
       tensorFTrain.UIStructure(this.addCommand.getLiteGraphNode(), this.navbar);
       console.log("1. Tensor created: " + tensorFTrain.data);
 
+      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "dtype?", value: "int32"})
+      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() })
+      let c = this.navbar.graph.getNodeById(tensorFTrain.id)
+      tensorFTrain.changeWidgetValue("int32","dtype?",this.navbar,c)
+
+      
       this.addCommand.setComponent("TensorOneD");
       this.addCommand.execute();
       let tensorFTest = this.addCommand.getNode();

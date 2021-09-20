@@ -15,8 +15,8 @@ export class TutorialModalMaterialComponent implements OnInit {
   tutorialText : string;
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) tutorialData) {
-    console.log(tutorialData + " coming from dialog");
     this.tutorialText = tutorialData;
+    document.getElementsByClassName("cdk-overlay-backdrop").item(0)?.remove();
   }
 
   ngOnInit(): void {
