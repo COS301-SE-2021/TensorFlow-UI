@@ -2,7 +2,6 @@ import {Inject, Injectable} from '@angular/core';
 import {TFModel} from "../tf/model/creation/model";
 import {TFTensor} from "../tf/tensor/tensor";
 import {TFNode} from "../tf";
-import {TFKerasLayerDense} from "../tf/layer/layer_dense";
 import {AddNodeCommand} from "../../Command/AddNodeCommand";
 import {Store} from "@ngxs/store";
 import {TFDense} from "../tf/layers/basic/dense";
@@ -326,7 +325,7 @@ export class TutorialServiceService {
 
   step7() {
     this.openDialog("And now for some predictions - the useful part of the model we've built.");
-    const codegen : CodeGeneratorService = new CodeGeneratorService(this.store);
+    const codegen : CodeGeneratorService = new CodeGeneratorService(this.store, this.dialog);
     codegen.generateFile(this.head, this.nodes, this.lines);
     codegen.runFile(this.head, this.nodes, this.lines, this.url);
   }
