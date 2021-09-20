@@ -48,7 +48,7 @@ export class TutorialServiceService {
       if(div != null) {
           div.style.position = "absolute";
           div.style.bottom = "5px";
-          div.style.left = "5px";
+          div.style.left = "75px";
           div.style.width = "auto";
           div.style.height = "auto";
       }
@@ -94,12 +94,6 @@ export class TutorialServiceService {
       "This tutorial is designed to walk you through the creation and training of a basic prediction model, predicting" +
       " the effect different marketing budgets will spend on the number of subscribers gained."
     );
-    setTimeout(function(){
-        let el = document.getElementById("createNode") as HTMLElement;
-        if(el != null){
-            //el.click();
-        }
-    },3000)
   }
 
   step2() {
@@ -113,7 +107,7 @@ export class TutorialServiceService {
 
   step3() {
     this.openDialog(
-      "We'll specifically need to create a training and a testing set - the two will exist as" +
+      "We will specifically need to create a training and a testing set - the two will exist as" +
       " two separate arrays."
     );
       // arrays made for temporary use and reference:
@@ -127,9 +121,14 @@ export class TutorialServiceService {
       featuresTest.push(80,30,20,10);
       labelsTest.push(200, 100, 80, 60);
 
-
-
-      this.addCommand.setComponent("Constant");
+      setTimeout(function(){
+          let el = document.getElementById("createNode") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },1000)
+      setInterval(()=>{},3000)
+      this.addCommand.setComponent("TensorOneD");
       this.addCommand.execute();
       let tensorFTrain = this.addCommand.getNode();
       tensorFTrain.data = featuresTrain;
@@ -142,7 +141,8 @@ export class TutorialServiceService {
       if (c != undefined) tensorFTrain.UIStructure(c, this.navbar);
       console.log("1. Tensor created: " + tensorFTrain.data);
 
-      this.addCommand.setComponent("Constant");
+
+      this.addCommand.setComponent("TensorOneD");
       this.addCommand.execute();
       let tensorFTest = this.addCommand.getNode();
       tensorFTest.data = featuresTest;
