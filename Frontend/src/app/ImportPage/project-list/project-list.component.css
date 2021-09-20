@@ -1,0 +1,14 @@
+.projectsListCard1{
+    border: 2px solid #ff8C00;
+    width: 80%;
+    left: 10%;
+    margin: 4px 4px 4px 4px;
+}
+
+.projectsListCard1 button{
+    position: absolute;
+    float: right;
+    right: 2%;
+    top: 30%;
+    background-color: #ff8C00;
+}

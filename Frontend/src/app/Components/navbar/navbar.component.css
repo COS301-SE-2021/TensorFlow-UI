@@ -1,39 +1,42 @@
 .navigator{
   position: relative;
   height: 100%;
+  /*border: 2px solid salmon;*/
+}
+mat-toolbar{
+  padding-left: 2px;
 }
 
 .example-spacer {
   flex: 1 1 auto;
 }
 
-.side-menu {
-  position: absolute;
-  top: -30px;
-  bottom: -30px;
-  left: 0;
-  right: -30px;
-}
+/*.side-menu {*/
+/*  position: absolute;*/
+/*  top: -30px;*/
+/*  bottom: -30px;*/
+/*  left: 0;*/
+/*  right: -30px;*/
+/*}*/
 
 .toolbarButton{
-  border: 2px solid black;
-  margin: 8px 8px 8px 0;
 }
 
-.container {
-  height: 90%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.workspaceContainer {
+  height: 92%;
+
 }
-.sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+
+#sidenav-Content-Drawer{
+  background-color: #797979;
 }
-.sidenav {
-  user-select: none;
-  background-color: #879b9c;
-}
+/*.sidenav-content {*/
+/*  display: flex;*/
+/*  height: 100%;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*}*/
+
 .full-width {
   width: 100%;
 }
@@ -97,31 +100,23 @@
 .WorkspaceToolbar{
   position: relative;
   border: 2px solid black;
-  width: 82.5%;
+  width: 100%;
   height: 95%;
-  left: 4.8rem;
 }
 
 #clearCanvas{
-  float: right;
 }
 
 #generateCodeButton{
-  float: right;
-  width: 15%;
 }
 
 #createNode{
-  width: 13.5%;
-  left: 8%;
 }
 
 #undoButton{
-  left: 22%;
 }
 
 #redoButton{
-  left: 21.5%;
 }
 
 .navigationButton{
@@ -129,12 +124,204 @@
   width: 100%;
 }
 
-#settingsButton{
-  position: relative;
-  background: #ff8C00;
-  border: none;
-  left: 1%;
-  margin: 3px;
-  top:15%;
+span{
   cursor: pointer;
+  border-bottom: 2px solid black;
+  padding: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  text-align: center;
+  width: 20%;
+}
+
+span:hover{
+  border-bottom: 2px solid aliceblue;
+  font-weight: bolder;
+  color: aliceblue;
+  background-color: chocolate;
+}
+
+#settingsButton{
+  background: #ff8C00;
+  border:none;
+  cursor: pointer;
+  width: 5%;
+}
+
+mat-sidenav{
+  background: radial-gradient(#58576c,#494860,#58576c);
+  width: 70px;
+  overflow: hidden;
+  /*border: 2px solid red;*/
+  height: 100%;
+}
+
+.app-name{
+  margin-left:20px;
+}
+
+.homeIcon{
+
+}
+
+mat-nav-list{
+  position: relative;
+  height: 98%;
+  width: 55%;
+  left: 20%;
+  /*border: 1px solid yellow;*/
+  overflow: hidden;
+}
+
+.sidenav-icons{
+  position: relative;
+  width: 20%;
+  border: 2px solid blue;
+}
+
+.sidenav-icons-Div{
+  position: absolute;
+  /*border: 2px solid palegreen;*/
+  border-bottom: 2px solid white;
+  width: 2.2rem;
+  height: 85%;
+  left: 0;
+}
+
+.sidenav-icons-Div button{
+  width: 100%;
+  background-color: transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+.sidenav-buttons mat-icon{
+  position: relative;
+  font-size: 2rem;
+  left: -30%;
+}
+
+/*.sidenav-icons-Div mat-icon{*/
+/*  position: relative;*/
+/*  !*border: 2px solid white;*!*/
+/*  font-size: 2.3rem;*/
+/*  top: 11%;*/
+/*  left: -12.5%;*/
+/*}*/
+
+mat-list-item{
+  top:2%;
+  margin-bottom: 20%;
+}
+
+.sidenav-buttons .settingsIcon{
+  font-size: 1.75rem;
+}
+
+.sidenav-buttons .documentIcon{
+  font-size: 1.75rem;
+}
+
+.sidenav-Content-Container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #555;
+}
+
+mat-drawer{
+  width: 300px;
+}
+
+.importExportProject{
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.importData{
+  border: 2px solid black;
+  width: 98%;
+  left:0;
+
+}
+
+.importData h5{
+  text-align: center;
+}
+
+#importExportProjectHeader, #importDataHeader, #importDataHeader2 {
+  /*border: 2px solid coral;*/
+  border-bottom: 2px solid #ff8C00;
+  margin-bottom: 10px;
+}
+
+#importFromCommunity{
+  text-align: center;
+  display: none;
+}
+
+mat-tab-group{
+  height: 100%;
+}
+
+mat-tab{
+  height: 100%;
+}
+
+mat-tab-group /deep/ .mat-tab-body-wrapper {
+  background-color: #5c5c5c;
+  height: 100%;
+}
+
+mat-tab-group /deep/ .mat-tab-body-content{
+  overflow: hidden;
+}
+
+#previewCanvas, #Canvas{
+}
+
+#importPageDiv{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+}
+
+.nodeMenu{
+  position: absolute;
+  top: 10%;
+  right: 2%;
+  width: 21%;
+  height: 88%;
+  border: 2px solid black;
+  border-radius: 2.5%;
+  z-index: 5;
+  background-color: #797979;
+}
+
+#nodeMenuHeader{
+  position: absolute;
+  width: 100%;
+  height: 7.5%;
+  left: 0;
+  border-bottom: 1px solid black;
+}
+
+#nodeMenuHeader button{
+  position: absolute;
+  right: 4%;
+  height: 70%;
+}
+
+#deleteNodeButton {
+  position: absolute;
+  bottom: 1.5%;
+  left: 33%;
+}
+
+.nodeMenu mat-card{
+  position: relative;
+  background-color: #383737;
+  top: 15%;
 }

@@ -3,7 +3,6 @@
 }
 
 button{
-  display: table-cell;
-  width: 250px;
-  margin: 8px 8px 8px 0;
+  width: 97%;
+  margin: 2px 2px 2px 2px;
 }

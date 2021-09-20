@@ -1,0 +1,12 @@
+/* import only the necessary Bootstrap files */
+@import "bootstrap/scss/functions"; 
+@import "bootstrap/scss/variables";
+/* -------begin customization-------- */
+/* change the primary theme color, and add a new theme color */
+$theme-colors: (
+  primary: orange;
+  purple: $purple; // $purple is defined in _variables.scss
+);
+/* -------end customization-------- */
+/* finally, import Bootstrap to set the changes! */
+@import "bootstrap";
