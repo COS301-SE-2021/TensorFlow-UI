@@ -27,6 +27,10 @@ export class TFSequential extends TFOperator {
         ${this.name}.fit()`
     }
 
+    setLayer(layers) {
+        this.layers = layers;
+    }
+
 	UIStructure(node: LGraphNode) {
 		// node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		// node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array

@@ -12,6 +12,7 @@ import {TutorialModalMaterialComponent} from "./tutorial-modal-material/tutorial
 import {MatDialog, MatDialogRef, MatDialogModule, MatDialogConfig} from "@angular/material/dialog";
 import {NavbarComponent} from "../Components/navbar/navbar.component";
 import {ReloadFromStoreCommand} from "../../Command/ReloadFromStoreCommand";
+import {TFSequential} from "../tf/model/creation";
 
 @Injectable({
   providedIn: 'root'
@@ -191,7 +192,6 @@ export class TutorialServiceService {
       "We're going to use the simplest model we can, for our simple use-case: " +
       "a Dense network, with only one layer and only one neuron. More complex problems will require more layers and neurons."
     );
-    //TODO: create layer node using command
     var kerasLayer = new TFDense(1, "");
 
     this.addCommand.setComponent("dense");
@@ -199,12 +199,12 @@ export class TutorialServiceService {
     let denseLayer = this.addCommand.getNode();
     denseLayer.position = [600, 550];
 
-    // TODO: create model node using command
     var tfModel : TFModel= new TFModel("basicModel", kerasLayer);
 
     this.addCommand.setComponent("Model");
     this.addCommand.execute();
-    let model = this.addCommand.getNode();
+    let model = <TFSequential>this.addCommand.getNode();
+    model.setLayer(denseLayer);
     model.position = [50, 500];
   }
 
