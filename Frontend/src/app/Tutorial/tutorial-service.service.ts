@@ -135,39 +135,54 @@ export class TutorialServiceService {
       tensorFTrain.data = featuresTrain;
       tensorFTrain.type = "int32";
       tensorFTrain.position = [200, 200];
-      // tensorFTrain.changeWidgetValue(featuresTrain.toString(), "int32", this.navbar, this.addCommand.getLiteGraphNode());
-      tensorFTrain.UIStructure(this.addCommand.getLiteGraphNode(), this.navbar);
+      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "dtype?", value: "int32"});
+      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "name", value: "feature-training"});
+      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() });
+      let c = this.navbar.graph.getNodeById(tensorFTrain.id);
+      if (c != undefined) tensorFTrain.UIStructure(c, this.navbar);
       console.log("1. Tensor created: " + tensorFTrain.data);
 
-      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "dtype?", value: "int32"})
-      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() })
-      let c = this.navbar.graph.getNodeById(tensorFTrain.id)
-      tensorFTrain.changeWidgetValue("int32","dtype?",this.navbar,c)
-
-      
-      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.setComponent("Constant");
       this.addCommand.execute();
       let tensorFTest = this.addCommand.getNode();
       tensorFTest.data = featuresTest;
-      tensorFTrain.type = "int32";
+      tensorFTest.type = "int32";
       tensorFTest.position = [200, 400];
+      tensorFTest.pushToArray(tensorFTest.widgets, {type: "dtype?", value: "int32"});
+      tensorFTest.pushToArray(tensorFTest.widgets, {type: "name", value: "feature-testing"});
+      tensorFTest.pushToArray(tensorFTest.widgets, {type: "value", value: featuresTest.toString() });
+      let d = this.navbar.graph.getNodeById(tensorFTest.id);
+      if (d != undefined) tensorFTest.UIStructure(d, this.navbar);
       console.log("2. Tensor created: " + tensorFTest.data);
 
-      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.setComponent("Constant");
       this.addCommand.execute();
       let tensorLTrain = this.addCommand.getNode();
       tensorLTrain.data = labelsTrain;
-      tensorFTrain.type = "int32";
+      tensorLTrain.type = "int32";
       tensorLTrain.position = [400, 200];
+      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "dtype?", value: "int32"});
+      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "position", value: "{400, 200}"});
+      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "name", value: "label-training"});
+      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "value", value: labelsTrain.toString() });
+      let e = this.navbar.graph.getNodeById(tensorLTrain.id);
+      if (e != undefined) tensorLTrain.UIStructure(e, this.navbar);
       console.log("3. Tensor created: " + tensorLTrain.data);
 
-      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.setComponent("Constant");
       this.addCommand.execute();
       let tensorLTest = this.addCommand.getNode();
       tensorLTest.data = labelsTest;
-      tensorFTrain.type = "int32";
-      tensorLTrain.position = [400, 400]
+      tensorLTest.type = "int32";
+      tensorLTest.position = [400, 400]
+      tensorLTest.pushToArray(tensorLTest.widgets, {type: "dtype?", value: "int32"});
+      tensorLTest.pushToArray(tensorLTest.widgets, {type: "name", value: "label-testing"});
+      tensorLTest.pushToArray(tensorLTest.widgets, {type: "value", value: labelsTest.toString() });
+      let f = this.navbar.graph.getNodeById(tensorLTest.id);
+      if (f != undefined) tensorLTest.UIStructure(f, this.navbar);
       console.log("4. Tensor created: " + tensorLTest.data);
+
+
   }
 
   step4() {
