@@ -31,21 +31,21 @@ export class GitAPI {
       "content": Data
     });
 
-    fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/" + Name +".json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
+    fetch("https://api.github.com/repos/Try-Catch-Degree/TFUI-Community-Library/contents/" + Name +".json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
       .then(response => {response.text(); if(!response.ok){alert("Export Failed. \nError logged on console.");} else {alert("Export Successful.");this.updateIndex(user, Name, description)}})
       // .then(result => {alert("Export Successful.")})
       .catch(error => console.log('error', error));
   }
 
   public GetList(){
-    fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents", {method: 'GET', redirect: 'follow'})
+    fetch("https://api.github.com/repos/Try-Catch-Degree/TFUI-Community-Library/contents", {method: 'GET', redirect: 'follow'})
       .then(response => response.text())
       .then(result => this.poplst(result))
       .catch(error => console.log('error', error));
   }
 
   public importData(ID, nav){
-    fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/" + ID, {method: 'GET', redirect: 'follow'})
+    fetch("https://raw.githubusercontent.com/Try-Catch-Degree/TFUI-Community-Library/main/" + ID, {method: 'GET', redirect: 'follow'})
       .then(response => response.text())
       .then(result => {this.preview(result, nav)})
       .catch(error => console.log('error', error));
@@ -60,7 +60,7 @@ export class GitAPI {
   }
 
   public poplst(lst){
-      fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
+      fetch("https://raw.githubusercontent.com/Try-Catch-Degree/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
           .then(response => response.text())
           .then(result => {
               let obj = JSON.parse(result);
@@ -86,7 +86,7 @@ export class GitAPI {
                   projectList.pop();
               }
               for (let i = 0; i < l.length; i++) {
-                  if (l[i] !== "README.md"){
+                  if(l[i].pname !== "README.md" && l[i].pname!== "index.json"){
                       projectList.push(l[i]);
                   }
               }
@@ -98,7 +98,7 @@ export class GitAPI {
   }
 
   public updateIndex(user, Name, description){
-      fetch("https://raw.githubusercontent.com/W-Kruger/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
+      fetch("https://raw.githubusercontent.com/Try-Catch-Degree/TFUI-Community-Library/main/index.json", {method: 'GET', redirect: 'follow'})
           .then(response => response.text())
           .then(result => {
               let obj = JSON.parse(result);
@@ -119,7 +119,7 @@ export class GitAPI {
           .catch(error => console.log('error', error));
   }
   public commitUpdatedIndex(user, data){
-      fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/index.json?ref=main",{method: 'GET', redirect: 'follow'})
+      fetch("https://api.github.com/repos/Try-Catch-Degree/TFUI-Community-Library/contents/index.json?ref=main",{method: 'GET', redirect: 'follow'})
           .then(response => response.text())
           .then(result => {
               let res = JSON.parse(result);
@@ -129,13 +129,13 @@ export class GitAPI {
               var raw = JSON.stringify({
                   "message": "Index Update",
                   "committer": {
-                      "name": "W-Kruger",
-                      "email": "u18014934@tuks.co.za"
+                      "name": "Try-Catch-Degree",
+                      "email": "trycatchdegree@gmail.com"
                   },
                   "content": data,
                   "sha": res.sha
               });
-              fetch("https://api.github.com/repos/W-Kruger/TFUI-Community-Library/contents/index.json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
+              fetch("https://api.github.com/repos/Try-Catch-Degree/TFUI-Community-Library/contents/index.json", {method: 'PUT', headers: myHeaders,body: raw,redirect: 'follow'})
                   .then(response => {response.text();})
                   .catch(error => console.log('error', error));
           })
