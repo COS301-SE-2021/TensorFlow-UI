@@ -23,9 +23,9 @@
 
         <mat-menu #nodes="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="operatorNodes">Operator Nodes</button>
-            <button mat-menu-item [matMenuTriggerFor]="modelNodes">Model Nodes</button>
-            <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu">Tensor Nodes</button>
-            <button mat-menu-item [matMenuTriggerFor]="layersNodes">Layers Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="modelNodes" id="modelNodes">Model Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorNodesMenu" id="tensorNodes">Tensor Nodes</button>
+            <button mat-menu-item [matMenuTriggerFor]="layersNodes" id="layerNodes">Layers Nodes</button>
             <button mat-menu-item [matMenuTriggerFor]="constraints">Constraints</button>
 
         </mat-menu>
@@ -45,13 +45,13 @@
         </mat-menu>
 
         <mat-menu #modelNodes="matMenu">
-            <button mat-menu-item [matMenuTriggerFor]="creationNodes">Creation</button>
+            <button mat-menu-item [matMenuTriggerFor]="creationNodes" id="creationModel">Creation</button>
         </mat-menu>
 
         <mat-menu #layersNodes="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="advancedActivation">Advanced Activation</button>
             <button mat-menu-item [matMenuTriggerFor]="layerClasses">Classes</button>
-            <button mat-menu-item [matMenuTriggerFor]="basic">Basic</button>
+            <button mat-menu-item [matMenuTriggerFor]="basic" id="basic">Basic</button>
             <button mat-menu-item [matMenuTriggerFor]="convolutional">Convolutional</button>
             <button mat-menu-item [matMenuTriggerFor]="layerInput">Input</button>
             <button mat-menu-item [matMenuTriggerFor]="mask">Masking</button>
@@ -66,7 +66,7 @@
 
         <mat-menu #tensorNodesMenu="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="tensorCommonNodes">Common</button>
-            <button mat-menu-item [matMenuTriggerFor]="tensorCreationNodes">Creation</button>
+            <button mat-menu-item [matMenuTriggerFor]="tensorCreationNodes" id="creation">Creation</button>
             <button mat-menu-item [matMenuTriggerFor]="tensorMatrixNodes">Matrices</button>
             <button mat-menu-item [matMenuTriggerFor]="tensorRandomNodes">Random</button>
             <button mat-menu-item [matMenuTriggerFor]="tensorSliceJoinNodes">Splice Join</button>
@@ -86,7 +86,7 @@
         </mat-menu>
 
         <mat-menu #convolutionNodes>
-            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of operatorsArray.operatorConvolution" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #reductionNodes>
@@ -135,7 +135,7 @@
         </mat-menu>
 
         <mat-menu #tensorCreationNodes>
-            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" (click)="executeAddNodeCommand(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item of tensorsArray.Creation" id="{{item}}" (click)="executeAddNodeCommand(item)">{{item}}</button>
         </mat-menu>
 
         <mat-menu #tensorMatrixNodes>
@@ -163,7 +163,7 @@
         </mat-menu>
 
         <mat-menu #basic>
-            <button mat-menu-item *ngFor="let item of layersArray.basic" (click)="executeAddNodeCommand(item)">{{item}}</button>
+            <button mat-menu-item *ngFor="let item1 of layersArray.basic" id="{{item1}}" (click)="executeAddNodeCommand(item1)">{{item1}}</button>
         </mat-menu>
 
         <mat-menu #convolutional>

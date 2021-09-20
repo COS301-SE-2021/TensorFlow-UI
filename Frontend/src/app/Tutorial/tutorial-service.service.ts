@@ -121,67 +121,91 @@ export class TutorialServiceService {
       featuresTest.push(80,30,20,10);
       labelsTest.push(200, 100, 80, 60);
 
+      let el: HTMLElement;
       setTimeout(function(){
-          let el = document.getElementById("createNode") as HTMLElement;
+          el = document.getElementById("createNode") as HTMLElement;
           if(el != null){
               el.click();
           }
       },1000)
-      setInterval(()=>{},3000)
-      this.addCommand.setComponent("TensorOneD");
-      this.addCommand.execute();
-      let tensorFTrain = this.addCommand.getNode();
-      tensorFTrain.data = featuresTrain;
-      tensorFTrain.type = "int32";
-      tensorFTrain.position = [200, 200];
-      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "dtype?", value: "int32"});
-      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "name", value: "feature-training"});
-      tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() });
-      let c = this.navbar.graph.getNodeById(tensorFTrain.id);
-      if (c != undefined) tensorFTrain.UIStructure(c, this.navbar);
-      console.log("1. Tensor created: " + tensorFTrain.data);
+
+      setTimeout(function(){
+          el = document.getElementById("tensorNodes") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },2500)
+
+      setTimeout(function(){
+          el = document.getElementById("creation") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },4000)
+
+      let that = this;
+      setTimeout(function(){
+          el = document.getElementById("TensorOneD") as HTMLElement;
+          let color = el.style.backgroundColor;
+          el.style.backgroundColor = "#666666"
+          setTimeout(function(){el.style.backgroundColor = color},10000)
 
 
-      this.addCommand.setComponent("TensorOneD");
-      this.addCommand.execute();
-      let tensorFTest = this.addCommand.getNode();
-      tensorFTest.data = featuresTest;
-      tensorFTest.type = "int32";
-      tensorFTest.position = [200, 400];
-      tensorFTest.pushToArray(tensorFTest.widgets, {type: "dtype?", value: "int32"});
-      tensorFTest.pushToArray(tensorFTest.widgets, {type: "name", value: "feature-testing"});
-      tensorFTest.pushToArray(tensorFTest.widgets, {type: "value", value: featuresTest.toString() });
-      let d = this.navbar.graph.getNodeById(tensorFTest.id);
-      if (d != undefined) tensorFTest.UIStructure(d, this.navbar);
-      console.log("2. Tensor created: " + tensorFTest.data);
+          that.addCommand.setComponent("TensorOneD");
+          that.addCommand.execute();
+          let tensorFTrain = that.addCommand.getNode();
+          tensorFTrain.data = featuresTrain;
+          tensorFTrain.type = "int32";
+          tensorFTrain.position = [600, 200];
+          tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "dtype?", value: "int32"});
+          tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "name", value: "feature-training"});
+          tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() });
+          let c = that.navbar.graph.getNodeById(tensorFTrain.id);
+          if (c != undefined) tensorFTrain.UIStructure(c, that.navbar);
+          console.log("1. Tensor created: " + tensorFTrain.data);
 
-      this.addCommand.setComponent("Constant");
-      this.addCommand.execute();
-      let tensorLTrain = this.addCommand.getNode();
-      tensorLTrain.data = labelsTrain;
-      tensorLTrain.type = "int32";
-      tensorLTrain.position = [400, 200];
-      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "dtype?", value: "int32"});
-      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "position", value: "{400, 200}"});
-      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "name", value: "label-training"});
-      tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "value", value: labelsTrain.toString() });
-      let e = this.navbar.graph.getNodeById(tensorLTrain.id);
-      if (e != undefined) tensorLTrain.UIStructure(e, this.navbar);
-      console.log("3. Tensor created: " + tensorLTrain.data);
 
-      this.addCommand.setComponent("Constant");
-      this.addCommand.execute();
-      let tensorLTest = this.addCommand.getNode();
-      tensorLTest.data = labelsTest;
-      tensorLTest.type = "int32";
-      tensorLTest.position = [400, 400]
-      tensorLTest.pushToArray(tensorLTest.widgets, {type: "dtype?", value: "int32"});
-      tensorLTest.pushToArray(tensorLTest.widgets, {type: "name", value: "label-testing"});
-      tensorLTest.pushToArray(tensorLTest.widgets, {type: "value", value: labelsTest.toString() });
-      let f = this.navbar.graph.getNodeById(tensorLTest.id);
-      if (f != undefined) tensorLTest.UIStructure(f, this.navbar);
-      console.log("4. Tensor created: " + tensorLTest.data);
+          that.addCommand.setComponent("TensorOneD");
+          that.addCommand.execute();
+          let tensorFTest = that.addCommand.getNode();
+          tensorFTest.data = featuresTest;
+          tensorFTest.type = "int32";
+          tensorFTest.position = [600, 400];
+          tensorFTest.pushToArray(tensorFTest.widgets, {type: "dtype?", value: "int32"});
+          tensorFTest.pushToArray(tensorFTest.widgets, {type: "name", value: "feature-testing"});
+          tensorFTest.pushToArray(tensorFTest.widgets, {type: "value", value: featuresTest.toString() });
+          let d = that.navbar.graph.getNodeById(tensorFTest.id);
+          if (d != undefined) tensorFTest.UIStructure(d, that.navbar);
+          console.log("2. Tensor created: " + tensorFTest.data);
 
+          that.addCommand.setComponent("Constant");
+          that.addCommand.execute();
+          let tensorLTrain = that.addCommand.getNode();
+          tensorLTrain.data = labelsTrain;
+          tensorLTrain.type = "int32";
+          tensorLTrain.position = [800, 200];
+          tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "dtype?", value: "int32"});
+          tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "position", value: "[800, 200]"});
+          tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "name", value: "label-training"});
+          tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "value", value: labelsTrain.toString() });
+          let e = that.navbar.graph.getNodeById(tensorLTrain.id);
+          if (e != undefined) tensorLTrain.UIStructure(e, that.navbar);
+          console.log("3. Tensor created: " + tensorLTrain.data);
+
+          that.addCommand.setComponent("Constant");
+          that.addCommand.execute();
+          let tensorLTest = that.addCommand.getNode();
+          tensorLTest.data = labelsTest;
+          tensorLTest.type = "int32";
+          tensorLTest.position = [800, 400]
+          tensorLTest.pushToArray(tensorLTest.widgets, {type: "dtype?", value: "int32"});
+          tensorLTest.pushToArray(tensorLTest.widgets, {type: "name", value: "label-testing"});
+          tensorLTest.pushToArray(tensorLTest.widgets, {type: "value", value: labelsTest.toString() });
+          let f = that.navbar.graph.getNodeById(tensorLTest.id);
+          if (f != undefined) tensorLTest.UIStructure(f, that.navbar);
+          console.log("4. Tensor created: " + tensorLTest.data);
+
+      },5000)
 
   }
 
@@ -192,20 +216,81 @@ export class TutorialServiceService {
       "a Dense network, with only one layer and only one neuron. More complex problems will require more layers and neurons."
     );
     //TODO: create layer node using command
-    var kerasLayer = new TFDense(1, "");
 
-    this.addCommand.setComponent("dense");
-    this.addCommand.execute();
-    let denseLayer = this.addCommand.getNode();
-    denseLayer.position = [600, 550];
+      let el: HTMLElement;
+      setTimeout(function(){
+          el = document.getElementById("createNode") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },1000)
 
+      setTimeout(function(){
+          el = document.getElementById("layerNodes") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },2500)
+
+      setTimeout(function(){
+          el = document.getElementById("basic") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },4000)
+
+      let that = this;
+      let kerasLayer;
+      setTimeout(function(){
+          el = document.getElementById("dense") as HTMLElement;
+          let color = el.style.backgroundColor;
+          el.style.backgroundColor = "#666666"
+          setTimeout(function(){el.style.backgroundColor = color},10000)
+
+          kerasLayer = new TFDense(1, "");
+
+          that.addCommand.setComponent("dense");
+          that.addCommand.execute();
+          let denseLayer = that.addCommand.getNode();
+          denseLayer.position = [600, 550];
+      },5000)
+
+      setTimeout(function(){
+          el = document.getElementById("createNode") as HTMLElement;
+          if(el != null){
+              el.click();
+              el.click();
+          }
+      },7000)
+
+      setTimeout(function(){
+          el = document.getElementById("modelNodes") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },8000)
+
+      setTimeout(function(){
+          el = document.getElementById("creationModel") as HTMLElement;
+          if(el != null){
+              el.click();
+          }
+      },9500)
+
+      setTimeout(function(){
+          el = document.getElementById("dense") as HTMLElement;
+          let color = el.style.backgroundColor;
+          el.style.backgroundColor = "#666666"
+          setTimeout(function(){el.style.backgroundColor = color},10000)
+
+          that.addCommand.setComponent("Model");
+          that.addCommand.execute();
+          let model = that.addCommand.getNode();
+          model.position = [50, 500];
+      },11000)
+
+      let tfModel : TFModel= new TFModel("basicModel", kerasLayer);
     // TODO: create model node using command
-    var tfModel : TFModel= new TFModel("basicModel", kerasLayer);
-
-    this.addCommand.setComponent("Model");
-    this.addCommand.execute();
-    let model = this.addCommand.getNode();
-    model.position = [50, 500];
   }
 
   step5() {
