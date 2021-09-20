@@ -31,6 +31,7 @@ import {GitAPI} from "../../git-api";
 import {ReloadFromStoreCommand} from "../../../Command/ReloadFromStoreCommand";
 import {DeleteNodeCommand} from "../../../Command/DeleteNodeCommand";
 import { TutorialModalMaterialComponent } from "../../Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component";
+import {TutorialServiceService} from "../../Tutorial/tutorial-service.service";
 
 export interface SettingsPageData {
 	projectName: string,
@@ -171,8 +172,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	}*/
 
 	runTutorial() {
-		// const tutorialService: TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
-		// tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "http://172.17.0.2:5000/");
+		const tutorialService: TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
+		tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "http://localhost:5000/");
 	}
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {

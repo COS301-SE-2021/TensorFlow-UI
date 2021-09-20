@@ -67,11 +67,12 @@ export class CodeGeneratorService {
       // }
 
       var file: File | undefined = undefined;
+      var generatedCode = "";
       if (rootChild) {
         tfNodes.forEach(function (value) {
           value.visitCount = 0
         });
-        let generatedCode = graph.generateCode(rootChild, links, tfNodes);
+        generatedCode = graph.generateCode(rootChild, links, tfNodes);
         console.log(generatedCode)
         file = new File([generatedCode], "output.py");
       }
@@ -80,7 +81,7 @@ export class CodeGeneratorService {
 
 
       var data = new FormData();
-      // data.append("file", file);
+      data.append("file", generatedCode);
 
       // data.append("file", file, "input");
 
@@ -93,7 +94,7 @@ export class CodeGeneratorService {
         }
       });
 
-      xhr.open("POST", "localhost:5000/upload");
+      xhr.open("POST", "http://localhost:5000/upload");
 
       xhr.send(data);
       return savedResponse;

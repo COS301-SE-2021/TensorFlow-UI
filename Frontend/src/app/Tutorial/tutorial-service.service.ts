@@ -94,49 +94,7 @@ export class TutorialServiceService {
       "In this case, we'll have an array of numbers representing subscribers gained, and a second array indicating the" +
       " marketing budget which created the corresponding gain."
     );
-    // arrays made for temporary use and reference:
-    var featuresTrain : number[] = new Array();
-    var labelsTrain : number[] = new Array();
-    var featuresTest : number[] = new Array();
-    var labelsTest : number[] = new Array();
 
-    featuresTrain.push(60,100,50,90);
-    labelsTrain.push(160, 240, 140, 220);
-    featuresTest.push(80,30,20,10);
-    labelsTest.push(200, 100, 80, 60);
-
-    this.addCommand.setComponent("TensorOneD");
-    this.addCommand.execute();
-    let tensorFTrain = this.addCommand.getNode();
-    tensorFTrain.data = featuresTrain;
-    tensorFTrain.type = "int32";
-    tensorFTrain.position = [200, 200];
-    tensorFTrain.changeWidgetValue(featuresTrain.toString(), "int32", this.navbar, this.addCommand.getLiteGraphNode());
-    console.log("1. Tensor created: " + tensorFTrain.data);
-
-    this.addCommand.setComponent("TensorOneD");
-    this.addCommand.execute();
-    let tensorFTest = this.addCommand.getNode();
-    tensorFTest.data = featuresTest;
-    tensorFTrain.type = "int32";
-    tensorFTest.position = [200, 400];
-    console.log("2. Tensor created: " + tensorFTest.data);
-
-    this.addCommand.setComponent("TensorOneD");
-    this.addCommand.execute();
-    let tensorLTrain = this.addCommand.getNode();
-    tensorLTrain.data = labelsTrain;
-    tensorFTrain.type = "int32";
-    tensorLTrain.position = [400, 200];
-    console.log("3. Tensor created: " + tensorLTrain.data);
-
-    this.addCommand.setComponent("TensorOneD");
-    this.addCommand.execute();
-    let tensorLTest = this.addCommand.getNode();
-    tensorLTest.data = labelsTest;
-    tensorFTrain.type = "int32";
-    tensorLTrain.position = [400, 400]
-    console.log("4. Tensor created: " + tensorLTest.data);
   }
 
   step3() {
@@ -144,6 +102,50 @@ export class TutorialServiceService {
       "We'll specifically need to create a training and a testing set - the two will exist as" +
       " two separate arrays."
     );
+      // arrays made for temporary use and reference:
+      var featuresTrain : number[] = new Array();
+      var labelsTrain : number[] = new Array();
+      var featuresTest : number[] = new Array();
+      var labelsTest : number[] = new Array();
+
+      featuresTrain.push(60,100,50,90);
+      labelsTrain.push(160, 240, 140, 220);
+      featuresTest.push(80,30,20,10);
+      labelsTest.push(200, 100, 80, 60);
+
+      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.execute();
+      let tensorFTrain = this.addCommand.getNode();
+      tensorFTrain.data = featuresTrain;
+      tensorFTrain.type = "int32";
+      tensorFTrain.position = [200, 200];
+      // tensorFTrain.changeWidgetValue(featuresTrain.toString(), "int32", this.navbar, this.addCommand.getLiteGraphNode());
+      tensorFTrain.UIStructure(this.addCommand.getLiteGraphNode(), this.navbar);
+      console.log("1. Tensor created: " + tensorFTrain.data);
+
+      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.execute();
+      let tensorFTest = this.addCommand.getNode();
+      tensorFTest.data = featuresTest;
+      tensorFTrain.type = "int32";
+      tensorFTest.position = [200, 400];
+      console.log("2. Tensor created: " + tensorFTest.data);
+
+      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.execute();
+      let tensorLTrain = this.addCommand.getNode();
+      tensorLTrain.data = labelsTrain;
+      tensorFTrain.type = "int32";
+      tensorLTrain.position = [400, 200];
+      console.log("3. Tensor created: " + tensorLTrain.data);
+
+      this.addCommand.setComponent("TensorOneD");
+      this.addCommand.execute();
+      let tensorLTest = this.addCommand.getNode();
+      tensorLTest.data = labelsTest;
+      tensorFTrain.type = "int32";
+      tensorLTrain.position = [400, 400]
+      console.log("4. Tensor created: " + tensorLTest.data);
   }
 
   step4() {
