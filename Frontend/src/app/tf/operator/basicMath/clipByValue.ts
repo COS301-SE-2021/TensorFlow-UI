@@ -59,7 +59,7 @@ export class TFClipByValue extends TFOperator{
 				alert(errorMessage);
 			}
 		});
-
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("max(min(x, clip_value_max), clip_value_min)", "tf.Tensor");
 	}
 

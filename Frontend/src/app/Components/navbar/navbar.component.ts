@@ -5,7 +5,6 @@ import {AddLineConnectorToStorage, AddNodeToStorage, AddProjectDescription, AddP
 import {WorkspaceState} from "../../../Storage/workspace";
 import {lineConnectors, NodeData} from "../../node-data";
 import {DOCUMENT} from "@angular/common";
-import {CodeGeneratorService} from "../../code-generator.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
@@ -49,9 +48,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public linesList: lineConnectors[] = [];
 	public commandHistory = new CommandHistory();
 	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
-	public generateCodeCommand = new GenerateCodeCommand(this.store,this);
+	public generateCodeCommand = new GenerateCodeCommand(this.store,this,this.dialog);
 	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
-	public runCodeCommand = new RunCodeCommand(this.store,this);
+	public runCodeCommand = new RunCodeCommand(this.store,this,this.dialog);
 	public addNodeCommand = new AddNodeCommand(this.store,this);
 	public reloadCommand = new ReloadFromStoreCommand(this.store,this);
 	public deleteNodeCommand = new DeleteNodeCommand(this.store,this)
@@ -61,7 +60,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public selectedNode=null;
 	public LGroot: LGraphNode;
 	graph: litegraph.LGraph;
-	//liteNodes: litegraph.LGraphNode[];
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 
@@ -99,7 +97,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			el.style.display = "none";
 		}
 
-		const nodesLoadedOntoCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 
 		//if else statement to load or create a root node onto the canvass
@@ -112,11 +109,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			this.LGroot = liteGraphNode;
 		}
 		else{
-			//let tensorRoot = new TFRootNode();
-			//tensorRoot.name = "Root";
-            this.LGroot = this.createLiteNode("RootNode",true,rootNode)
-			nodesLoadedOntoCanvas.push(this.LGroot);
 
+            this.LGroot = this.createLiteNode("RootNode",true,rootNode)
 		}
         this.reloadCommand.execute();
 	}
@@ -150,22 +144,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	setDrawerType(drawerType: string){
 		this.currentDrawer = drawerType;
 	}
-
-	// Code generation section
-	/*runCode() {
-		const generator : CodeGeneratorService = new CodeGeneratorService(this.store);
-		generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode,this.TFNodeList,this.store.selectSnapshot(WorkspaceState).links, "localhost:5000");
-	}*/
-
-	runAndGenerate() {
-		// const generator: CodeGeneratorService = new CodeGeneratorService();
-		// generator.runFile(this.store.selectSnapshot(WorkspaceState).rootNode, "");
-	}
-
-	/*downloadCode() {
-		const generator: CodeGeneratorService = new CodeGeneratorService();
-		generator.generateFile(this.store.selectSnapshot(WorkspaceState).rootNode);
-	}*/
 
 	createLiteNode(component: string, loadFromMemory: boolean, tempNode: TFNode): LGraphNode {
 		const node = new litegraph.LGraphNode();
@@ -334,9 +312,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			targetNode = this.rootNode;
 
 		// @ts-ignore
-		sourceNode?.outputs[link.origin_slot].id = 1;
-		targetNode.inputs[link.target_slot].link=link.id;
-
+		// if(sourceNode&&targetNode) {
+		// 	sourceNode.outputs[link.origin_slot].id = 1;
+		// 	targetNode.inputs[link.target_slot].link = link.id;
+		// }
+		targetNode.inputs[link.target_slot].link = link.id;
 	}
 
   executeAddNodeCommand(c: string){

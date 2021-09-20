@@ -22,7 +22,7 @@ export class TFMatMul extends TFOperator {
 
 			if(inputNode){
 				for(let widget of inputNode.widgets){
-					if(widget.type === "dtype"){
+					if(widget.type === "dtype" || widget.type==="dtype?"){
 						dTypeArray.push( widget.value);
 						break;
 					}
@@ -35,7 +35,7 @@ export class TFMatMul extends TFOperator {
 		}
 
 		if((dTypeArray[0] !== "float32") && (dTypeArray[0] !== "float64")){
-			alert("Input t1 must be of type float32 or float64");
+			alert("Input t1 must be of type float32 or float64 in the MAtMul class");
 			return;
 		}
 		else if(dTypeArray[0] !== dTypeArray[1]){

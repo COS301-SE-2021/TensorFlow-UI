@@ -32,8 +32,8 @@ export class TFVariable extends TFTensor {
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
 
-		let widgetsData= ["0",true,"None",this.name];
-		let widgetTypes=["value","trainable?","dtype?","name"];
+		let widgetsData= [true,"None",this.name];
+		let widgetTypes=["trainable?","dtype?","name"];
 
 		for(let i=0; i<4;++i){
 			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
@@ -41,21 +41,14 @@ export class TFVariable extends TFTensor {
 				widgetsData[i] = widget.value;
 		}
 
-		node.addWidget("text",widgetTypes[0],widgetsData[0],function (value){
-			if(that.checkTensorInputType(value))
-				that.changeWidgetValue(value,widgetTypes[0],navbar);
-			else {
-				that.resetWidgetValueToLast(widgetTypes[0], node, widgetsData[0]);
-			}
+		node.addWidget("toggle",widgetTypes[0],widgetsData[0],function (value){
+			that.changeWidgetValue(value,widgetTypes[0],navbar);
 		});
-		node.addWidget("toggle",widgetTypes[1],widgetsData[1],function (value){
+		node.addWidget("combo",widgetTypes[1],widgetsData[1],function (value){
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
-		});
-		node.addWidget("combo",widgetTypes[2],widgetsData[2],function (value){
-			that.changeWidgetValue(value,widgetTypes[2],navbar);
-		},{values: ["None","'float32'","'int32'","'bool'","'complex64'","'string'"]});
-		node.addWidget("text",widgetTypes[3],widgetsData[3],function (value){
-			that.changeWidgetValue(value,widgetTypes[3],navbar,node);
+		},{values: ["None","float32","int32","bool","complex64","string"]});
+		node.addWidget("text",widgetTypes[2],widgetsData[2],function (value){
+			that.changeWidgetValue(value,widgetTypes[2],navbar,node);
 		});
 		node.addInput("x","tf.Tensor");
 		node.addOutput("Value","tf.Tensor");

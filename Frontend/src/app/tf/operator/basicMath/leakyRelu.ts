@@ -42,6 +42,7 @@ export class TFLeakyRelu extends TFOperator{
 				alert("The scaling factor has to be a number");
 			}
 		});
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("leakyRelu", "tf.Tensor");
 	}
 }

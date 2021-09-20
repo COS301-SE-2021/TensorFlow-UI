@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFAtanh extends TFOperator{
 	constructor(
@@ -12,8 +13,9 @@ export class TFAtanh extends TFOperator{
 		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent)  {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("atanh(x)", "tf.Tensor");
 	}
 }

@@ -1,10 +1,8 @@
 import {Command} from "./Command";
 import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
-import {TFTensor} from "../app/tf/tensor/tensor";
 import {LGraphNode} from "litegraph.js";
 import {AddTFNode, RemoveTFNode, ResetStore, WorkspaceState} from "../Storage/workspace";
-import {ReloadFromStoreCommand} from "./ReloadFromStoreCommand";
 import {TFNode} from "../app/tf";
 
 export class DeleteNodeCommand extends Command{

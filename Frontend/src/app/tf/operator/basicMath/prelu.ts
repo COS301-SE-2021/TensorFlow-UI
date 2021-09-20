@@ -33,7 +33,7 @@ export class TFPrelu extends TFOperator{
 				alert("The scaling factor has to be a number");
 			}
 		});
-
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("x<0 ? alpha*x : f(x)=x", "tf.Tensor");
 	}
 }

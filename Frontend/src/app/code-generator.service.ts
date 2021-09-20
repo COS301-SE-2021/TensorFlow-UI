@@ -5,13 +5,16 @@ import {lineConnectors} from "./node-data";
 import {root} from "rxjs/internal-compatibility";
 import {Store} from "@ngxs/store";
 import {userVariableNames} from "./tf/userVariableNames";
+import {MatDialog} from "@angular/material/dialog";
+import {CodeGeneratorDialogComponent} from "./code-generator-dialog/code-generator-dialog.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeGeneratorService {
 
-    constructor(private store:Store) {
+    constructor(private store:Store,public dialog: MatDialog) {
+
     }
 
   // NEW DATA STRUCTURE .PY FILE IMPLEMENTATION BELOW HERE
@@ -42,9 +45,26 @@ export class CodeGeneratorService {
             code += generatedCode;
         }
 
-      console.log(code);
       let blob = new Blob([code], {type: "text/plain;charset=utf-8"});
-      FileSaver.saveAs(blob, "output.py");
+        let indices:number[] = [];
+        for(let i=0; i<code.length;i++) {
+            if (code[i] === ")")
+                indices.push(i);
+        }
+
+        const codeDialog = this.dialog.open(CodeGeneratorDialogComponent, {
+            height: "65%",
+            width:"40%",
+            data: {code: code},
+        });
+
+        codeDialog.afterClosed().subscribe(result =>  {
+            console.log(result);
+            if(result){
+                FileSaver.saveAs(blob, "output.py");
+            }
+        });
+
       return code;
     }
 
@@ -69,7 +89,6 @@ export class CodeGeneratorService {
             if(rootChild) {
                 tfNodes.forEach(function (value){value.visitCount = 0});
                 let generatedCode = graph.generateCode(rootChild,links,tfNodes);
-                console.log(generatedCode)
                 let file: File = new File([generatedCode], "output.py");
             }
             var savedResponse : string = "";
@@ -89,6 +108,7 @@ export class CodeGeneratorService {
         }
         else{
             //CANNOT GENERATE CODE - no connections
+            alert("Code generation cannot be completed, no lines connected");
             return "";
         }
   }

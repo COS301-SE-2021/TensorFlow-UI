@@ -42,6 +42,8 @@ export class ReloadFromStoreCommand extends Command{
         }
       }
     }
+
+    //Reload Root Node
     return false;
   }
 

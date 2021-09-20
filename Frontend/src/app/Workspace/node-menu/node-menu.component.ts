@@ -28,7 +28,9 @@ export class NodeMenuComponent implements OnInit, AfterContentInit {
 
   deleteNode(){
     this.navbar.deleteNodeCommand.setNode(this.nodeInput);
+    this.closeNodeView();
     this.navbar.executeCommand(this.navbar.deleteNodeCommand);
+
   }
 
   closeNodeView(){
