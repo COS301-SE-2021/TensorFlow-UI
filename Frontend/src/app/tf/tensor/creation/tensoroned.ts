@@ -15,6 +15,8 @@ export class TFTensorOneD extends TFTensor {
 	}
 
 	UIStructure(node: LGraphNode) {
+        node.addInput("labels", "tf.Constant");
+        node.addInput("features", "tf.Constant");
 		node.addWidget("text","tensor1d",0, (value) => {
 			this.changeWidgetValue(value,"tensor1d");});
 		node.addWidget("combo","dtype(optional)","float",(value) => {

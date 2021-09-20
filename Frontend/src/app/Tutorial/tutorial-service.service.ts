@@ -29,6 +29,8 @@ export class TutorialServiceService {
   addCommand : AddNodeCommand;
   restoreCommand : ReloadFromStoreCommand;
   navbar : NavbarComponent;
+  features;
+  labels;
 
   constructor(
     navbar : NavbarComponent,
@@ -122,6 +124,9 @@ export class TutorialServiceService {
       featuresTest.push(80,30,20,10);
       labelsTest.push(200, 100, 80, 60);
 
+      this.features = featuresTrain;
+      this.labels = labelsTrain;
+
       let el: HTMLElement;
       setTimeout(function(){
           el = document.getElementById("createNode") as HTMLElement;
@@ -152,7 +157,7 @@ export class TutorialServiceService {
           setTimeout(function(){el.style.backgroundColor = color},10000)
 
 
-          that.addCommand.setComponent("TensorOneD");
+          that.addCommand.setComponent("Constant");
           that.addCommand.execute();
           let tensorFTrain = that.addCommand.getNode();
           tensorFTrain.data = featuresTrain;
@@ -166,7 +171,7 @@ export class TutorialServiceService {
           console.log("1. Tensor created: " + tensorFTrain.data);
 
 
-          that.addCommand.setComponent("TensorOneD");
+          that.addCommand.setComponent("Constant");
           that.addCommand.execute();
           let tensorFTest = that.addCommand.getNode();
           tensorFTest.data = featuresTest;
@@ -178,6 +183,8 @@ export class TutorialServiceService {
           let d = that.navbar.graph.getNodeById(tensorFTest.id);
           if (d != undefined) tensorFTest.UIStructure(d, that.navbar);
           console.log("2. Tensor created: " + tensorFTest.data);
+
+          that.addCommand.getLiteGraphNode().connect(1, that.navbar.LGroot, 1);
 
           that.addCommand.setComponent("Constant");
           that.addCommand.execute();
@@ -217,8 +224,6 @@ export class TutorialServiceService {
       "a Dense network, with only one layer and only one neuron. More complex problems will require more layers and neurons."
     );
 
-    //TODO: create layer node using command
-
     //var kerasLayer = new TFDense(1, "");
 
       let el: HTMLElement;
@@ -246,6 +251,7 @@ export class TutorialServiceService {
 
       let that = this;
       let kerasLayer;
+      let denseLayer;
       setTimeout(function(){
           el = document.getElementById("dense") as HTMLElement;
           let color = el.style.backgroundColor;
@@ -256,8 +262,10 @@ export class TutorialServiceService {
 
           that.addCommand.setComponent("dense");
           that.addCommand.execute();
-          let denseLayer = that.addCommand.getNode();
+          denseLayer = that.addCommand.getNode();
           denseLayer.position = [600, 550];
+
+
       },5000)
 
       setTimeout(function(){
@@ -294,9 +302,14 @@ export class TutorialServiceService {
           model.position = [50, 500];
       },11000)
 
-      let tfModel : TFModel= new TFModel("basicModel", kerasLayer);
-    // TODO: create model node using command
+    var tfModel : TFModel= new TFSequential("basicModel", denseLayer);
 
+    this.addCommand.setComponent("Sequential");
+    this.addCommand.execute();
+    let model = <TFSequential>this.addCommand.getNode();
+    model.setLayer(denseLayer);
+    model.setDataset(this.features, this.labels);
+    model.position = [50, 500];
   }
 
   step5() {
