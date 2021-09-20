@@ -25,6 +25,7 @@ import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-uploa
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
 import {importPageModule} from "./ImportPage/importPage.module";
+import {MatButtonModule} from "@angular/material/button";
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -38,24 +39,25 @@ const modules = [
     TutorialModalMaterialComponent,
     JsonUploadBoxComponent
   ],
-  imports: [
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    modules,
-    NgxsStoragePluginModule.forRoot(),
-    NgxsModule.forRoot([
-      WorkspaceState
-    ]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
-    ComponentsModule,
-    AppRoutingModule,
-    importPageModule
-  ],
+    imports: [
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        modules,
+        NgxsStoragePluginModule.forRoot(),
+        NgxsModule.forRoot([
+            WorkspaceState
+        ]),
+        NgxsReduxDevtoolsPluginModule.forRoot(),
+        NgxsLoggerPluginModule.forRoot(),
+        ComponentsModule,
+        AppRoutingModule,
+        importPageModule,
+        MatButtonModule
+    ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},
     {provide: MatDialogRef, useValue: {}},

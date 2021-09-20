@@ -26,6 +26,11 @@ export class TutorialModalMaterialComponent implements OnInit {
     this.tutorialText = text;
   }
 
+  next(){
+      this.dialogRef.close();
+      this.dialogRef.disableClose = true;
+  }
+
   close(){
     this.dialogRef.close();
     this.dialogRef.disableClose = false;

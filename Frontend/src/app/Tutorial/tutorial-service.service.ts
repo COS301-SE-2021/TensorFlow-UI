@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {TFModel} from "../tf/model/creation/model";
 import {TFTensor} from "../tf/tensor/tensor";
-import {TFNode, TFTensorOneD} from "../tf";
+import {TFNode} from "../tf";
 import {TFKerasLayerDense} from "../tf/layer/layer_dense";
 import {AddNodeCommand} from "../../Command/AddNodeCommand";
 import {Store} from "@ngxs/store";
@@ -47,7 +47,7 @@ export class TutorialServiceService {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.currentStep = this.currentStep + 1;
-      this.nextStep();
+      if(dialogRef.disableClose) this.nextStep();
     });
   }
 
