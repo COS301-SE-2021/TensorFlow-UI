@@ -1,0 +1,32 @@
+<mat-tab-group #previewTabGroup>
+    <mat-tab label="Project List">
+        <mat-card id="localSection"><mat-card-title>Local</mat-card-title></mat-card>
+        <mat-card class="projectsListCard">
+            <mat-card-title>Local Project</mat-card-title>
+            <mat-card-subtitle>Import project from this computer</mat-card-subtitle>
+            <input type="file" id="myfile"/>
+            <button (click)="ImportFromPC()" mat-raised-button >View Project</button>
+        </mat-card>
+
+        <mat-card id="searchSection">
+            <button id="previewTab" (click)="previewTabGroup.selectedIndex = 1" style="display: none"></button>
+            <mat-card-title>Github</mat-card-title>
+            <input id="search" type="text" placeholder="Search" (input)="filter()">
+            <button mat-raised-button color="primary" style="width: 110px" (click)="clearSearch()">Clear</button>
+        </mat-card>
+        <div id="filter">
+            <app-project-list *ngFor="let item of projectL" [pname]="item['pname']" [descript]="item['description']" [suser]="item['by']"  [navbar] = "navbar"></app-project-list>
+        </div>
+
+      </mat-tab>
+    <mat-tab label="Preview">
+        <mat-card id="previewProjectDetails">
+            <mat-card-title id="previewProjectTitle">No Project Selected</mat-card-title>
+            <mat-card-subtitle id="previewProjectDescription"></mat-card-subtitle>
+            <button class="previewButton" mat-raised-button (click)="projectImport();"> Import Project </button><button id="previewBackButton" class="previewButton1" (click)="previewTabGroup.selectedIndex=0;" mat-raised-button color="primary" >Back</button>
+        </mat-card>
+      <canvas id='previewCanvas' width='{{screenWidth}}' height='{{screenHeight}}'></canvas>
+    </mat-tab>
+</mat-tab-group>
+
+

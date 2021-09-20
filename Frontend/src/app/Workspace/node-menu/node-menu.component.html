@@ -1,0 +1,16 @@
+<mat-card *ngIf="nodeInput" class="nodeMenu">
+    <mat-card-header id="nodeMenuHeader">
+        <h2 id="nodeTitle">{{nodeInput.title}}</h2>
+        <button mat-raised-button matTooltip="Close Menu" (click)="closeNodeView()">X</button>
+    </mat-card-header>
+
+    <div class="widgetProperty" *ngFor="let item of nodeInput.widgets">
+
+        <mat-card class="widgetCard">
+            <mat-card-title id="widgetName">{{item.name}}</mat-card-title>
+            <button id="importDataFromExternal" *ngIf="item.name=='Value'" mat-raised-button >Import JSON</button>
+            <mat-card-subtitle>{{item.value}}</mat-card-subtitle>
+        </mat-card>
+    </div>
+    <button id="deleteNodeButton" mat-raised-button (click)="deleteNode()">Delete Node</button>
+</mat-card>

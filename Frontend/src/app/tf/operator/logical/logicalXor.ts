@@ -1,0 +1,26 @@
+import {TFOperator} from "../operator";
+import {LGraphNode} from "litegraph.js";
+
+export class TFLogicalXor extends TFOperator{
+	constructor(
+		public name: string | undefined = undefined) {
+		super(name);
+	}
+
+	code(storageLinks,storageNodes) {
+
+		let result = this.genericLogicGateOperatorsCode(storageLinks,storageNodes,"logical_xor");
+		if(result==""){
+			return;
+		}
+		return `${this.name + "= tf.math.logical_xor("+
+			result+
+		")"}`;
+	}
+
+	UIStructure(node: LGraphNode) {
+		node.addInput("a", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("b", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addOutput("a XOR b", "tf.Tensor");
+	}
+}

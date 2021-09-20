@@ -18,6 +18,15 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
+import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
+// import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { TutorialModalMaterialComponent } from './Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component';
+import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-upload-box.component';
+import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
+import {importPageModule} from "./ImportPage/importPage.module";
+import { CodeGeneratorDialogComponent } from './code-generator-dialog/code-generator-dialog.component';
+import {MatButtonModule} from "@angular/material/button";
 
 const modules = [
 	BrowserModule, BrowserAnimationsModule, DragDropModule,
@@ -26,24 +35,31 @@ const modules = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TutorialModalComponent,
+    TutorialModalMaterialComponent,
+    JsonUploadBoxComponent,
+    CodeGeneratorDialogComponent,
   ],
-  imports: [
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    modules,
-    NgxsStoragePluginModule.forRoot(),
-    NgxsModule.forRoot([
-      WorkspaceState
-    ]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
-    ComponentsModule
-  ],
+    imports: [
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        modules,
+        NgxsStoragePluginModule.forRoot(),
+        NgxsModule.forRoot([
+            WorkspaceState
+        ]),
+        NgxsReduxDevtoolsPluginModule.forRoot(),
+        NgxsLoggerPluginModule.forRoot(),
+        ComponentsModule,
+        AppRoutingModule,
+        importPageModule,
+        MatButtonModule
+    ],
   providers: [
     {provide: MAT_DIALOG_DATA, useValue: {}},
     {provide: MatDialogRef, useValue: {}},

@@ -1,0 +1,56 @@
+.mat-tab-label {
+    margin-left: 10%;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+#searchSection, #localSection{
+    margin: 4px 4px 4px 4px;
+    width: 80%;
+    left: 10%;
+}
+
+.projectsListCard {
+    border: 2px solid #ff8C00;
+    width: 80%;
+    left: 10%;
+    margin: 4px 4px 4px 4px;
+}
+
+#previewProjectDetails{
+    border: 2px solid #ff8C00;
+    width: 95%;
+    height: 60px;
+    margin: 4px 4px 4px 4px;
+}
+
+.projectsListCard button, #previewProjectDetails .previewButton1{
+    position: absolute;
+    float: right;
+    right: 20px;
+    top: 30%;
+    width: 120px;
+    background-color: #ff8C00;
+}
+
+#previewProjectDetails .previewButton{
+    position: absolute;
+    float: right;
+    right: 150px;
+    top: 30%;
+    width: 120px;
+    background-color: #ff8C00;
+}
+
+input{
+    font-weight: 700;
+    font-size: 18px;
+    width:90%;
+    height: 32px;
+}
+
+#search{
+    border: 0;
+    border-bottom: 1px solid black;
+}

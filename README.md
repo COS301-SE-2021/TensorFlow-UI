@@ -1,105 +1,107 @@
-# Try Catch Degree
+# TensorFlow-UI
 
-## Project:
-- TensorFlow UI
+## Index:
 
+1. [ Group ](#Group)
+2. [ Project Introduction. ](#ProjectIntroduction)
+3. [ Documentation. ](#Documentation)
+4. [ Technologies. ](#Technologies)
+5. [ Team. ](#Team)
+
+
+<a id="Group"></a>
+## Group:
+- Try Catch Degree
+
+<a id="ProjectIntroduction"></a>
 ## Project Introduction
-TensorFlow is a powerful and well-rounded machine learning system,
+TensorFlow is a powerful and well-rounded machine learning (ML)software library,
 used by many different groups for an immense number of tasks around the globe.
-With the advent of AI and ML becoming so commonplace,
-it offers one of the most compelling entry points into such a world.
+With the advent of Artificial Intelligence (AI) and ML becoming so commonplace, it offers one of the most compelling entry points into such a world.
 However, due to the code-driven nature of the framework,
 it tends to be relatively unfriendly to new users.
 
-To remedy this situation, a UI should be developed.
-This UI should be intuitive and good-looking,
-presenting a slick and effortless means of creating and training ML models for anybody with a basic understanding of the principles behind TensorFlow.
-This UI is what we are developing.
-It uses the idea of nodes as code segments, which can be linked together in a similar style to Scratch programs,
-to visually illustrate a model being created.
+To remedy this situation, a User Interface (UI) should be developed. This UI should be intuitive and well defined,
+presenting a slick and effortless means of creating and training ML models for anybody with a basic understanding of the principles behind TensorFlow. Our UI uses the idea of nodes as code segments, which can be linked together using lines which illustrate the connections between components. The collection of node components together create a visual representation of how a ML model would be shown.
 
 Our aim with this project is to make ML more accessible,
 and therefore allow the many benefits of machine learning to be used by more people,
 through lowering the barrier to entry of writing and training a model.
 
-Demo 2 - Video Link:
--https://drive.google.com/file/d/1HYKk4OLOlKEgtJXqOwwZIoP1omYD7oSF/view?usp=sharing
+<a id="Documentation"></a>
+## Documentation:
 
-Demo 2 Documentation:
--Architectural Document: https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing
--SRSv2: https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing
+[GitHub Project Board](https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2)
 
-GitHub Project Board Link:
-https://github.com/COS301-SE-2021/TensorFlow-UI/projects/2
+[Coding Standards](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Standards-Document.pdf)
 
-Profile Description of each Member of Try Catch Degree:
--Felipe Jorge
-I am always ready and eager to learn new topics and to increase my knowledge
-about every aspect of Computer Science. Whenever I encounter something new or
-unfamiliar, I’m extremely curious to find out how it works and how I can best use it to my
-advantage in the future. Driven by this curiosity, I can say I have learnt everything the
-Computer Science degree has offered so far and much more. I am eager to learn from this
-project and the new experiences it offers.
+[Technical Installation Guide](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Technical_Installation_Guide.pdf)
 
--Wessel Kruger
-I am a third-year student that is passionate about programming. Skills that I have
-acquired during my three years studying Computer Sciences, includes programming in C++,
-python, Java and C#. It also includes web-development, web-forms in C# and user
-interfaces in C#. My part time job has given me experience in SQL and database
-management as well. I am always willing to learn something new and to improve my current
-programming skills.
+[User Manual](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/Tensorflow-UI_User-manual.pdf)
 
--Siviwe Lechelele
-I am a very ambitious and dedicated individual, who seeks to always go above and
-beyond when it comes to completing a project. In my previous few years studying I believe
-that I have acquired the skills necessary to tackle any reasonable problem given and do so
-efficiently and effectively. My knowledge in java and other programming languages will be a
-great advantage in completing this project.
+[Architectural Document](https://drive.google.com/file/d/1K42QIO54kiXFVvOr9uye9e8zqYjDnCX9/view?usp=sharing)
 
--Werner van Rensburg
-I’m a determined student software developer with a keen interest in learning and
-gaining experience in new and different parts of technologies. I have some experience in
-developing front end user interfaces and know I would be a great asset in developing an
-interactive and intuitive user interface. I have a personal interest in the design and
-development of the user experience. A reactive and intuitive interface that is aesthetically
-pleasing will be of vital importance when developing a UI for this project.
+[Architectural Constraints](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-Architectural-Requirements.pdf)
 
--David Walker
-As a third-year student myself, I come with all the associated knowledge of
-programming and theory which is required at this academic level. Furthermore, as I am
-participating in an AI module this year, the subject matter is one of huge interest to me, and
-the idea of making a relatively abstract, maths-heavy concept available to the most people
-and as accessible as possible sounds incredibly appealing. Specifically, I think that machine
-learning is the way of the future, and that making it more accessible could lead to huge
-breakthroughs in human technology and knowledge. To that end, I would personally love to
-work on a project which makes it more accessible.
+### Videos:
+[Demo 1](https://drive.google.com/file/d/1oIVEflNL8kwrBLT_nlSNETqPK68bYRRI/view?usp=sharing)
 
+[Demo 2](https://drive.google.com/file/d/1HYKk4OLOlKEgtJXqOwwZIoP1omYD7oSF/view?usp=sharing)
 
-## Team
-| Name   | Surname      |        Email         |       Github        |	LinkIn	|
-|--------|--------------|----------------------|------------------------|--------------------|
-| Felipe | Jorge        | u17291195@tuks.co.za | [FelipeJorge805](https://github.com/FelipeJorge805)  |	https://www.linkedin.com/in/felipe-jorge-099b5620b/
-| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | https://www.linkedin.com/in/david-walker-3a1a1620b/
-| Werner | van Rensburg | u15118046@tuks.co.za | [wrvrensburg](https://github.com/wrvrensburg) | https://www.linkedin.com/in/werner-van-rensburg-971a5b104/
-| Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) | https://www.linkedin.com/in/wessel-kruger-19b197210/
-| Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) | https://www.linkedin.com/in/siviwe-lechelele-060073155/
+[Demo 3](https://drive.google.com/file/d/1cfWd-rA-IibknltVeRjOyc_gwND0TC6h/view?usp=sharing)
 
+[Demo 4]()
 
+### Software Requirements Specifications:
+
+[SRSv2](https://drive.google.com/file/d/1ecIWHbyBduPdhBQurBq4zW-thP5V8j1g/view?usp=sharing)
+
+[SRSv3](https://github.com/COS301-SE-2021/TensorFlow-UI/blob/master/Documentation/TensorFlowUI-SRS.pdf)
+
+[SRSv4]()
+
+<a id="Technologies"></a>
 ## Technologies
+
+### IDE
+
+![Webstorm](https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
 ### Frontend
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 
-  <img src="https://raw.githubusercontent.com/d3/d3-logo/master/d3.png" width="48">
 
 ### APIs
-  <img src="https://www.gstatic.com/devrel-devsite/prod/v0a30303ec7b067b5f3ae9ccc0662a5464fa8a5fb796392acd97bcfd40590684c/tensorflow/images/lockup.svg" width="200">
+![Tensorflow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![Pytorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white)
+![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
-  <img src="https://uploads.getpop.org/wp-content/uploads/2019/07/graphql.png" width="100">
 
 ### Backend
-![Spring-Boot](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
+### Hosing
+![Firebase](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
+![Asure](https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
+
+### Testing
+![Jasmine](https://img.shields.io/badge/Jasmine-8A4182?style=for-the-badge&logo=Jasmine&logoColor=white)
+
+
+<a id="Team"></a>
+## Team
+| Name   | Surname      |        Email         |       Github        |	LinkIn	|
+|--------|--------------|----------------------|------------------------|--------------------|
+| Felipe | Jorge        | u17291195@tuks.co.za | [FelipeJorge805](https://github.com/FelipeJorge805)  |	[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/felipe-jorge-099b5620b/)
+| David  | Walker       | u19055252@tuks.co.za | [TangerineZA](https://github.com/TangerineZA) | [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/david-walker-3a1a1620b/)
+| Werner | van Rensburg | u15118046@tuks.co.za | [wrvrensburg](https://github.com/wrvrensburg) | [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/werner-van-rensburg-971a5b104/)
+| Wessel | Kruger       | u18014934@tuks.co.za | [W-Kruger](https://github.com/W-Kruger) | [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wessel-kruger-19b197210/)
+| Siviwe | Lechelele    | u18221409@tuks.co.za | [Siviwe22](https://github.com/Siviwe22) | [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/siviwe-lechelele-060073155/)
 
