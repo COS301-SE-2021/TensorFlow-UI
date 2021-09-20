@@ -4,7 +4,7 @@ import {GitAPI} from "../../git-api";
 import {PopulatePreviewCommand} from "../../../Command/PopulatePreviewCommand";
 import {LoadFromImportCommand} from "../../../Command/LoadFromImportCommand";
 
-let projectList: string[] = [];
+let projectList: {}[] = [];
 export default projectList;
 export let previewData:String[]= [];
 
@@ -17,7 +17,7 @@ export let previewData:String[]= [];
 
 export class ImportPageContentComponent implements OnInit {
     @Input() navbar;
-    public projectL: string[] = [""];
+    public projectL: {}[]= [];
   public gitAPI: GitAPI;
   public screenWidth = screen.width;
   public screenHeight = screen.height;

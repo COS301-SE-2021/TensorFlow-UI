@@ -18,7 +18,7 @@ export class TFBuffer extends TFTensor {
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 
-		let widgetsData= ["shape","value","float",this.name];
+		let widgetsData= ["shape","value","float'",this.name];
 		let widgetTypes=["shape","dtype","value?","name"];
 
 		this.genericCreationUIStructure(widgetsData,widgetTypes,node,navbar);

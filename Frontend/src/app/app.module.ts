@@ -25,6 +25,7 @@ import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-uploa
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
 import {importPageModule} from "./ImportPage/importPage.module";
+import { CodeGeneratorDialogComponent } from './code-generator-dialog/code-generator-dialog.component';
 import {MatButtonModule} from "@angular/material/button";
 
 const modules = [
@@ -37,7 +38,8 @@ const modules = [
     AppComponent,
     TutorialModalComponent,
     TutorialModalMaterialComponent,
-    JsonUploadBoxComponent
+    JsonUploadBoxComponent,
+    CodeGeneratorDialogComponent,
   ],
     imports: [
         ServiceWorkerModule.register('ngsw-worker.js', {

@@ -9,13 +9,13 @@ export * from './upSampling2d'
 
 
 export const convolutional = [
-	// "conv1d",
-	// "conv2d",
-	// "conv2dTranspose",
-	// "conv3d",
-	"cropping2D",
-	"depthwiseConv2d",
-	// "separableConv2d",
-	"upSampling2d"
+	"Conv1d Layer",
+	"Conv2d Layer",
+	"Conv2dTranspose Layer",
+	"Conv3d Layer",
+	"Cropping2D Layer",
+	"DepthwiseConv2d Layer",
+	"SeparableConv2d Layer",
+	"UpSampling2d Layer"
 ]
 

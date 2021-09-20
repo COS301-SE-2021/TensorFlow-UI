@@ -28,8 +28,14 @@ export abstract class TFTensor extends TFNode {
                   alert("Wrong number of brackets, please check [ ] brackets.")
                   return false;
               }
-              if (value.match('\\[') != null) value = value.replace("[", "");
-              if (value.match("\]") != null) value = value.replace("]", "");
+              let i = value.match('\\[')?.length;
+              console.log(i);
+              if(i != undefined) {
+                  for (let j = -1; j <= i; j++) {
+                      value = value.replace("[", "");
+                      value = value.replace("]", "");
+                  }
+              }
           }catch(e){
               console.log(e);
           }

@@ -1,9 +1,6 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
         <div class="app-name">Tensorflow UI</div>
-        <span id="settingsButton" (click)="executeCommand(projectDetailsCommand)">
-          <mat-icon>settings</mat-icon>
-        </span>
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
@@ -32,7 +29,7 @@
         <mat-menu #operatorNodes="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="mathNodes">Arithmetic</button>
             <button mat-menu-item [matMenuTriggerFor]="basicMath">Basic Math</button>
-            <button mat-menu-item [matMenuTriggerFor]="scan">Scan</button>
+            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
             <button mat-menu-item [matMenuTriggerFor]="dropout">Dropout</button>
             <button mat-menu-item [matMenuTriggerFor]="evaluation">Evaluation</button>
             <button mat-menu-item [matMenuTriggerFor]="linearAlgebra">Linear Algebra</button>
@@ -40,8 +37,8 @@
             <button mat-menu-item [matMenuTriggerFor]="matricesNodes">Matrices</button>
             <button mat-menu-item [matMenuTriggerFor]="movingAverage">Moving Average</button>
             <button mat-menu-item [matMenuTriggerFor]="normilization">Normalization</button>
-            <button mat-menu-item [matMenuTriggerFor]="convolutionNodes">Operator Convolution</button>
             <button mat-menu-item [matMenuTriggerFor]="reductionNodes">Reduction</button>
+            <button mat-menu-item [matMenuTriggerFor]="scan">Scan</button>
         </mat-menu>
 
         <mat-menu #modelNodes="matMenu">
@@ -217,7 +214,7 @@
             <mat-nav-list>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Home" matTooltipPosition="right" (click)="mainTabs.selectedIndex = 0; drawer.close()">
                             <mat-icon class="homeIcon" [inline]="true" mat-list-icon>home</mat-icon>
                         </button>
                     </div>
@@ -231,7 +228,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="drawer.toggle(); setDrawerType('Settings')">
+                        <button class="sidenav-buttons" matTooltip="Settings" matTooltipPosition="right" (click)="executeCommand(projectDetailsCommand)">
                             <mat-icon class="settingsIcon" [inline]="true" mat-list-icon>settings</mat-icon>
                         </button>
                     </div>
@@ -245,7 +242,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right">
+                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right" (click)="mainTabs.selectedIndex = 2">
                             <mat-icon class="documentIcon" [inline]="true" mat-list-icon>description</mat-icon>
                         </button>
                     </div>
@@ -271,6 +268,9 @@
                     <div id="importPageDiv">
                         <app-import-page-content [navbar]="this"></app-import-page-content>
                     </div>
+                </mat-tab>
+                <mat-tab>
+                    <iframe src="https://cos301-se-2021.github.io/TensorFlow-UI/" height="100%" width="100%" title="TensorflowUI Documentation"></iframe>
                 </mat-tab>
             </mat-tab-group>
           </mat-drawer-content>

@@ -2,8 +2,8 @@ import {Command} from "./Command";
 import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
-import {AddTFNode} from "../Storage/workspace";
 import {LGraphNode} from "litegraph.js";
+import {AddTFNode, UpdateTFNode} from "../Storage/workspace";
 import {DeleteNodeCommand} from "./DeleteNodeCommand";
 
 export class AddNodeCommand extends Command{
@@ -29,6 +29,8 @@ export class AddNodeCommand extends Command{
     tfnode.inputs = liteGraphNode.inputs;
     tfnode.outputs = liteGraphNode.outputs;
     this.store.dispatch(new AddTFNode(tfnode));
+    tfnode.UIStructure(liteGraphNode,this.navbar);
+    this.store.dispatch(new UpdateTFNode(tfnode));
     this.navbar.TFNodeList.push(tfnode);
     this.lastNodeCreated = tfnode;
     this.c.setNode(liteGraphNode);

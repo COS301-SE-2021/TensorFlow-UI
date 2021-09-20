@@ -11,6 +11,7 @@ export class TFDivide extends TFOperator {
 	code(storageLinks,storageNodes) {
 
 		let res = this.genericArithmeticCode(storageLinks,storageNodes,"Divide");
+		console.log(res);
 		if(res=="")
 			return;
 

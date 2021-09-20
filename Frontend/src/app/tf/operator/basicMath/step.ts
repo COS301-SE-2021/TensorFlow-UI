@@ -41,7 +41,7 @@ export class TFStep extends TFOperator{
 				alert("The scaling factor has to be a number");
 			}
 		});
-
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("step", "tf.Tensor");
 	}
 }

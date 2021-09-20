@@ -15,7 +15,7 @@
             <button mat-raised-button color="primary" style="width: 110px" (click)="clearSearch()">Clear</button>
         </mat-card>
         <div id="filter">
-            <app-project-list *ngFor="let item of projectL" [element]="item" [navbar] = "navbar"></app-project-list>
+            <app-project-list *ngFor="let item of projectL" [pname]="item['pname']" [descript]="item['description']" [suser]="item['by']"  [navbar] = "navbar"></app-project-list>
         </div>
 
       </mat-tab>

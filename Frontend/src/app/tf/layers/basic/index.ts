@@ -10,13 +10,13 @@ export * from './spatialDropout1d'
 
 
 export const basic = [
-	"activation",
-	"dense",
+	"Activation",
+	"Dense",
 	// "dropout",
-	"embedding",
-	"flatten",
-	"permute",
-	"repeatVector",
-	"reshape",
-	"spatialDropout1d"
+	"Embedding",
+	"Flatten",
+	"Permute",
+	"RepeatVector",
+	"Reshape",
+	"SpatialDropout1d"
 ]

@@ -14,7 +14,9 @@ import projectList from "../importPageContent/import-page-content.component";
 export class ProjectListComponent implements OnInit {
 
   constructor(private store: Store) { }
-  @Input() element: string;
+  @Input() pname: string;
+  @Input() descript: string;
+  @Input() suser: string;
   @Input() navbar;
   public API: GitAPI= GitAPI.getInstance(this.store);
 

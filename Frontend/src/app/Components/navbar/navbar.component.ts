@@ -52,20 +52,19 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	public rootNode: TFNode = new TFNode();
 	public linesList: lineConnectors[] = [];
 	public commandHistory = new CommandHistory();
-	public clearCanvasCommand = new ClearCanvasCommand(this.store, this);
-	public generateCodeCommand = new GenerateCodeCommand(this.store, this);
-	public projectDetailsCommand = new ProjectDetailsCommand(this.store, this);
-	public runCodeCommand = new RunCodeCommand(this.store, this);
-	public addNodeCommand = new AddNodeCommand(this.store, this);
-	public reloadCommand = new ReloadFromStoreCommand(this.store, this);
-	public deleteNodeCommand = new DeleteNodeCommand(this.store, this)
+	public clearCanvasCommand = new ClearCanvasCommand(this.store,this);
+	public generateCodeCommand = new GenerateCodeCommand(this.store,this,this.dialog);
+	public projectDetailsCommand = new ProjectDetailsCommand(this.store,this);
+	public runCodeCommand = new RunCodeCommand(this.store,this,this.dialog);
+	public addNodeCommand = new AddNodeCommand(this.store,this);
+	public reloadCommand = new ReloadFromStoreCommand(this.store,this);
+	public deleteNodeCommand = new DeleteNodeCommand(this.store,this)
 	public screenWidth = screen.width;
 	public screenHeight = screen.height;
 	public lines;
 	public selectedNode=null;
 	public LGroot: LGraphNode;
 	graph: litegraph.LGraph;
-	//liteNodes: litegraph.LGraphNode[];
 
 	listOfNodes: string[] = Object.keys(NodeStore);
 
@@ -103,7 +102,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			el.style.display = "none";
 		}
 
-		const nodesLoadedOntoCanvas: LGraphNode[] = [];
 		const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 
 		//if else statement to load or create a root node onto the canvass
@@ -116,11 +114,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			this.LGroot = liteGraphNode;
 		}
 		else{
-			//let tensorRoot = new TFRootNode();
-			//tensorRoot.name = "Root";
-            this.LGroot = this.createLiteNode("RootNode",true,rootNode)
-			nodesLoadedOntoCanvas.push(this.LGroot);
 
+            this.LGroot = this.createLiteNode("RootNode",true,rootNode)
 		}
         this.reloadCommand.execute();
 	}
@@ -191,6 +186,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		if (!loadFromMemory) {
 			node.title = component;
 			node.pos = [200, 200];
+
 			const that = this;
 			node.onMouseDown = function () {
 				const that2 = that;
@@ -201,8 +197,14 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 						that2.updateNodePositionInLocalStorage(false);
 				}
 			}
+			node.onSelected = function (){
+				that.firstClickOnNode(node);
+			}
+			node.onDeselected =function (){
+				that.nodeDoubleClicked(node,false,true);
+			}
 
-			tempNode.UIStructure(node, this);
+			// tempNode.UIStructure(node,this);
 			this.graph.add(node);
 			this.graph.start();
 		} else {
@@ -294,6 +296,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 	updateNodeWidgetsDataInStore(node: TFNode) {
 		const nodesInStorage = this.store.selectSnapshot(WorkspaceState).TFNode;
 		const nodeToUpdate = nodesInStorage.find(element => element.id === node.id);
+
 		nodeToUpdate.widgets = node.widgets;
 		this.store.dispatch(new UpdateTFNode(nodeToUpdate));
 	}
@@ -343,9 +346,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			targetNode = this.rootNode;
 
 		// @ts-ignore
-		sourceNode?.outputs[link.origin_slot].id = 1;
+		// if(sourceNode&&targetNode) {
+		// 	sourceNode.outputs[link.origin_slot].id = 1;
+		// 	targetNode.inputs[link.target_slot].link = link.id;
+		// }
 		targetNode.inputs[link.target_slot].link = link.id;
-
 	}
 
 	executeAddNodeCommand(c: string) {

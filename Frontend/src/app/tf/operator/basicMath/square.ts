@@ -15,7 +15,7 @@ export class TFSquare extends TFOperator{
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-
+		this.createNodeNameWidget(node,navbar);
 		node.addOutput("x ^ 2", "tf.Tensor");
 	}
 }

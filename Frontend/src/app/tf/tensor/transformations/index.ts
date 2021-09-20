@@ -18,7 +18,7 @@ export const tensorTransformationsArray = [
     "ExpandDims",
     "MirrorPad",
     "Pad",
-    "Reshape",
+    // "Reshape",
     "Setdiff1dAsync",
     "SpaceToBatchND",
     "Squeeze",
