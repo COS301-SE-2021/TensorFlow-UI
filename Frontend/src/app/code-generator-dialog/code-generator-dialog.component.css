@@ -1,0 +1,10 @@
+.codeCanvas{
+    width: 100%;
+    height: 60%;
+    background-color: #6b7779;
+    overflow: scroll;
+}
+
+#generateCodeMessage{
+    margin-bottom: 0.7rem;
+}
