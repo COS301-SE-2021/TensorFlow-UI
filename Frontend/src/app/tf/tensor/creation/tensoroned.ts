@@ -2,7 +2,7 @@ import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
 
 export class TFTensorOneD extends TFTensor {
-	constructor(public data: number | undefined = undefined,
+	constructor(public data: number | number[] | undefined = undefined,
 				public name: string | undefined = undefined) {
 		super(data, name);
 	}
@@ -15,6 +15,8 @@ export class TFTensorOneD extends TFTensor {
 	}
 
 	UIStructure(node: LGraphNode) {
+        node.addInput("labels", "tf.Constant");
+        node.addInput("features", "tf.Constant");
 		node.addWidget("text","tensor1d",0, (value) => {
 			this.changeWidgetValue(value,"tensor1d");});
 		node.addWidget("combo","dtype(optional)","float",(value) => {

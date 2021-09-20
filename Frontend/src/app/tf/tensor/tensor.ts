@@ -4,12 +4,12 @@ import {NavbarComponent} from "../../Components/navbar/navbar.component";
 
 export abstract class TFTensor extends TFNode {
 
-    protected constructor(
-      public data: number | undefined = undefined,
-      public name: string | undefined = undefined
-    ) {
-      super(name, "Tensor", data);
-    }
+  protected constructor(
+    public data: number | number[] | undefined = undefined,
+    public name: string | undefined = undefined
+  ) {
+    super(name, "Tensor", data);
+  }
 
     // abstract code();
 

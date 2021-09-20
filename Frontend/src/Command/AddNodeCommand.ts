@@ -2,12 +2,14 @@ import {Command} from "./Command";
 import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
+import {LGraphNode} from "litegraph.js";
 import {AddTFNode, UpdateTFNode} from "../Storage/workspace";
 import {DeleteNodeCommand} from "./DeleteNodeCommand";
 
 export class AddNodeCommand extends Command{
   private component: string;
   private lastNodeCreated: TFNode;
+  private lastLiteNodeCreated: LGraphNode;
   private c = new DeleteNodeCommand(this.store,this.navbar);
 
   constructor(store: Store, private navbar: NavbarComponent) {
@@ -41,6 +43,10 @@ export class AddNodeCommand extends Command{
 
   getNode(){
     return this.lastNodeCreated;
+  }
+
+  getLiteGraphNode() {
+    return this.lastLiteNodeCreated;
   }
 
   undo() {

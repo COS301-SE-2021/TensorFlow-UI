@@ -22,6 +22,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ProjectDetailsUpdatedSnackbarComponent} from "./project-details-updated-snackbar/project-details-updated-snackbar.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { RunningDialogComponent } from './running-dialog/running-dialog/running-dialog.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {importPageModule} from "../ImportPage/importPage.module";
 
@@ -54,6 +55,7 @@ import {importPageModule} from "../ImportPage/importPage.module";
         NavbarDialogsComponent,
         SettingsPageDialogComponent,
         ProjectDetailsUpdatedSnackbarComponent,
+        RunningDialogComponent,
     ],
   exports: [
     NavbarComponent,

@@ -18,6 +18,10 @@ import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material/snack-bar";
 import {ComponentsModule} from "./Components/components.module";
+import { TutorialModalComponent } from './Tutorial/tutorial-modal/tutorial-modal.component';
+// import {AppRoutingModule, routingComponents} from './app-routing.module';
+import { TutorialModalMaterialComponent } from './Tutorial/tutorial-modal-material/tutorial-modal-material/tutorial-modal-material.component';
+import { JsonUploadBoxComponent } from './json-upload/json-upload-box/json-upload-box.component';
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { ImportPageComponent } from './ImportPage/importPageRoute/importPage.component';
 import {importPageModule} from "./ImportPage/importPage.module";
@@ -32,6 +36,9 @@ const modules = [
 @NgModule({
   declarations: [
     AppComponent,
+    TutorialModalComponent,
+    TutorialModalMaterialComponent,
+    JsonUploadBoxComponent,
     CodeGeneratorDialogComponent,
   ],
     imports: [

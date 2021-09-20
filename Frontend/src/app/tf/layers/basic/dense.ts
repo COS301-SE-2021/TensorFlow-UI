@@ -9,16 +9,9 @@ export class TFDense extends TFLayers {
 	}
 
 	code(storageLinks,storageNodes) {
-
-		let res="(";
-		for(let element of this.widgets){
-			res+=element.value+",";
-		}
-		res = res.substring(0,res.length-1);
-
-		return `${this.name +" = tf.keras.layers.Dense("+
-			res
-		})`;
+		return `${this.name} = tf.layers.dense(
+			${this.widgets.find(element => element.type == "constant")?.value || "0"}, activation="relu", name = ${this.name}
+	})`;
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
