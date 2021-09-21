@@ -1,5 +1,6 @@
 import {TFData} from "../data";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFTake extends TFData {
 
@@ -14,7 +15,7 @@ export class TFTake extends TFData {
 		// tf.data.Dataset.take
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

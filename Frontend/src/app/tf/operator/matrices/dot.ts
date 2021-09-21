@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFDot extends TFOperator {
 
@@ -15,7 +16,7 @@ export class TFDot extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("t1", "tf.Tensor");
 		node.addInput("t2", "tf.Tensor");
 		node.addOutput("t1.t2", "tf.Tensor");

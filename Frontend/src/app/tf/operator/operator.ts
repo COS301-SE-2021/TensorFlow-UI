@@ -1,7 +1,6 @@
 import {TFNode, widgetStructure} from "../node";
 import {LGraphNode} from "litegraph.js";
 import {NavbarComponent} from "../../Components/navbar/navbar.component";
-import {lineConnectors} from "../../node-data";
 
 export abstract class TFOperator extends TFNode {
 	protected constructor(public name: string | undefined = undefined) {
@@ -99,12 +98,12 @@ export abstract class TFOperator extends TFNode {
 		let res="";
 		const link1 = storageLinks.find(element => element.id == this.inputs[0].link);
 		if(!link1){
-			alert("Input node(a) required for the "+ operatorType +" operation");
+			alert("Input node(a) required for the "+ operatorType +" operation, in node: "+this.name);
 			return "";
 		}
 		const link2 = storageLinks.find(element => element.id == this.inputs[1].link);
 		if(!link2){
-			alert("Input node(b) required for the "+ operatorType +" operation");
+			alert("Input node(b) required for the "+ operatorType +" operation, in node: "+this.name);
 			return "";
 		}
 
@@ -114,17 +113,17 @@ export abstract class TFOperator extends TFNode {
 		res = inputNode1.name;
 		res += ","+inputNode2.name;
 
-		let inputNode1DType = inputNode1.widgets.find(element => element.type =="dtype")?.value;
+		let inputNode1DType = inputNode1.widgets.find(element => element.type =="dtype?")?.value;
 		if(inputNode1DType==undefined){
 			inputNode1DType = "float";
 		}
-		let inputNode2DType = inputNode2.widgets.find(element => element.type =="dtype")?.value;
+		let inputNode2DType = inputNode2.widgets.find(element => element.type =="dtype?")?.value;
 		if(inputNode2DType==undefined){
 			inputNode2DType = "float";
 		}
 
 		if(inputNode1DType!==inputNode2DType &&operatorType!=="Pow"){
-			alert("The second input node(y) must have the same dtype as the first input(x)");
+			alert("The second input node(y) must have the same dtype as the first input(x), for the node named: "+this.name);
 			return "";
 		}
 

@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFGramSchmidt extends TFOperator{
 	constructor(
@@ -12,7 +13,7 @@ export class TFGramSchmidt extends TFOperator{
 		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("xs", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addOutput("gramSchmidt", "tf.Tensor"); // tf.Tensor1D[]|tf.Tensor2D
 	}

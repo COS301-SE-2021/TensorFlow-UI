@@ -1,5 +1,6 @@
 import {TFNode} from "../node";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
 
 export class TFRootNode extends TFNode {
 
@@ -13,7 +14,7 @@ export class TFRootNode extends TFNode {
 
     }
 
-    UIStructure(node: LGraphNode) {
+    UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
         node.addInput("Result", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
     }
 }

@@ -1,6 +1,7 @@
 // tf.cast (x, dtype)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFCast extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -15,7 +16,7 @@ export class TFCast extends TFTensor {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("combo", "dtype", "float", (value) => {
 			this.changeWidgetValue(value, "dtype");

@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFSparseToDense extends TFOperator {
 
@@ -17,7 +18,7 @@ export class TFSparseToDense extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("sparseIndices", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("sparseValues", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text", "outputShape?", "[]", (value) => {

@@ -9,7 +9,7 @@ export class TFFlatten extends TFLayers {
 	}
 
 	code(storageLinks,storageNodes) {
-		let res = this.widgets.find(element => element.type == "data_format?")?.value || "None";
+		let res = this.widgets.find(element => element.type == "data_format?")?.value || " ";
 		return `${this.name +"= tf.keras.layers.Flatten(" + res})`;
 	}
 

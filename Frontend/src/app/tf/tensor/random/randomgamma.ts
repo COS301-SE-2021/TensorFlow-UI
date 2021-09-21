@@ -1,6 +1,7 @@
 // tf.randomGamma (shape, alpha, beta?, dtype?, seed?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFRandomGamma extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -18,7 +19,7 @@ export class TFRandomGamma extends TFTensor {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addWidget("text","shape","[0,2,4]", (value) => {
 			this.changeWidgetValue(value,"shape");});
 		node.addWidget("text","alpha","2", (value) => {

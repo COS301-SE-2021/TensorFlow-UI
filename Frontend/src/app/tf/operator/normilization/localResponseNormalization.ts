@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFLocalResponseNormalization extends TFOperator {
 
@@ -18,7 +19,7 @@ export class TFLocalResponseNormalization extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text", "depthRadius?", "", (value) => {
 			this.changeWidgetValue(value, "depthRadius");

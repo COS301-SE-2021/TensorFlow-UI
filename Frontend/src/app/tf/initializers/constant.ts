@@ -1,4 +1,5 @@
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
 import {TFInitializer} from "./initializer";
 
 export class TFConstant extends TFInitializer {
@@ -16,7 +17,7 @@ export class TFConstant extends TFInitializer {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text", "value", 0, (value) => {
 			this.changeWidgetValue(value, "value");
 		});

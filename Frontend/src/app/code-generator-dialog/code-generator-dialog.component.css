@@ -8,3 +8,7 @@
 #generateCodeMessage{
     margin-bottom: 0.7rem;
 }
+
+div{
+    white-space: pre-wrap;
+}

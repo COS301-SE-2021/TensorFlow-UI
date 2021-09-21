@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFWhere extends TFOperator{
 	constructor(
@@ -14,7 +15,7 @@ export class TFWhere extends TFOperator{
 		)`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("Condition", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array

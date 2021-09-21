@@ -1,8 +1,5 @@
-// tf.sequential (config?)
-// const model = tf.sequential();
-
-
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {TFOperator} from "../../operator";
 import {TFNode} from "../../node";
 
@@ -38,7 +35,7 @@ export class TFSequential extends TFOperator {
         this.features = features;
     }
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("layers","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("features","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
         node.addInput("layers", "tf.layers.Layer");

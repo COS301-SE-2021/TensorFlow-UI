@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFSoftmax extends TFOperator {
 
@@ -15,7 +16,7 @@ export class TFSoftmax extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("logits", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text", "dim?", "", (value) => {
 			this.changeWidgetValue(value, "dim");
