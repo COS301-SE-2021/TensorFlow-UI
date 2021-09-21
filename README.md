@@ -50,7 +50,7 @@ through lowering the barrier to entry of writing and training a model.
 
 [Demo 3](https://drive.google.com/file/d/1cfWd-rA-IibknltVeRjOyc_gwND0TC6h/view?usp=sharing)
 
-[Demo 4]()
+[Demo 4](https://drive.google.com/file/d/1oiGyQY_8BFA5daU8KZMXlcybPZi98TxM/view?usp=sharing)
 
 ### Software Requirements Specifications:
 
