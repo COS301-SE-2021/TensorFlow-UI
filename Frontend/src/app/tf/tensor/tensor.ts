@@ -15,8 +15,8 @@ export abstract class TFTensor extends TFNode {
 
     checkTensorInputType(value: string){
       let numberToCheck: string = value;
-      let reg = new RegExp('^( \] | \\. | \\[ |[a-zA-Z0-9])*$') //alphanumeric check with [ ] .
-      let alphanumcheck = new RegExp('^([a-zA-Z0-9])+$')
+      let reg = new RegExp('^([a-zA-Z0-9|\.]| \] | \\. | \\[)*$') //alphanumeric check with [ ] .
+      let alphanumcheck = new RegExp('^(\\.|[a-zA-Z0-9])+$')
 
       if(!isNaN(Number(numberToCheck)) || reg.test(value)) {
         //String is a number and no further checks
