@@ -1,7 +1,7 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
-import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../../../Components/navbar/navbar.component";
+import {Store} from "@ngxs/store";
 
 export class TFDivide extends TFOperator {
 	constructor(public name: string | undefined = undefined,private store: Store) {

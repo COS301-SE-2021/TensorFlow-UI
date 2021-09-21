@@ -1,5 +1,6 @@
 import {TFData} from "../data";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFSkip extends TFData {
 
@@ -14,7 +15,7 @@ export class TFSkip extends TFData {
 		// tf.data.Dataset.skip
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

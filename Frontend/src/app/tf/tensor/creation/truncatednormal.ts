@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFTruncatedNormal extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -16,7 +17,7 @@ export class TFTruncatedNormal extends TFTensor {
 			this.widgets.find(element => element.type == "seed")?.value || ""
 	})`;}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text","shape","[0,2]", (value) => {
 			this.changeWidgetValue(value,"shape");});
 		node.addWidget("text","mean?",0, (value) => {

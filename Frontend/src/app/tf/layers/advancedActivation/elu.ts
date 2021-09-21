@@ -1,5 +1,5 @@
-import {TFTensor} from "../../tensor/tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {TFLayers} from "../layers";
 
 export class TFElu extends TFLayers {
@@ -14,7 +14,7 @@ export class TFElu extends TFLayers {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});

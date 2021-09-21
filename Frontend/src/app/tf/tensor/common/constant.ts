@@ -1,6 +1,5 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
-import {widgetStructure} from "../../node";
 import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {userVariableNames} from "../../userVariableNames";
 
@@ -30,7 +29,7 @@ export class TFConstant extends TFTensor {
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		const that = this;
 
-		let widgetsData= ["0","None","None",this.name];
+		let widgetsData= ["0","float","None",this.name];
 		let widgetTypes=["value","dtype?","shape?","name"];
 
 		for(let i=0; i<4;++i){

@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFScalar extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -14,7 +15,7 @@ export class TFScalar extends TFTensor {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text","scalar",0, (value) => {
 			this.changeWidgetValue(value,"scalar");});
 		node.addWidget("combo","dtype(optional)","float",(value) => {

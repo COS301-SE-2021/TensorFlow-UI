@@ -6,13 +6,19 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {MatMenuModule} from "@angular/material/menu";
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef} from "@angular/material/snack-bar";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {TFNode} from "../../tf";
+import {TFAdd, TFNode} from "../../tf";
 import {TFConstant} from "../../tf/tensor/common";
+import {Command} from "../../../Command/Command";
+import {ClearCanvasCommand} from "../../../Command/ClearCanvasCommand";
+import {AddNodeCommand} from "../../../Command/AddNodeCommand";
+import {LGraphNode} from "litegraph.js";
 
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  let navbar: NavbarComponent;
+  let store: Store;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,69 +30,34 @@ describe('NavbarComponent', () => {
         {provide: MAT_DIALOG_DATA, useValue: {}},
         {provide: MatDialogRef, useValue: {}},
         {provide: MAT_SNACK_BAR_DATA, useValue: {}},
-        {provide: MatSnackBarRef, useValue: {}}
+        {provide: MatSnackBarRef, useValue: {}},
+        {provide: NavbarComponent, useClass: NavbarComponent }
       ]
     })
     .compileComponents();
+    navbar = TestBed.inject(NavbarComponent);
+    store = TestBed.inject(Store);
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('ngOnInit', () =>{
-   it('should populate TFNodeList and linesList arrays with store data', () => {
-
-   })
+  describe('clearCanvas', ()=>{
+    it('should return true if the canvas has been cleared', () => {
+      let com = new ClearCanvasCommand(store, navbar)
+      expect(com.execute()).toBeTruthy();
+    })
   })
 
-  // describe('clearCanvas', ()=>{
-  //   it('should set the TFNode list to empty when clicked', () => {
-  //     component.clearCanvas();
-  //     // expect(component.TFNodeList).toHaveSize(0);
-  //   })
-  // })
+  describe('addNewNode', ()=>{
+    it('should Add a new node to the store object and TFNodeList', ()=> {
+      let tfNode = new TFAdd("TestAdd", store);
+      expect(tfNode.name).toEqual("TestAdd")
+    })
+  })
 
-  // describe('addNewNode', ()=>{
-  //   it('should Add a new node to the store object and TFNodeList', ()=> {
-  //     let tfNode: TFNode;
-  //     tfNode = new TFConstant();
-  //
-  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-  //     component.addNewNode(tfNode);
-  //
-  //     expect(component.TFNodeList.length).toBeGreaterThan(0);
-  //
-  //   })
-  // })
-
-  // describe('createComponent', ()=>{
-  //   it('should Add a new node to the store object and TFNodeList', ()=> {
-  //     let tfNode: TFNode;
-  //     tfNode = new TFConstant();
-  //
-  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-  //     component.createComponent("Fill");
-  //
-  //     expect(component.TFNodeList.length).toBeGreaterThan(0)
-  //
-  //   })
-  //   it('should create object of the type provided as argument', ()=> {
-  //     let tfNode: TFNode;
-  //     tfNode = new TFConstant();
-  //
-  //     // let initialStore = this.store.selectSnapshot(WorkspaceState).TFNode;
-  //     component.createComponent("Constant");
-  //
-  //     if(component.TFNodeList) {
-  //       expect(component.TFNodeList[component.TFNodeList.length-1]).toBeInstanceOf(TFConstant);
-  //     }
-  //   })
-  // })
+  describe('addNewNodeToList', ()=>{
+    it('should Add a new node to the store object and TFNodeList', ()=> {
+      let tfNode = new TFAdd("TestAdd", store);
+      navbar.addNewNode(tfNode, new LGraphNode());
+      expect(navbar.TFNodeList.length).toBeGreaterThan(0)
+    })
+  })
 });

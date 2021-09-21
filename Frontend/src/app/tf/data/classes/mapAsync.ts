@@ -1,5 +1,6 @@
 import {TFData} from "../data";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFMapAsync extends TFData {
 
@@ -14,7 +15,7 @@ export class TFMapAsync extends TFData {
 		// tf.data.Dataset.mapAsync
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFBatchNorm extends TFOperator {
 
@@ -19,7 +20,7 @@ export class TFBatchNorm extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("mean", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("variance", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array

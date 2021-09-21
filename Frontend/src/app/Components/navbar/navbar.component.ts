@@ -141,7 +141,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		node.position = liteGraphNode.pos;
 		node.inputs = liteGraphNode.inputs;
 		node.outputs = liteGraphNode.outputs;
-
+		node.UIStructure(liteGraphNode);
 		this.store.dispatch(new AddRootNode(node));
 		this.rootNode = node;
 	}
@@ -345,11 +345,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		if (targetNode == undefined)
 			targetNode = this.rootNode;
 
-		// @ts-ignore
-		// if(sourceNode&&targetNode) {
-		// 	sourceNode.outputs[link.origin_slot].id = 1;
-		// 	targetNode.inputs[link.target_slot].link = link.id;
-		// }
 		targetNode.inputs[link.target_slot].link = link.id;
 	}
 

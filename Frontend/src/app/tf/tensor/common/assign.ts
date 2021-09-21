@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 
 export class Assign extends TFTensor{
@@ -8,7 +9,7 @@ export class Assign extends TFTensor{
         super(data, name);
     }
 
-    UIStructure(node: LGraphNode) {
+    UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
         const that = this;
         node.addWidget("text","constant",0,function (value){
             that.changeWidgetValue(value,"constant");

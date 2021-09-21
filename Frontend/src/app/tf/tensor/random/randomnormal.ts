@@ -1,6 +1,7 @@
 // tf.randomNormal (shape, mean?, stdDev?, dtype?, seed?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFRandomNormal extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -18,7 +19,7 @@ export class TFRandomNormal extends TFTensor {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addWidget("text","shape","[0,2,4]", (value) => {
 			this.changeWidgetValue(value,"shape");});
 		node.addWidget("text","mean?","2", (value) => {

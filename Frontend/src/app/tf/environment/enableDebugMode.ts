@@ -1,5 +1,6 @@
 import { TFEnvironment } from ".";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";;
 
 export class TFEnableDebugMode extends TFEnvironment {
 
@@ -14,7 +15,7 @@ export class TFEnableDebugMode extends TFEnvironment {
 // tf.enableDebugMode
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

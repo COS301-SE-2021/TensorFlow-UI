@@ -1,5 +1,6 @@
 import {TFInitializer} from "./initializer";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
 
 export class TFRandomNormal extends TFInitializer {
 
@@ -14,7 +15,7 @@ export class TFRandomNormal extends TFInitializer {
 // tf.initializers.randomNormal
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

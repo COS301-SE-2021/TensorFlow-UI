@@ -1,5 +1,6 @@
 import {TFConstraint} from "./classes";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";
 
 export class TFUnitNorm extends TFConstraint {
 
@@ -16,7 +17,7 @@ export class TFUnitNorm extends TFConstraint {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("args", "Object"); //should be tf.Tensor|TypedArray|Array
 		node.addOutput("tf.constraints.Constraint", "tf.Tensor");
 	}

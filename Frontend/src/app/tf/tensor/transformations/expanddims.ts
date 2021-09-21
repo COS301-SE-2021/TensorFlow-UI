@@ -1,6 +1,7 @@
 // tf.expandDims (x, axis?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFExpandDims extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -14,7 +15,7 @@ code(storageLinks,storageNodes) {
 		)`;
 	}
 
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addInput("X", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text","axis?","[0,0]", (value) => {
 			this.changeWidgetValue(value,"axis");});

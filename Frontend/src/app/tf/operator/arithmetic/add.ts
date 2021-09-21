@@ -1,9 +1,9 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {WorkspaceState} from "../../../../Storage/workspace";
 import {Store, Select} from "@ngxs/store";
 import {OnInit} from "@angular/core";
-import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFAdd extends TFOperator{
 	constructor(

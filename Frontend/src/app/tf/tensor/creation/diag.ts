@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFDiag extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -13,7 +14,7 @@ export class TFDiag extends TFTensor {
 	// this.GetNode(storageLinks, storageNodes, this.inputs[0].link))`;
 	// }
 	//
-	// UIStructure(node: LGraphNode){
+	// UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 	// 	node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 	// 	node.addOutput(" tf.Tensor", "tf.Tensor");
 	code(storageLinks,storageNodes) {
@@ -31,7 +32,7 @@ export class TFDiag extends TFTensor {
 		return `${this.name} = tf.diag(${param})`;
 	}
 
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addInput("X","tf.Tensor");
 		node.addOutput("tf.Tensor","tf.Tensor");
 	}

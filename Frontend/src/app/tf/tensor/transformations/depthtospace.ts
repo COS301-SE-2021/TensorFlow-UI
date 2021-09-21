@@ -1,6 +1,7 @@
 // tf.depthToSpace (x, blockSize, dataFormat?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFDepthToSpace extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -16,7 +17,7 @@ export class TFDepthToSpace extends TFTensor {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text","blockSize",0, (value) => {
 			this.changeWidgetValue(value,"blockSize");});

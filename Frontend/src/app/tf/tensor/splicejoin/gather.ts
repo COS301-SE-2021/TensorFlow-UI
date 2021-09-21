@@ -1,6 +1,7 @@
 // tf.gather (x, indices, axis?, batchDims?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFGather extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -13,5 +14,5 @@ export class TFGather extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
-	UIStructure(node: LGraphNode){}
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){}
 }

@@ -1,6 +1,7 @@
 // tf.rand (shape, randFunction, dtype?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFRand extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -15,7 +16,7 @@ export class TFRand extends TFTensor {
 			${this.widgets.find(element => element.type == "dtype")?.value || "dtype=None"}
 		})`;
 	}
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addWidget("text","shape","[0,2,4]", (value) => {
 			this.changeWidgetValue(value,"shape");});
 		node.addWidget("text","randFunction","function()", (value) => {

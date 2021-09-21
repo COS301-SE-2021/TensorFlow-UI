@@ -1,6 +1,7 @@
 // tf.einsum (equation, ...tensors)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFEinsum extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -13,5 +14,5 @@ export class TFEinsum extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
-	UIStructure(node: LGraphNode){}
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){}
 }

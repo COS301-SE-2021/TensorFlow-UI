@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFGreaterEqual extends TFOperator{
 	constructor(
@@ -17,7 +18,7 @@ export class TFGreaterEqual extends TFOperator{
 		")"}`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("a", "tf.Tensor");
 		node.addInput("b", "tf.Tensor");
 		node.addOutput("a >= b", "tf.Tensor");
