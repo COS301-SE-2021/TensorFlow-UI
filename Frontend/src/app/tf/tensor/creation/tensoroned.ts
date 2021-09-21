@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFTensorOneD extends TFTensor {
 	constructor(public data: number | number[] | undefined = undefined,
@@ -14,7 +15,7 @@ export class TFTensorOneD extends TFTensor {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
         node.addInput("labels", "tf.Constant");
         node.addInput("features", "tf.Constant");
 		node.addWidget("text","tensor1d",0, (value) => {

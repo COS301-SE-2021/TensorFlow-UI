@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFConfusionMatrix extends TFOperator{
 	constructor(
@@ -15,7 +16,7 @@ export class TFConfusionMatrix extends TFOperator{
 		)`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("labels", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("predictions", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("numClasses", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array

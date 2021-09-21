@@ -1,5 +1,6 @@
 import {TFTensor} from "../../tensor/tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFLeakyReLU extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -13,7 +14,7 @@ export class TFLeakyReLU extends TFTensor {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text", "constant", 0,  (value) => {
 			this.changeWidgetValue(value, "constant");
 		});

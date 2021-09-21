@@ -1,6 +1,7 @@
 // tf.mirrorPad (x, paddings, mode)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 
 export class TFMirrorPad extends TFTensor {
@@ -14,5 +15,5 @@ export class TFMirrorPad extends TFTensor {
 			this.data || "some value"
 		})`;
 	}
-	UIStructure(node: LGraphNode){}
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){}
 }

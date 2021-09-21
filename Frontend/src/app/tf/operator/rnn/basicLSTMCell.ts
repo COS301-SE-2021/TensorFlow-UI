@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFBasicLSTMCell extends TFOperator{
 	constructor(
@@ -17,7 +18,7 @@ export class TFBasicLSTMCell extends TFOperator{
 		${this.GetNode(storageLinks, storageNodes, this.inputs[5].link)})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("forgetBias", "tf.Scalar"); //tf.Scalar|TypedArray|Array
 		node.addInput("lstmKernel", "tf.Tensor"); //tf.Tensor2D|TypedArray|Array
 		node.addInput("lstmBias", "tf.Tensor"); //tf.Tensor1D|TypedArray|Array

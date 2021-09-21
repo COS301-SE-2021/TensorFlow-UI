@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFWhereAsync extends TFOperator{
 	constructor(
@@ -12,7 +13,7 @@ export class TFWhereAsync extends TFOperator{
 		this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("Condition", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addOutput("whereAsync", "tf.Tensor"); //Returns: Promise<tf.Tensor2D>
 	}

@@ -1,5 +1,6 @@
 import { TFEnvironment } from ".";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../Components/navbar/navbar.component";;
 
 export class TFDisposeVariables extends TFEnvironment {
 
@@ -14,7 +15,7 @@ export class TFDisposeVariables extends TFEnvironment {
 // tf.disposeVariables
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("", "");
 		node.addOutput("", "");
 	}

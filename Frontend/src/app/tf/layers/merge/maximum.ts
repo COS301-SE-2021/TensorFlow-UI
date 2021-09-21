@@ -1,5 +1,6 @@
 import {TFLayers} from "../layers";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFMaximum extends TFLayers {
 	constructor(public data: number | undefined = undefined,
@@ -13,7 +14,7 @@ export class TFMaximum extends TFLayers {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("args(Object)", "Object"); //should be tf.Tensor|TypedArray|Array
 		node.addOutput("tf.layers.Layer","tf.layers.Layer");
 	}

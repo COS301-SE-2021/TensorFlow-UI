@@ -1,6 +1,7 @@
 // tf.multinomial (logits, numSamples, seed?, normalized?)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFMultinomial extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -16,7 +17,7 @@ export class TFMultinomial extends TFTensor {
 			${this.widgets.find(element => element.type == "trainable")?.value || "false" }
 	})`;}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("logits", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text","numSamples","2", (value) => {
 			this.changeWidgetValue(value,"numSamples");});

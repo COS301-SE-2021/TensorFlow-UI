@@ -1,5 +1,6 @@
 import {TFLayers} from "../layers";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFDispose extends TFLayers {
 	constructor(public data: number | undefined = undefined,
@@ -13,7 +14,7 @@ export class TFDispose extends TFLayers {
 	})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addWidget("text", "value", 0, (value) => {
 			this.changeWidgetValue(value, "value");
 		});

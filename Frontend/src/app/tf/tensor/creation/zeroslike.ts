@@ -1,5 +1,6 @@
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFZerosLike extends TFTensor {
     constructor(public data: number | undefined = undefined,
@@ -12,7 +13,7 @@ export class TFZerosLike extends TFTensor {
 			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)})`;
 	}
 
-    UIStructure(node: LGraphNode){
+    UIStructure(node: LGraphNode,navbar?:NavbarComponent){
         node.addInput("X","tf.Tensor");
         node.addOutput("tf.Tensor","tf.Tensor");
     }

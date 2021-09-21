@@ -1,6 +1,5 @@
-// tf.model (args)
-
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {TFOperator} from "../../operator";
 import {TFNode} from "../../node";
 
@@ -18,7 +17,7 @@ export class TFModel extends TFOperator {
 		// })`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		// node.addInput("A","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		// node.addInput("B","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		// node.addOutput("A+B","tf.Tensor");

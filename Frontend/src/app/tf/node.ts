@@ -114,11 +114,18 @@ export class TFNode {
 	setNodeCustomName(name:string,navbar?:NavbarComponent):boolean{
 		let nameWidget = this.widgets.find(element => element.type == "name");
 
+		let oldNameInArrayIndex = userVariableNames.findIndex(element => element === this.name);
+		if(oldNameInArrayIndex>-1){
+			userVariableNames.splice(oldNameInArrayIndex,1);
+		}
+
 		if(userVariableNames.find(element =>element === name)){
 			alert("A node with the same name already exists in the canvas. Either a custom unique name will instead be given to the operation, or the last valid name given will be used");
 			return false;
 		}
 		else{
+
+
 			userVariableNames.push(name);
 			this.name = name;
 		}

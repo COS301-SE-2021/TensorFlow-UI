@@ -141,7 +141,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		node.position = liteGraphNode.pos;
 		node.inputs = liteGraphNode.inputs;
 		node.outputs = liteGraphNode.outputs;
-
+		node.UIStructure(liteGraphNode);
 		this.store.dispatch(new AddRootNode(node));
 		this.rootNode = node;
 	}

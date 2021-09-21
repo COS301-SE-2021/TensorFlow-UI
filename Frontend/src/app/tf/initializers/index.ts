@@ -15,7 +15,6 @@ export * from './varianceScaling'
 export * from './zeros'
 
 export const initializers = [
-	"constant",
 	"glorotNormal",
 	"glorotUniform",
 	"heNormal",

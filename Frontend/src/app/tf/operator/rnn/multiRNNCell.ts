@@ -17,6 +17,7 @@
 
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFMultiRNNCell extends TFOperator{
 	constructor(
@@ -32,7 +33,7 @@ export class TFMultiRNNCell extends TFOperator{
 		${this.GetNode(storageLinks, storageNodes, this.inputs[3].link)})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("lstmCells", "tf.Tensor"); //tf.Tensor2D|TypedArray|Array
 		node.addInput("data", "tf.Tensor"); // (tf.Tensor2D|TypedArray|Array)
 		node.addInput("c", "tf.Tensor"); // (tf.Tensor2D|TypedArray|Array)

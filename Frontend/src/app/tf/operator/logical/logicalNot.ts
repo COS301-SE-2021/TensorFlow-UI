@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 import {TFNode} from "../../node";
 
 export class TFLogicalNot extends TFOperator{
@@ -18,7 +19,7 @@ export class TFLogicalNot extends TFOperator{
 		")"}`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor");
 		node.addOutput("NOT x", "tf.Tensor");
 	}

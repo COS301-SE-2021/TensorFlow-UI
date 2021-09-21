@@ -1,6 +1,7 @@
 // tf.batchToSpaceND (x, blockShape, crops)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFBatchToSpaceND extends TFTensor {
 	constructor(public data: number | undefined = undefined,
@@ -14,7 +15,7 @@ export class TFBatchToSpaceND extends TFTensor {
 			${this.widgets.find(element => element.type == "crops")?.value || ""})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text","blockShape","[0,2,4]", (value) => {
 			this.changeWidgetValue(value,"blockShape");});

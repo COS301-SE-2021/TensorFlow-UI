@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFSeparableConv2d extends TFOperator {
 
@@ -20,7 +21,7 @@ export class TFSeparableConv2d extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("input","tf.Tensor");
 		node.addWidget("text","pointwiseFilter","2",(value) => { this.changeWidgetValue(value,"pointwiseFilter");});
 		node.addWidget("text","depthwiseFilter?","1",(value) => { this.changeWidgetValue(value,"depthwiseFilter?");});

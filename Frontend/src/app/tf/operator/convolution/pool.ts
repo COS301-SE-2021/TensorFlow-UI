@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFPool extends TFOperator {
 
@@ -19,7 +20,7 @@ export class TFPool extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("input","tf.Tensor");
 		node.addWidget("text","WindowShape","2",(value) => { this.changeWidgetValue(value,"WindowShape");});
 		node.addWidget("text","poolingType","1",(value) => { this.changeWidgetValue(value,"poolingType");});

@@ -1,6 +1,7 @@
 // tf.broadcastTo (x, shape)
 import {TFTensor} from "../tensor";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 
 export class TFBroadcastTo extends TFTensor {
@@ -17,7 +18,7 @@ export class TFBroadcastTo extends TFTensor {
 		${this.widgets.find(element => element.type == "shape")?.value || ""}
 		})`;
 	}
-	UIStructure(node: LGraphNode){
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent){
 		node.addInput("x", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addWidget("text","shape","[0,0]", (value) => {
 			this.changeWidgetValue(value,"shape");});

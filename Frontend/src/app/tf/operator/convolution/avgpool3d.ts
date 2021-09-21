@@ -1,5 +1,6 @@
 import {TFOperator} from "../operator";
 import {LGraphNode} from "litegraph.js";
+import {NavbarComponent} from "../../../Components/navbar/navbar.component";
 
 export class TFAvgPool3D extends TFOperator {
 
@@ -17,7 +18,7 @@ export class TFAvgPool3D extends TFOperator {
 		})`;
 	}
 
-	UIStructure(node: LGraphNode) {
+	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("X","tf.Tensor");
 		node.addWidget("text","filterSize","2",(value) => { this.changeWidgetValue(value,"filterSize");});
 		node.addWidget("text","strides","1",(value) => { this.changeWidgetValue(value,"strides");});
