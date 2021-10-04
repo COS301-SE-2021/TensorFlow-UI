@@ -1,24 +1,24 @@
 import {State, Action, StateContext, Selector} from '@ngxs/store'
 import {NodeData, lineConnectors} from "../../app/node-data";
 import {
-  AddLineConnectorToStorage,
-  AddNodeToStorage,
-  UpdateNodeInStorage,
-  RemoveNodeFromStorage,
-  RemoveLineFromStorage,
-  ChangeBooleanValue,
-  RemoveTFNode,
-  AddTFNode,
-  UpdateTFNode,
-  AddRootNode,
-  AddProjectName,
-  AddProjectDescription,
-  RemoveLineConnectionOne,
-  RemoveLineConnection,
-  RemoveLineConnectionTwo,
-  UpdateLineConnection,
-  ClearCanvas,
-  RemoveAllLineFromStorage, ResetStore
+    AddLineConnectorToStorage,
+    AddNodeToStorage,
+    UpdateNodeInStorage,
+    RemoveNodeFromStorage,
+    RemoveLineFromStorage,
+    ChangeBooleanValue,
+    RemoveTFNode,
+    AddTFNode,
+    UpdateTFNode,
+    AddRootNode,
+    AddProjectName,
+    AddProjectDescription,
+    RemoveLineConnectionOne,
+    RemoveLineConnection,
+    RemoveLineConnectionTwo,
+    UpdateLineConnection,
+    ClearCanvas,
+    RemoveAllLineFromStorage, ResetStore, UpdateID
 } from "./workspace.actions";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {Injectable} from "@angular/core";
@@ -32,6 +32,7 @@ export interface WorkspaceStateModel {
 	rootNode: TFNode | undefined;
 	projectName: string;
 	projectDescription: string;
+	lastID: number;
 }
 
 @State<WorkspaceStateModel>({
@@ -43,7 +44,8 @@ export interface WorkspaceStateModel {
 		showWorkspace: true,
 		rootNode: undefined,
 		projectName: "",
-		projectDescription: ""
+		projectDescription: "",
+        lastID: 0
 		// lines:[{start: "TestNode01", end: "TestNode02", line: null}],
 	},
 })
@@ -222,6 +224,14 @@ export class WorkspaceState {
     )
   }
 
+    @Action(UpdateID)
+    public updateID(stateContext: StateContext<WorkspaceStateModel>, {id}: UpdateID) {
+        stateContext.setState(
+            patch({
+                lastID: id
+            })
+        )
+    }
 
 	// @Action(RemoveLineConnection)
 	// public removeLineConnection(stateContext: StateContext<WorkspaceStateModel>, {node}: RemoveLineConnection) {

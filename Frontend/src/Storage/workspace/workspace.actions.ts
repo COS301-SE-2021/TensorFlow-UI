@@ -136,3 +136,9 @@ export class ResetStore {
   }
 }
 
+export class UpdateID {
+    public static readonly type = '[Workspace] Update ID';
+
+    constructor(public id: number) {
+    }
+}

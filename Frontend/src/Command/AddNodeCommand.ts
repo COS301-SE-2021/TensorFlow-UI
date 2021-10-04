@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {NodeStore, TFNode} from "../app/tf";
 import {LGraphNode} from "litegraph.js";
-import {AddTFNode, UpdateTFNode} from "../Storage/workspace";
+import {AddTFNode, UpdateID, UpdateTFNode} from "../Storage/workspace";
 import {DeleteNodeCommand} from "./DeleteNodeCommand";
 
 export class AddNodeCommand extends Command{
@@ -34,6 +34,7 @@ export class AddNodeCommand extends Command{
     this.navbar.TFNodeList.push(tfnode);
     this.lastNodeCreated = tfnode;
     this.c.setNode(liteGraphNode);
+    this.store.dispatch(new UpdateID(tfnode.id))
     return true;
   }
 
