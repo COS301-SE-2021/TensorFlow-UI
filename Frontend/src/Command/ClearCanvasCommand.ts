@@ -25,12 +25,12 @@ export class ClearCanvasCommand extends Command {
 		const clearDialog = this.navbar.dialog.open(NavbarDialogsComponent);
 
 		clearDialog.afterClosed().subscribe(() => {
-			const clearCanvasBoolean = clearDialog.disableClose;
+		    const clearCanvasBoolean = clearDialog.disableClose;
 
 			//Only clear canvas if reset button is clicked on dialog
 			if (clearCanvasBoolean) {
 				this.store.dispatch(new ClearCanvas());
-        const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
+                const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				for(let line of this.store.selectSnapshot(WorkspaceState).links){
 					this.store.dispatch(new RemoveLineFromStorage(line));
 				}
@@ -40,16 +40,16 @@ export class ClearCanvasCommand extends Command {
 				this.navbar.graph.clear();
 				this.navbar.TFNodeList = [];
 
-        this.navbar.lines = this.navbar.graph.list_of_graphcanvas[0].graph.links;
+                this.navbar.lines = this.navbar.graph.list_of_graphcanvas[0].graph.links;
 
-        let tensorRoot = this.navbar.rootNode==null ? new TFRootNode() : this.navbar.rootNode;
-        tensorRoot.name = "RootNode";
+                let tensorRoot = this.navbar.rootNode==null ? new TFRootNode() : this.navbar.rootNode;
+                tensorRoot.name = "RootNode";
 
 				const liteGraphNode = this.navbar.createLiteNode("RootNode", true, rootNode);
 				this.navbar.createRootNodeHelper(rootNode, liteGraphNode);
 			}
 		})
-    return true;
+        return true;
 	}
 
 	undo() {
