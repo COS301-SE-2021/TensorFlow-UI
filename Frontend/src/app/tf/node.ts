@@ -23,7 +23,7 @@ export class TFNode {
         public data: number | number[] | undefined = undefined) {}
 	code(links: lineConnectors[],nodes: TFNode[]) {}
 
-	UIStructure(node: LGraphNode, navbar?:NavbarComponent){}
+	UIStructure(node: LGraphNode, navbar?:NavbarComponent, language?:string){}
 
 	changeWidgetValue(value,type,navbar?:NavbarComponent,node?:LGraphNode){
 		if(type==="name" && node){
@@ -58,7 +58,6 @@ export class TFNode {
 			}
 			else{
 				value = value.substring(1,value.length-1);
-				console.log(value);
 				let newVal = value.split(',');
 				for(let elem of newVal){
 					if(isNaN(Number(elem)) || elem===""){
@@ -99,7 +98,7 @@ export class TFNode {
 			else{
 				alert("Input node '"+inputName+"' for the "+nodeName+" function required");
 			}
-			return "";
+			return "undefined";
 		}
 		const link = storageLinks.find(element => element.id == input);
 		const inputNode = storageNodes.find(element => element.id == link?.origin_id);
