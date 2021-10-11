@@ -10,40 +10,33 @@ export class TFConv3dtranspose extends TFOperator{
 	}
 
 	code(storageLinks,storageNodes){
-		return `${this.name} = tf.conv3dTranspose(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
-			${this.widgets.find(element => element.type == "filterSize")?.value || "0"},
-			${this.widgets.find(element => element.type == "strides")?.value || "0"},
-			${this.widgets.find(element => element.type == "pad")?.value || "0"},
-			${this.widgets.find(element => element.type == "dataFormat")?.value || "0"},
-			${this.widgets.find(element => element.type == "dilation")?.value || "0"},
-			${this.widgets.find(element => element.type == "dimRoundingMode")?.value || "0"}
-		})`;
+		let widgetsData= ["[1]","1",'"SAME"','"NDHWC"',"None",this.name];
+		let widgetTypes=["output_shape","strides","padding","data_format","dilations","name"];
+
+		return (this.name+" = tf.nn.conv3d_transpose("+
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)+","+
+			this.GetNode(storageLinks, storageNodes, this.inputs[1].link)+","+
+			(this.widgets.find(element => element.type == widgetTypes[0])?.value || widgetsData[0])+","+
+			(this.widgets.find(element => element.type == widgetTypes[1])?.value || widgetsData[1])+","+
+			(this.widgets.find(element => element.type == widgetTypes[2])?.value || widgetsData[2])+","+
+			(this.widgets.find(element => element.type == widgetTypes[3])?.value || widgetsData[3])+","+
+			(this.widgets.find(element => element.type == widgetTypes[4])?.value || widgetsData[4])+")"
+		);
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("X","tf.Tensor");
-		node.addWidget("text","filterSize","2",(value) => { this.changeWidgetValue(value,"filterSize");});
-		node.addWidget("text","strides","1",(value) => { this.changeWidgetValue(value,"strides");});
-		node.addWidget("text","pad","valid",(value) => { this.changeWidgetValue(value,"pad");});
-		node.addWidget("text","dataFormat?","",(value) => { this.changeWidgetValue(value,"dataFormat");});
-		node.addWidget("text","dilation?","",(value) => { this.changeWidgetValue(value,"dilation");});
-		node.addWidget("text","dimRoundingMode?","",(value) => { this.changeWidgetValue(value,"dimRoundingMode");});
-		node.addOutput("tf.Tensor4D|tf.Tensor5D","tf.Tensor");
+		node.addInput("Input","tf.Tensor");
+		node.addInput("Filters","tf.Tensor");
+		node.addOutput("Tensor3D|Tensor4D","tf.Tensor");
+
+		let widgetsData= ["[1]","1",'"SAME"','"NDHWC"',"None",this.name];
+		let widgetTypes=["output_shape","strides","padding","data_format","dilations","name"];
+
+		this.genericConvolutionUIStructure(widgetsData,widgetTypes,node,navbar);
+		node.size = [250,node.size[1]]
 	}
 
 }
-
-// tf.conv3dTranspose (x, filter, outputShape, strides, pad) functionsource
-// Computes the transposed 3D convolution of a volume, also known as a deconvolution.
-//
-// 	Parameters:
-// x (tf.Tensor4D|tf.Tensor5D|TypedArray|Array) The input image, of rank 5 or rank 4, of shape [batch, depth, height, width, inDepth]. If rank 4, batch of 1 is assumed.
-// filter (tf.Tensor5D|TypedArray|Array) The filter, rank 4, of shape [depth, filterHeight, filterWidth, outDepth, inDepth]. inDepth must match inDepth in x.
-// outputShape ([number, number, number, number, number]|[number, number, number, number]) Output shape, of rank 5 or rank 4: [batch, depth, height, width, outDepth]. If rank 3, batch of 1 is assumed.
-// strides ([number, number, number]|number) The strides of the original convolution: [strideDepth, strideHeight, strideWidth].
-// pad ('valid'|'same') The type of padding algorithm used in the non-transpose version of the op.
-// 	Returns: tf.Tensor4D|tf.Tensor5D
 
 
 
