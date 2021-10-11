@@ -126,10 +126,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 			this.linesChanged(linesChange);
 		}
 
-		// const nodesChange = this.nodesDiffer.diff(this.liteNodes);
-		// if(nodesChange){
-		// 	this.updateNodeData(nodesChange);
-		// }
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

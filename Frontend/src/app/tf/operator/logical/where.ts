@@ -16,9 +16,12 @@ export class TFWhere extends TFOperator{
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("Condition", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("A", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("B", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("Condition", "tf.Tensor");
+		node.addInput("A", "tf.Tensor");
+		node.addInput("B", "tf.Tensor");
 		node.addOutput("where", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 }

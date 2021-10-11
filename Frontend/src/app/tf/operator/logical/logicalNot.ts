@@ -22,6 +22,9 @@ export class TFLogicalNot extends TFOperator{
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
 		node.addInput("x", "tf.Tensor");
 		node.addOutput("NOT x", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 
 	logicalNotHelper(storageLinks,storageNodes):string{

@@ -19,8 +19,11 @@ export class TFNotEqual extends TFOperator{
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("a", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addInput("b", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("a", "tf.Tensor");
+		node.addInput("b", "tf.Tensor");
 		node.addOutput("a != b", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 }

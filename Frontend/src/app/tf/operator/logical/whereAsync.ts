@@ -14,7 +14,11 @@ export class TFWhereAsync extends TFOperator{
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("Condition", "tf.Tensor"); //should be tf.Tensor|TypedArray|Array
-		node.addOutput("whereAsync", "tf.Tensor"); //Returns: Promise<tf.Tensor2D>
+		node.addInput("Condition", "tf.Tensor");
+		node.addOutput("whereAsync", "tf.Tensor");
+
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 }

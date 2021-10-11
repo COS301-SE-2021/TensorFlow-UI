@@ -22,5 +22,8 @@ export class TFLess extends TFOperator{
 		node.addInput("a", "tf.Tensor");
 		node.addInput("b", "tf.Tensor");
 		node.addOutput("a < b", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 }

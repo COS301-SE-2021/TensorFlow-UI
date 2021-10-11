@@ -14,9 +14,7 @@ export class TFFloorDiv extends TFOperator {
         if(res=="")
             return;
 
-        return `${this.name + "= tf.math.floordiv("+
-        res
-        })`;
+        return `${this.name + "= tf.math.floordiv("+ res })`;
     }
 
     UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
