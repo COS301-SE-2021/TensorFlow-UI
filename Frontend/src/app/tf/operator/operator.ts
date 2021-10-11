@@ -215,4 +215,157 @@ export abstract class TFOperator extends TFNode {
 
 		node.addOutput("Tensor of output_type", "tf.Tensor");
 	}
+
+	genericConvolutionUIStructure(widgetsData,widgetTypes,node,navbar){
+
+		for(let i=0; i<widgetTypes.length;++i){
+			let widget = this.widgets.find(element => element.type === widgetTypes[i]);
+			if(widget!=null)
+				widgetsData[i] = widget.value;
+		}
+
+		for(let i=0; i<widgetTypes.length;++i){
+			if(widgetTypes[i]==="ksize"){
+				node.addWidget("text",widgetTypes[i],widgetsData[i], (value) => {
+					if(this.isConvolutionSizeCorrect(value,widgetTypes[i],node))
+						this.changeWidgetValue(value,widgetTypes[i],navbar);
+					else
+						this.resetWidgetValueToLast(widgetTypes[i],node,widgetsData[i]);
+				});
+			}
+			if(widgetTypes[i]=="strides"||widgetTypes[i]=="stride"){
+				node.addWidget("text",widgetTypes[i],widgetsData[i], (value) => {
+					if(this.isConvolutionSizeCorrect(value,widgetTypes[i],node))
+						this.changeWidgetValue(value,widgetTypes[i],navbar);
+					else
+						this.resetWidgetValueToLast(widgetTypes[i],node,widgetsData[i]);
+				});
+			}
+			if(widgetTypes[i]=="padding"){
+				node.addWidget("combo",widgetTypes[i],widgetsData[i],(value) => {
+					this.changeWidgetValue(value,widgetTypes[i],navbar);
+				},{values: ['"SAME"','"VALID"']});
+			}
+			if(widgetTypes[i]=="data_format" && node.title==="Dilation2d"){
+				node.addWidget("combo",widgetTypes[i],widgetsData[i],(value) => {},{values: ['"NHWC"']});
+			}
+			else if(widgetTypes[i]=="data_format" && node.title==="DepthWiseConv2d"){
+				node.addWidget("combo",widgetTypes[i],widgetsData[i],(value) => {
+					this.changeWidgetValue(value,widgetTypes[i],navbar);
+				},{values: ['"NHWC"','"NCHW"']});
+			}
+			else if((widgetTypes[i]=="data_format" && node.title!=="Conv1d") || (widgetTypes[i]=="data_format" && node.title!=="Conv3d")){
+				node.addWidget("combo",widgetTypes[i],widgetsData[i],(value) => {
+					this.changeWidgetValue(value,widgetTypes[i],navbar);
+				},{values: ['"NDHWC"','"NCDHW"']});
+			}
+			else if(widgetTypes[i]=="data_format" && node.title=="Conv1d"){
+				node.addWidget("combo",widgetTypes[i],widgetsData[i],(value) => {
+					this.changeWidgetValue(value,widgetTypes[i],navbar);
+				},{values: ['"NWC"','"NCW"']});
+			}
+			if(widgetTypes[i]=="dilations"){
+				node.addWidget("text",widgetTypes[i],widgetsData[i], (value) => {
+					if(this.isConvolutionSizeCorrect(value,widgetTypes[i],node))
+						this.changeWidgetValue(value,widgetTypes[i],navbar);
+					else
+						this.resetWidgetValueToLast(widgetTypes[i],node,widgetsData[i]);
+				});
+			}
+			if(widgetTypes[i]=="output_shape"){
+				node.addWidget("text",widgetTypes[i],widgetsData[i], (value) => {
+					if(this.checkIfWidgetTypeIsAVectorArray(value,widgetTypes[i]))
+						this.changeWidgetValue(value,widgetTypes[i],navbar);
+					else
+						this.resetWidgetValueToLast(widgetTypes[i],node,widgetsData[i]);
+				});
+			}
+
+		}
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
+
+	}
+
+	isConvolutionSizeCorrect(value,type,node):boolean{
+		value = value.trim();
+		if(this.checkIfWidgetTypeIsAVectorArray(value,type)){
+			let res = value.substring(1,value.length-1);
+
+			let numbersArray = res.split(',');
+			for(let elem of numbersArray){
+				if (!isNaN(Number(elem))) {
+					let numberToCheck: number = +elem;
+					if(!(Number.isInteger(numberToCheck))){
+						this.errorMessageHelper(type,node);
+						return false;
+					}
+				}
+			}
+
+			if(node.title==="Conv2d"){
+				if(numbersArray.length==1 || numbersArray.length==2 || numbersArray.length==4){
+					return true;
+				}
+			}
+			else if (node.title==="Conv3d"){
+				if(numbersArray.length>=5)
+					return true;
+			}
+			else if (node.title==="DepthWiseConv2d"){
+				if(type==="strides" && numbersArray.length==4)
+					return true;
+				if(type==="dilations" && numbersArray.length==2)
+					return true;
+			}
+			else if (node.title==="Dilation2d"){
+				if(numbersArray.length>=4)
+					return true;
+			}
+			else{
+				if(numbersArray.length==1 || numbersArray.length==3 || (numbersArray.length==5 && type!=="dilations")){
+					return true;
+				}
+			}
+		}
+
+		if (!isNaN(Number(value))) {
+			let numberToCheck: number = +value;
+			if(Number.isInteger(numberToCheck)){
+				return true;
+			}
+		}
+
+		this.errorMessageHelper(type,node);
+		return false;
+	}
+
+	errorMessageHelper(type,node){
+		if(type=="dilations") {
+			if(node.title=="Conv1d")
+				alert("The " + type + " property has to either be an integer or list of integers that has length 1,2 or 4. ([int] | [int,int] | [int,int,int,int]). Defaults to 1. ");
+			else if(node.title=="Conv3d")
+				alert("The " + type + " property has to either be a list of integers that has length greater than 5. ([int,int,int,int,int]).");
+			else if(node.title==="DepthWiseConv2d"){
+				alert("The " + type + " property has to either be an a 1D list of integers that has a length of 2.");
+			}
+			else if(node.title==="Dilation2d"){
+				alert("The " + type + " property has to either be an a 1D list of integers that has a length of 4 or more.");
+			}
+			else
+				alert("The " + type + " property has to either be an an integer or list of integers that has length 1 or 3 ([int] | [int,int] | [int,int,int]). Defaults to 1. ");
+		}
+		else if(type=="strides"){
+			if(node.title==="DepthWiseConv2d"){
+				alert("The " + type + " property has to either be an a 1D list of integers that has a length of 4.");
+			}
+			else if(node.title==="Dilation2d"){
+				alert("The " + type + " property has to either be an a 1D list of integers that has a length of 4 or more.");
+			}
+		}
+		else
+			alert("The "+type+" property has to either be an an integer or list of integers that has length 1, 3 or 5 ([int]| [int,int,int]| [int,int,int,int,int]). The size of the window for each dimension of the input tensor. ");
+	}
+
 }
