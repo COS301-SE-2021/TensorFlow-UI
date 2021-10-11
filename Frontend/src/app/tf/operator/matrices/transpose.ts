@@ -57,6 +57,9 @@ export class TFTranspose extends TFOperator {
 			that.changeWidgetValue(value,widgetTypes[1],navbar);
 		});
 		node.addOutput("tf.Tensor", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 
 }

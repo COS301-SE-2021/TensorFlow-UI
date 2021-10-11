@@ -30,6 +30,7 @@ export class TFNorm extends TFOperator {
 			this.changeWidgetValue(value, "keepDims");
 		});
 		node.addOutput("", "tf.Tensor");
+
 	}
 
 }

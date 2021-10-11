@@ -20,6 +20,9 @@ export class TFOuterProduct extends TFOperator {
 		node.addInput("v1", "tf.Tensor");
 		node.addInput("v2", "tf.Tensor");
 		node.addOutput("v1.v2 outer product", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 
 }
