@@ -431,4 +431,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
     poplist() {
 	    this.gitAPI.GetList();
     }
+
+    redirect() {
+        location.href = "https://cos301-se-2021.github.io/TensorFlow-UI/";
+    }
 }

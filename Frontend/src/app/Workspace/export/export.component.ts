@@ -122,6 +122,21 @@ export class ExportComponent implements OnInit {
     doc['description'] = description;
     doc['TFNode'] = storageNodes;
     doc['links'] = storageLinks;
+        let count = 2;
+      for (let i = 0; i < doc['TFNode'].length; i++) {
+          let keep = doc['TFNode'][i];
+          doc['TFNode'][i].id = count;
+          for (let j = 0; j < doc['links'].length; j++) {
+              if (doc['links'][j].origin_id == keep){
+                  doc['links'][j].origin_id = count;
+              }
+              if (doc['links'][j].target_id == keep){
+                  doc['links'][j].target_id = count;
+              }
+          }
+          count++;
+      }
+
     let jsonDta = JSON.stringify(doc);
     var file = new Blob([jsonDta], {type: 'application/json'});
     return file;

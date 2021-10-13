@@ -86,7 +86,7 @@ export class PopulatePreviewCommand extends Command{
 
         if (!loadFromMemory) {
             node.title = component;
-            node.pos = [200, 200];
+            node.pos = [1300, 200];
             tempNode.UIStructure(node,this.nav);
             this.graph.add(node);
             this.graph.start();

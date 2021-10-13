@@ -1,6 +1,6 @@
 <div class="navigator">
     <mat-toolbar color="primary" class="toolbar">
-        <div class="app-name">Tensorflow UI</div>
+        <div class="app-name" (click)="redirect()">Tensorflow UI</div>
         <span class="toolbarButton" id="createNode"  [matMenuTriggerFor]="nodes">
           Create Node
         </span>
@@ -240,7 +240,7 @@
                 </mat-list-item>
                 <mat-list-item>
                     <div class="sidenav-icons-Div">
-                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right" (click)="mainTabs.selectedIndex = 2">
+                        <button class="sidenav-buttons" matTooltip="Documentation" matTooltipPosition="right" (click)="redirect()">
                             <mat-icon class="documentIcon" [inline]="true" mat-list-icon>description</mat-icon>
                         </button>
                     </div>
@@ -266,9 +266,6 @@
                     <div id="importPageDiv">
                         <app-import-page-content [navbar]="this"></app-import-page-content>
                     </div>
-                </mat-tab>
-                <mat-tab>
-                    <iframe src="https://cos301-se-2021.github.io/TensorFlow-UI/" height="100%" width="100%" title="TensorflowUI Documentation"></iframe>
                 </mat-tab>
             </mat-tab-group>
           </mat-drawer-content>
