@@ -13,6 +13,7 @@ export class DeleteNodeCommand extends Command{
     }
 
   execute() {
+        if( this.node.id == 1) return;
     this.backup = this.store.selectSnapshot(WorkspaceState).links;
 
     let nodes = this.navbar.TFNodeList;
