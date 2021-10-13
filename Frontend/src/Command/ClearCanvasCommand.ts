@@ -1,11 +1,11 @@
 import {Command} from "./Command";
 import {NavbarDialogsComponent} from "../app/Components/navbar-dialogs/navbar-dialogs.component";
 import {
-  ClearCanvas,
-  RemoveAllLineFromStorage,
-  RemoveLineFromStorage,
-  RemoveTFNode, ResetStore,
-  WorkspaceState
+    ClearCanvas,
+    RemoveAllLineFromStorage,
+    RemoveLineFromStorage,
+    RemoveTFNode, ResetStore, UpdateID,
+    WorkspaceState
 } from "../Storage/workspace";
 import {NavbarComponent} from "../app/Components/navbar/navbar.component";
 import {Store} from "@ngxs/store";
@@ -47,6 +47,7 @@ export class ClearCanvasCommand extends Command {
 
 				const liteGraphNode = this.navbar.createLiteNode("RootNode", true, rootNode);
 				this.navbar.createRootNodeHelper(rootNode, liteGraphNode);
+				this.store.dispatch(new UpdateID(1))
 			}
 		})
         return true;
