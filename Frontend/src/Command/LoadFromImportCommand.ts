@@ -42,20 +42,14 @@ export class LoadFromImportCommand extends Command{
 
           // recreate all line connectors from memory
           const storedLinks = obj.links;
-          console.log(storedLinks);
           for(let i=0; i<storedLinks.length;++i){
               if(storedLinks[i].target_id !=1){
                   const targetNodeID = storedLinks[i].target_id +val;
-                  console.log("Target: " + targetNodeID);
                   const originNodeID = storedLinks[i].origin_id +val;
-                  console.log("Origin: " + originNodeID);
                   const targetNode = nodesLoadedOntoCanvas.find(element => element.id === targetNodeID);
                   const originNode = nodesLoadedOntoCanvas.find(element => element.id === originNodeID);
-                  console.log(originNode);
-                  console.log(targetNode);
                   if(originNode && targetNode) {
                       originNode.connect(storedLinks[i].origin_slot, targetNode, storedLinks[i].target_slot);
-                      console.log("done");
                   }
               }
           }

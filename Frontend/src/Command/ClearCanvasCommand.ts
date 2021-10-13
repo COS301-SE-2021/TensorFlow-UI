@@ -29,6 +29,7 @@ export class ClearCanvasCommand extends Command {
 
 			//Only clear canvas if reset button is clicked on dialog
 			if (clearCanvasBoolean) {
+			    this.store.dispatch(new UpdateID(1))
 				this.store.dispatch(new ClearCanvas());
                 const rootNode = this.store.selectSnapshot(WorkspaceState).rootNode;
 				for(let line of this.store.selectSnapshot(WorkspaceState).links){
@@ -47,7 +48,7 @@ export class ClearCanvasCommand extends Command {
 
 				const liteGraphNode = this.navbar.createLiteNode("RootNode", true, rootNode);
 				this.navbar.createRootNodeHelper(rootNode, liteGraphNode);
-				this.store.dispatch(new UpdateID(1))
+
 			}
 		})
         return true;
