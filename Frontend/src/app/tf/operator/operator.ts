@@ -99,12 +99,12 @@ export abstract class TFOperator extends TFNode {
 		const link1 = storageLinks.find(element => element.id == this.inputs[0].link);
 		if(!link1){
 			alert("Input node(a) required for the "+ operatorType +" operation, in node: "+this.name);
-			return "";
+			return "undefined";
 		}
 		const link2 = storageLinks.find(element => element.id == this.inputs[1].link);
 		if(!link2){
 			alert("Input node(b) required for the "+ operatorType +" operation, in node: "+this.name);
-			return "";
+			return "undefined";
 		}
 
 		const inputNode1 = storageNodes.find(element => element.id == link1?.origin_id);
@@ -124,7 +124,7 @@ export abstract class TFOperator extends TFNode {
 
 		if(inputNode1DType!==inputNode2DType &&operatorType!=="Pow"){
 			alert("The second input node(y) must have the same dtype as the first input(x), for the node named: "+this.name);
-			return "";
+			return "undefined";
 		}
 
 		return res;

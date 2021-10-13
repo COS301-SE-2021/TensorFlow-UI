@@ -11,12 +11,7 @@ export class TFDivideNoNan extends TFOperator {
     code(storageLinks,storageNodes) {
 
         let res = this.genericArithmeticCode(storageLinks,storageNodes,"Divide NoNan");
-        if(res=="")
-            return;
-
-        return `${this.name + "= tf.math.divide_no_nan("+
-        res
-        })`;
+        return `${this.name + "= tf.math.divide_no_nan("+ res})`;
     }
 
     UIStructure(node: LGraphNode,navbar?:NavbarComponent) { 

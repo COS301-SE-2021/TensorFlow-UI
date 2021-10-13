@@ -11,12 +11,8 @@ export class TFSquaredDifference extends TFOperator {
     code(storageLinks,storageNodes) {
 
         let res = this.genericArithmeticCode(storageLinks,storageNodes,"Squared Difference");
-        if(res=="")
-            return;
 
-        return `${this.name + "= tf.math.squared_difference("+
-        res
-        })`;
+        return `${this.name + "= tf.math.squared_difference("+ res})`;
     }
 
     UIStructure(node: LGraphNode,navbar?:NavbarComponent) {

@@ -11,12 +11,7 @@ export class TFMod extends TFOperator {
 	code(storageLinks,storageNodes) {
 
 		let res = this.genericArithmeticCode(storageLinks,storageNodes,"Mod");
-		if(res=="")
-			return;
-
-		return `${this.name + "= tf.math.floormod("+
-		res
-		})`;
+		return `${this.name + "= tf.math.floormod("+ res })`;
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
