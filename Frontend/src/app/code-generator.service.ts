@@ -107,7 +107,7 @@ export class CodeGeneratorService {
                         savedResponse = this.responseText;
                     }
                 });
-                xhr.open("POST", "http://localhost:5000/upload", false);
+                xhr.open("POST", "40.127.18.17:5000", false);
                 // xhr.setRequestHeader("Content-Type", "multipart/form-data");
                 xhr.send(data);
 
