@@ -6,7 +6,7 @@ import { WorkspaceState } from "../../../Storage/workspace";
 import { lineConnectors, NodeData } from "../../node-data";
 import { DOCUMENT } from "@angular/common";
 import { CodeGeneratorService } from "../../code-generator.service";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig, MatDialogModule} from "@angular/material/dialog";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProjectDetailsUpdatedSnackbarComponent } from "../project-details-updated-snackbar/project-details-updated-snackbar.component";
 import { NodeStore, tensorFlowTypesArray, TFNode } from "../../tf";
@@ -170,6 +170,25 @@ export class NavbarComponent implements OnInit, AfterViewInit, DoCheck, OnChange
 		const tutorialService: TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
 		tutorialService.runTutorial(this.store, this.rootNode, this.TFNodeList, this.lines, "http://localhost:5000/");
 	}
+
+    basicTutorial() {
+        const tutorialService: TutorialServiceService = new TutorialServiceService(this, this.store, this.dialog);
+        tutorialService.basicTutorial();
+    }
+
+    spawnDialog(text : string) {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = text;
+        const dialogRef = this.dialog.open(TutorialModalMaterialComponent, dialogConfig);
+        let div = document.getElementsByClassName("mat-dialog-container").item(0) as HTMLElement;
+        if(div != null) {
+            div.style.position = "absolute";
+            div.style.bottom = "5px";
+            div.style.left = "75px";
+            div.style.width = "auto";
+            div.style.height = "auto";
+        }
+    }
 
 	addNewNode(node: TFNode, lgraphNode: LGraphNode) {
 

@@ -23,6 +23,7 @@ export class AddNodeCommand extends Command{
     tfnode = new NodeStore[this.component]();
     tfnode.name = this.component + id;
     const liteGraphNode = this.navbar.createLiteNode(this.component, false, tfnode);
+    this.lastLiteNodeCreated = liteGraphNode;
     tfnode.selector = this.component;
     tfnode.id = liteGraphNode.id;
     tfnode.position = liteGraphNode.pos;

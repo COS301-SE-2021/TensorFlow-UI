@@ -1,5 +1,5 @@
 # set base image (host OS)
-FROM python:latest
+FROM python:3.8-slim-buster
 
 # set the working directory in the container
 WORKDIR /container
