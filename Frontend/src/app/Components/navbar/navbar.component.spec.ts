@@ -48,14 +48,14 @@ describe('NavbarComponent', () => {
 
   describe('addNewNode', ()=>{
     it('should Add a new node to the store object and TFNodeList', ()=> {
-      let tfNode = new TFAdd("TestAdd", store);
+      let tfNode = new TFAdd("TestAdd");
       expect(tfNode.name).toEqual("TestAdd")
     })
   })
 
   describe('addNewNodeToList', ()=>{
     it('should Add a new node to the store object and TFNodeList', ()=> {
-      let tfNode = new TFAdd("TestAdd", store);
+      let tfNode = new TFAdd("TestAdd");
       navbar.addNewNode(tfNode, new LGraphNode());
       expect(navbar.TFNodeList.length).toBeGreaterThan(0)
     })
