@@ -36,7 +36,7 @@ export class TFSequential extends TFOperator {
     }
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("layers","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
+		node.addInput("labels","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
 		node.addInput("features","tf.Tensor"); //should be tf.Tensor|TypedArray|Array
         node.addInput("layers", "tf.layers.Layer");
 		node.addOutput("output","tf.Tensor");
