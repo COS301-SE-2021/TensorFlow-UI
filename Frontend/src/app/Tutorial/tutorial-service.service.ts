@@ -30,6 +30,10 @@ export class TutorialServiceService {
   navbar : NavbarComponent;
   features;
   labels;
+  ftest;
+  ftrain;
+  ltest;
+  ltrain;
 
   constructor(
     navbar : NavbarComponent,
@@ -149,6 +153,8 @@ export class TutorialServiceService {
       },4000)
 
       let that = this;
+
+
       setTimeout(function(){
           el = document.getElementById("TensorOneD") as HTMLElement;
           let color = el.style.backgroundColor;
@@ -166,6 +172,8 @@ export class TutorialServiceService {
           tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "name", value: "feature-training"});
           tensorFTrain.pushToArray(tensorFTrain.widgets, {type: "value", value: featuresTrain.toString() });
           let c = that.navbar.graph.getNodeById(tensorFTrain.id);
+          that.ftrain = that.addCommand.getLiteGraphNode()
+          that.ftrain.pos = [500, 100]
           if (c != undefined) tensorFTrain.UIStructure(c, that.navbar);
           console.log("1. Tensor created: " + tensorFTrain.data);
 
@@ -180,37 +188,45 @@ export class TutorialServiceService {
           tensorFTest.pushToArray(tensorFTest.widgets, {type: "name", value: "feature-testing"});
           tensorFTest.pushToArray(tensorFTest.widgets, {type: "value", value: featuresTest.toString() });
           let d = that.navbar.graph.getNodeById(tensorFTest.id);
+          that.ftest = that.addCommand.getLiteGraphNode()
+          that.ftest.pos = [100, 100]
           if (d != undefined) tensorFTest.UIStructure(d, that.navbar);
           console.log("2. Tensor created: " + tensorFTest.data);
 
-          that.addCommand.getLiteGraphNode().connect(1, that.navbar.LGroot, 1);
 
           that.addCommand.setComponent("Constant");
           that.addCommand.execute();
           let tensorLTrain = that.addCommand.getNode();
           tensorLTrain.data = labelsTrain;
           tensorLTrain.type = "int32";
-          tensorLTrain.position = [800, 200];
+          tensorLTrain.position = [500, 400];
           tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "dtype?", value: "int32"});
           tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "position", value: "[800, 200]"});
           tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "name", value: "label-training"});
           tensorLTrain.pushToArray(tensorLTrain.widgets, {type: "value", value: labelsTrain.toString() });
           let e = that.navbar.graph.getNodeById(tensorLTrain.id);
+          that.ltrain = that.addCommand.getLiteGraphNode()
+          that.ltrain.pos = [500, 400]
           if (e != undefined) tensorLTrain.UIStructure(e, that.navbar);
           console.log("3. Tensor created: " + tensorLTrain.data);
+
 
           that.addCommand.setComponent("Constant");
           that.addCommand.execute();
           let tensorLTest = that.addCommand.getNode();
           tensorLTest.data = labelsTest;
           tensorLTest.type = "int32";
-          tensorLTest.position = [800, 400]
+          tensorLTest.position = [100, 400]
           tensorLTest.pushToArray(tensorLTest.widgets, {type: "dtype?", value: "int32"});
           tensorLTest.pushToArray(tensorLTest.widgets, {type: "name", value: "label-testing"});
           tensorLTest.pushToArray(tensorLTest.widgets, {type: "value", value: labelsTest.toString() });
           let f = that.navbar.graph.getNodeById(tensorLTest.id);
+          that.ltest = that.addCommand.getLiteGraphNode()
+          that.ltest.pos = [100, 500]
           if (f != undefined) tensorLTest.UIStructure(f, that.navbar);
           console.log("4. Tensor created: " + tensorLTest.data);
+
+
 
       },5000)
 
@@ -295,20 +311,30 @@ export class TutorialServiceService {
           el.style.backgroundColor = "#666666"
           setTimeout(function(){el.style.backgroundColor = color},10000)
 
-          that.addCommand.setComponent("Model");
+          that.addCommand.setComponent("Dense");
           that.addCommand.execute();
           let model = that.addCommand.getNode();
           model.position = [50, 500];
       },11000)
 
     var tfModel : TFModel= new TFSequential("basicModel", denseLayer);
+    let lModel = that.addCommand.getLiteGraphNode();
+
+
 
     this.addCommand.setComponent("Sequential");
     this.addCommand.execute();
     let model = <TFSequential>this.addCommand.getNode();
     model.setLayer(denseLayer);
     model.setDataset(this.features, this.labels);
-    model.position = [50, 500];
+    let lDense = that.addCommand.getLiteGraphNode();
+    lDense.pos = [700, 300]
+
+    lModel.connect(0, that.ftrain, 0);
+    lModel.connect(1, that.ltrain, 1);
+    lModel.connect(0, lDense, 2);
+    lModel.pos = [900, 300]
+    that.navbar.LGroot.connect(0, lModel, 0);
   }
 
   step5() {
@@ -338,5 +364,9 @@ export class TutorialServiceService {
     this.url = url;
     this.currentStep = 1;
     this.nextStep();
+  }
+
+  basicTutorial() {
+      this.openDialog("A walkthorough of what our system does!");
   }
 }

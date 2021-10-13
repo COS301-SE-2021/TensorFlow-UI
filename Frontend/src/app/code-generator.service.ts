@@ -7,11 +7,15 @@ import { Store } from "@ngxs/store";
 import { userVariableNames } from "./tf/userVariableNames";
 import { MatDialog } from "@angular/material/dialog";
 import { CodeGeneratorDialogComponent } from "./code-generator-dialog/code-generator-dialog.component";
+import {NavbarComponent} from "./Components/navbar/navbar.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeGeneratorService {
+
+    private nav : NavbarComponent | undefined = undefined;
+    setNav(nav : NavbarComponent) {this.nav = nav;}
 
   constructor(private store: Store, public dialog: MatDialog) {
 
@@ -87,22 +91,35 @@ export class CodeGeneratorService {
             if(rootChild) {
                 tfNodes.forEach(function (value){value.visitCount = 0});
                 let generatedCode = graph.generateCode(rootChild,links,tfNodes);
-                let file: File = new File([generatedCode], "output.py");
+                var file = new File([generatedCode], "uploaded.py");
+                console.log("Code added to file! \n" + generatedCode)
+                var savedResponse : string = "";
+                var data = new FormData();
+                data.append("file", file, "uploaded.py");
+                console.log("Data appended!");
+                // console.log(data);
+                console.log(data.get('file'));
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.addEventListener("readystatechange", function() {
+                    if(this.readyState === 4) {
+                        console.log(this.responseText);
+                        savedResponse = this.responseText;
+                    }
+                });
+                xhr.open("POST", "http://localhost:5000/upload", false);
+                // xhr.setRequestHeader("Content-Type", "multipart/form-data");
+                xhr.send(data);
+
+                FileSaver.saveAs(savedResponse, "response.html");
+
+                if (this.nav != undefined) {
+                    this.nav.spawnDialog(savedResponse);
+                }
+
+                return savedResponse;
             }
-            var savedResponse : string = "";
-            // var data = file;
-            // var xhr = new XMLHttpRequest();
-            // xhr.withCredentials = true;
-            // xhr.addEventListener("readystatechange", function() {
-            //   if(this.readyState === 4) {
-            //     console.log(this.responseText);
-            //     savedResponse = this.responseText;
-            //   }
-            // });
-            // xhr.open("POST", url);
-            // xhr.setRequestHeader("Content-Type", "application/octet-stream");
-            // xhr.send(data);
-            return savedResponse;
+            return "No root"
         }
         else{
             //CANNOT GENERATE CODE - no connections
