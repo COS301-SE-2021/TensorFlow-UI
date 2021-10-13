@@ -55,8 +55,10 @@ export class ClearCanvasCommand extends Command {
 
 	undo() {
     this.store.reset(this.backup)
-    this.store.dispatch(new ResetStore(this.backup))
-    let c = new ReloadFromStoreCommand(this.store,this.navbar);
-    c.execute();
+    this.store.dispatch(new ResetStore(this.backup));
+    this.navbar.ngOnInit();
+    this.navbar.ngAfterViewInit();
+    //let c = new ReloadFromStoreCommand(this.store,this.navbar);
+    //c.execute();
     }
 }
