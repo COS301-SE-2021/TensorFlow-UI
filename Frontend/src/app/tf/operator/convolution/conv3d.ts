@@ -10,26 +10,30 @@ export class TFConv3d extends TFOperator {
 	}
 
 	code(storageLinks,storageNodes){
-		return `${this.name} = tf.conv3d(
-			${this.GetNode(storageLinks, storageNodes, this.inputs[0].link)},
-			${this.widgets.find(element => element.type == "filterSize")?.value || "0"},
-			${this.widgets.find(element => element.type == "strides")?.value || "0"},
-			${this.widgets.find(element => element.type == "pad")?.value || "0"},
-			${this.widgets.find(element => element.type == "dataFormat")?.value || "0"},
-			${this.widgets.find(element => element.type == "dilation")?.value || "0"},
-			${this.widgets.find(element => element.type == "dimRoundingMode")?.value || "0"}
-		})`;
+		let widgetsData= ["1",'"SAME"','"NDHWC"',"None",this.name];
+		let widgetTypes=["strides","padding","data_format","dilations","name"];
+
+
+		return (this.name+" = tf.nn.conv3d("+
+			this.GetNode(storageLinks, storageNodes, this.inputs[0].link)+","+
+			this.GetNode(storageLinks, storageNodes, this.inputs[1].link)+","+
+			(this.widgets.find(element => element.type == widgetTypes[0])?.value || widgetsData[0])+","+
+			(this.widgets.find(element => element.type == widgetTypes[1])?.value || widgetsData[1])+","+
+			(this.widgets.find(element => element.type == widgetTypes[2])?.value || widgetsData[2])+","+
+			(this.widgets.find(element => element.type == widgetTypes[3])?.value || widgetsData[3])+")"
+		);
 	}
 
 	UIStructure(node: LGraphNode,navbar?:NavbarComponent) {
-		node.addInput("X","tf.Tensor");
-		node.addWidget("text","filterSize","2",(value) => { this.changeWidgetValue(value,"filterSize");});
-		node.addWidget("text","strides","1",(value) => { this.changeWidgetValue(value,"strides");});
-		node.addWidget("text","pad","valid",(value) => { this.changeWidgetValue(value,"pad");});
-		node.addWidget("text","dataFormat?","",(value) => { this.changeWidgetValue(value,"dataFormat");});
-		node.addWidget("text","dilation?","",(value) => { this.changeWidgetValue(value,"dilation");});
-		node.addWidget("text","dimRoundingMode?","",(value) => { this.changeWidgetValue(value,"dimRoundingMode");});
-		node.addOutput("tf.Tensor4D|tf.Tensor5D","tf.Tensor");
+		node.addInput("Input","tf.Tensor");
+		node.addInput("Filters","tf.Tensor");
+		node.addOutput("Tensor3D|Tensor4D","tf.Tensor");
+
+		let widgetsData= ["1",'"SAME"','"NDHWC"',"None",this.name];
+		let widgetTypes=["strides","padding","data_format","dilations","name"];
+
+		this.genericConvolutionUIStructure(widgetsData,widgetTypes,node,navbar);
+		node.size = [220,node.size[1]]
 	}
 
 }

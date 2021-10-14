@@ -86,5 +86,8 @@ export class TFMatMul extends TFOperator {
 		}
 
 		node.addOutput("t1.t2", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 }

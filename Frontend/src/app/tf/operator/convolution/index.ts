@@ -12,16 +12,16 @@ export * from "./pool"
 export * from "./separableconv2d"
 
 export const operatorConvolution = [
-    "Avgpool3d",
+    "AvgPool3d",
     "Conv1d",
     "Conv2d",
-    "Conv2dtranspose",
+    "Conv2dTranspose",
     "Conv3d",
-    "Conv3dtranspose",
-    "Depthwiseconv2d",
+    "Conv3dTranspose",
+    "DepthWiseConv2d",
     "Dilation2d",
-    "Maxpool3d",
-    "Maxpoolwithargmax",
-    "Pool",
-    "Separableconv2d"
+    // "MaxPool3d",
+    // "MaxPoolwithargmax",
+    // "Pool",
+    // "SeparableConv2d"
 ]

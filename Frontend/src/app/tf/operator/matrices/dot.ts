@@ -20,6 +20,9 @@ export class TFDot extends TFOperator {
 		node.addInput("t1", "tf.Tensor");
 		node.addInput("t2", "tf.Tensor");
 		node.addOutput("t1.t2", "tf.Tensor");
+		node.addWidget("text","name",this.name,(value) => {
+			this.changeWidgetValue(value,"name",navbar,node);
+		});
 	}
 
 }
